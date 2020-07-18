@@ -1,0 +1,6 @@
+module Pods_ArcSight_ArcSightTests {
+  umbrella header "Pods-ArcSight-ArcSightTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
