@@ -6,18 +6,27 @@
  * @flow strict-local
  */
 
-import React, { Component } from 'react';
+
+
+import * as React from 'react';
+import { View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Navigator from './src/common/navigation';
 import { Provider } from 'react-redux';
-import Navigate from './src/common/navigation';
-import store from './src/store/configureStore'
+import store from './src/store/configureStore';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+function App() {
+  return (
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Navigator />
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </Provider>
 
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <Navigate />
-      </Provider>
-    );
-  }
+  );
 }
+export default App;
