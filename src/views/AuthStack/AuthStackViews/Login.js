@@ -77,8 +77,8 @@ function LoginScreen({ navigation }) {
 
                 <View style={{alignSelf:'center',marginTop:15,flexDirection:'row',alignItems:'center'}}>
 
-                    <CheckBox color={'#8d8865'}
-                    style={{width:18,height:18}}/>
+                    {/* <CheckBox color={'#8d8865'}
+                    style={{width:18,height:18}}/> */}
 
                     <Text style={{paddingLeft:12,color:'#8d8865'}}>
                         Remember Me
