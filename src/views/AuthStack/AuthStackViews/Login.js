@@ -9,7 +9,8 @@ import {
     ActivityIndicator,
     Modal,
     Dimensions,
-    TextInput
+    TextInput,
+    ToastAndroid
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
@@ -24,120 +25,88 @@ function LoginScreen({ navigation }) {
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
     return (
-        // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        //     <TouchableOpacity
-        //         //onPress={() => changeAuthState(true)}
-        //         onPress={() => navigation.navigate("Terms & Condition")}
 
-        //     ><Text>Login Screen</Text></TouchableOpacity>
-        // </View>
-        <ScrollView style={styles.body}>
-            {/* <Image style={{
-                width: Dimensions.get('window').width * .25,
-                height: Dimensions.get('window').height * .15, marginLeft: getDimen(.045), marginTop: getDimen(.045),
-                alignSelf: 'flex-start',
-                resizeMode: 'contain', backgroundColor: 'transparent'
-            }} source={require('../../../assets/logo.png')} /> */}
-            {/* <Text style={styles.textStyle1}>Welcome to</Text> */}
-            <Text style={{ marginTop: getDimen(0.010), color: '#838383', fontSize: getDimen(0.085), fontWeight: '500', marginLeft: getDimen(.085), marginRight: getDimen(.085) }}>
-                Welcome,
-                </Text>
+        <ImageBackground
+            source={require('../../../assets/images/bg.png')}
+            style={{ flex: 1 }}>
+
+            {/* <View style={{ width:'100%',height:60, backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <Image source={require('../../../assets/icons/3.png')}
+                    style={{ height: 25, width: 25 }} />
+
+                <Image source={require('../../../assets/images/logo.png')}
+                    style={{ height: 55, width: 55 }} />
+            </View> */}
 
 
-            <Text style={{ marginTop: getDimen(0.030), color: '#2B3F5D', fontSize: getDimen(0.085), fontWeight: '400', marginLeft: getDimen(.085), marginRight: getDimen(.085) }}>
-                sign in to continue
-                </Text>
+            <View style={{ width:'90%',height:270, backgroundColor: 'white',marginLeft:20,  marginTop: 180, borderRadius: 12, shadowColor: 'black' }}>
 
+                <View style={{ marginTop: -30, alignItems: 'center'}}>
 
-            <View style={styles.inputContainerBottom}>
+                    <Image source={require('../../../assets/icons/2.png')}
+                        style={{ height: 55, width: 55 }} />
+
+                </View>
 
                 <TextInput
-                    secureTextEntry={false}
-                    style={styles.input}
-                    placeholder="T-0015"
-                    placeholderTextColor="#8A8A8A"
-                    onChangeText={(username) => setUsername(username)}
-                    value={username} />
-            </View>
+                    keyboardType="default"
+                    underlineColorAndroid="#8d8865"
+                    placeholderTextColor="#d2d6d5"
+                    autoCapitalize="none"
+                    placeholder="Name"
+                    style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}
+                />
 
-            <View style={styles.inputContainerBottom}>
-                {/* <Image
-                                            source={require('../../../assets/images/password.png')}
-                                            style={styles.ImageStyle}
-                                        /> */}
                 <TextInput
-                    secureTextEntry={true}
-                    style={styles.input}
+                    keyboardType="default"
+                    underlineColorAndroid="#8d8865"
+                    placeholderTextColor="#d2d6d5"
+                    autoCapitalize="none"
                     placeholder="Password"
-                    placeholderTextColor="#8A8A8A"
-                    onChangeText={(password) => setPassword(password)}
-                    value={password} />
+                    style={{ marginLeft: 20, marginRight: 20 }}
 
-                {/* <TouchableOpacity style={styles.forgotContainer}>
-                    <Image
-                        source={require('../../../assets/vision.png')}
-                        style={styles.ImageStyle}
-                    />
-                </TouchableOpacity> */}
+
+                />
+
+                <View style={{ alignItems: 'center', marginTop: 15 }}>
+
+                    <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: 60, paddingRight: 60, paddingBottom: 10, fontSize: 17, fontWeight: 'bold', paddingTop: 10 }}>
+                        LOGIN NOW
+</Text>
+                </View>
+
+                <View style={{alignSelf:'center',marginTop:15,flexDirection:'row',alignItems:'center'}}>
+
+                    <CheckBox color={'#8d8865'}
+                    style={{width:18,height:18}}/>
+
+                    <Text style={{paddingLeft:12,color:'#8d8865'}}>
+                        Remember Me
+                    </Text>
+
+                    <Text style={{paddingLeft:12,alignContent:'space-around',color:'#d2d6d5'}}>
+                        Forgot Password?
+                    </Text>
+
+                
+                
+                </View>
+
+                <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
+
+                <View style={{alignSelf:'center',marginTop:5,flexDirection:'row',alignItems:'center'}}>
+
+                <Text style={{color:'#8d8865'}}>
+                        Register
+                    </Text>
+                </View>
+                </TouchableOpacity>
+
+
             </View>
-            <TouchableOpacity
-                style={{ marginTop: getDimen(.045), alignItems: 'flex-end', alignSelf: 'flex-start', marginLeft: getDimen(.085), marginRight: getDimen(.085), flexDirection: 'row' }}
-            >
-
-                <Text style={{ color: 'black', fontSize: getDimen(0.045) }}>Forgot Password?</Text>
-            </TouchableOpacity>
 
 
-
-            <TouchableOpacity
-                style={{
-                    width: '85%', alignSelf: 'center', marginTop: getDimen(0.15), height: getDimen(0.15),
-                    backgroundColor: '#009EE9',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 10
-                }}
-                onPress={() => changeLogin(true)}>
-
-                <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
-                    <Text style={{ color: '#FFF', fontSize: getDimen(.055), textAlign: 'center', alignSelf: 'center', fontWeight: 'bold' }}>LOGIN</Text>
-                </View>
-
-
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={{ marginTop: getDimen(.085), alignItems: "center", flexDirection: 'row', width: '100%', justifyContent: 'center', alignContent: 'center', alignSelf: 'center' }}
-            >
-                {/* <CheckBox
-                    onPress={() => setChecked(!checked)}
-                    checked={checked} color="#1C3169" /> */}
-                <Text style={{ textAlign: 'center', textDecorationLine: 'underline', color: 'blue' }}>Term &amp; Conditions</Text>
-            </TouchableOpacity>
-
-
-
-            {/* <Modal animationType="dialog"
-                transparent={true}
-                visible={this.props.showLoader}
-                style={{ position: "absolute", alignSelf: "center", height: '100%', width: '100%' }}>
-                <View style={{ height: "20%", flexDirection: 'row', width: "100%", alignItems: "center", justifyContent: "center", backgroundColor: 'white', borderColor: 'gray', borderWidth: 2 }}>
-                    <ActivityIndicator size="large" color="#00ff00" marginRight={10} />
-                    <Text style={{ color: 'gray' }}>Please wait ...</Text>
-                </View>
-            </Modal>
-            <Modal animationType="dialog"
-                transparent={true}
-                visible={this.props.isError}
-                style={{ position: "absolute", alignSelf: "center", height: '100%', width: '100%' }}>
-                <View style={{ height: "20%", width: "100%", alignItems: "center", justifyContent: "center", backgroundColor: 'white', borderColor: 'gray', borderWidth: 2 }}>
-                    <Text style={{ color: 'red' }}>{this.props.message}</Text>
-                    <Button transparent style={{ marginTop: getDimen(.04), alignItems: "center", marginLeft: getDimen(.04), marginRight: getDimen(.04), backgroundColor: "#1C3169" }} onPress={() => { this.props.dispatch(this.props.errorMsg(false)) }}>
-                        <Text style={{ color: 'white', marginLeft: getDimen(.04), marginRight: getDimen(.04), fontSize: getDimen(.055) }}>OK</Text>
-                    </Button>
-                </View>
-            </Modal> */}
-        </ScrollView>
+        </ImageBackground>
     );
 }
 
