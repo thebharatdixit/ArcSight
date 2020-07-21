@@ -3,6 +3,7 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
 import LoginScreen from './AuthStackViews/Login';
+import RegisterScreen from './AuthStackViews/RegisterScreen';
 
 
 
@@ -15,7 +16,8 @@ const AuthStack = function authNavigator({  }) {
                 headerShown: false
             }}
         >
-            <Stack.Screen name="Login Screen" component={LoginScreen}
+            <Stack.Screen name="Login Screen" component={LoginScreen} />
+            <Stack.Screen name="Register Screen" component={RegisterScreen}
             // options={{
             //     title: 'My home',
             //     headerStyle: {
