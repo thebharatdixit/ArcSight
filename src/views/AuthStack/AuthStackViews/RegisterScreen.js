@@ -26,17 +26,140 @@ function RegisterScreen({ navigation }) {
     const [username, setUsername] = React.useState('');
     return (
 
-        <View>
-            <Text>
-                hello
-            </Text>
-            <Text>
-                hello
-            </Text>
-            <Text>
-                hello
-            </Text>
-        </View>
+        <ImageBackground
+            source={require('../../../assets/images/bg.png')}
+            style={{ flex: 1 }}>
+
+            {/* <View style={{ width: '100%', height: 60, backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <Image source={require('../../../assets/icons/3.png')}
+                    style={{ height: 25, width: 25 }} />
+
+                <Image source={require('../../../assets/images/logo.png')}
+                    style={{ height: 55, width: 55 }} />
+            </View> */}
+
+
+            <View style={{ width: '90%', height: getDimen(1.3), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.4), borderRadius: 12, shadowColor: 'black' }}>
+
+                <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
+
+                    <Image source={require('../../../assets/icons/29.png')}
+                        style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
+
+                </View>
+
+                <TextInput
+                    keyboardType="default"
+                    underlineColorAndroid="#8d8865"
+                    placeholderTextColor="#d2d6d5"
+                    autoCapitalize="none"
+                    placeholder="Email"
+                    keyboardType='email-address'
+                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                />
+
+                <TextInput
+                    keyboardType="default"
+                    underlineColorAndroid="#8d8865"
+                    placeholderTextColor="#d2d6d5"
+                    autoCapitalize="none"
+                    placeholder="First Name"
+                    keyboardType='default'
+                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+
+                />
+
+                <TextInput
+                    keyboardType="default"
+                    underlineColorAndroid="#8d8865"
+                    placeholderTextColor="#d2d6d5"
+                    autoCapitalize="none"
+                    placeholder="Last Name"
+                    keyboardType='default'
+                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+
+                />
+
+                <TextInput
+                    keyboardType="default"
+                    underlineColorAndroid="#8d8865"
+                    placeholderTextColor="#d2d6d5"
+                    autoCapitalize="none"
+                    placeholder="Real Estate Company"
+                    keyboardType='default'
+                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+
+                />
+
+                <TextInput
+                    keyboardType="default"
+                    underlineColorAndroid="#8d8865"
+                    placeholderTextColor="#d2d6d5"
+                    autoCapitalize="none"
+                    placeholder="Password"
+                    secureTextEntry={true}
+                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+
+                />
+
+                <View style={{ alignItems: 'center', marginTop: getDimen(0.04) }}>
+
+                    <View style={{ alignSelf: 'center',marginBottom:5, flexDirection: 'row', alignItems: 'center' }}>
+
+                        <CheckBox color={'#8d8865'}
+style={{width:18,height:18}}/>
+
+                        <Text style={{ paddingLeft: 12, color: '#8d8865' }}>
+                            Sign up for ArcSight alerts
+</Text>
+
+                        
+
+
+
+                    </View>
+
+                    <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
+                        JOIN NOW
+</Text>
+                </View>
+
+                {/* <View style={{ alignSelf: 'center', marginTop: getDimen(0.04), flexDirection: 'row', alignItems: 'center' }}>
+
+                    <CheckBox color={'#8d8865'}
+                    style={{width:18,height:18}}/>
+
+                    <Text style={{ paddingLeft: 12, color: '#8d8865' }}>
+                        Remember Me
+                    </Text>
+
+                    <Text style={{ paddingLeft: getDimen(0.03), alignContent: 'space-around', color: '#d2d6d5' }}>
+                        Forgot Password?
+                    </Text>
+
+
+
+                </View> */}
+
+                {/* <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
+
+                    <View style={{ alignSelf: 'center', marginTop: 5, flexDirection: 'row', alignItems: 'center' }}>
+
+                        <Text style={{ color: '#8d8865' }}>
+                            Register
+                    </Text>
+                    </View>
+                </TouchableOpacity> */}
+
+
+            </View>
+
+
+        </ImageBackground>
     );
 }
 

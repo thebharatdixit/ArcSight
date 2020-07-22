@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ArcSight.iml" filepath="$PROJECT_DIR$/.idea/modules/ArcSight.iml" group="ArcSight" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.iml" group="ArcSight/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/341826870/react-native-community_masked-view.iml" filepath="$PROJECT_DIR$/.idea/modules/341826870/react-native-community_masked-view.iml" group="ArcSight/react-native-community_masked-view" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1954062548/react-native-community_toolbar-android.iml" filepath="$PROJECT_DIR$/.idea/modules/-1954062548/react-native-community_toolbar-android.iml" group="ArcSight/react-native-community_toolbar-android" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1316665441/react-native-gesture-handler.iml" filepath="$PROJECT_DIR$/.idea/modules/1316665441/react-native-gesture-handler.iml" group="ArcSight/react-native-gesture-handler" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2078380773/react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/-2078380773/react-native-reanimated.iml" group="ArcSight/react-native-reanimated" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1048494966/react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/-1048494966/react-native-safe-area-context.iml" group="ArcSight/react-native-safe-area-context" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1383784738/react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/1383784738/react-native-screens.iml" group="ArcSight/react-native-screens" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1916166690/rn-fetch-blob.iml" filepath="$PROJECT_DIR$/.idea/modules/-1916166690/rn-fetch-blob.iml" group="ArcSight/rn-fetch-blob" />
+    </modules>
+  </component>
+</project>

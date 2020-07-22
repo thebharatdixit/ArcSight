@@ -28,7 +28,7 @@ function LoginScreen({ navigation }) {
 
         <ImageBackground
             source={require('../../../assets/images/bg.png')}
-            style={{ flex: 1 }}>
+            style={{ width:'100%',height:'100%',position:'absolute',resizeMode:'cover' }}>
 
             {/* <View style={{ width:'100%',height:60, backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <Image source={require('../../../assets/icons/3.png')}
@@ -39,12 +39,12 @@ function LoginScreen({ navigation }) {
             </View> */}
 
 
-            <View style={{ width:'90%',height:270, backgroundColor: 'white',marginLeft:20,  marginTop: 180, borderRadius: 12, shadowColor: 'black' }}>
+            <View style={{ width:'90%',height:getDimen(0.8), backgroundColor: 'white',marginLeft:getDimen(0.05),  marginTop: getDimen(0.4), borderRadius: getDimen(0.03), shadowColor: 'black' }}>
 
-                <View style={{ marginTop: -30, alignItems: 'center'}}>
+                <View style={{ marginTop: getDimen(-0.1), alignItems: 'center'}}>
 
                     <Image source={require('../../../assets/icons/2.png')}
-                        style={{ height: 55, width: 55 }} />
+                        style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
 
                 </View>
 
@@ -53,8 +53,9 @@ function LoginScreen({ navigation }) {
                     underlineColorAndroid="#8d8865"
                     placeholderTextColor="#d2d6d5"
                     autoCapitalize="none"
-                    placeholder="Name"
-                    style={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}
+                    placeholder="Email"
+                    keyboardType='email-address'
+                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
                 />
 
                 <TextInput
@@ -63,28 +64,29 @@ function LoginScreen({ navigation }) {
                     placeholderTextColor="#d2d6d5"
                     autoCapitalize="none"
                     placeholder="Password"
-                    style={{ marginLeft: 20, marginRight: 20 }}
+                    secureTextEntry={true}
+                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
 
 
                 />
 
-                <View style={{ alignItems: 'center', marginTop: 15 }}>
+                <View style={{ alignItems: 'center', marginTop: getDimen(0.04) }}>
 
-                    <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: 60, paddingRight: 60, paddingBottom: 10, fontSize: 17, fontWeight: 'bold', paddingTop: 10 }}>
+                    <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
                         LOGIN NOW
 </Text>
                 </View>
 
-                <View style={{alignSelf:'center',marginTop:15,flexDirection:'row',alignItems:'center'}}>
+                <View style={{alignSelf:'center',marginTop:getDimen(0.04),flexDirection:'row',alignItems:'center'}}>
 
-                    {/* <CheckBox color={'#8d8865'}
-                    style={{width:18,height:18}}/> */}
+                    <CheckBox color={'#8d8865'}
+                    style={{width:18,height:18}}/>
 
                     <Text style={{paddingLeft:12,color:'#8d8865'}}>
                         Remember Me
                     </Text>
 
-                    <Text style={{paddingLeft:12,alignContent:'space-around',color:'#d2d6d5'}}>
+                    <Text style={{paddingLeft:getDimen(0.03),alignContent:'space-around',color:'#d2d6d5'}}>
                         Forgot Password?
                     </Text>
 
