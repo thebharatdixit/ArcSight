@@ -89,7 +89,7 @@ function LoginScreen({ navigation }) {
 
                     </View>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('Base Screen')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Main Stack')}>
 
                         <View style={{ alignItems: 'center', marginTop: getDimen(0.02) }}>
 

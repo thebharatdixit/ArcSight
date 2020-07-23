@@ -3,7 +3,11 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
 import MainScreen from './MainStackViews/Home';
+<<<<<<< HEAD
 
+=======
+// import homeScreen from '../Home/homeScreen';
+>>>>>>> ecd62c446f44c21f5c5662d2f38b30c6d58a163e
 import BaseScreen from './MainStackViews/BaseScreen';
 
 
