@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
 import LoginScreen from './AuthStackViews/Login';
 import RegisterScreen from './AuthStackViews/RegisterScreen';
+import BaseScreen from './MainStackViews/BaseScreen';
 
 
 
@@ -17,6 +18,7 @@ const AuthStack = function authNavigator({  }) {
             }}
         >
             <Stack.Screen name="Login Screen" component={LoginScreen} />
+            
             <Stack.Screen name="Register Screen" component={RegisterScreen}
             // options={{
             //     title: 'My home',
