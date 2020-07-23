@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-2078380773/react-native-reanimated.iml" filepath="$PROJECT_DIR$/.idea/modules/-2078380773/react-native-reanimated.iml" group="ArcSight/react-native-reanimated" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1048494966/react-native-safe-area-context.iml" filepath="$PROJECT_DIR$/.idea/modules/-1048494966/react-native-safe-area-context.iml" group="ArcSight/react-native-safe-area-context" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/1383784738/react-native-screens.iml" filepath="$PROJECT_DIR$/.idea/modules/1383784738/react-native-screens.iml" group="ArcSight/react-native-screens" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/163876589/react-native-splash-screen.iml" filepath="$PROJECT_DIR$/.idea/modules/163876589/react-native-splash-screen.iml" group="ArcSight/react-native-splash-screen" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1916166690/rn-fetch-blob.iml" filepath="$PROJECT_DIR$/.idea/modules/-1916166690/rn-fetch-blob.iml" group="ArcSight/rn-fetch-blob" />
     </modules>
   </component>

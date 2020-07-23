@@ -172,6 +172,10 @@
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable\\tooltip_frame_light.xml"
     },
     {
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_bg_1.png.flat",
+        "source": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\src\\main\\res\\drawable\\bg_1.png"
+    },
+    {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\color_test_mtrl_calendar_day.xml.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\color\\test_mtrl_calendar_day.xml"
     },
@@ -2222,6 +2226,10 @@
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_menu_selectall_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xxhdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
+    },
+    {
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_launch_screen.xml.flat",
+        "source": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\src\\main\\res\\layout\\launch_screen.xml"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_fade_out.xml.flat",

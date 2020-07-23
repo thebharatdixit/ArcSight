@@ -3,6 +3,8 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
 import MainScreen from './MainStackViews/Home';
+import homeScreen from '../Home/homeScreen';
+import BaseScreen from './MainStackViews/BaseScreen';
 
 
 
@@ -16,6 +18,7 @@ const MainStack = function authNavigator({  }) {
             }}
         >
             <Stack.Screen name="Main Screen" component={MainScreen}
+            
             // options={{
             //     title: 'My home',
             //     headerStyle: {
@@ -26,6 +29,10 @@ const MainStack = function authNavigator({  }) {
             //         fontWeight: 'bold',
             //     },
             // }}
+            />
+            <Stack.Screen name="Base Screen" component={BaseScreen}
+            
+            
             />
             {/* <Stack.Screen name="Reset Password" component={ResetPassword} />
             <Stack.Screen name="Terms &amp; Condition" component={TermsCondition} /> */}

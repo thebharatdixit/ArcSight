@@ -14,6 +14,7 @@ MERGED from [:react-native-gesture-handler] G:\KlientoProject\ArcSight\ArcSight-
 MERGED from [:react-native-reanimated] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-reanimated\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-safe-area-context] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-safe-area-context\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-screens] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-screens\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-splash-screen] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-splash-screen\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-47:12
 MERGED from [com.facebook.react:react-native:0.63.1] C:\Users\Nura\.gradle\caches\transforms-2\files-2.1\d4b40cd107c33424922baf789f5ea73b\jetified-react-native-0.63.1\AndroidManifest.xml:2:1-13:12
 MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\Nura\.gradle\caches\transforms-2\files-2.1\37b6f551bc5ae153b0b627de8f563815\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
@@ -95,6 +96,8 @@ application
 ADDED from G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:6:5-25:19
 MERGED from G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:6:5-25:19
 MERGED from G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:6:5-25:19
+MERGED from [:react-native-splash-screen] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-splash-screen\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-12:19
+MERGED from [:react-native-splash-screen] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-splash-screen\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-12:19
 MERGED from [:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:5-45:19
 MERGED from [:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:35:5-45:19
 MERGED from [com.facebook.react:react-native:0.63.1] C:\Users\Nura\.gradle\caches\transforms-2\files-2.1\d4b40cd107c33424922baf789f5ea73b\jetified-react-native-0.63.1\AndroidManifest.xml:11:5-20
@@ -183,6 +186,8 @@ MERGED from [:react-native-safe-area-context] G:\KlientoProject\ArcSight\ArcSigh
 MERGED from [:react-native-safe-area-context] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-safe-area-context\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-screens] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-screens\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-screens] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-screens\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-splash-screen] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-splash-screen\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-splash-screen] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\react-native-splash-screen\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.63.1] C:\Users\Nura\.gradle\caches\transforms-2\files-2.1\d4b40cd107c33424922baf789f5ea73b\jetified-react-native-0.63.1\AndroidManifest.xml:7:5-9:41

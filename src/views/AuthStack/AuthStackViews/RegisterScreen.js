@@ -27,10 +27,17 @@ function RegisterScreen({ navigation }) {
     return (
 
         <ImageBackground
-            source={require('../../../assets/images/bg.png')}
+            source={require('../../../assets/images/bg_1.png')}
             style={{ flex: 1 }}>
 
-            {/* <View style={{ width: '100%', height: 60, backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <View style={{width:'100%',height:getDimen(0.08),marginTop:getDimen(0.06),paddingLeft:getDimen(0.03)}}>
+                <Image source={require('../../../assets/icons/return.png')}
+                    style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                </View>
+
+            <ScrollView>
+
+                {/* <View style={{ width: '100%', height: 60, backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <Image source={require('../../../assets/icons/3.png')}
                     style={{ height: 25, width: 25 }} />
 
@@ -39,96 +46,96 @@ function RegisterScreen({ navigation }) {
             </View> */}
 
 
-            <View style={{ width: '90%', height: getDimen(1.3), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.4), borderRadius: 12, shadowColor: 'black' }}>
+                <View style={{ width: '90%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}>
 
-                <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
+                    <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
 
-                    <Image source={require('../../../assets/icons/29.png')}
-                        style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
-
-                </View>
-
-                <TextInput
-                    keyboardType="default"
-                    underlineColorAndroid="#8d8865"
-                    placeholderTextColor="#d2d6d5"
-                    autoCapitalize="none"
-                    placeholder="Email"
-                    keyboardType='email-address'
-                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-                />
-
-                <TextInput
-                    keyboardType="default"
-                    underlineColorAndroid="#8d8865"
-                    placeholderTextColor="#d2d6d5"
-                    autoCapitalize="none"
-                    placeholder="First Name"
-                    keyboardType='default'
-                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-
-
-                />
-
-                <TextInput
-                    keyboardType="default"
-                    underlineColorAndroid="#8d8865"
-                    placeholderTextColor="#d2d6d5"
-                    autoCapitalize="none"
-                    placeholder="Last Name"
-                    keyboardType='default'
-                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-
-
-                />
-
-                <TextInput
-                    keyboardType="default"
-                    underlineColorAndroid="#8d8865"
-                    placeholderTextColor="#d2d6d5"
-                    autoCapitalize="none"
-                    placeholder="Real Estate Company"
-                    keyboardType='default'
-                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-
-
-                />
-
-                <TextInput
-                    keyboardType="default"
-                    underlineColorAndroid="#8d8865"
-                    placeholderTextColor="#d2d6d5"
-                    autoCapitalize="none"
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-
-
-                />
-
-                <View style={{ alignItems: 'center', marginTop: getDimen(0.04) }}>
-
-                    <View style={{ alignSelf: 'center',marginBottom:5, flexDirection: 'row', alignItems: 'center' }}>
-
-                        <CheckBox color={'#8d8865'}
-style={{width:18,height:18}}/>
-
-                        <Text style={{ paddingLeft: 12, color: '#8d8865' }}>
-                            Sign up for ArcSight alerts
-</Text>
-
-                        
-
-
+                        <Image source={require('../../../assets/icons/29.png')}
+                            style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
 
                     </View>
 
-                    <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
-                        JOIN NOW
-</Text>
-                </View>
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="#d2d6d5"
+                        autoCapitalize="none"
+                        placeholder="Email"
+                        keyboardType='email-address'
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                    />
 
-                {/* <View style={{ alignSelf: 'center', marginTop: getDimen(0.04), flexDirection: 'row', alignItems: 'center' }}>
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="#d2d6d5"
+                        autoCapitalize="none"
+                        placeholder="First Name"
+                        keyboardType='default'
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+
+                    />
+
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="#d2d6d5"
+                        autoCapitalize="none"
+                        placeholder="Last Name"
+                        keyboardType='default'
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+
+                    />
+
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="#d2d6d5"
+                        autoCapitalize="none"
+                        placeholder="Real Estate Company"
+                        keyboardType='default'
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+
+                    />
+
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="#d2d6d5"
+                        autoCapitalize="none"
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+
+                    />
+
+                    <View style={{ alignItems: 'center', marginTop: getDimen(0.04) }}>
+
+                        <View style={{ alignSelf: 'center', marginBottom: getDimen(0.06), flexDirection: 'row', alignItems: 'center' }}>
+
+                            <CheckBox color={'#8d8865'}
+                                style={{ width: 18, height: 18 }} />
+
+                            <Text style={{ paddingLeft: 12, color: '#8d8865' }}>
+                                Sign up for ArcSight alerts
+</Text>
+
+
+
+
+
+                        </View>
+
+                        <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
+                            JOIN NOW
+</Text>
+                    </View>
+
+                    {/* <View style={{ alignSelf: 'center', marginTop: getDimen(0.04), flexDirection: 'row', alignItems: 'center' }}>
 
                     <CheckBox color={'#8d8865'}
                     style={{width:18,height:18}}/>
@@ -145,7 +152,7 @@ style={{width:18,height:18}}/>
 
                 </View> */}
 
-                {/* <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
+                    {/* <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
 
                     <View style={{ alignSelf: 'center', marginTop: 5, flexDirection: 'row', alignItems: 'center' }}>
 
@@ -156,9 +163,9 @@ style={{width:18,height:18}}/>
                 </TouchableOpacity> */}
 
 
-            </View>
+                </View>
 
-
+            </ScrollView>
         </ImageBackground>
     );
 }
