@@ -2,8 +2,8 @@ import * as React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
-import MainScreen from './MainStackViews/Home';
- //import homeScreen from '../Home/homeScreen';
+//import MainScreen from './MainStackViews/Home';
+// import homeScreen from '../Home/homeScreen';
 import BaseScreen from './MainStackViews/BaseScreen';
 import ChatScreen from './MainStackViews/ChatScreen';
 
@@ -18,7 +18,7 @@ const MainStack = function authNavigator({  }) {
                 headerShown: false
             }}
         >
-            <Stack.Screen name="Main Screen" component={MainScreen}
+            {/* <Stack.Screen name="Main Screen" component={MainScreen}
             
             // options={{
             //     title: 'My home',
@@ -30,7 +30,7 @@ const MainStack = function authNavigator({  }) {
             //         fontWeight: 'bold',
             //     },
             // }}
-            />
+            /> */}
             <Stack.Screen name="Base Screen" component={BaseScreen}
             
             

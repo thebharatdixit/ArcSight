@@ -4,20 +4,20 @@
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\anim\\abc_slide_out_bottom.xml"
     },
     {
-        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_mtrl_picker_fullscreen.xml.flat",
-        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\layout\\mtrl_picker_fullscreen.xml"
-    },
-    {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v23_mtrl_popupmenu_background_dark.xml.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\drawable-v23\\mtrl_popupmenu_background_dark.xml"
     },
     {
-        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_fade_in.xml.flat",
-        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\anim\\abc_fade_in.xml"
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_mtrl_picker_fullscreen.xml.flat",
+        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\layout\\mtrl_picker_fullscreen.xml"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_list_menu_item_layout.xml.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\layout\\abc_list_menu_item_layout.xml"
+    },
+    {
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_fade_in.xml.flat",
+        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\anim\\abc_fade_in.xml"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_list_focused_holo.9.png.flat",
@@ -48,20 +48,20 @@
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\37aaca75d3d19faa6fb296103cea95d8\\fragment-1.2.1\\res\\anim\\fragment_close_enter.xml"
     },
     {
-        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
-        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-mdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
-    },
-    {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
-        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim_catalyst_slide_down.xml.flat",
-        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\d4b40cd107c33424922baf789f5ea73b\\jetified-react-native-0.63.1\\res\\anim\\catalyst_slide_down.xml"
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
+        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-mdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim_catalyst_slide_down.xml.flat",
+        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\d4b40cd107c33424922baf789f5ea73b\\jetified-react-native-0.63.1\\res\\anim\\catalyst_slide_down.xml"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_low_normal.9.png.flat",
@@ -76,12 +76,12 @@
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-mdpi-v4\\abc_ic_star_half_black_36dp.png"
     },
     {
-        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
-        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
-    },
-    {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim_btn_radio_to_on_mtrl_ring_outer_path_animation.xml.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\anim\\btn_radio_to_on_mtrl_ring_outer_path_animation.xml"
+    },
+    {
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
+        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_design_password_eye.xml.flat",
@@ -100,12 +100,12 @@
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
-        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
-        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
-    },
-    {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_text_view_with_line_height_from_layout.xml.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\layout\\text_view_with_line_height_from_layout.xml"
+    },
+    {
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
+        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_action.xml.flat",
@@ -128,16 +128,16 @@
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\color\\abc_background_cache_hint_selector_material_light.xml"
     },
     {
-        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_mtrl_popupmenu_background.xml.flat",
-        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\drawable\\mtrl_popupmenu_background.xml"
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_spinner_mtrl_am_alpha.9.png.flat",
+        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xhdpi-v4\\abc_spinner_mtrl_am_alpha.9.png"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_filled_stroke_color.xml.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\color\\mtrl_filled_stroke_color.xml"
     },
     {
-        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_spinner_mtrl_am_alpha.9.png.flat",
-        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xhdpi-v4\\abc_spinner_mtrl_am_alpha.9.png"
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_mtrl_popupmenu_background.xml.flat",
+        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\drawable\\mtrl_popupmenu_background.xml"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\anim_btn_radio_to_off_mtrl_dot_group_animation.xml.flat",
@@ -176,12 +176,12 @@
         "source": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\src\\main\\res\\drawable\\bg_1.png"
     },
     {
-        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\color_test_mtrl_calendar_day.xml.flat",
-        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\color\\test_mtrl_calendar_day.xml"
-    },
-    {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_star_black_16dp.png.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xxxhdpi-v4\\abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\color_test_mtrl_calendar_day.xml.flat",
+        "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\863e0c3c6716935cd3657ad638fd992d\\material-1.1.0\\res\\color\\test_mtrl_calendar_day.xml"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
@@ -906,6 +906,10 @@
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_textfield_activated_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\drawable-xxhdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable_arclogo.png.flat",
+        "source": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\src\\main\\res\\drawable\\arclogo.png"
     },
     {
         "merged": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\res\\merged\\debug\\layout_design_layout_tab_icon.xml.flat",

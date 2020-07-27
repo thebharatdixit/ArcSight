@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -38,6 +39,30 @@ import FeaturedScreen from '../MainStackViews/FeaturedScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
+
+
+function StackNavigation() {
+  return (
+      <NavigationContainer>
+    <Stack.Navigator
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            
+            
+            <Stack.Screen name="ChatScreen" component={ChatScreen}
+            
+            
+            />
+            
+
+        </Stack.Navigator>
+
+        </NavigationContainer>
+  );
+}
 function BaseScreen({ navigation }) {
 
 
@@ -46,6 +71,8 @@ function BaseScreen({ navigation }) {
     // const [password, setPassword] = React.useState('');
     // const [username, setUsername] = React.useState('');
     return (
+
+        
         <View style={{ flex: 1 }}>
 
             <View style={{ width: '100%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
@@ -65,6 +92,7 @@ function BaseScreen({ navigation }) {
             <Tab.Navigator barStyle={{ backgroundColor: '#d2d6d5' }}>
                 <Tab.Screen name="Home" component={HomeScreen}
                     options={{
+                        
                         tabBarLabel: false,
                         tabBarIcon: ({ focused, horizontal, tintColor }) => (
                             <Image
@@ -182,9 +210,14 @@ function BaseScreen({ navigation }) {
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="SearchScreen" component={SearchScreen} />
       </Drawer.Navigator> */}
+      {/* <StackNavigation/> */}
         </View>
 
+        
+
     );
+
+    
 }
 
 const styles = StyleSheet.create({

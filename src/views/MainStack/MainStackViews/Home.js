@@ -12,11 +12,12 @@ import {
     TextInput,
     FlatList,
     SafeAreaView,
-    Share
+    Share,
+    ToastAndroid
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Icon, Input, CheckBox, ListItem, Body } from 'native-base';
-
+import { createStackNavigator } from '@react-navigation/stack';
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
 
@@ -39,10 +40,14 @@ const Item = ({ title }) => (
     <View>
 
         <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), backgroundColor: 'white' }}>
+            
             <Image source={require('../../../assets/icons/2.png')}
                 style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
 
+
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '50%' }}>
+
+            <TouchableOpacity onPress={() => console.log('name')}>
                 <View>
 
                     <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
@@ -54,7 +59,7 @@ const Item = ({ title }) => (
                         Listed 2 Days Ago
                         </Text>
                 </View>
-
+                </TouchableOpacity>
                 <View>
 
                     <Text style={{ color: '#d2d6d5', paddingRight: 7 }}>
@@ -71,7 +76,7 @@ const Item = ({ title }) => (
                         <Image source={require('../../../assets/icons/20.png')}
                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() =>props.navigation.navigate('ChatScreen')}>
+                    <TouchableOpacity onPress={() => ToastAndroid.show("Working on Chat Screen,Currently unavailable.", ToastAndroid.SHORT)}>
                     <Image source={require('../../../assets/icons/25.png')}
                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                         </TouchableOpacity>
