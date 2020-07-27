@@ -4,12 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
 import LoginScreen from './AuthStackViews/Login';
 import RegisterScreen from './AuthStackViews/RegisterScreen';
-<<<<<<< HEAD
-import BaseScreen from './MainStackViews/BaseScreen';
-
-=======
 import MainStack from '../MainStack/MainStack';
->>>>>>> ecd62c446f44c21f5c5662d2f38b30c6d58a163e
 
 
 const Stack = createStackNavigator();

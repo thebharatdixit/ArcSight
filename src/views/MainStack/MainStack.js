@@ -3,12 +3,9 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text } from 'react-native';
 import MainScreen from './MainStackViews/Home';
-<<<<<<< HEAD
-
-=======
-// import homeScreen from '../Home/homeScreen';
->>>>>>> ecd62c446f44c21f5c5662d2f38b30c6d58a163e
+ //import homeScreen from '../Home/homeScreen';
 import BaseScreen from './MainStackViews/BaseScreen';
+import ChatScreen from './MainStackViews/ChatScreen';
 
 
 
@@ -35,6 +32,10 @@ const MainStack = function authNavigator({  }) {
             // }}
             />
             <Stack.Screen name="Base Screen" component={BaseScreen}
+            
+            
+            />
+            <Stack.Screen name="ChatScreen" component={ChatScreen}
             
             
             />

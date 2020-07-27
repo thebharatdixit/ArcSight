@@ -17,11 +17,27 @@ import { Provider } from 'react-redux';
 import store from './src/store/configureStore';
 import SplashScreen from 'react-native-splash-screen'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-// import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 
 
-// const Tab = createMaterialBottomTabNavigator();
+ //const Tab = createMaterialBottomTabNavigator();
+
+//  function HomeScreen() {
+//   return (
+//       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//           <Text>Home!</Text>
+//       </View>
+//   );
+// }
+
+// function SettingsScreen() {
+//   return (
+//       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+//           <Text>Settings!</Text>
+//       </View>
+//   );
+// }
 
 function App() {
 
@@ -34,9 +50,9 @@ function App() {
         <NavigationContainer>
           <Navigator />
           {/* <Tab.Navigator>
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Settings" component={SettingsScreen} />
-      </Tab.Navigator> */}
+                <Tab.Screen name="Home" component={HomeScreen} />
+                <Tab.Screen name="Settings" component={SettingsScreen} />
+            </Tab.Navigator> */}
         </NavigationContainer>
       </SafeAreaProvider>
     </Provider>

@@ -93,7 +93,8 @@ function LoginScreen({ navigation }) {
 
                         <View style={{ alignItems: 'center', marginTop: getDimen(0.02) }}>
 
-                            <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
+                            <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2),
+                             paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
                                 LOGIN NOW
                             </Text>
                         </View>

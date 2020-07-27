@@ -9,135 +9,162 @@ import {
     ActivityIndicator,
     Modal,
     Dimensions,
-    TextInput
+    TextInput,
+    FlatList,
+    SafeAreaView,
+    Share
 } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
+import { Button, Icon, Input, CheckBox, ListItem, Body } from 'native-base';
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
+
+const DATA = [
+    {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'First Item',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Second Item',
+    },
+    {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Third Item',
+    },
+];
+
+const Item = ({ title }) => (
+    <View>
+
+        <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), backgroundColor: 'white' }}>
+            <Image source={require('../../../assets/icons/2.png')}
+                style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '50%' }}>
+                <View>
+
+                    <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+                        Name Here
+                        </Text>
+
+
+                    <Text style={{ fontSize: 14, paddingRight: getDimen(0.02), alignContent: 'space-between' }}>
+                        Listed 2 Days Ago
+                        </Text>
+                </View>
+
+                <View>
+
+                    <Text style={{ color: '#d2d6d5', paddingRight: 7 }}>
+                        Real Estate Company
+                        </Text>
+
+
+
+                </View>
+
+                <View >
+
+                    <TouchableOpacity onPress={() => onShare()}>
+                        <Image source={require('../../../assets/icons/20.png')}
+                            style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() =>props.navigation.navigate('ChatScreen')}>
+                    <Image source={require('../../../assets/icons/25.png')}
+                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                        </TouchableOpacity>
+                        
+                </View>
+            </View>
+
+
+
+        </View>
+
+        <View style={styles.item}>
+
+
+            <Image source={require('../../../assets/icons/19.png')}
+                style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+            <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0 }}>
+                <Text style={{
+                    width: getDimen(0.3), height: getDimen(0.1), backgroundColor: '#a43d3e', textAlign: 'center', color: 'white',
+                    textAlignVertical: 'center'
+                }}>
+                    $0,000,000
+                </Text>
+                <Text style={{
+                    width: getDimen(0.3), height: getDimen(0.1), backgroundColor: '#f1ac35', textAlign: 'center', color: 'white',
+                    textAlignVertical: 'center', fontSize: 18
+                }}>
+                    FOR SALE
+                </Text>
+            </View>
+
+            {/* <Text >{title}</Text> */}
+        </View>
+    </View>
+);
+
+const onShare = async () => {
+
+    try {
+        const result = await Share.share({
+            message:
+                'React Native | A framework for building native apps using React',
+        });
+        if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+                // shared with activity type of result.activityType
+            } else {
+                // shared
+            }
+        } else if (result.action === Share.dismissedAction) {
+            // dismissed
+        }
+    } catch (error) {
+        alert(error.message);
+    }
+    //console.log('hello');
+}
+
+
 function MainScreen({ navigation }) {
 
 
+    const renderItem = ({ item }) => (
+        <Item title={item.title} />
+    );
 
-    const [checked, setChecked] = React.useState(false);
-    const [password, setPassword] = React.useState('');
-    const [username, setUsername] = React.useState('');
+
+    // const [checked, setChecked] = React.useState(false);
+    // const [password, setPassword] = React.useState('');
+    // const [username, setUsername] = React.useState('');
     return (
-        // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        //     <TouchableOpacity
-        //         //onPress={() => changeAuthState(true)}
-        //         onPress={() => navigation.navigate("Terms & Condition")}
-
-        //     ><Text>Login Screen</Text></TouchableOpacity>
-        // </View>
-        <ScrollView style={styles.body}>
-            {/* <Image style={{
-                width: Dimensions.get('window').width * .25,
-                height: Dimensions.get('window').height * .15, marginLeft: getDimen(.045), marginTop: getDimen(.045),
-                alignSelf: 'flex-start',
-                resizeMode: 'contain', backgroundColor: 'transparent'
-            }} source={require('../../../assets/logo.png')} /> */}
-            {/* <Text style={styles.textStyle1}>Welcome to</Text> */}
-            <Text style={{ marginTop: getDimen(0.010), color: '#838383', fontSize: getDimen(0.085), fontWeight: '500', marginLeft: getDimen(.085), marginRight: getDimen(.085) }}>
-                Welcome,
-                </Text>
-
-
-            <Text style={{ marginTop: getDimen(0.030), color: '#2B3F5D', fontSize: getDimen(0.085), fontWeight: '400', marginLeft: getDimen(.085), marginRight: getDimen(.085) }}>
-                sign in to continue
-                </Text>
-
-
-            <View style={styles.inputContainerBottom}>
-
-                <TextInput
-                    secureTextEntry={false}
-                    style={styles.input}
-                    placeholder="T-0015"
-                    placeholderTextColor="#8A8A8A"
-                    onChangeText={(username) => setUsername(username)}
-                    value={username} />
+        <View style={{marginBottom:getDimen(0.1)}} >
+            <View style={{ backgroundColor: 'white' }}>
+                <Text style={{
+                    width: getDimen(0.6), height: getDimen(0.1), backgroundColor: '#121735', textAlign: 'center', color: 'white',
+                    textAlignVertical: 'center', fontSize: 18, fontWeight: 'bold'
+                }}>
+                    TOP LISTINGS
+            </Text>
             </View>
+            <ScrollView>
 
-            <View style={styles.inputContainerBottom}>
-                {/* <Image
-                                            source={require('../../../assets/images/password.png')}
-                                            style={styles.ImageStyle}
-                                        /> */}
-                <TextInput
-                    secureTextEntry={true}
-                    style={styles.input}
-                    placeholder="Password"
-                    placeholderTextColor="#8A8A8A"
-                    onChangeText={(password) => setPassword(password)}
-                    value={password} />
 
-                {/* <TouchableOpacity style={styles.forgotContainer}>
-                    <Image
-                        source={require('../../../assets/vision.png')}
-                        style={styles.ImageStyle}
+                <SafeAreaView >
+                    <FlatList
+                        data={DATA}
+                        renderItem={renderItem}
+                        keyExtractor={item => item.id}
                     />
-                </TouchableOpacity> */}
-            </View>
-            <TouchableOpacity
-                style={{ marginTop: getDimen(.045), alignItems: 'flex-end', alignSelf: 'flex-start', marginLeft: getDimen(.085), marginRight: getDimen(.085), flexDirection: 'row' }}
-            >
-
-                <Text style={{ color: 'black', fontSize: getDimen(0.045) }}>Forgot Password?</Text>
-            </TouchableOpacity>
-
-
-
-            <TouchableOpacity
-                style={{
-                    width: '85%', alignSelf: 'center', marginTop: getDimen(0.15), height: getDimen(0.15),
-                    backgroundColor: '#009EE9',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 10
-                }}
-                onPress={() => changeLogin(true)}>
-
-                <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
-                    <Text style={{ color: '#FFF', fontSize: getDimen(.055), textAlign: 'center', alignSelf: 'center', fontWeight: 'bold' }}>LOGIN</Text>
-                </View>
-
-
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                style={{ marginTop: getDimen(.085), alignItems: "center", flexDirection: 'row', width: '100%', justifyContent: 'center', alignContent: 'center', alignSelf: 'center' }}
-            >
-                {/* <CheckBox
-                    onPress={() => setChecked(!checked)}
-                    checked={checked} color="#1C3169" /> */}
-                <Text style={{ textAlign: 'center', textDecorationLine: 'underline', color: 'blue' }}>Term &amp; Conditions</Text>
-            </TouchableOpacity>
-
-
-
-            {/* <Modal animationType="dialog"
-                transparent={true}
-                visible={this.props.showLoader}
-                style={{ position: "absolute", alignSelf: "center", height: '100%', width: '100%' }}>
-                <View style={{ height: "20%", flexDirection: 'row', width: "100%", alignItems: "center", justifyContent: "center", backgroundColor: 'white', borderColor: 'gray', borderWidth: 2 }}>
-                    <ActivityIndicator size="large" color="#00ff00" marginRight={10} />
-                    <Text style={{ color: 'gray' }}>Please wait ...</Text>
-                </View>
-            </Modal>
-            <Modal animationType="dialog"
-                transparent={true}
-                visible={this.props.isError}
-                style={{ position: "absolute", alignSelf: "center", height: '100%', width: '100%' }}>
-                <View style={{ height: "20%", width: "100%", alignItems: "center", justifyContent: "center", backgroundColor: 'white', borderColor: 'gray', borderWidth: 2 }}>
-                    <Text style={{ color: 'red' }}>{this.props.message}</Text>
-                    <Button transparent style={{ marginTop: getDimen(.04), alignItems: "center", marginLeft: getDimen(.04), marginRight: getDimen(.04), backgroundColor: "#1C3169" }} onPress={() => { this.props.dispatch(this.props.errorMsg(false)) }}>
-                        <Text style={{ color: 'white', marginLeft: getDimen(.04), marginRight: getDimen(.04), fontSize: getDimen(.055) }}>OK</Text>
-                    </Button>
-                </View>
-            </Modal> */}
-        </ScrollView>
+                </SafeAreaView>
+            </ScrollView>
+        </View>
     );
 }
 
@@ -219,6 +246,15 @@ const styles = StyleSheet.create({
         marginLeft: getDimen(.085),
         marginRight: getDimen(.085)
     },
+    item: {
+        backgroundColor: '#d2d6d5',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: getDimen(0.9),
+        marginVertical: getDimen(0.001),
+
+    }
 });
 // const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 export default MainScreen;
