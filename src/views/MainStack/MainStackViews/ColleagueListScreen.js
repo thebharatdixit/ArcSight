@@ -44,23 +44,52 @@ const onShare = async () => {
         }
         //console.log('hello');
     }
-function AddListScreen({ navigation }) {
 
- const dummyData = [
+    function ColleaguageListScreen({ navigation }) {
+        const dummyData = [
             // mainSt: '1234 Main St',
             {id: '1'},
             {id: '2'},
             {id: '3'},
           ];
-
-    const [checked, setChecked] = React.useState(false);
-    const [password, setPassword] = React.useState('');
-    const [username, setUsername] = React.useState('');
     return (
-
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
+            
+            <View style={{backgroundColor: 'white', height: getDimen(0.55), width: '100%', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
+                <Image source={require('../../../assets/icons/2.png')}
+                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop:getDimen(0.06)}}
+                />
+                <Text style={{ fontWeight: 'bold', fontSize:getDimen(0.049) ,marginTop: getDimen(0.03)}}>Colleague Name Here</Text>
+                <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop:getDimen(0.005)}}>Real Estate Company</Text>
+                <View style = {{flexDirection:'row',justifyContent:'center',alignContent:'center', alignItems:'center', marginTop:getDimen(0.04),}}>
+                    <View style={{ justifyContent: 'flex-start', alignContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'white', marginRight: getDimen(0.02)}}>
+                        <Text style={{ fontSize: getDimen(0.04), textAlign:'left' }}>00 Listings</Text>
+                    </View>
+                    <View style={{ width: 1, height: '100%', backgroundColor: 'gray', marginLeft: getDimen(0.02)}}></View>
+                    <View style={{ justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', backgroundColor: 'white', marginLeft: getDimen(0.03) }}>
+                        <Text style={{ fontSize: getDimen(0.04), textAlign:'right' }}>00 Colleagues</Text>
+                    </View>
+                </View>
+                <View style = {{flexDirection:'row',justifyContent:'center',alignContent:'center', alignItems:'center', marginTop:getDimen(0.04),}}>
+                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginRight: getDimen(0.05)}}>
+                        <TouchableOpacity onPress={() => onShare()}>
+                        <Image source={require('../../../assets/icons/dmyCollegue.png')}
+                            style={{ height: getDimen(0.095), width: getDimen(0.095) }} />
+                    </TouchableOpacity>
+                    </View>
+                    <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02)}}></View>
+                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginLeft: getDimen(0) }}>
+                       <TouchableOpacity onPress={() => onShare()}>
+                        <Image source={require('../../../assets/icons/dymChat.png')}
+                            style={{ height: getDimen(0.095), width: getDimen(0.095) }} />
+                    </TouchableOpacity>
+                    </View>
+                </View>
+
+            </View>
+            
             <ScrollView style={styles.container}>
-                <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0.0) }}>
+                <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0.05) }}>
                     <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
                         <View style={{ backgroundColor: '#d2d6d5', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
                             <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
@@ -194,79 +223,9 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
         backgroundColor: '#ffffff',
-        marginTop: getDimen(0),
+        marginTop: getDimen(0.02),
         width: getDimen(1)
     },
-    input: {
-        height: 50,
-        flex: 10,
-        paddingLeft: 10,
-        fontSize: getDimen(0.045),
-        // fontFamily: 'Poppins-Regular',
-        color: 'black'
-    },
-    ImageStyle: {
-        padding: 10,
-        margin: 5,
-        height: 20,
-        width: 20,
-        resizeMode: 'stretch',
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    inputContainerBottom: {
-        borderWidth: 1,
-        paddingBottom: 5,
-        borderBottomColor: '#CCC',
-        borderColor: 'transparent',
-        flexDirection: 'row',
-        marginTop: getDimen(.085),
-        marginLeft: getDimen(.085),
-        marginRight: getDimen(.085)
-    },
-    forgotContainer: {
-        paddingTop: 10,
-        paddingRight: 20,
-    },
-    forgotText: {
-        fontSize: 13,
-        alignSelf: 'flex-end',
-        color: '#F26622',
-    },
-    textStyle1: {
-        color: 'black',
-        alignSelf: 'flex-start',
-        marginTop: getDimen(.2),
-        marginLeft: getDimen(.085),
-        fontSize: getDimen(.045)
-    },
-    textStyle2: {
-        color: '#0088DD',
-        alignSelf: 'center',
-        fontWeight: 'bold',
-        marginTop: getDimen(.1),
-        // marginLeft: getDimen(.085),
-        fontSize: getDimen(.08)
-    },
-    textStyle3: {
-        color: 'black',
-        alignSelf: 'flex-start',
-        fontStyle: 'italic',
-        marginTop: getDimen(.085),
-        marginLeft: getDimen(.085),
-        fontSize: getDimen(.045)
-    },
-    body: {
-        backgroundColor: 'white',
-        // alignItems: "center", 
-        // justifyContent: "center",
-    },
-    itemStyle: {
-        marginTop: getDimen(.085),
-        marginLeft: getDimen(.085),
-        marginRight: getDimen(.085)
-    },
 });
-// const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
-export default AddListScreen;
+
+export default ColleaguageListScreen;

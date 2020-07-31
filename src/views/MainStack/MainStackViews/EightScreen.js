@@ -44,7 +44,7 @@ const onShare = async () => {
         }
         //console.log('hello');
     }
-function AddListScreen({ navigation }) {
+function EightScreen({ navigation }) {
 
  const dummyData = [
             // mainSt: '1234 Main St',
@@ -268,5 +268,4 @@ const styles = StyleSheet.create({
         marginRight: getDimen(.085)
     },
 });
-// const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
-export default AddListScreen;
+export default EightScreen;

@@ -117,8 +117,8 @@ function RegisterScreen({ navigation }) {
 
                         <View style={{ alignSelf: 'center', marginBottom: getDimen(0.06), flexDirection: 'row', alignItems: 'center' }}>
 
-                            <CheckBox color={'#8d8865'}
-                                style={{ width: 18, height: 18 }} />
+                            {/* <CheckBox color={'#8d8865'}
+                                style={{ width: 18, height: 18 }} /> */}
 
                             <Text style={{ paddingLeft: 12, color: '#8d8865' }}>
                                 Sign up for ArcSight alerts
