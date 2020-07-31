@@ -61,9 +61,15 @@ function ChatScreen({ navigation }) {
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
             
             <View style={{backgroundColor: 'white', height: getDimen(0.55), width: '100%', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
-                <Image source={require('../../../assets/icons/2.png')}
-                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop:getDimen(0.06)}}
-                />
+                
+                <TouchableOpacity
+                    onPress={() => Alert.alert('Colleague Gallery')}
+                >
+                    <Image source={require('../../../assets/icons/2.png')}
+                        style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.06) }}
+                    />
+                </TouchableOpacity>
+
                 <Text style={{ fontWeight: 'bold', fontSize:getDimen(0.049) ,marginTop: getDimen(0.03)}}>Colleague Name Here</Text>
                 <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop:getDimen(0.005)}}>Real Estate Company</Text>
                 <View style = {{flexDirection:'row',justifyContent:'center',alignContent:'center', alignItems:'center', marginTop:getDimen(0.04),}}>
