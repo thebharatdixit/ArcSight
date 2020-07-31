@@ -68,7 +68,7 @@ function SearchScreen({ navigation }) {
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>My Listings</Text>
 
                 </View>
-                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) , marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Location</Text>
                     {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop:getDimen(0.025), color:'gray',}}>Current Location / City,State / Zip Code</Text> */}
                     <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
@@ -101,7 +101,7 @@ function SearchScreen({ navigation }) {
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>For Rent</Text>
 
                 </View>
-                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) , marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Price</Text>
                     {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
                     <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
@@ -114,26 +114,26 @@ function SearchScreen({ navigation }) {
                 </View>
                 <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
 
-                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18) , marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) , marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Bedrooms</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
                         <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
-                        <Input placeholder='00'
-                            style={{ fontSize: getDimen(0.038), }}
+                            <Input placeholder='00'
+                                style={{ fontSize: getDimen(0.038), }}
 
-                        />
-                    </Item>
+                            />
+                        </Item>
                     </View>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Baths</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
                         <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
-                        <Input placeholder='00'
-                            style={{ fontSize: getDimen(0.038), }}
+                            <Input placeholder='00'
+                                style={{ fontSize: getDimen(0.038), }}
 
-                        />
-                    </Item>
+                            />
+                        </Item>
                     </View>
                 </View>
 
@@ -151,8 +151,8 @@ function SearchScreen({ navigation }) {
                 </View>
                 <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View>
 
-                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18) , marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) , marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Square Feet</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Minimum</Text> */}
                         <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
@@ -163,7 +163,7 @@ function SearchScreen({ navigation }) {
                             <Icon active name='arrow' />
                         </Item>
                     </View>
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) , marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>To</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Maximum</Text> */}
                         <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', marginTop: getDimen(0), }}>
@@ -183,7 +183,7 @@ function SearchScreen({ navigation }) {
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <TouchableOpacity
-                        // onPress={() => navigation.navigate({ SearchListScreen})}
+                            onPress={() => navigation.navigate('Filter Screen')}
                         >
                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH</Text>
                         </TouchableOpacity>
@@ -191,7 +191,7 @@ function SearchScreen({ navigation }) {
                     </View>
                     <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => Alert.alert('Reset Clicked!')}
+                            onPress={() => navigation.goBack()}
                         >
                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>RESET</Text>
                         </TouchableOpacity>
