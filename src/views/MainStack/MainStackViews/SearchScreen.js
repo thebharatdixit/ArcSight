@@ -20,8 +20,14 @@ import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
+import ProfileScreen from '../MainStackViews/ProfileScreen';
+import MyColleagueScreen from '../MainStackViews/MyColleague';
+
+
+const Drawer = createDrawerNavigator();
 
 function SearchScreen({ navigation }) {
 
@@ -31,6 +37,8 @@ function SearchScreen({ navigation }) {
     const [selectedValue, setSelectedValue] = useState("Swift");
     return (
         <View style={{ backgroundColor: 'blue', flex: 1 }}>
+
+
 
             <View style={{ height: getDimen(0.14), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
@@ -200,6 +208,11 @@ function SearchScreen({ navigation }) {
                 </View>
             </View>
 
+            <Drawer.Navigator initialRouteName="Home">
+                <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+                <Drawer.Screen name="MyColleagueScreen" component={MyColleagueScreen} />
+
+                </Drawer.Navigator>
         </View>
     );
 }

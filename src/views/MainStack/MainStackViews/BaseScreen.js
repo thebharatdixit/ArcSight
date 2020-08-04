@@ -24,7 +24,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
-import HomeScreen from '../MainStackViews/Home';
+import MainScreen from '../MainStackViews/Home';
 // import SearchScreen from '../MainStackViews/SearchScreen';
 import SearchStack from '../MainStackViews/SearchStack';
 
@@ -34,32 +34,22 @@ import MyColleagueScreen from '../MainStackViews/MyColleague';
 import AddListScreen from '../MainStackViews/AddListScreen';
 
 import ChatStack from './ChatStack';
+import AddListingStack from './AddListingStack';
+import HomeStack from './HomeStack';
 
 
 
 
 // const Tab = createMaterialBottomTabNavigator();
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
+
 const Stack = createStackNavigator();
 
 
-function StackNavigation() {
-    return (
-        <NavigationContainer>
-            <Stack.Navigator
-                screenOptions={{
-                    headerShown: false
-                }}
-            >
-                <Stack.Screen name="ChatScreen" component={ChatScreen}
-                />
-            </Stack.Navigator>
 
-        </NavigationContainer>
-    );
-}
 function BaseScreen({ navigation }) {
+
+
 
 
     const setFocus = function (isFocused) {
@@ -81,6 +71,7 @@ function BaseScreen({ navigation }) {
 
         <View style={{ flex: 1, flexDirection: 'column', }}>
 
+
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <Image source={require('../../../assets/icons/3.png')}
                     style={{ height: 25, width: 25 }} />
@@ -101,7 +92,9 @@ function BaseScreen({ navigation }) {
                         activeTintColor: '#0088DD',
                         inactiveTintColor: 'black',
                     }} >
-                    <Tab.Screen name="Home Screen" component={HomeScreen}
+
+
+                    <Tab.Screen name="HomeStack" component={HomeStack}
                         options={{
                             tabBarLabel: '',
                             tabBarIcon: ({ focused, horizontal, tintColor }) => (
@@ -192,7 +185,7 @@ function BaseScreen({ navigation }) {
                             )
                         }}
                     />
-                    <Tab.Screen name="AddList Screen" component={AddListScreen}
+                    <Tab.Screen name="AddListingStack" component={AddListingStack}
                         options={{
                             tabBarLabel: '',
                             tabBarIcon: ({ focused, horizontal, tintColor }) => (
@@ -309,6 +302,11 @@ function BaseScreen({ navigation }) {
                     }} />
 
             </Tab.Navigator> */}
+
+
+        
+      
+           
 
 
         </View>

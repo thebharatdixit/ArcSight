@@ -18,8 +18,14 @@ import {
 import { connect } from 'react-redux';
 import { Button, Icon, Input, CheckBox, ListItem, Body } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
+import ProfileScreen from '../MainStackViews/ProfileScreen';
+import MyColleagueScreen from '../MainStackViews/MyColleague';
+
+
+
 
 const DATA = [
     {
@@ -37,7 +43,7 @@ const DATA = [
 ];
 
 const Item = ({ title }) => (
-    <View>
+    <View style={{flex:1}}>
 
         <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), backgroundColor: 'white' }}>
             
@@ -76,7 +82,7 @@ const Item = ({ title }) => (
                         <Image source={require('../../../assets/icons/20.png')}
                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => ToastAndroid.show("Working on Chat Screen,Currently unavailable.", ToastAndroid.SHORT)}>
+                    <TouchableOpacity onPress={() =>ToastAndroid.show('This is a toast with long duration', ToastAndroid.LONG)}>
                     <Image source={require('../../../assets/icons/25.png')}
                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                         </TouchableOpacity>
@@ -135,7 +141,7 @@ const onShare = async () => {
     }
     //console.log('hello');
 }
-
+const Drawer = createDrawerNavigator();
 
 function MainScreen({ navigation }) {
 
@@ -149,7 +155,8 @@ function MainScreen({ navigation }) {
     // const [password, setPassword] = React.useState('');
     // const [username, setUsername] = React.useState('');
     return (
-        <View style={{marginBottom:getDimen(0.1)}} >
+
+        <View style={{flex:1}} >
             <View style={{ backgroundColor: 'white' }}>
                 <Text style={{
                     width: getDimen(0.6), height: getDimen(0.1), backgroundColor: '#121735', textAlign: 'center', color: 'white',
@@ -157,10 +164,11 @@ function MainScreen({ navigation }) {
                 }}>
                     TOP LISTINGS
             </Text>
+            
             </View>
             <ScrollView>
 
-
+            
                 <SafeAreaView >
                     <FlatList
                         data={DATA}
@@ -169,8 +177,18 @@ function MainScreen({ navigation }) {
                     />
                 </SafeAreaView>
             </ScrollView>
+
+            <Drawer.Navigator initialRouteName="Home">
+                <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+                <Drawer.Screen name="MyColleagueScreen" component={MyColleagueScreen} />
+
+                </Drawer.Navigator>
+
+                
         </View>
     );
+
+    
 }
 
 const styles = StyleSheet.create({

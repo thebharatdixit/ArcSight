@@ -69,7 +69,7 @@ function AddListScreen({ navigation }) {
                     style={{ marginTop: 0, }}
                     data={dummyData}
                     renderItem={({ item, separators, index }) => (
-                        <TouchableWithoutFeedback onPress={() => Alert.alert('Go to chat List')} >
+                        <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat Layout')} >
                             <View>
                                 <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
 

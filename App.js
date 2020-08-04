@@ -17,6 +17,7 @@ import { Provider } from 'react-redux';
 import store from './src/store/configureStore';
 import SplashScreen from 'react-native-splash-screen'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
 //  import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 
@@ -48,6 +49,7 @@ function App() {
     <Provider store={store}>
       <SafeAreaProvider>
         <NavigationContainer>
+        
           <Navigator />
           {/* <Tab.Navigator>
                 <Tab.Screen name="Home" component={HomeScreen} />

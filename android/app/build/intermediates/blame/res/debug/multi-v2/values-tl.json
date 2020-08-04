@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "G:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-tl\\values-tl.xml",
+            "outputFile": "H:\\KlientoProject\\ArcSight\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-tl\\values-tl.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\1cb9b9ea592aa2ea85233be252327dcf\\appcompat-1.1.0\\res\\values-tl\\values-tl.xml",

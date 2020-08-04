@@ -5,6 +5,7 @@ import { View, Text } from 'react-native';
 import ChatScreen from './ChatScreen';
 import ColleagueListScreen from './ColleagueListScreen'
 
+
 // import FilterScreen from './filter';
 
 const Stack = createStackNavigator();
@@ -20,6 +21,7 @@ const ChatStack = function authNavigator({ }) {
             />
             <Stack.Screen name="Colleague List" component={ColleagueListScreen}
             />
+            
 
         </Stack.Navigator>
 
