@@ -31,7 +31,11 @@ const Drawer = createDrawerNavigator();
 
 function SearchScreen({ navigation }) {
 
-    const [checked, setChecked] = useState(false);
+    const [checked1, setChecked1] = useState(false);
+    const [checked2, setChecked2] = useState(false);
+    const [checked3, setChecked3] = useState(false);
+    const [checkedForSale, setCheckedForSale] = useState(false);
+    const [checkedForRent, setCheckedForRent] = useState(false);
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [selectedValue, setSelectedValue] = useState("Swift");
@@ -53,26 +57,19 @@ function SearchScreen({ navigation }) {
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
 
                     <CheckBox
-                        onPress={() => setChecked(!checked)}
-                        checked={checked} color="#94803F" />
+                        onPress={() => setChecked1(!checked1)}
+                        checked={checked1} color="#94803F" 
+                        />
                    
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>All Listing</Text>
 
                     <CheckBox
-                        onPress={() => setChecked(true)}
-                        style={{ width: 20, height: 20 }}
-                        color={'#8d8865'}
-                    // checked={setChecked(false)} color="#0088DD" style={styles.ImageStyle} 
-
-                    />
+                        onPress={() => setChecked2(!checked2)}
+                        checked={checked2} color="#94803F" />
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>Colleague Listings</Text>
                     <CheckBox
-                        onPress={() => setChecked(true)}
-                        style={{ width: 20, height: 20 }}
-                        color={'#8d8865'}
-                    // checked={setChecked(false)} color="#0088DD" style={styles.ImageStyle} 
-
-                    />
+                        onPress={() => setChecked3(!checked3)}
+                        checked={checked3} color="#94803F" />
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>My Listings</Text>
 
                 </View>
@@ -91,21 +88,15 @@ function SearchScreen({ navigation }) {
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: getDimen(0.01), marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
 
                     <CheckBox
-                    onPress={() => setChecked(true)}
-                    style={{ width: 20, height: 20 }}
-                    color={'#8d8865'}
-                // checked={setChecked(false)} color="#94803F" style={styles.ImageStyle} 
+                    onPress={() => setCheckedForSale(!checkedForSale)}
+                    checked={checkedForSale} color="#94803F" />
 
-                />
                 <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>For Sale</Text>
 
                 <CheckBox
-                    onPress={() => setChecked(true)}
-                    style={{ width: 20, height: 20 }}
-                    color={'#8d8865'}
-                // checked={setChecked(false)} color="#0088DD" style={styles.ImageStyle} 
-
-                />
+                    onPress={() => setCheckedForRent(!checkedForRent)}
+                    checked={checkedForRent} color="#94803F" />
+                    
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>For Rent</Text>
 
                 </View>
@@ -128,7 +119,6 @@ function SearchScreen({ navigation }) {
                         <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                             <Input placeholder='00'
                                 style={{ fontSize: getDimen(0.038), }}
-
                             />
                         </Item>
                     </View>
@@ -138,7 +128,6 @@ function SearchScreen({ navigation }) {
                         <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                             <Input placeholder='00'
                                 style={{ fontSize: getDimen(0.038), }}
-
                             />
                         </Item>
                     </View>

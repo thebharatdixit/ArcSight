@@ -32,6 +32,7 @@ import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
 // import ChatScreen from '../MainStackViews/ChatScreen';
 import AddListScreen from '../MainStackViews/AddListScreen';
+import PropertyScreen from '../MainStackViews/PropertyScreen';
 
 import ChatStack from './ChatStack';
 import AddListingStack from './AddListingStack';
@@ -59,8 +60,6 @@ function BaseScreen({ navigation }) {
         else {
             return "black";
         }
-
-
 
     }
     // const [checked, setChecked] = React.useState(false);
@@ -203,6 +202,25 @@ function BaseScreen({ navigation }) {
                             )
                         }}
                     />
+                    <Tab.Screen name="Property Screen" component={PropertyScreen}
+                        options={{
+                            tabBarLabel: '',
+                            tabBarIcon: ({ focused, horizontal, tintColor }) => (
+                                <Image
+                                    source={
+                                        require('../../../assets/icons/plus.png')
+                                    }
+                                    style={{
+                                        width: 25,
+                                        height: 25,
+                                        margin: 10,
+                                        tintColor: setFocus(focused),
+                                    }}
+                                />
+                            )
+                        }}
+                    />
+
                 </Tab.Navigator>
             </View>
             {/* <Tab.Navigator barStyle={{ backgroundColor: '#d2d6d5' }}>
