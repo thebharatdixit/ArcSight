@@ -10,7 +10,8 @@ import {
     Modal,
     Dimensions,
     TextInput,
-    ToastAndroid
+    ToastAndroid,
+    Alert,
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
@@ -19,13 +20,59 @@ import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
+import ImagePicker from 'react-native-image-picker';
+
+
 function LoginScreen({ navigation }) {
 
-
+    const options = {
+        title: 'Select Avatar',
+        customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+        storageOptions: {
+            skipBackup: true,
+            path: 'images',
+        },
+    };
 
     const [checked, setChecked] = React.useState(false);
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
+    const [filePath, setFilePath] = React.useState([])
+    
+    chooseFile = () => {
+        var options = {
+            title: 'Select Image',
+            // customButtons: [
+            //     { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
+            // ],
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        ImagePicker.showImagePicker(options, response => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                let source = response;
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+                //  this.setState({
+                //     filePath: source
+                // });
+                setFilePath(source);
+            }
+        });
+    };
+
+    
     return (
 
         <ImageBackground
@@ -46,52 +93,52 @@ function LoginScreen({ navigation }) {
                 <View style={{ width: '90%', height: getDimen(0.9), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}>
 
                     <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
-
+                        <TouchableOpacity
+                            // onPress={() => Alert.alert('Show gallery!!')}
+                            onPress={this.chooseFile.bind(this)}
+                        >
                         <Image source={require('../../../assets/icons/2.png')}
                             style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
-
+                        </TouchableOpacity>
                     </View>
 
                     <TextInput
                         keyboardType="default"
                         underlineColorAndroid="#8d8865"
-                        placeholderTextColor="#d2d6d5"
+                        placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Email"
                         keyboardType='email-address'
                         style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
                     />
-
+                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
                     <TextInput
                         keyboardType="default"
                         underlineColorAndroid="#8d8865"
-                        placeholderTextColor="#d2d6d5"
+                        placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Password"
                         secureTextEntry={true}
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.07) }}
 
 
                     />
-
+                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
                     <View style={{ marginTop: getDimen(0.08), flexDirection: 'row',alignItems:'center',paddingLeft:getDimen(0.09) }}>
 
-                        {/* <CheckBox color={'#8d8865'}
-                            style={{ width: 18, height: 18 }} /> */}
+                        <CheckBox color={'#8d8865'}
+                            style={{ width: 18, height: 18 }} />
 
-                        <Text style={{ paddingLeft: 12, color: '#8d8865', fontSize: getDimen(0.04) }}>
+                        <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865', fontSize: getDimen(0.04) }}>
                             Remember Me
                         </Text>
-
-
-
 
 
                     </View>
 
                     <TouchableOpacity onPress={() => navigation.navigate('Main Stack')}>
 
-                        <View style={{ alignItems: 'center', marginTop: getDimen(0.02) }}>
+                        <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
                             <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2),
                              paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
@@ -107,18 +154,11 @@ function LoginScreen({ navigation }) {
                             </Text>
                         </TouchableOpacity>
 
-                        <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: '#d2d6d5', fontSize: getDimen(0.04) }}>
+                        <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: 'gray', fontSize: getDimen(0.04) }}>
                             Forgot Password?
                         </Text>
 
-
-
                     </View>
-
-
-
-
-
 
                 </View>
             </ScrollView>

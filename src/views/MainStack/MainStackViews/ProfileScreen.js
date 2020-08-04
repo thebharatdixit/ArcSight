@@ -20,10 +20,9 @@ import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { getDimen } from '../../../dimensions/dimen';
+import ImagePicker from 'react-native-image-picker';
 
-function ProfileScreen({ navigation }) {
-    // const [username, setUsername] = React.useState('');
-   
+function ProfileScreen({ navigation }) {   
     const dummyData = [
             // mainSt: '1234 Main St',
             {id: '1'},
@@ -31,11 +30,57 @@ function ProfileScreen({ navigation }) {
             {id: '3'},
        ];
        const [ArrData, setData] = React.useState(dummyData);
+    const [filePath, setFilePath] = React.useState([])
+    const options = {
+        title: 'Select Avatar',
+        customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+        storageOptions: {
+            skipBackup: true,
+            path: 'images',
+        },
+    };
+
+    chooseFile = () => {
+        var options = {
+            title: 'Select Image',
+            // customButtons: [
+            //     { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
+            // ],
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        ImagePicker.showImagePicker(options, response => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                let source = response;
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+                //  this.setState({
+                //     filePath: source
+                // });
+                setFilePath(source);
+            }
+        });
+    };
+
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
             
             <View style={{backgroundColor: 'white', height: getDimen(0.45), width: '100%', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
-               <TouchableOpacity onPress={() => Alert.alert('Show Gallery')}>
+               <TouchableOpacity 
+            //    onPress={() => Alert.alert('Show Gallery')}
+                    onPress={this.chooseFile.bind(this)}
+               >
                 <Image source={require('../../../assets/icons/2.png')}
                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop:getDimen(0.04)}}
                 />

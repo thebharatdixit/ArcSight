@@ -10,29 +10,75 @@ import {
     Modal,
     Dimensions,
     TextInput,
-    ToastAndroid
+    ToastAndroid,
+    Alert
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
-
+import ImagePicker from 'react-native-image-picker';
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
 function RegisterScreen({ navigation }) {
 
-
-
     const [checked, setChecked] = React.useState(false);
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
+    const [filePath, setFilePath] = React.useState([])
+    const options = {
+        title: 'Select Avatar',
+        customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+        storageOptions: {
+            skipBackup: true,
+            path: 'images',
+        },
+    };
+
+    chooseFile = () => {
+        var options = {
+            title: 'Select Image',
+            // customButtons: [
+            //     { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
+            // ],
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+        };
+        ImagePicker.showImagePicker(options, response => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+                alert(response.customButton);
+            } else {
+                let source = response;
+                // You can also display the image using data:
+                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
+                //  this.setState({
+                //     filePath: source
+                // });
+                setFilePath(source);
+            }
+        });
+    };
+
     return (
 
         <ImageBackground
-            source={require('../../../assets/images/bg_1.png')}
+            source={require('../../../assets/images/Splash.png')}
             style={{ flex: 1 }}>
 
                 <View style={{width:'100%',height:getDimen(0.08),marginTop:getDimen(0.06),paddingLeft:getDimen(0.03)}}>
+                <TouchableOpacity
+                  onPress = {()=> navigation.goBack()}
+                >
                 <Image source={require('../../../assets/icons/return.png')}
                     style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                </TouchableOpacity>
                 </View>
 
             <ScrollView>
@@ -45,82 +91,95 @@ function RegisterScreen({ navigation }) {
                     style={{ height: 55, width: 55 }} />
             </View> */}
 
-
-                <View style={{ width: '90%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}>
-
+                <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}>
+                {/* <View style={{ width: '90%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}> */}
+                    <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.15), marginTop: 0, marginRight: 0, borderRadius: 12, }}>    
                     <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
-
+                        <TouchableOpacity
+                        //  onPress = {()=> Alert.alert('Show gallery!!')}
+                                onPress={this.chooseFile.bind(this)}
+                        >
+                        
                         <Image source={require('../../../assets/icons/29.png')}
                             style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
-
+                       
+                        </TouchableOpacity>
                     </View>
 
                     <TextInput
                         keyboardType="default"
                         underlineColorAndroid="#8d8865"
-                        placeholderTextColor="#d2d6d5"
+                        placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Email"
                         keyboardType='email-address'
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05)}}
                     />
 
+                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02)  }}></View>
                     <TextInput
                         keyboardType="default"
                         underlineColorAndroid="#8d8865"
-                        placeholderTextColor="#d2d6d5"
+                        placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="First Name"
                         keyboardType='default'
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
 
 
                     />
 
+                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+
                     <TextInput
                         keyboardType="default"
                         underlineColorAndroid="#8d8865"
-                        placeholderTextColor="#d2d6d5"
+                        placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Last Name"
                         keyboardType='default'
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
 
 
                     />
 
+                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+
                     <TextInput
                         keyboardType="default"
                         underlineColorAndroid="#8d8865"
-                        placeholderTextColor="#d2d6d5"
+                        placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Real Estate Company"
                         keyboardType='default'
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
 
 
                     />
+
+                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
 
                     <TextInput
                         keyboardType="default"
                         underlineColorAndroid="#8d8865"
-                        placeholderTextColor="#d2d6d5"
+                        placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Password"
                         secureTextEntry={true}
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
 
 
                     />
 
-                    <View style={{ alignItems: 'center', marginTop: getDimen(0.04) }}>
+                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                    <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
-                        <View style={{ alignSelf: 'center', marginBottom: getDimen(0.06), flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
 
-                            {/* <CheckBox color={'#8d8865'}
-                                style={{ width: 18, height: 18 }} /> */}
+                            <CheckBox color={'#8d8865'}
+                                style={{ width: 18, height: 18 }} />
 
-                            <Text style={{ paddingLeft: 12, color: '#8d8865' }}>
+                            <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
                                 Sign up for ArcSight alerts
 </Text>
 
@@ -163,6 +222,7 @@ function RegisterScreen({ navigation }) {
                 </TouchableOpacity> */}
 
 
+                </View>
                 </View>
 
             </ScrollView>
