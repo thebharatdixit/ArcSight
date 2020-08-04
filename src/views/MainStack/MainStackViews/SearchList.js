@@ -12,6 +12,7 @@ import {
     TextInput,
     ToastAndroid,
     FlatList,
+    TouchableWithoutFeedback,
     Share,
     Alert
 } from 'react-native';
@@ -60,6 +61,10 @@ function SearchListScreen({ navigation }) {
                     style={{ marginTop: 0, }}
                     data={dummyData}
                     renderItem={({ item, separators, index }) => (
+                        <TouchableWithoutFeedback 
+                        onPress={() => navigation.navigate('Search List Detail')}
+                            // onPress={() => Alert.alert('Search List Detail')}
+                        >
                         <View>
                             <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
 
@@ -148,8 +153,10 @@ function SearchListScreen({ navigation }) {
                             </View>
 
                         </View>
+                        </TouchableWithoutFeedback>
                     )}
                     keyExtractor={item => item.id}
+                    
                 />
             </ScrollView>
         </View>

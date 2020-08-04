@@ -120,7 +120,7 @@ function ProfileScreen({ navigation }) {
                                            </View> 
                                            
                                             <View style={{flex: 0.2,flexDirection:'row', backgroundColor:'orange'}}>
-                                                <View style={{ flex: 0.5, justifyContent: 'cenƒter', alignContent: 'center', alignItems: 'center', backgroundColor:'#f1ac35'}}>
+                                                <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor:'#f1ac35'}}>
                                                     <Text style={{fontSize:getDimen(0.03),fontWeight:'500', marginLeft: getDimen(0.01), color:'white', textAlign:'center'}}>FOR SALE</Text>
                                                 </View>
                                                 <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor:'#a43d3e' }}>

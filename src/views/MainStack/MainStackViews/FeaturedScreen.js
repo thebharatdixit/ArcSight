@@ -32,7 +32,7 @@ function FeaturedScreen({ navigation }) {
             <ScrollView>
                 <View style={{ width: '100%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                     <Image source={require('../../../assets/icons/3.png')}
-                        style={{ height: 25, width: 25 }} />
+                        style={{ height: 25, width: 25 }} />x
 
                     <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                         <Image source={require('../../../assets/icons/2.png')}
@@ -41,11 +41,9 @@ function FeaturedScreen({ navigation }) {
                         <Image source={require('../../../assets/images/logo.png')}
                             style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                     </View>
-
-
                 </View>
             </ScrollView>
-        </View>
+         </View>
     );
 }
 

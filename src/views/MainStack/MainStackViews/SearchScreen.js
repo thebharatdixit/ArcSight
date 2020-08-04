@@ -44,7 +44,7 @@ function SearchScreen({ navigation }) {
 
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
 
-                    {/* <CheckBox
+                    <CheckBox
                         onPress={() => setChecked(!checked)}
                         checked={checked} color="#94803F" />
                    
@@ -64,7 +64,7 @@ function SearchScreen({ navigation }) {
                         color={'#8d8865'}
                     // checked={setChecked(false)} color="#0088DD" style={styles.ImageStyle} 
 
-                    /> */}
+                    />
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>My Listings</Text>
 
                 </View>
@@ -82,7 +82,7 @@ function SearchScreen({ navigation }) {
 
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: getDimen(0.01), marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
 
-                    {/* <CheckBox
+                    <CheckBox
                     onPress={() => setChecked(true)}
                     style={{ width: 20, height: 20 }}
                     color={'#8d8865'}
@@ -97,7 +97,7 @@ function SearchScreen({ navigation }) {
                     color={'#8d8865'}
                 // checked={setChecked(false)} color="#0088DD" style={styles.ImageStyle} 
 
-                /> */}
+                />
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>For Rent</Text>
 
                 </View>
@@ -106,8 +106,7 @@ function SearchScreen({ navigation }) {
                     {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
                     <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                         <Input placeholder='$000,000'
-                            style={{ fontSize: getDimen(0.038), }}
-
+                            style={{ fontSize: getDimen(0.038) }}
                         />
                         <Icon active name='arrow' />
                     </Item>
@@ -183,7 +182,7 @@ function SearchScreen({ navigation }) {
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Filter Screen')}
+                            onPress={() => navigation.navigate('Search List')}
                         >
                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH</Text>
                         </TouchableOpacity>
@@ -191,7 +190,8 @@ function SearchScreen({ navigation }) {
                     </View>
                     <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.goBack()}
+                            // onPress={() => navigation.goBack()}
+                            onPress={() => Alert.alert('Reset')}
                         >
                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>RESET</Text>
                         </TouchableOpacity>

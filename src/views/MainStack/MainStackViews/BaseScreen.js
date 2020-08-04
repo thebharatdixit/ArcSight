@@ -30,11 +30,10 @@ import SearchStack from '../MainStackViews/SearchStack';
 
 import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
-import ChatScreen from '../MainStackViews/ChatScreen';
+// import ChatScreen from '../MainStackViews/ChatScreen';
 import AddListScreen from '../MainStackViews/AddListScreen';
-import FeaturedScreen from '../MainStackViews/FeaturedScreen';
 
-
+import ChatStack from './ChatStack';
 
 
 
@@ -53,14 +52,8 @@ function StackNavigation() {
                     headerShown: false
                 }}
             >
-
-
                 <Stack.Screen name="ChatScreen" component={ChatScreen}
-
-
                 />
-
-
             </Stack.Navigator>
 
         </NavigationContainer>
@@ -71,7 +64,7 @@ function BaseScreen({ navigation }) {
 
     const setFocus = function (isFocused) {
         if (isFocused) {
-            return "#0088DD";
+            return "#f1ac35";
         }
         else {
             return "black";
@@ -181,7 +174,7 @@ function BaseScreen({ navigation }) {
                             )
                         }}
                     />
-                    <Tab.Screen name="Chat Screen" component={ChatScreen}
+                    <Tab.Screen name="Chat Stack" component={ChatStack}
                         options={{
                             tabBarLabel: '',
                             tabBarIcon: ({ focused, horizontal, tintColor }) => (
