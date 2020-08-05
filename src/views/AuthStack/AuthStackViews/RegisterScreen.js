@@ -69,7 +69,6 @@ function RegisterScreen({ navigation }) {
 
         var emailWithoutSpace = emailWithoutSpaceHandle(email);
 
-
         if (!email) {
             Alert.alert('', 'Please Enter Email ID..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             return;
@@ -139,7 +138,12 @@ function RegisterScreen({ navigation }) {
                 storeData('isLogin', 'true');
                 storeData('userData', JSON.stringify(response.data));
                 setEmail('')
-                navigation.navigate('Main Stack');
+                setFirstName('')
+                setLastName('')
+                setCompanyName('')
+                setPassword('')
+                navigation.navigate('Login Screen');
+                // navigation.navigate('Main Stack');
             }
             else{
                 Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });

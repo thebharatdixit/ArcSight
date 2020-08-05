@@ -21,8 +21,30 @@ import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { getDimen } from '../../../dimensions/dimen';
 import ImagePicker from 'react-native-image-picker';
+import { getData } from '../../../utils/asyncStore';
+import {doLogout} from '../../../actions/ProfileAction'
+import AsyncStorage from '@react-native-community/async-storage';
 
 function ProfileScreen({ navigation }) {   
+    
+    const logOutApiIntegration =() =>{
+       
+        // let data = {
+        //     "alerts": "yes",
+        //     "register_device": Platform.OS,
+        //     "notification_token": ""
+        // }
+        // doLogout(data).then((response) => {
+        //     if (response.status) {
+                console.log('logged out');
+                AsyncStorage.clear();
+                navigation.navigate('Login Screen');
+        //     } else {
+        //         Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+        //     }
+        //  })
+    }
+    
     const dummyData = [
             // mainSt: '1234 Main St',
             {id: '1'},
@@ -76,7 +98,7 @@ function ProfileScreen({ navigation }) {
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
             
-            <View style={{backgroundColor: 'white', height: getDimen(0.45), width: '100%', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
+            <View style={{backgroundColor: 'white', height: getDimen(0.46), width: '100%', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
                <TouchableOpacity 
             //    onPress={() => Alert.alert('Show Gallery')}
                     onPress={this.chooseFile.bind(this)}
@@ -84,7 +106,9 @@ function ProfileScreen({ navigation }) {
                 <Image source={require('../../../assets/icons/2.png')}
                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop:getDimen(0.04)}}
                 />
+                
                 </TouchableOpacity>
+
                 <Text style={{ fontWeight: 'bold', fontSize:getDimen(0.049) ,marginTop: getDimen(0.03)}}>My Name Here</Text>
                 <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop:getDimen(0.005)}}>Real Estate Company</Text>
                 <View style = {{flexDirection:'row',justifyContent:'center',alignContent:'center', alignItems:'center', marginTop:getDimen(0.04),}}>
@@ -94,10 +118,15 @@ function ProfileScreen({ navigation }) {
                     <View style={{ width: 1, height: '100%', backgroundColor: 'gray', marginLeft: getDimen(0.02)}}></View>
                     <View style={{ justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', backgroundColor: 'white', marginLeft: getDimen(0.03) }}>
                         <Text style={{ fontSize: getDimen(0.04), textAlign:'right' }}>00 Colleagues</Text>
-                    </View>
-                    
-                    
+                    </View>                    
                 </View>
+                <TouchableOpacity
+                    // onPress={() => Alert.alert('Logged Out!!')
+                    onPress={() => logOutApiIntegration()}
+                    style={{ marginTop: getDimen(0.02)}}
+                >
+                <Text style={{ fontSize: getDimen(0.04), fontWeight: 'bold', color:'red'}}> LogOut </Text>
+                </TouchableOpacity>
             </View>
             
             <ScrollView style={styles.container}>
@@ -143,6 +172,7 @@ function ProfileScreen({ navigation }) {
                     <View style={{ backgroundColor: '#a43d3e', flex: 0.395, height: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
                         <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>&0,000,000</Text>
                     </View>
+                    
                 </View>
                 
                 <FlatList
@@ -252,7 +282,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
         backgroundColor: '#ffffff',
-        marginTop: getDimen(0.02),
+        marginTop: getDimen(0.05),
         width: getDimen(1)
     },
     input: {
