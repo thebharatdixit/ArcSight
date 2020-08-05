@@ -12,6 +12,7 @@ import {
     TextInput,
     ToastAndroid,
     Alert,
+    Platform
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
@@ -21,6 +22,10 @@ import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
 import ImagePicker from 'react-native-image-picker';
+//import loginActions from '../../actions/authAction';
+//import loginActions from '../../actions/loginActions';
+import { login } from '../../../actions/loginAction';
+import { storeData, getData } from '../../../utils/asyncStore';
 
 
 function LoginScreen({ navigation }) {
@@ -38,7 +43,7 @@ function LoginScreen({ navigation }) {
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [filePath, setFilePath] = React.useState([])
-    
+
     chooseFile = () => {
         var options = {
             title: 'Select Image',
@@ -72,7 +77,44 @@ function LoginScreen({ navigation }) {
         });
     };
 
+    function validation(userName, password) {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        //console.log(''+userName+'=='+password);
+
+        if (userName === '') {
+            //ToastAndroid.show("Please Enter Name ", ToastAndroid.SHORT);
+            alert('Please Enter Email');
+        } else if (reg.test(userName) === false) {
+            alert('Please Enter Valide Email');
+        } else if (password === '') {
+            alert('Please Enter password');
+        } else {
+            let data = {
+                "email": userName,
+                "password": password,
+                "login_device": Platform.OS,
+                "notification_token": ""
+            }
+
+            login(data).then((response) => {
+                if(response.status){
+                    storeData('isLogin', 'true');
+                    storeData('userData', JSON.stringify(response.data));
+                    setUsername('');
+                    setPassword('');
+                    navigation.navigate('Main Stack');
+                }
+                else{
+                    Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                }
     
+            })
+
+        
+        }
+    }
+
+
     return (
 
         <ImageBackground
@@ -95,10 +137,10 @@ function LoginScreen({ navigation }) {
                     <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
                         <TouchableOpacity
                             // onPress={() => Alert.alert('Show gallery!!')}
-                            onPress={this.chooseFile.bind(this)}
+                            onPress={chooseFile.bind(this)}
                         >
-                        <Image source={require('../../../assets/icons/2.png')}
-                            style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
+                            <Image source={require('../../../assets/icons/2.png')}
+                                style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
                         </TouchableOpacity>
                     </View>
 
@@ -110,8 +152,10 @@ function LoginScreen({ navigation }) {
                         placeholder="Email"
                         keyboardType='email-address'
                         style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+                        onChangeText={(val) => setUsername(val)}
                     />
-                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
                     <TextInput
                         keyboardType="default"
                         underlineColorAndroid="#8d8865"
@@ -119,12 +163,14 @@ function LoginScreen({ navigation }) {
                         autoCapitalize="none"
                         placeholder="Password"
                         secureTextEntry={true}
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.07) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+
+                        onChangeText={(val) => setPassword(val)}
 
 
                     />
-                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
-                    <View style={{ marginTop: getDimen(0.08), flexDirection: 'row',alignItems:'center',paddingLeft:getDimen(0.09) }}>
+                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
+                    <View style={{ marginTop: getDimen(0.08), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.09) }}>
 
                         <CheckBox color={'#8d8865'}
                             style={{ width: 18, height: 18 }} />
@@ -136,12 +182,14 @@ function LoginScreen({ navigation }) {
 
                     </View>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('Main Stack')}>
+                    <TouchableOpacity onPress={() => validation(username, password)}>
 
                         <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
-                            <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2),
-                             paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
+                            <Text style={{
+                                backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2),
+                                paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03)
+                            }}>
                                 LOGIN NOW
                             </Text>
                         </View>
@@ -149,7 +197,7 @@ function LoginScreen({ navigation }) {
 
                     <View style={{ alignSelf: 'center', marginTop: getDimen(0.06), flexDirection: 'row', alignItems: 'center' }}>
                         <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
-                            <Text style={{ color: '#8d8865', fontSize: getDimen(0.04),paddingRight:getDimen(0.05) }}>
+                            <Text style={{ color: '#8d8865', fontSize: getDimen(0.04), paddingRight: getDimen(0.05) }}>
                                 Register
                             </Text>
                         </TouchableOpacity>

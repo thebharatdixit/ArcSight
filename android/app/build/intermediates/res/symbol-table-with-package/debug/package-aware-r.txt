@@ -1759,6 +1759,7 @@ layout design_text_input_start_icon
 layout dev_loading_view
 layout fps_view
 layout launch_screen
+layout list_item
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
 layout mtrl_alert_dialog_title
@@ -2177,6 +2178,7 @@ style CardView_Dark
 style CardView_Light
 style ClockTimePickerDialog
 style ClockTimePickerStyle
+style DefaultExplainingPermissionsTheme
 style DialogAnimationFade
 style DialogAnimationSlide
 style EmptyTheme

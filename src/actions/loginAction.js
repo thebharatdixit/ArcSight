@@ -9,10 +9,10 @@ export const showLoader = (loader) => {
 
 
 export const login = (dispatch, data) => {
-    dispatch(showLoader(true));
+    //dispatch(showLoader(true));
     return getLogin(dispatch, data).then(function (response) {
         console.log("RESPONSE getLogin: ", JSON.stringify(response));
-        dispatch(showLoader(false));
+        //dispatch(showLoader(false));
         return response;
     }, function (err) {
         console.log(' error', err)

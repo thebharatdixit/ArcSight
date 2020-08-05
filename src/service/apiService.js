@@ -4,7 +4,7 @@ import store from '../store/configureStore';
 import { storeData, getData, clearData } from '../utils/asyncStore';
 
 
-async function requestAPI(url, options = {}, dispatch) {
+async function requestAPI(url, options = {}) {
 
     let headers = options.headers || {
         'Accept': 'application/json',
@@ -89,12 +89,12 @@ async function requestAPI(url, options = {}, dispatch) {
 }
 
 
-export function getLogin(dispatch, data, option = {}) {
+export function getLogin( data, option = {}) {
     let { url, method } = API.ENDPOINT.AUTH.LOGIN;
     let URL = `${API_BASE + url}`;
     option.method = method;
     option.payload = data;
-    return requestAPI(URL, option, dispatch)
+    return requestAPI(URL, option)
 }
 
 export function makeForgotPassword(dispatch, data, option = {}) {
