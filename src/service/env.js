@@ -3,10 +3,10 @@ let API = {
         // BASE: 'https://edctestapi.klientotech.com',
         // BASE: 'https://projects.klientotech.com:9002/staging72/bookabite_new/api/',
        // BASE: 'https://cloud.klientotech.com:9002/staging72/bookabite_staging/api/',
-          BASE: "https://cloud.klientotech.com:9002/staging72/bookabite_demo/api/",
+          BASE: "http://arc.softwaresolutions.website/",
         AUTH: {
-            LOGIN: { url: 'Traveller/login', method: 'POST' },
-            SIGN_UP: { url: 'Traveller/signUp', method: 'POST' },
+            LOGIN: { url: 'api/v1/login', method: 'POST' },
+            SIGN_UP: { url: 'api/v1/signup', method: 'POST' },
             FB_SIGNUP: { url: 'Traveller/facebookSignUpLogin', method: 'POST' },
             COUNTRY_LIST: { url: 'Traveller/countryList', method: 'GET' },
             FORGOT_PASSWORD: { url: 'Traveller/forgotPassword', method: 'POST' },

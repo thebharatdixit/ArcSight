@@ -8,23 +8,11 @@ export const showLoader = (loader) => {
     }
 };
 
-export const getCountryList = (dispatch) => {
-    // dispatch(showLoader(true));
-    return getCountriesList(dispatch).then(function (response) {
-        console.log("RESPONSE for getCountriesList : ", JSON.stringify(response));
-        // dispatch(showLoader(false));
-        return response;
-    }, function (err) {
-        console.log(' error', err)
-    }).catch(function (err) {
-        console.log('catch error', err)
-    });
-}
 
 export const registerNewUser = (dispatch, data) => {
     dispatch(showLoader(true));
     return getSignUp(dispatch, data).then(function (response) {
-        console.log("RESPONSE : ", JSON.stringify(response));
+        console.log("RESPONSE getSignUp: ", JSON.stringify(response));
         dispatch(showLoader(false));
         return response;
     }, function (err) {
