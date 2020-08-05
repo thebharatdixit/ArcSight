@@ -122,12 +122,12 @@ export function makeChangePassword(dispatch, data, option = {}) {
 }
 
 
-export function getSignUp(dispatch, data, option = {}) {
+export function getSignUp(data, option = {}) {
     let { url, method } = API.ENDPOINT.AUTH.SIGN_UP;
     let URL = `${API_BASE + url}`;
     option.method = method;
     option.payload = data;
-    return requestAPI(URL, option, dispatch)
+    return requestAPI(URL, option)
 }
 
 export function getFbSignUp(dispatch, data, option = {}) {

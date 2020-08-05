@@ -9,11 +9,11 @@ export const showLoader = (loader) => {
 };
 
 
-export const registerNewUser = (dispatch, data) => {
-    dispatch(showLoader(true));
-    return getSignUp(dispatch, data).then(function (response) {
+export const registerNewUser = (data) => {
+    // dispatch(showLoader(true));
+    return getSignUp(data).then(function (response) {
         console.log("RESPONSE getSignUp: ", JSON.stringify(response));
-        dispatch(showLoader(false));
+        // dispatch(showLoader(false));
         return response;
     }, function (err) {
         console.log(' error', err)

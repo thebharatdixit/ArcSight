@@ -11,18 +11,25 @@ import {
     Dimensions,
     TextInput,
     ToastAndroid,
-    Alert
+    Alert,
+    Platform
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import ImagePicker from 'react-native-image-picker';
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
+import { registerNewUser } from '../../../actions/signUpAction'
+import { storeData, getData } from '../../../utils/asyncStore';
+
 function RegisterScreen({ navigation }) {
 
     const [checked, setChecked] = React.useState(false);
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [companyName, setCompanyName] = React.useState('');
+    const [password, setPassword] = React.useState('');
     const [filePath, setFilePath] = React.useState([])
     const options = {
         title: 'Select Avatar',
@@ -32,13 +39,94 @@ function RegisterScreen({ navigation }) {
             path: 'images',
         },
     };
+    
+    /// Email Validation
+    const validate = (text) => {
+        // console.log(text);
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (reg.test(text) === false) {
+            // alert("Email is Not Correct");
+            // this.setState({ email: text })
+            setEmail(text);
+            return false;
+        }
+        else {
+            setEmail(text);
+            // alert("Email is Correct");
+            return true
+        }
+    }
+
+    const emailWithoutSpaceHandle = (value) => {
+    
+        console.log('whitespace: ' + value + ':');
+        var withOutSpaceVal = value.replace(/\s/g, '');
+        console.log('withoutspace: ' + withOutSpaceVal + ':');
+        return withOutSpaceVal;
+    }
 
     const signupApiIntegration = () => {
+
+        var emailWithoutSpace = emailWithoutSpaceHandle(email);
+
+
+        if (!email) {
+            Alert.alert('', 'Please Enter Email ID..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (email.trim() === '') {
+            Alert.alert('', 'Please Enter Email ID..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
+        if (validate(emailWithoutSpace)) {
+            // console.log('email is correct.');
+
+        }
+        else {
+            Alert.alert('', 'Email Id is Not Correct', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
+        if (!firstName) {
+            Alert.alert('', 'Please Enter First name..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (firstName.trim() === '') {
+            Alert.alert('', 'Please Enter First Name..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (!lastName) {
+            Alert.alert('', 'Please Enter Last Name..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (lastName.trim() === '') {
+            Alert.alert('', 'Please Enter Last Name..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (!companyName) {
+            Alert.alert('', 'Please Enter Company Name..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (companyName.trim() === '') {
+            Alert.alert('', 'Please Enter Company Name..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (!password) {
+            Alert.alert('', 'Please Enter Password..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (password.trim() === '') {
+            Alert.alert('', 'Please Enter Password..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
+
         let data = {
-            "email": "kunal100@yopmail.com",
+            "email": email,
             "first_name": firstName,
             "last_name": lastName,
-            "company_name": "Kunal Ji",
+            "company_name": companyName,
             "password": password,
             "alerts": "yes",
             "register_device": Platform.OS,
@@ -46,10 +134,18 @@ function RegisterScreen({ navigation }) {
         }
 
         // this.setState({ isAuthenticating: true })
-        login(this.props.dispatch, data).then((response) => {
+        registerNewUser(data).then((response) => {
+            if(response.status){
+                storeData('isLogin', 'true');
+                storeData('userData', JSON.stringify(response.data));
+                setEmail('')
+                navigation.navigate('Main Stack');
+            }
+            else{
+                Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            }
 
         })
-
     }
 
     chooseFile = () => {
@@ -133,6 +229,8 @@ function RegisterScreen({ navigation }) {
                             placeholder="Email"
                             keyboardType='email-address'
                             style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                            onChangeText={(email) => setEmail(email)}
+                            value={email}
                         />
 
                         <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
@@ -142,6 +240,21 @@ function RegisterScreen({ navigation }) {
                             placeholderTextColor="gray"
                             autoCapitalize="none"
                             placeholder="First Name"
+                            keyboardType='default'
+                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                            onChangeText={(firstName) => setFirstName(firstName)}
+                            value={firstName}
+
+                        />
+
+                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+
+                        <TextInput
+                            keyboardType="default"
+                            underlineColorAndroid="#8d8865"
+                            placeholderTextColor="gray"
+                            autoCapitalize="none"
+                            placeholder="Last Name"
                             keyboardType='default'
                             style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                             onChangeText={(lastName) => setLastName(lastName)}
@@ -156,24 +269,11 @@ function RegisterScreen({ navigation }) {
                             underlineColorAndroid="#8d8865"
                             placeholderTextColor="gray"
                             autoCapitalize="none"
-                            placeholder="Last Name"
-                            keyboardType='default'
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-
-
-                        />
-
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
-
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
                             placeholder="Real Estate Company"
                             keyboardType='default'
                             style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-
+                            onChangeText={(companyName) => setCompanyName(companyName)}
+                            value={companyName}
 
                         />
 
@@ -187,7 +287,8 @@ function RegisterScreen({ navigation }) {
                             placeholder="Password"
                             secureTextEntry={true}
                             style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-
+                            onChangeText={(password) => setPassword(password)}
+                            value={password}
 
                         />
 
@@ -201,17 +302,14 @@ function RegisterScreen({ navigation }) {
 
                                 <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
                                     Sign up for ArcSight alerts
-</Text>
-
-
-
-
+                                </Text>
 
                             </View>
-
-                            <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
-                                JOIN NOW
-</Text>
+                            <TouchableOpacity onPress={() => signupApiIntegration()}>
+                                <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
+                                    JOIN NOW
+                            </Text>
+                            </TouchableOpacity>
                         </View>
 
                         {/* <View style={{ alignSelf: 'center', marginTop: getDimen(0.04), flexDirection: 'row', alignItems: 'center' }}>
