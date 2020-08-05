@@ -12,10 +12,7 @@ let API = {
             FORGOT_PASSWORD: { url: 'Traveller/forgotPassword', method: 'POST' },
             VERIFY_OTP: { url: 'Traveller/verifyOTP', method: 'POST' },
             RESET_PASSWORD: { url: 'Traveller/resetTravellerPassword', method: 'POST' },
-            LOGOUT: { url: 'Traveller/logout', method: 'POST' },
-
-
-
+            LOGOUT: { url: 'api/v1/logout', method: 'POST' },
         },
         PASSWORD: {
             CHANGE_PASSWORD: { url: 'Traveller/changePassword', method: 'POST' },
@@ -27,7 +24,6 @@ let API = {
             AIRPORT_TERMINALS: { url: 'Traveller/airportTerminal', method: 'POST' },
             TRAVEL_TYPE: { url: 'Traveller/travelTypeList', method: 'POST' },
             SAVEFCMTOKEN: { url: 'Traveller/saveFCMTokenAndDeviceId', method: 'POST' },
-
         },
         OFFERS: {
             ALL_OFFERS: { url: 'Traveller/vendorOutletOffers', method: 'POST' },
