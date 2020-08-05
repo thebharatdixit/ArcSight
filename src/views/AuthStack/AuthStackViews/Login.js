@@ -105,7 +105,7 @@ function LoginScreen({ navigation }) {
                     navigation.navigate('Main Stack');
                 }
                 else{
-                    Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    Alert.alert('' +response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 }
     
             })
