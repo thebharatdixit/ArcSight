@@ -6,99 +6,122 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="16"
-8-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml
+8-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml
+9-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml
 10
 11    <uses-permission android:name="android.permission.INTERNET" />
-11-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:4:5-67
-11-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:4:22-64
-12
-13    <!-- Required to access Google Play Licensing -->
-14    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
-14-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:12:5-73
-14-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:12:22-70
-15    <!--
-16         Required to keep CPU alive while downloading files
-17        (NOT to keep screen awake)
-18    -->
-19    <uses-permission android:name="android.permission.WAKE_LOCK" />
-19-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:21:5-68
-19-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:21:22-65
-20    <!--
-21         Required to poll the state of the network connection
-22        and respond to changes
-23    -->
-24    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required to check whether Wi-Fi is enabled -->
-24-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:27:5-79
-24-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:27:22-76
-25    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Required to read and write the expansion files on shared storage -->
-25-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:30:5-76
-25-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:30:22-73
-26    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-26-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:33:5-81
-26-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:33:22-78
-27
-28    <application
-28-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:6:5-25:19
-29        android:name="com.arcsight.MainApplication"
-29-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:7:7-38
-30        android:allowBackup="false"
-30-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:11:7-34
-31        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-31-->[androidx.core:core:1.1.0] C:\Users\Nura\.gradle\caches\transforms-2\files-2.1\639e914bfc1efa21e36199d3ff2c5eef\core-1.1.0\AndroidManifest.xml:24:18-86
-32        android:icon="@mipmap/ic_launcher"
-32-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:9:7-41
-33        android:label="@string/app_name"
-33-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:8:7-39
-34        android:roundIcon="@mipmap/ic_launcher_round"
-34-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:10:7-52
-35        android:theme="@style/AppTheme" >
-35-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:12:7-38
-36        <activity
-36-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:13:7-23:18
-37            android:name="com.arcsight.MainActivity"
-37-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:14:9-37
-38            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
-38-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:16:9-86
-39            android:label="@string/app_name"
-39-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:15:9-41
-40            android:launchMode="singleTask"
-40-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:17:9-40
-41            android:windowSoftInputMode="adjustResize" >
-41-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:18:9-51
-42            <intent-filter>
-42-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:19:9-22:25
-43                <action android:name="android.intent.action.MAIN" />
-43-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:20:13-65
-43-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:20:21-62
-44
-45                <category android:name="android.intent.category.LAUNCHER" />
-45-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:21:13-73
-45-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:21:23-70
-46            </intent-filter>
-47        </activity>
-48        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-48-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:24:7-84
-48-->G:\KlientoProject\ArcSight\ArcSight-1\android\app\src\main\AndroidManifest.xml:24:17-81
-49
-50        <provider
-50-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:36:9-44:20
-51            android:name="com.RNFetchBlob.Utils.FileProvider"
-51-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:37:13-62
-52            android:authorities="com.arcsight.provider"
-52-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:38:13-60
-53            android:exported="false"
-53-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:39:13-37
-54            android:grantUriPermissions="true" >
-54-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:40:13-47
-55            <meta-data
-55-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:41:13-43:58
-56                android:name="android.support.FILE_PROVIDER_PATHS"
-56-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:42:17-67
-57                android:resource="@xml/provider_paths" />
-57-->[:rn-fetch-blob] G:\KlientoProject\ArcSight\ArcSight-1\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:43:17-55
-58        </provider>
-59    </application>
-60
-61</manifest>
+11-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:4:5-67
+11-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:4:22-64
+12    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+12-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:6:5-77
+12-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:6:22-75
+13    <uses-permission android:name="android.permission.CAMERA" />
+13-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:8:5-65
+13-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:8:22-62
+14    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+14-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:9:5-80
+14-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:9:22-78
+15
+16    <!-- Required to access Google Play Licensing -->
+17    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+17-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:12:5-73
+17-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:12:22-70
+18    <!--
+19         Required to keep CPU alive while downloading files
+20        (NOT to keep screen awake)
+21    -->
+22    <uses-permission android:name="android.permission.WAKE_LOCK" />
+22-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:21:5-68
+22-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:21:22-65
+23    <!--
+24         Required to poll the state of the network connection
+25        and respond to changes
+26    -->
+27    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Required to check whether Wi-Fi is enabled -->
+27-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:27:5-79
+27-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:27:22-76
+28    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+28-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:30:5-76
+28-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:30:22-73
+29
+30    <application
+30-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:11:5-30:19
+31        android:name="com.arcsight.MainApplication"
+31-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:12:7-38
+32        android:allowBackup="false"
+32-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:16:7-34
+33        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+33-->[androidx.core:core:1.1.0] C:\Users\Nura\.gradle\caches\transforms-2\files-2.1\639e914bfc1efa21e36199d3ff2c5eef\core-1.1.0\AndroidManifest.xml:24:18-86
+34        android:icon="@mipmap/ic_launcher"
+34-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:14:7-41
+35        android:label="@string/app_name"
+35-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:13:7-39
+36        android:roundIcon="@mipmap/ic_launcher_round"
+36-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:15:7-52
+37        android:theme="@style/AppTheme" >
+37-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:17:7-38
+38        <activity
+38-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:18:7-28:18
+39            android:name="com.arcsight.MainActivity"
+39-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:19:9-37
+40            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+40-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:21:9-86
+41            android:label="@string/app_name"
+41-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:20:9-41
+42            android:launchMode="singleTask"
+42-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:22:9-40
+43            android:windowSoftInputMode="adjustResize" >
+43-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:23:9-51
+44            <intent-filter>
+44-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:24:9-27:25
+45                <action android:name="android.intent.action.MAIN" />
+45-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:25:13-65
+45-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:25:21-62
+46
+47                <category android:name="android.intent.category.LAUNCHER" />
+47-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:26:13-73
+47-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:26:23-70
+48            </intent-filter>
+49        </activity>
+50        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+50-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:29:7-84
+50-->H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:29:17-81
+51
+52        <provider
+52-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:10:9-18:20
+53            android:name="com.imagepicker.FileProvider"
+53-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:11:13-56
+54            android:authorities="com.arcsight.provider"
+54-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:12:13-60
+55            android:exported="false"
+55-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:13:13-37
+56            android:grantUriPermissions="true" >
+56-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:14:13-47
+57            <meta-data
+57-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:15:13-17:58
+58                android:name="android.support.FILE_PROVIDER_PATHS"
+58-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:16:17-67
+59                android:resource="@xml/provider_paths" />
+59-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:17:17-55
+60        </provider>
+61        <provider
+61-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:36:9-44:20
+62            android:name="com.RNFetchBlob.Utils.FileProvider"
+62-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:37:13-62
+63            android:authorities="com.arcsight.provider"
+63-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:38:13-60
+64            android:exported="false"
+64-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:39:13-37
+65            android:grantUriPermissions="true" >
+65-->[:rn-fetch-blob] H:\project\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\release\AndroidManifest.xml:40:13-47
+66            <meta-data
+66-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:15:13-17:58
+67                android:name="android.support.FILE_PROVIDER_PATHS"
+67-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:16:17-67
+68                android:resource="@xml/provider_paths" />
+68-->[:react-native-image-picker] H:\project\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\release\AndroidManifest.xml:17:17-55
+69        </provider>
+70    </application>
+71
+72</manifest>

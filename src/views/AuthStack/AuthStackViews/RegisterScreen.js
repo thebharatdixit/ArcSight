@@ -39,7 +39,7 @@ function RegisterScreen({ navigation }) {
             path: 'images',
         },
     };
-    
+
     /// Email Validation
     const validate = (text) => {
         // console.log(text);
@@ -58,7 +58,7 @@ function RegisterScreen({ navigation }) {
     }
 
     const emailWithoutSpaceHandle = (value) => {
-    
+
         console.log('whitespace: ' + value + ':');
         var withOutSpaceVal = value.replace(/\s/g, '');
         console.log('withoutspace: ' + withOutSpaceVal + ':');
@@ -134,7 +134,7 @@ function RegisterScreen({ navigation }) {
 
         // this.setState({ isAuthenticating: true })
         registerNewUser(data).then((response) => {
-            if(response.status){
+            if (response.status) {
                 storeData('isLogin', 'true');
                 storeData('userData', JSON.stringify(response.data));
                 setEmail('')
@@ -145,7 +145,7 @@ function RegisterScreen({ navigation }) {
                 navigation.navigate('Login Screen');
                 // navigation.navigate('Main Stack');
             }
-            else{
+            else {
                 Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             }
 
@@ -210,113 +210,117 @@ function RegisterScreen({ navigation }) {
                     style={{ height: 55, width: 55 }} />
             </View> */}
 
-                <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}>
-                    {/* <View style={{ width: '90%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}> */}
-                    <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.15), marginTop: 0, marginRight: 0, borderRadius: 12, }}>
-                        <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
-                            <TouchableOpacity
-                                //  onPress = {()=> Alert.alert('Show gallery!!')}
-                                onPress={this.chooseFile.bind(this)}
-                            >
+                {/* <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}> */}
+                <View style={{ width: '90%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}>
+                    {/* <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.15), marginTop: 0, marginRight: 0, borderRadius: 12, }}> */}
+                    <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
+                        <TouchableOpacity
+                            //  onPress = {()=> Alert.alert('Show gallery!!')}
+                            onPress={chooseFile.bind(this)}
+                        >
 
-                                <Image source={require('../../../assets/icons/29.png')}
-                                    style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
+                            <Image source={require('../../../assets/icons/29.png')}
+                                style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
 
-                            </TouchableOpacity>
-                        </View>
+                        </TouchableOpacity>
+                    </View>
 
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Email"
-                            keyboardType='email-address'
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-                            onChangeText={(email) => setEmail(email)}
-                            value={email}
-                        />
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="gray"
+                        autoCapitalize="none"
+                        placeholder="Email"
+                        keyboardType='email-address'
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        onChangeText={(email) => setEmail(email)}
+                        value={email}
+                    />
 
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="First Name"
-                            keyboardType='default'
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(firstName) => setFirstName(firstName)}
-                            value={firstName}
+                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="gray"
+                        autoCapitalize="none"
+                        placeholder="First Name"
+                        keyboardType='default'
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                        onChangeText={(firstName) => setFirstName(firstName)}
+                        value={firstName}
 
-                        />
+                    />
 
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
 
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Last Name"
-                            keyboardType='default'
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(lastName) => setLastName(lastName)}
-                            value={lastName}
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="gray"
+                        autoCapitalize="none"
+                        placeholder="Last Name"
+                        keyboardType='default'
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                        onChangeText={(lastName) => setLastName(lastName)}
+                        value={lastName}
 
-                        />
+                    />
 
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
 
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Real Estate Company"
-                            keyboardType='default'
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(companyName) => setCompanyName(companyName)}
-                            value={companyName}
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="gray"
+                        autoCapitalize="none"
+                        placeholder="Real Estate Company"
+                        keyboardType='default'
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                        onChangeText={(companyName) => setCompanyName(companyName)}
+                        value={companyName}
 
-                        />
+                    />
 
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
 
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(password) => setPassword(password)}
-                            value={password}
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="gray"
+                        autoCapitalize="none"
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                        onChangeText={(password) => setPassword(password)}
+                        value={password}
 
-                        />
+                    />
 
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
-                        <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
+                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
+                    <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
-                            <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
+                        <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
 
-                                <CheckBox color={'#8d8865'}
-                                    style={{ width: 18, height: 18 }} />
+                            <CheckBox color={'#8d8865'}
+                                style={{ width: 18, height: 18 }} />
 
-                                <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
-                                    Sign up for ArcSight alerts
+                            <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
+                                Sign up for ArcSight alerts
                                 </Text>
 
-                            </View>
-                            <TouchableOpacity onPress={() => signupApiIntegration()}>
-                                <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
-                                    JOIN NOW
-                            </Text>
-                            </TouchableOpacity>
                         </View>
+                        <TouchableOpacity onPress={() => signupApiIntegration()}>
+                            <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
+                                JOIN NOW
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
 
-                        {/* <View style={{ alignSelf: 'center', marginTop: getDimen(0.04), flexDirection: 'row', alignItems: 'center' }}>
+                    {/* <View style={{ alignSelf: 'center', marginTop: getDimen(0.04), flexDirection: 'row', alignItems: 'center' }}>
 
                     <CheckBox color={'#8d8865'}
                     style={{width:18,height:18}}/>
@@ -333,7 +337,7 @@ function RegisterScreen({ navigation }) {
 
                 </View> */}
 
-                        {/* <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
+                    {/* <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
 
                     <View style={{ alignSelf: 'center', marginTop: 5, flexDirection: 'row', alignItems: 'center' }}>
 
@@ -344,11 +348,11 @@ function RegisterScreen({ navigation }) {
                 </TouchableOpacity> */}
 
 
-                    </View>
                 </View>
+                {/* </View> */}
 
             </ScrollView>
-        </ImageBackground>
+        </ImageBackground >
     );
 }
 
