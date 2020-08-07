@@ -1,7 +1,4 @@
-#Thu Aug 06 21:33:49 IST 2020
-base.0=G\:\\KlientoProject\\ArcSight\\ArcSight-1\\android\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\out\\classes.dex
-path.1=classes.dex
-renamed.1=classes2.dex
+#Fri Aug 07 00:30:55 IST 2020
+base.0=/home/gaurav/Documents/React-Native/github /ArcSight/android/app/build/intermediates/dex/release/mergeDexRelease/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
-base.1=H\:\\project\\ArcSight\\android\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\out\\classes.dex
