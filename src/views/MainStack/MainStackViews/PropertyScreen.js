@@ -13,7 +13,8 @@ import {
     ToastAndroid,
     FlatList,
     Share,
-    Alert
+    Alert,
+    Picker
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
@@ -25,6 +26,7 @@ import ImagePicker from 'react-native-image-picker';
 function PropertyScreen({ navigation }) {
 
     const [filePath, setFilePath] = React.useState([])
+    const [selectedValue, setSelectedValue] = React.useState("House");
 
     const options = {
         title: 'Select Avatar',
@@ -58,38 +60,54 @@ function PropertyScreen({ navigation }) {
                 alert(response.customButton);
             } else {
                 let source = response;
+                const temp = response.data;
+
+                //Or:
+                if (Platform.OS === 'android') {
+                    source = { uri: response.uri, isStatic: true };
+                } else {
+                    source = { uri: response.uri.replace('file://', ''), isStatic: true };
+                }
                 // You can also display the image using data:
                 // let source = { uri: 'data:image/jpeg;base64,' + response.data };
                 //  this.setState({
                 //     filePath: source
                 // });
-                setFilePath(source);
-                console.log('SetFilePath',setFilePath)
+
+                console.log(temp);
+                // setFilePath(source);
+                // <Image source={{ uri: data.path }} style={{ width: 100, height: 100 }} />
+                // console.log('SetFilePath', setFilePath)
             }
         });
     };
 
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
-            <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+            <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
                 <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                     <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>ADD LISTING</Text>
                 </View>
+                {/* <TouchableOpacity onPress={chooseFile.bind(this)}>
+                    <View style={{ backgroundColor: '#f1ac35', height: getDimen(0.125), width: getDimen(0.5), justifyContent: 'center', alignContent: 'center', marginLeft: getDimen(0.01) }}>
+                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#f1ac35', textAlign: 'center' }}>IMAGE UPLOAD</Text>
+                    </View>
+                </TouchableOpacity> */}
             </View>
             <ScrollView style={styles.container}>
                 <View>
                     <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
 
-                        <View style={{ backgroundColor: '#E6E6E6', flex: 1, width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center' }}>                            
-                            
+                        <View style={{ backgroundColor: '#E6E6E6', flex: 1, width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center' }}>
+
                             <TouchableOpacity
                                 // onPress={() => Alert.alert('Plus icon clicked!')}
-                                onPress={this.chooseFile.bind(this)}
+                                onPress={chooseFile.bind(this)}
                             >
                                 <Image source={require('../../../assets/icons/plus.png')}
                                     style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
                             </TouchableOpacity>
-                            
+
                         </View>
                     </View>
 
@@ -144,8 +162,77 @@ function PropertyScreen({ navigation }) {
                     </View>
                     <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View>
 
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Baths</Text>
+                        {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
+                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.06), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), }}>
+                            <Input placeholder='00'
+                                style={{ fontSize: getDimen(0.038), }}
+
+                            />
+                        </Item>
+                    </View>
+                    <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View>
+
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Home Type</Text>
+                        {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
+                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.06), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), }}>
+                            <Picker
+                                selectedValue={selectedValue}
+                                style={{ height: 50, width: '100%' }}
+                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                            >
+                                <Picker.Item label="House " value="House " />
+                                <Picker.Item label="Townhouse " value="Townhouse " />
+                            </Picker>
+                        </Item>
+                    </View>
+                    <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View>
+
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Square Feet</Text>
+                        {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
+                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.06), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), }}>
+                            <Input placeholder='0,000'
+                                style={{ fontSize: getDimen(0.038), }}
+
+                            />
+                        </Item>
+                    </View>
+                    <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View>
+
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Amenities </Text>
+                        {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
+                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.06), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), }}>
+                            <Picker
+                                selectedValue={selectedValue}
+                                style={{ height: 50, width: '100%' }}
+                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                            >
+                                <Picker.Item label="House " value="House " />
+                                <Picker.Item label="Townhouse " value="Townhouse " />
+                            </Picker>
+                        </Item>
+                    </View>
+                    <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View>
+
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Year Built</Text>
+                        {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
+                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.06), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), }}>
+                            <Input placeholder='0000'
+                                style={{ fontSize: getDimen(0.038), }}
+
+                            />
+                        </Item>
+                    </View>
+                    <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View>
+
+
                 </View>
-               
+
             </ScrollView>
         </View>
     )
@@ -220,7 +307,7 @@ const styles = StyleSheet.create({
     },
     body: {
         backgroundColor: 'white',
-        // alignItems: "center", 
+        // alignItems: "center",
         // justifyContent: "center",
     },
     itemStyle: {
