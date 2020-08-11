@@ -155,7 +155,7 @@ function LoginScreen({ navigation }) {
                         // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                         onChangeText={(val) => setUsername(val)}
                     />
-                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
+                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
                     <TextInput
                         keyboardType="default"
                         underlineColorAndroid="#8d8865"
@@ -163,13 +163,13 @@ function LoginScreen({ navigation }) {
                         autoCapitalize="none"
                         placeholder="Password"
                         secureTextEntry={true}
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-                        // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+
                         onChangeText={(val) => setPassword(val)}
 
 
                     />
-                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
+                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
                     <View style={{ marginTop: getDimen(0.08), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.09) }}>
 
                         <CheckBox color={'#8d8865'}
@@ -185,7 +185,7 @@ function LoginScreen({ navigation }) {
                     {/* validation(username, password) */}
                     <TouchableOpacity onPress={() => validation(username, password)}>
 
-                        <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
+                        <View style={{ alignItems: 'center', marginTop: getDimen(0.08) }}>
 
                             <Text style={{
                                 backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2),
