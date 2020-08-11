@@ -12,12 +12,11 @@ import {
     TextInput,
     ToastAndroid,
     Alert,
-    Picker
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
-import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
+import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Picker } from 'native-base';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -25,12 +24,20 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { getDimen } from '../../../dimensions/dimen';
 import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
+// import { Container, Header, Content, Picker, Form, Icon, Textarea, CheckBox, PickerItem } from 'native-base';
+
 
 
 const Drawer = createDrawerNavigator();
 
 function SearchScreen({ navigation }) {
 
+    const data = [
+        { id: '1', value: '20,000', },
+        { id: '2', value: '10,000', },
+        { id: '3', value: '5,000', },
+    ];
+    const [price, setPrice] = React.useState('20,000');
     const [checked1, setChecked1] = useState(false);
     const [checked2, setChecked2] = useState(false);
     const [checked3, setChecked3] = useState(false);
@@ -38,11 +45,10 @@ function SearchScreen({ navigation }) {
     const [checkedForRent, setCheckedForRent] = useState(false);
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
-    const [selectedValue, setSelectedValue] = useState("Swift");
+    const [selectedValue, setSelectedValue] = React.useState('&00,0000');
+    
     return (
         <View style={{ backgroundColor: 'blue', flex: 1 }}>
-
-
 
             <View style={{ height: getDimen(0.14), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
@@ -76,14 +82,14 @@ function SearchScreen({ navigation }) {
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Location</Text>
                     {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop:getDimen(0.025), color:'gray',}}>Current Location / City,State / Zip Code</Text> */}
-                    <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
+                    <Item style={{ marginLeft: getDimen(0.03), marginRight: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                         <Input placeholder='Current Location / City,State / Zip Code'
                             style={{ fontSize: getDimen(0.038), }}
 
                         />
                     </Item>
                 </View>
-                <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
+                {/* <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View> */}
 
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: getDimen(0.01), marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
 
@@ -101,16 +107,33 @@ function SearchScreen({ navigation }) {
 
                 </View>
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                    
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Price</Text>
                     {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
                     <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
-                        <Input placeholder='$000,000'
+                        {/* <Input placeholder='$000,000'
                             style={{ fontSize: getDimen(0.038) }}
                         />
-                        <Icon active name='arrow' />
+                        <Icon active name='arrow' /> */}
+                        <Picker
+                            note
+                            mode="dropdown"
+                            iosIcon={<Icon />}
+                            style={{ width: getDimen(0.95), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+                            placeholder="$00,0000"
+                            placeholderStyle={{ color: "black", fontSize: 14 }}
+                            placeholderIconColor="#a43d3e"
+                            selectedValue={selectedValue}
+                            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+                        >
+                            <Picker.Item label="20,000" value="key0" />
+                            <Picker.Item label="40,000" value="key1" />
+                            <Picker.Item label="100,000" value="key2" />
+
+                        </Picker>
                     </Item>
                 </View>
-                <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
+                {/* <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View> */}
 
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
@@ -133,45 +156,92 @@ function SearchScreen({ navigation }) {
                     </View>
                 </View>
 
-                <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
+                {/* <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View> */}
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Home Type</Text>
                     {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                     <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), }}>
-                        <Input placeholder='Co-op / Condo'
+                        {/* <Input placeholder='Co-op / Condo'
                             style={{ fontSize: getDimen(0.038), }}
 
                         />
-                        <Icon active name='arrow' />
+                        <Icon active name='arrow' /> */}
+                        <Picker
+                            note
+                            mode="dropdown"
+                            iosIcon={<Icon />}
+                            style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03)}}
+                            placeholder="$00,0000"
+                            placeholderStyle={{ color: "black", fontSize: 14 }}
+                            placeholderIconColor="#a43d3e"
+                            selectedValue={selectedValue}
+                            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+                        >
+                            <Picker.Item label="Townhouse" value="key0" />
+                            <Picker.Item label="Co-op / Condo" value="key1" />
+                            <Picker.Item label="Land" value="key2" />
+                            <Picker.Item label="Home" value="key3" />
+                            <Picker.Item label="Other" value="key4" />
+                        </Picker>
                     </Item>
                 </View>
-                <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View>
+                {/* <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Square Feet</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Minimum</Text> */}
                         <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
-                            <Input placeholder='Minimum'
+                            {/* <Input placeholder='Minimum'
                                 style={{ fontSize: getDimen(0.038), }}
 
                             />
-                            <Icon active name='arrow' />
+                            <Icon active name='arrow' /> */}
+                            <Picker
+                                note
+                                mode="dropdown"
+                                iosIcon={<Icon />}
+                                style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03)}}
+                                placeholder="$00,0000"
+                                placeholderStyle={{ color: "black", fontSize: 14 }}
+                                placeholderIconColor="#a43d3e"
+                                selectedValue={selectedValue}
+                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+                            >
+                                <Picker.Item label="0,000" value="key0" />
+                                <Picker.Item label="600" value="key1" />
+                                <Picker.Item label="5,000" value="key2" />
+                            </Picker>
                         </Item>
                     </View>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>To</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Maximum</Text> */}
                         <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', marginTop: getDimen(0), }}>
-                            <Input placeholder='Maximum'
+                            {/* <Input placeholder='Maximum'
                                 style={{ fontSize: getDimen(0.038), }}
                             />
-                            <Icon active name='arrow' />
+                            <Icon active name='arrow' /> */}
+                            <Picker
+                                note
+                                mode="dropdown"
+                                iosIcon={<Icon />}
+                                style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+                                placeholder="$00,0000"
+                                placeholderStyle={{ color: "black", fontSize: 14 }}
+                                placeholderIconColor="#a43d3e"
+                                selectedValue={selectedValue}
+                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+                            >
+                                <Picker.Item label="0,000" value="key0" />
+                                <Picker.Item label="600" value="key1" />
+                                <Picker.Item label="5,000" value="key2" />
+                            </Picker>
                         </Item>
                     </View>
                 </View>
 
-                <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.01) }}></View>
+                {/* <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.01) }}></View> */}
 
 
             </ScrollView>

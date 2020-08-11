@@ -12,7 +12,7 @@ let API = {
             FORGOT_PASSWORD: { url: 'Traveller/forgotPassword', method: 'POST' },
             VERIFY_OTP: { url: 'Traveller/verifyOTP', method: 'POST' },
             RESET_PASSWORD: { url: 'Traveller/resetTravellerPassword', method: 'POST' },
-            LOGOUT: { url: 'api/v1/logout', method: 'POST' },
+            LOGOUT: { url: 'api/v1/logout', method: 'GET' },
         },
         PASSWORD: {
             CHANGE_PASSWORD: { url: 'Traveller/changePassword', method: 'POST' },

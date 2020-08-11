@@ -27,31 +27,70 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 function ProfileScreen({ navigation }) {   
     
-    const logOutApiIntegration =() =>{
+    const [accessToken, setAccessToken] = React.useState('')
+    
+    // const logOutApiIntegration =() =>{
        
-        // let data = {
-        //     "alerts": "yes",
-        //     "register_device": Platform.OS,
-        //     "notification_token": ""
-        // }
-        // doLogout(data).then((response) => {
-        //     if (response.status) {
-                console.log('logged out');
+    //     // let data = {
+    //     //     "alerts": "yes",
+    //     //     "register_device": Platform.OS,
+    //     //     "notification_token": ""
+    //     // }
+    //     doLogout().then((response) => {
+    //         console.log('Response.status doLogout', + response.status)
+    //         if (response.status) {
+    //             console.log('logged out123456');
+    //             AsyncStorage.clear();
+    //             navigation.navigate('Login Screen');
+    //         } else {
+    //             console.log('No logged Out');
+    //             Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+    //         }
+    //      })
+    // }
+    
+    getData('userData').then((data) => {
+        const userData = JSON.parse(data);
+        const listTokens = userData.token;
+        setAccessToken(listTokens);
+        console.log('token1', listTokens)
+    })
+
+    function logOutApiIntegration() {
+
+        fetch("http://arc.softwaresolutions.website/api/v1/logout", {
+            method: "get",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${accessToken}`
+            },
+            body: ''
+        }).then(res => res.json())
+            .then(res => {
+                console.log('TokenResponse',res, accessToken)
+                if (res.status) {
+                console.log('logged out123456',res.message);
                 AsyncStorage.clear();
                 navigation.navigate('Login Screen');
-        //     } else {
-        //         Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-        //     }
-        //  })
+                Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+            } else {
+                console.log('No logged Out');
+                Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            }
+            })
+            .catch(err => {
+                console.error("error: ", err);
+            });
+
     }
-    
+
     const dummyData = [
             // mainSt: '1234 Main St',
             {id: '1'},
             {id: '2'},
             {id: '3'},
        ];
-       const [ArrData, setData] = React.useState(dummyData);
+    const [ArrData, setData] = React.useState(dummyData);
     const [filePath, setFilePath] = React.useState([])
     const options = {
         title: 'Select Avatar',
@@ -84,13 +123,11 @@ function ProfileScreen({ navigation }) {
                 console.log('User tapped custom button: ', response.customButton);
                 alert(response.customButton);
             } else {
-                let source = response;
-                // You can also display the image using data:
-                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-                //  this.setState({
-                //     filePath: source
-                // });
+                // let source = response;
+                const source = { uri: response.uri };
+                console.log("response  :  " + response.uri);
                 setFilePath(source);
+                responseUri: response
             }
         });
     };
@@ -153,7 +190,7 @@ function ProfileScreen({ navigation }) {
                     <TouchableOpacity
                         onPress={() => Alert.alert('1234 Main St Profile Details')}
                     >
-                        <Text style={{ fontSize: getDimen(0.06), marginLeft: getDimen(0.05), marginTop: getDimen(0.05), marginBottom: getDimen(0.05) }}>1234 Main St</Text>
+                    <Text style={{ fontSize: getDimen(0.06), marginLeft: getDimen(0.05), marginTop: getDimen(0.05), marginBottom: getDimen(0.05) }}>1234 Main St</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
