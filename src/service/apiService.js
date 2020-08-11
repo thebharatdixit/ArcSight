@@ -97,6 +97,14 @@ export function getLogin( data, option = {}) {
     return requestAPI(URL, option)
 }
 
+export function getCreateList(formData, option = {}) {
+    let { url, method } = API.ENDPOINT.AUTH.CREATE_LIST;
+    let URL = `${API_BASE + url}`;
+    option.method = method;
+    option.payload = formData;
+    return requestAPI(URL, option)
+}
+
 export function makeForgotPassword(dispatch, data, option = {}) {
     let { url, method } = API.ENDPOINT.AUTH.FORGOT_PASSWORD;
     let URL = `${API_BASE + url}`;

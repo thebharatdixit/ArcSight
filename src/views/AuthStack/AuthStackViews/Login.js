@@ -181,8 +181,9 @@ function LoginScreen({ navigation }) {
 
 
                     </View>
+                    {/* navigation.navigate('Main Stack') */}
                     {/* validation(username, password) */}
-                    <TouchableOpacity onPress={() => navigation.navigate('Main Stack')}>
+                    <TouchableOpacity onPress={() => validation(username, password)}>
 
                         <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
