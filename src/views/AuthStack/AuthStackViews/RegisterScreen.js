@@ -41,7 +41,7 @@ function RegisterScreen({ navigation }) {
             path: 'images',
         },
     };
-    
+
     /// Email Validation
     const validate = (text) => {
         // console.log(text);
@@ -60,7 +60,7 @@ function RegisterScreen({ navigation }) {
     }
 
     const emailWithoutSpaceHandle = (value) => {
-    
+
         console.log('whitespace: ' + value + ':');
         var withOutSpaceVal = value.replace(/\s/g, '');
         console.log('withoutspace: ' + withOutSpaceVal + ':');
@@ -145,7 +145,7 @@ function RegisterScreen({ navigation }) {
 
         // this.setState({ isAuthenticating: true })
         registerNewUser(data).then((response) => {
-            if(response.status){
+            if (response.status) {
                 storeData('isLogin', 'true');
                 storeData('userData', JSON.stringify(response.data));
                 setEmail('')
@@ -156,7 +156,7 @@ function RegisterScreen({ navigation }) {
                 navigation.navigate('Login Screen');
                 // navigation.navigate('Main Stack');
             }
-            else{
+            else {
                 Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             }
 
@@ -247,8 +247,8 @@ function RegisterScreen({ navigation }) {
                                 }
 
 
-                            </TouchableOpacity>
-                        </View>
+                        </TouchableOpacity>
+                    </View>
 
                         <TextInput
                             keyboardType="default"
@@ -334,15 +334,15 @@ function RegisterScreen({ navigation }) {
                                     Sign up for ArcSight alerts
                                 </Text>
 
-                            </View>
-                            <TouchableOpacity onPress={() => signupApiIntegration()}>
-                                <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
-                                    JOIN NOW
-                            </Text>
-                            </TouchableOpacity>
                         </View>
+                        <TouchableOpacity onPress={() => signupApiIntegration()}>
+                            <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
+                                JOIN NOW
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
 
-                        {/* <View style={{ alignSelf: 'center', marginTop: getDimen(0.04), flexDirection: 'row', alignItems: 'center' }}>
+                    {/* <View style={{ alignSelf: 'center', marginTop: getDimen(0.04), flexDirection: 'row', alignItems: 'center' }}>
 
                     <CheckBox color={'#8d8865'}
                     style={{width:18,height:18}}/>
@@ -359,7 +359,7 @@ function RegisterScreen({ navigation }) {
 
                 </View> */}
 
-                        {/* <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
+                    {/* <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
 
                     <View style={{ alignSelf: 'center', marginTop: 5, flexDirection: 'row', alignItems: 'center' }}>
 
@@ -370,11 +370,11 @@ function RegisterScreen({ navigation }) {
                 </TouchableOpacity> */}
 
 
-                    </View>
+                </View>
                 </View>
 
             </ScrollView>
-        </ImageBackground>
+        </ImageBackground >
     );
 }
 
