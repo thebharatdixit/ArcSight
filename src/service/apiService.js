@@ -142,12 +142,12 @@ export function getLogin( data, option = {}) {
     return requestAPI(URL, option)
 }
 
-export function makeForgotPassword(dispatch, data, option = {}) {
+export function makeForgotPassword(data, option = {}) {
     let { url, method } = API.ENDPOINT.AUTH.FORGOT_PASSWORD;
     let URL = `${API_BASE + url}`;
     option.method = method;
     option.payload = data;
-    return requestAPI(URL, option, dispatch)
+    return requestAPI(URL, option)
 }
 
 export function makeResetPassword(dispatch, data, option = {}) {

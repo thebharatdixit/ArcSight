@@ -24,8 +24,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { getDimen } from '../../../dimensions/dimen';
 import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
-// import { Container, Header, Content, Picker, Form, Icon, Textarea, CheckBox, PickerItem } from 'native-base';
-
+import { getData } from '../../../utils/asyncStore';
 
 
 const Drawer = createDrawerNavigator();
@@ -46,7 +45,54 @@ function SearchScreen({ navigation }) {
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState('&00,0000');
-    
+    const [accessToken, setAccessToken] = React.useState('')
+
+    getData('userData').then((data) => {
+        const userData = JSON.parse(data);
+        const listTokens = userData.token;
+        setAccessToken(listTokens);
+        console.log('token1', listTokens)
+    })
+
+    const searchListingApiIntegration = () => {
+
+        fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                 Authorization: `Bearer ${accessToken}`
+
+            },
+            body: JSON.stringify({
+                listing: "my",
+                location: "Ludhiana",
+                home_type: "",
+                listing_type: [
+                    "For Sale"
+                ],
+                bedrooms: 5,
+                bathrooms: 2,
+                price: 2500,
+                sq_feet_min: 4000,
+                sq_feet_max: 4600
+            })
+        }).then(res => res.json())
+            .then(res => {
+                console.log('Reset Password', res.message);
+                if (res.status) {
+                    console.log('Search Listing', res.message);
+                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                } else {
+                    console.log('No Reset Password', res.message);
+                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                }
+            })
+            .catch(err => {
+                console.error("error: ", err);
+            });
+    }
+
     return (
         <View style={{ backgroundColor: 'blue', flex: 1 }}>
 
@@ -249,7 +295,11 @@ function SearchScreen({ navigation }) {
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Search List')}
+                            onPress={() => 
+                            {
+                            // navigation.navigate('Search List')
+                            searchListingApiIntegration()}
+                            }
                         >
                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH</Text>
                         </TouchableOpacity>

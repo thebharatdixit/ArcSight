@@ -164,6 +164,15 @@ function ProfileScreen({ navigation }) {
                 >
                 <Text style={{ fontSize: getDimen(0.04), fontWeight: 'bold', color:'red'}}> LogOut </Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Change Password Screen')}
+                    // onPress={() => logOutApiIntegration()}
+                    style={{ marginTop: getDimen(0.02) }}
+                >
+                    <Text style={{ fontSize: getDimen(0.04), fontWeight: 'bold', }}> Change Password </Text>
+                </TouchableOpacity>
+
             </View>
             
             <ScrollView style={styles.container}>

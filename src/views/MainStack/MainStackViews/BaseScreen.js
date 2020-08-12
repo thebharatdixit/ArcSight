@@ -37,6 +37,7 @@ import PropertyScreen from '../MainStackViews/PropertyScreen';
 import ChatStack from './ChatStack';
 import AddListingStack from './AddListingStack';
 import HomeStack from './HomeStack';
+import ProfileStack from './ProfileStack'
 
 
 
@@ -130,7 +131,7 @@ function BaseScreen({ navigation }) {
                             )
                         }}
                     />
-                    <Tab.Screen name="Profile Screen" component={ProfileScreen}
+                    <Tab.Screen name="ProfileStack" component={ProfileStack}
                         options={{
                             tabBarLabel: '',
                             tabBarIcon: ({ focused, horizontal, tintColor }) => (
