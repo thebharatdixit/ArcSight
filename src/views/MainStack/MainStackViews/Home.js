@@ -13,7 +13,9 @@ import {
     FlatList,
     SafeAreaView,
     Share,
-    ToastAndroid
+    ToastAndroid,
+    Alert,
+    TouchableWithoutFeedback ,
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Icon, Input, CheckBox, ListItem, Body } from 'native-base';
@@ -43,23 +45,20 @@ const DATA = [
 ];
 
 const Item = ({ title }) => (
+    
     <View style={{flex:1}}>
-
         <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), backgroundColor: 'white' }}>
             
             <Image source={require('../../../assets/icons/2.png')}
                 style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
 
-
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '50%' }}>
 
-            <TouchableOpacity onPress={() => console.log('name')}>
+            <TouchableOpacity onPress={() => Alert.alert('name')}>
                 <View>
-
                     <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
                         Name Here
                         </Text>
-
 
                     <Text style={{ fontSize: 14, paddingRight: getDimen(0.02), alignContent: 'space-between' }}>
                         Listed 2 Days Ago
@@ -71,9 +70,6 @@ const Item = ({ title }) => (
                     <Text style={{ color: '#d2d6d5', paddingRight: 7 }}>
                         Real Estate Company
                         </Text>
-
-
-
                 </View>
 
                 <View >
@@ -89,8 +85,6 @@ const Item = ({ title }) => (
                         
                 </View>
             </View>
-
-
 
         </View>
 
@@ -114,8 +108,6 @@ const Item = ({ title }) => (
                     FOR SALE
                 </Text>
             </View>
-
-            {/* <Text >{title}</Text> */}
         </View>
     </View>
 );
@@ -167,7 +159,6 @@ function MainScreen({ navigation }) {
             
             </View>
             <ScrollView>
-
             
                 <SafeAreaView >
                     <FlatList

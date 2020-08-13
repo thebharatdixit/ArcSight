@@ -142,7 +142,6 @@ function RegisterScreen({ navigation }) {
             "notification_token": "",
             "profile_image": filePath.uri
         }
-
         // this.setState({ isAuthenticating: true })
         registerNewUser(data).then((response) => {
             if (response.status) {

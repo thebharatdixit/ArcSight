@@ -7,6 +7,7 @@ import { View, Text } from 'react-native';
 import SearchScreen from './SearchScreen';
 import SearchList from './SearchList'
 import SearchListDetailScreen  from './SearchListDetailScreen'
+import colleagueScreen from './ColleagueListScreen'
 
 // import FilterScreen from './filter';
 
@@ -25,7 +26,7 @@ const SearchStack = function authNavigator({  }) {
             />
             <Stack.Screen name="Search List Detail" component={SearchListDetailScreen}
             />
-
+            
         </Stack.Navigator>
 
     );

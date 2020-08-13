@@ -103,7 +103,6 @@ function LoginScreen({ navigation }) {
     }
     function validation(userName, password) {
         var emailWithoutSpace = emailWithoutSpaceHandle(userName);
-        // let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         //console.log(''+userName+'=='+password);
         if (!userName) {
             Alert.alert('', 'Please Enter Email ID..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });

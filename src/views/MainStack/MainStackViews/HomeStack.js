@@ -8,8 +8,6 @@ import AddListScreen from './AddListScreen';
 import ChatLayout from './ChatLayout';
 import MainScreen from './Home';
 
-// import FilterScreen from './filter';
-
 const Stack = createStackNavigator();
 const HomeStack = function authNavigator({ }) {
 
@@ -24,8 +22,7 @@ const HomeStack = function authNavigator({ }) {
 
             <Stack.Screen name="Chat Layout" component={ChatLayout}
             />
-
-
+            
 
         </Stack.Navigator>
 
