@@ -6,7 +6,7 @@
   "homepage": "https://github.com/crazycodeboy/react-native-splash-screen#readme",
   "license": "MIT",
   "platforms": {
-    "ios": "7.0"
+    "ios": "8.0"
   },
   "source": {
     "git": "https://github.com/crazycodeboy/react-native-splash-screen",
