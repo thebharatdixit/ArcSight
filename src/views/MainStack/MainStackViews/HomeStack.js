@@ -7,6 +7,8 @@ import { View, Text } from 'react-native';
 import AddListScreen from './AddListScreen';
 import ChatLayout from './ChatLayout';
 import MainScreen from './Home';
+import ColleagueListScreen from './ColleagueListScreen'
+
 
 // import FilterScreen from './filter';
 
@@ -22,7 +24,9 @@ const HomeStack = function authNavigator({ }) {
             <Stack.Screen name="MainScreen" component={MainScreen}
             />
 
-            <Stack.Screen name="Chat Layout" component={ChatLayout}
+            {/* <Stack.Screen name="Chat Layout" component={ChatLayout}
+            /> */}
+            <Stack.Screen name="Colleague List" component={ColleagueListScreen}
             />
 
 

@@ -20,10 +20,51 @@ import {
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
+//import CustomMultiPicker from "react-native-multiple-select-list";
 import { getDimen } from '../../../dimensions/dimen';
 import ImagePicker from 'react-native-image-picker';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { createList } from '../../../actions/createListAction';
+//import MultiSelect from 'react-native-multiple-select';
+import SectionedMultiSelect from 'react-native-sectioned-multi-select';
+
+
+
+const items = [
+    // this is the parent or 'item'
+    {
+        name: 'Fruits',
+        id: 0,
+        // these are the children or 'sub items'
+        children: [
+            {
+                name: 'Apple',
+                id: 10,
+            },
+            {
+                name: 'Strawberry',
+                id: 17,
+            },
+            {
+                name: 'Pineapple',
+                id: 13,
+            },
+            {
+                name: 'Banana',
+                id: 14,
+            },
+            {
+                name: 'Watermelon',
+                id: 15,
+            },
+            {
+                name: 'Kiwi fruit',
+                id: 16,
+            },
+        ],
+    },
+
+];
 
 
 function PropertyScreen({ navigation }) {
@@ -44,7 +85,16 @@ function PropertyScreen({ navigation }) {
     const [tokens, setTokens] = React.useState('');
     const [imgs, setImgs] = React.useState('');
     const [imgList, setImgList] = React.useState([]);
-    let temp='';
+    const [selectdItems,setSelectedItems] = React.useState([]);
+
+   
+    let temp = '';
+
+    const userList = {
+        "123": "Tom",
+        "124": "Michael",
+        "125": "Christin"
+    }
 
 
     let imageUrls = {
@@ -206,7 +256,7 @@ function PropertyScreen({ navigation }) {
             },
         };
         ImagePicker.showImagePicker(options, response => {
-           // console.log('Response = ', response);
+            // console.log('Response = ', response);
 
             if (response.didCancel) {
                 console.log('User cancelled image picker');
@@ -217,13 +267,13 @@ function PropertyScreen({ navigation }) {
 
                 //console.log('hello')
                 imageUrls.imgUrl = { uri: response.uri };
-                 temp = imageUrls.imgUrl;
-                 setImgs(temp);
-                 //storeData('imgObj',setImgList(imgs))
+                temp = imageUrls.imgUrl;
+                setImgs(temp);
+                //storeData('imgObj',setImgList(imgs))
                 setImgList(imgs);
-               // console.log('uriLog',JSON.stringify(getData('imgObj')));
+                // console.log('uriLog',JSON.stringify(getData('imgObj')));
 
-                console.log('uriLog',JSON.stringify(imgList));
+                console.log('uriLog', JSON.stringify(imgList));
 
 
             }
@@ -398,14 +448,71 @@ function PropertyScreen({ navigation }) {
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Home Type</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                         <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.06), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), }}>
-                            <Picker
+                            {/* <Picker
                                 selectedValue={selectedValue}
                                 style={{ height: 50, width: '100%' }}
                                 onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                             >
                                 <Picker.Item label="House " value="House " />
                                 <Picker.Item label="Townhouse " value="Townhouse " />
-                            </Picker>
+                            </Picker> */}
+
+                            {/* <CustomMultiPicker
+                                options={userList}
+                                search={true} // should show search bar?
+                                multiple={true} //
+                                placeholder={"Search"}
+                                placeholderTextColor={'#757575'}
+                                returnValue={"label"} // label or value
+                                callback={(res) => { console.log(res) }} // callback, array of selected items
+                                rowBackgroundColor={"#eee"}
+                                rowHeight={40}
+                                rowRadius={5}
+                                iconColor={"#00a2dd"}
+                                iconSize={30}
+                                selectedIconName={"ios-checkmark-circle-outline"}
+                                unselectedIconName={"ios-radio-button-off-outline"}
+                                scrollViewHeight={130}
+                                selected={[1, 2]} // list of options which are selected by default
+                            /> */}
+
+                            {/* <MultiSelect
+                                hideTags
+                                items={items}
+                                uniqueKey="id"
+                                ref={(component) => { this.multiSelect = component }}
+                                onSelectedItemsChange={this.onSelectedItemsChange}
+                                selectedItems={selectedItems}
+                                selectText="Pick Items"
+                                searchInputPlaceholderText="Search Items..."
+                                onChangeInput={(text) => console.log(text)}
+                                altFontFamily="ProximaNova-Light"
+                                tagRemoveIconColor="#CCC"
+                                tagBorderColor="#CCC"
+                                tagTextColor="#CCC"
+                                selectedItemTextColor="#CCC"
+                                selectedItemIconColor="#CCC"
+                                itemTextColor="#000"
+                                displayKey="name"
+                                searchInputStyle={{ color: '#CCC' }}
+                                submitButtonColor="#CCC"
+                                submitButtonText="Submit"
+                            /> */}
+
+
+                            <SectionedMultiSelect
+                                items={items}
+                                uniqueKey="id"
+                                subKey="children"
+                                selectText="Choose some things..."
+                                showDropDowns={true}
+                                readOnlyHeadings={true}
+                                onSelectedItemsChange={setSelectedItems()}
+                                selectedItems={selectdItems}
+                            />
+                            {/* <View>
+                                {this.multiSelect.getSelectedItemsExt(selectedItems)}
+                            </View> */}
                         </Item>
                     </View>
                     <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View>

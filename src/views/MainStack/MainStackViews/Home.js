@@ -24,126 +24,126 @@ import { getDimen } from '../../../dimensions/dimen';
 import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
 
-
-
-
-const DATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'First Item',
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Third Item',
-    },
-];
-
-const Item = ({ title }) => (
-    <View style={{flex:1}}>
-
-        <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), backgroundColor: 'white' }}>
-            
-            <Image source={require('../../../assets/icons/2.png')}
-                style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
-
-
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '50%' }}>
-
-            <TouchableOpacity onPress={() => console.log('name')}>
-                <View>
-
-                    <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
-                        Name Here
-                        </Text>
-
-
-                    <Text style={{ fontSize: 14, paddingRight: getDimen(0.02), alignContent: 'space-between' }}>
-                        Listed 2 Days Ago
-                        </Text>
-                </View>
-                </TouchableOpacity>
-                <View>
-
-                    <Text style={{ color: '#d2d6d5', paddingRight: 7 }}>
-                        Real Estate Company
-                        </Text>
-
-
-
-                </View>
-
-                <View >
-
-                    <TouchableOpacity onPress={() => onShare()}>
-                        <Image source={require('../../../assets/icons/20.png')}
-                            style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() =>ToastAndroid.show('This is a toast with long duration', ToastAndroid.LONG)}>
-                    <Image source={require('../../../assets/icons/25.png')}
-                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                        </TouchableOpacity>
-                        
-                </View>
-            </View>
-
-
-
-        </View>
-
-        <View style={styles.item}>
-
-
-            <Image source={require('../../../assets/icons/19.png')}
-                style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
-
-            <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0 }}>
-                <Text style={{
-                    width: getDimen(0.3), height: getDimen(0.1), backgroundColor: '#a43d3e', textAlign: 'center', color: 'white',
-                    textAlignVertical: 'center'
-                }}>
-                    $0,000,000
-                </Text>
-                <Text style={{
-                    width: getDimen(0.3), height: getDimen(0.1), backgroundColor: '#f1ac35', textAlign: 'center', color: 'white',
-                    textAlignVertical: 'center', fontSize: 18
-                }}>
-                    FOR SALE
-                </Text>
-            </View>
-
-            {/* <Text >{title}</Text> */}
-        </View>
-    </View>
-);
-
-const onShare = async () => {
-
-    try {
-        const result = await Share.share({
-            message:
-                'React Native | A framework for building native apps using React',
-        });
-        if (result.action === Share.sharedAction) {
-            if (result.activityType) {
-                // shared with activity type of result.activityType
-            } else {
-                // shared
-            }
-        } else if (result.action === Share.dismissedAction) {
-            // dismissed
-        }
-    } catch (error) {
-        alert(error.message);
-    }
-    //console.log('hello');
-}
 const Drawer = createDrawerNavigator();
 
+
 function MainScreen({ navigation }) {
+
+
+    const DATA = [
+        {
+            id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+            title: 'First Item',
+        },
+        {
+            id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+            title: 'Second Item',
+        },
+        {
+            id: '58694a0f-3da1-471f-bd96-145571e29d72',
+            title: 'Third Item',
+        },
+    ];
+
+    const Item = ({ title }) => (
+        <View style={{ flex: 1 }}>
+
+            <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), backgroundColor: 'white' }}>
+
+                <Image source={require('../../../assets/icons/2.png')}
+                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+
+
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '50%' }}>
+
+                    <TouchableOpacity onPress={() => navigation.navigate('Colleague List')}>
+                        <View>
+
+                            <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+                                Name Here
+                            </Text>
+
+
+                            <Text style={{ fontSize: 14, paddingRight: getDimen(0.02), alignContent: 'space-between' }}>
+                                Listed 2 Days Ago
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <View>
+
+                        <Text style={{ color: '#d2d6d5', paddingRight: 7 }}>
+                            Real Estate Company
+                            </Text>
+
+
+
+                    </View>
+
+                    <View >
+
+                        <TouchableOpacity onPress={() => onShare()}>
+                            <Image source={require('../../../assets/icons/20.png')}
+                                style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => ToastAndroid.show('This is a toast with long duration', ToastAndroid.LONG)}>
+                            <Image source={require('../../../assets/icons/25.png')}
+                                style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                        </TouchableOpacity>
+
+                    </View>
+                </View>
+
+
+
+            </View>
+
+            <View style={styles.item}>
+
+
+                <Image source={require('../../../assets/icons/19.png')}
+                    style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0 }}>
+                    <Text style={{
+                        width: getDimen(0.3), height: getDimen(0.1), backgroundColor: '#a43d3e', textAlign: 'center', color: 'white',
+                        textAlignVertical: 'center'
+                    }}>
+                        $0,000,000
+                    </Text>
+                    <Text style={{
+                        width: getDimen(0.3), height: getDimen(0.1), backgroundColor: '#f1ac35', textAlign: 'center', color: 'white',
+                        textAlignVertical: 'center', fontSize: 18
+                    }}>
+                        FOR SALE
+                    </Text>
+                </View>
+
+                {/* <Text >{title}</Text> */}
+            </View>
+        </View>
+    );
+
+    const onShare = async () => {
+
+        try {
+            const result = await Share.share({
+                message:
+                    'React Native | A framework for building native apps using React',
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
+            }
+        } catch (error) {
+            alert(error.message);
+        }
+        //console.log('hello');
+    }
 
 
     const renderItem = ({ item }) => (
@@ -156,7 +156,7 @@ function MainScreen({ navigation }) {
     // const [username, setUsername] = React.useState('');
     return (
 
-        <View style={{flex:1}} >
+        <View style={{ flex: 1 }} >
             <View style={{ backgroundColor: 'white' }}>
                 <Text style={{
                     width: getDimen(0.6), height: getDimen(0.1), backgroundColor: '#121735', textAlign: 'center', color: 'white',
@@ -164,11 +164,11 @@ function MainScreen({ navigation }) {
                 }}>
                     TOP LISTINGS
             </Text>
-            
+
             </View>
             <ScrollView>
 
-            
+
                 <SafeAreaView >
                     <FlatList
                         data={DATA}
@@ -182,14 +182,22 @@ function MainScreen({ navigation }) {
                 <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
                 <Drawer.Screen name="MyColleagueScreen" component={MyColleagueScreen} />
 
-                </Drawer.Navigator>
+            </Drawer.Navigator>
 
-                
+
         </View>
     );
 
-    
+
 }
+
+
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
     container: {

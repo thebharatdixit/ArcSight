@@ -19,6 +19,7 @@ import {
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
+import { storeData, getData } from '../../../utils/asyncStore';
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
@@ -52,6 +53,68 @@ const onShare = async () => {
             {id: '2'},
             {id: '3'},
           ];
+          const [tokens, setTokens] = React.useState('');
+          const [show, setShow] = React.useState(true);
+
+          ShowHideComponent = () => {
+            if (show === true) {
+                setShow({ show: false });
+            } else {
+                setShow({ show: true });
+            }
+          };
+          global.id='';
+
+          getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            id = userData.user.id;
+            setTokens(listTokens);
+            
+        })
+
+
+          function addColleagues(){
+
+            //console.log('hello')
+        
+            // let data = {
+            //     "user_id" : 13
+            // }
+    
+            fetch("http://arc.softwaresolutions.website/api/v1/add-colleague", {
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    'Content-Type':"application/json",
+                    Authorization: `Bearer ${tokens}`,
+                },
+                body:   JSON.stringify(
+                    {"user_id" : 13}
+                ),
+            }).then(res => res.json())
+                .then(res => {
+    
+                    //console.log('status',res.status)
+                    // if(res.status===false){
+                    //     setShow(false)
+                    //     console.log("show",show)
+                    // }
+                    setShow(false)
+    
+                     alert(res.message)
+                    
+                    //   Alert.alert(
+                    //     "Success",
+                    //     res.message,
+                    //     [{ text: "OK", onPress: () => that.props.close() }],
+                    //     { cancelable: false }
+                    //   );
+                })
+                .catch(err => {
+                    console.error("error uploading images: ", err);
+                });
+        }
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
             
@@ -74,9 +137,12 @@ const onShare = async () => {
                 </View>
                 <View style = {{flexDirection:'row',justifyContent:'center',alignContent:'center', alignItems:'center', marginTop:getDimen(0.04),}}>
                     <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginRight: getDimen(0.05)}}>
-                        <TouchableOpacity onPress={() => onShare()}>
+                        <TouchableOpacity onPress={() => addColleagues()}>
+
+                      { show ? (    
                         <Image source={require('../../../assets/icons/dmyCollegue.png')}
                             style={{ height: getDimen(0.095), width: getDimen(0.095) }} />
+                      ):null}
                     </TouchableOpacity>
                     </View>
                     <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02)}}></View>
@@ -85,7 +151,9 @@ const onShare = async () => {
                         <Image source={require('../../../assets/icons/dymChat.png')}
                             style={{ height: getDimen(0.095), width: getDimen(0.095) }} />
                     </TouchableOpacity>
+
                     </View>
+                    
                 </View>
 
             </View>
