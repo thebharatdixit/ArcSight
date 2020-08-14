@@ -231,10 +231,6 @@ function RegisterScreen({ navigation }) {
 
             <ScrollView>
                 <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}>
-<<<<<<< HEAD
-                    <View style={{ width: '95%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05),borderRadius: 12, shadowColor: 'black' }}>
-                    {/* <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.15), marginTop: 0, marginRight: 0, borderRadius: 12, }}> */}
-=======
                     {/* <View style={{ width: '90%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}> */}
                     <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.22), marginTop: 0, marginRight: 0, borderRadius: 12, }}>
 >>>>>>> c129534f33c55f7c865a0452c4a91ade31b600c7
@@ -335,13 +331,7 @@ function RegisterScreen({ navigation }) {
 
                         />
 
-<<<<<<< HEAD
                         {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
-=======
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
-                        <Text style={{ color: 'gray', marginTop: getDimen(0.02), marginLeft: getDimen(0.17), fontSize: getDimen(0.035) }}>6-8 Letters, 1 Capital, 1 Special Character</Text>
-                       
->>>>>>> c129534f33c55f7c865a0452c4a91ade31b600c7
                         <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
                             <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center', }}>

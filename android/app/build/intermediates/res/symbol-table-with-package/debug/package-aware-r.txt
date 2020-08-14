@@ -1314,7 +1314,6 @@ drawable abc_vector_test
 drawable arclogo
 drawable avd_hide_password
 drawable avd_show_password
-drawable bg_1
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -1363,7 +1362,6 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable redbox_top_border_background
-drawable splash
 drawable splash1
 drawable test_custom_background
 drawable tooltip_frame_dark

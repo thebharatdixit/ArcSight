@@ -27,11 +27,23 @@ import { getDimen } from '../../../dimensions/dimen';
 import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
 
-const Drawer = createDrawerNavigator();
 
 
-function MainScreen({ navigation }) {
 
+const DATA = [
+    {
+        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'First Item',
+    },
+    {
+        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Second Item',
+    },
+    {
+        id: '58694a0f-3da1-471f-bd96-145571e29d72',
+        title: 'Third Item',
+    },
+];
 
 const Item = ({ title }) => (
     
@@ -61,38 +73,64 @@ const Item = ({ title }) => (
                         </Text>
                 </View>
 
+                <View >
+
+                    <TouchableOpacity onPress={() => onShare()}>
+                        <Image source={require('../../../assets/icons/20.png')}
+                            style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() =>ToastAndroid.show('This is a toast with long duration', ToastAndroid.LONG)}>
+                    <Image source={require('../../../assets/icons/25.png')}
+                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                        </TouchableOpacity>
+                        
+                </View>
+            </View>
 
         </View>
 
-                    </View>
-                </View>
+        <View style={styles.item}>
 
 
+            <Image source={require('../../../assets/icons/19.png')}
+                style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
 
-           
-        
-    );
+            <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0 }}>
+                <Text style={{
+                    width: getDimen(0.3), height: getDimen(0.1), backgroundColor: '#a43d3e', textAlign: 'center', color: 'white',
+                    textAlignVertical: 'center'
+                }}>
+                    $0,000,000
+                </Text>
+                <Text style={{
+                    width: getDimen(0.3), height: getDimen(0.1), backgroundColor: '#f1ac35', textAlign: 'center', color: 'white',
+                    textAlignVertical: 'center', fontSize: 18
+                }}>
+                    FOR SALE
+                </Text>
+            </View>
+        </View>
+    </View>
+);
 
-    const onShare = async () => {
+const onShare = async () => {
 
-        try {
-            const result = await Share.share({
-                message:
-                    'React Native | A framework for building native apps using React',
-            });
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
+    try {
+        const result = await Share.share({
+            message:
+                'React Native | A framework for building native apps using React',
+        });
+        if (result.action === Share.sharedAction) {
+            if (result.activityType) {
+                // shared with activity type of result.activityType
+            } else {
+                // shared
             }
-        } catch (error) {
-            alert(error.message);
+        } else if (result.action === Share.dismissedAction) {
+            // dismissed
         }
-        //console.log('hello');
+    } catch (error) {
+        alert(error.message);
     }
     //console.log('hello');
 }
@@ -136,7 +174,7 @@ function MainScreen({ navigation }) {
                 }}>
                     TOP LISTINGS
             </Text>
-
+            
             </View>
             <ScrollView>
             
@@ -159,16 +197,8 @@ function MainScreen({ navigation }) {
         </View>
     );
 
-
+    
 }
-
-
-
-
-
-
-
-
 
 const styles = StyleSheet.create({
     container: {

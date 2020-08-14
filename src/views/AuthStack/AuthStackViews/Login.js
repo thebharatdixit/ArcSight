@@ -207,12 +207,7 @@ function LoginScreen({ navigation }) {
                         autoCapitalize="none"
                         placeholder="Password"
                         secureTextEntry={true}
-<<<<<<< HEAD
-                        //style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-=======
                         style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
->>>>>>> c129534f33c55f7c865a0452c4a91ade31b600c7
                         onChangeText={(val) => setPassword(val)}
                     />
                     {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
