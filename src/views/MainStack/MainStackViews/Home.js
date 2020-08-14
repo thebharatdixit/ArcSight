@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 import { Button, Icon, Input, CheckBox, ListItem, Body } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
 import ProfileScreen from '../MainStackViews/ProfileScreen';
@@ -133,7 +134,7 @@ const onShare = async () => {
     }
     //console.log('hello');
 }
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
 
 function MainScreen({ navigation }) {
 
@@ -149,6 +150,23 @@ function MainScreen({ navigation }) {
     return (
 
         <View style={{flex:1}} >
+            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() =>
+                    navigation.dispatch(DrawerActions.toggleDrawer())
+                }>
+                    <Image source={require('../../../assets/icons/3.png')}
+                        style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>
+
+                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    <Image source={require('../../../assets/icons/2.png')}
+                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                    <Image source={require('../../../assets/images/logo.png')}
+                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                </View>
+            </View>
+            <View style={{ flex: 0.90}}>
             <View style={{ backgroundColor: 'white' }}>
                 <Text style={{
                     width: getDimen(0.6), height: getDimen(0.1), backgroundColor: '#121735', textAlign: 'center', color: 'white',
@@ -169,13 +187,13 @@ function MainScreen({ navigation }) {
                 </SafeAreaView>
             </ScrollView>
 
-            <Drawer.Navigator initialRouteName="Home">
+            {/* <Drawer.Navigator initialRouteName="Home">
                 <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
                 <Drawer.Screen name="MyColleagueScreen" component={MyColleagueScreen} />
 
-                </Drawer.Navigator>
+                </Drawer.Navigator> */}
 
-                
+            </View> 
         </View>
     );
 

@@ -17,6 +17,8 @@ import {
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { getDimen } from '../../../dimensions/dimen';
 import { getData } from '../../../utils/asyncStore';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+
 
 
 function ChangePasswordScreen({ navigation }) {
@@ -85,19 +87,37 @@ function ChangePasswordScreen({ navigation }) {
 
     return (
 
-        <View style={{ width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
+        <View style={{flex: 1}}>
+            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() =>
+                    navigation.dispatch(DrawerActions.toggleDrawer())
+                }>
+                    <Image source={require('../../../assets/icons/3.png')}
+                        style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>
+
+                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    <Image source={require('../../../assets/icons/2.png')}
+                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                    <Image source={require('../../../assets/images/logo.png')}
+                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                </View>
+            </View>
+        
+        <View style={{flex:0.90, width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
            
             <ImageBackground
                 source={require('../../../assets/images/Splash.png')}
                 style={{ flex: 1, resizeMode: 'contain', }}>
 
-                <View style={{ width: '100%', height: getDimen(0.08), marginTop: getDimen(0.06), paddingLeft: getDimen(0.03), }}>
-                    <TouchableOpacity
+                <View style={{ width: '100%', height: getDimen(0.08), marginTop: getDimen(0), paddingLeft: getDimen(0.03), }}>
+                    {/* <TouchableOpacity
                         onPress={() => navigation.goBack()}
                     >
                         <Image source={require('../../../assets/icons/return.png')}
                             style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
 
                 <View style={{ flex: 0.85, borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.1), backgroundColor: 'white', borderRadius: 12 }}>
@@ -135,6 +155,7 @@ function ChangePasswordScreen({ navigation }) {
                 </View>
             </ImageBackground >
         </View>
+     </View>
     )
 }
 

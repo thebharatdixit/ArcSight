@@ -17,7 +17,7 @@ import {
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Picker } from 'native-base';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
@@ -27,7 +27,7 @@ import MyColleagueScreen from '../MainStackViews/MyColleague';
 import { getData } from '../../../utils/asyncStore';
 
 
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
 
 function SearchScreen({ navigation }) {
 
@@ -98,8 +98,25 @@ function SearchScreen({ navigation }) {
     }
 
     return (
-        <View style={{ backgroundColor: 'blue', flex: 1 }}>
+        <View style={{flex:1}}>
+        <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+            <TouchableOpacity onPress={() =>
+                navigation.dispatch(DrawerActions.toggleDrawer())
+            }>
+                <Image source={require('../../../assets/icons/3.png')}
+                    style={{ height: 25, width: 25 }} />
+            </TouchableOpacity>
 
+            <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <Image source={require('../../../assets/icons/2.png')}
+                    style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                <Image source={require('../../../assets/images/logo.png')}
+                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+            </View>
+        </View>
+        <View style={{ backgroundColor: 'blue', flex: 0.90 }}>
+            
             <View style={{ height: getDimen(0.14), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
@@ -341,12 +358,7 @@ function SearchScreen({ navigation }) {
                     </View>
                 </View>
             </View>
-
-            <Drawer.Navigator initialRouteName="Home">
-                <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
-                <Drawer.Screen name="MyColleagueScreen" component={MyColleagueScreen} />
-
-                </Drawer.Navigator>
+        </View>
         </View>
     );
 }

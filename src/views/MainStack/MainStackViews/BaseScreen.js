@@ -17,7 +17,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -38,7 +38,7 @@ import ChatStack from './ChatStack';
 import AddListingStack from './AddListingStack';
 import HomeStack from './HomeStack';
 import ProfileStack from './ProfileStack'
-
+import DrawerNavigator from '../../../common/DrawerNavigator'
 
 
 
@@ -50,9 +50,6 @@ const Stack = createStackNavigator();
 
 
 function BaseScreen({ navigation }) {
-
-
-
 
     const setFocus = function (isFocused) {
         if (isFocused) {
@@ -71,11 +68,14 @@ function BaseScreen({ navigation }) {
 
         <View style={{ flex: 1, flexDirection: 'column', }}>
 
-
-            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <Image source={require('../../../assets/icons/3.png')}
-                    style={{ height: 25, width: 25 }} />
-
+            {/* <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() =>
+                    navigation.dispatch(DrawerActions.toggleDrawer())
+                }>
+                    <Image source={require('../../../assets/icons/3.png')}
+                        style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>
+                
                 <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                     <Image source={require('../../../assets/icons/2.png')}
                         style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
@@ -83,11 +83,10 @@ function BaseScreen({ navigation }) {
                     <Image source={require('../../../assets/images/logo.png')}
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
-
-
-            </View>
-            <View style={{ flex: 0.90, flexDirection: 'column', }}>
-                <Tab.Navigator
+            </View> */}
+            <View style={{ flex: 1, flexDirection: 'column', }}>
+                {/* <DrawerNavigator /> */}
+                <Tab.Navigator initialRouteName="HomeStack"
                     tabBarOptions={{
                         activeTintColor: '#0088DD',
                         inactiveTintColor: 'black',

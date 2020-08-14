@@ -53,7 +53,24 @@ function SearchListScreen({ navigation }) {
 
     const [ArrData, setArr] = React.useState(dummyData);
     return (
-        <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
+        <View style={{ flex: 1}}>
+            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() =>
+                    navigation.goBack()
+                }>
+                    <Image source={require('../../../assets/icons/back.png')}
+                        style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>
+
+                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    <Image source={require('../../../assets/icons/2.png')}
+                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                    <Image source={require('../../../assets/images/logo.png')}
+                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                </View>
+            </View>
+            <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
             <ScrollView style={styles.container}>
                 <FlatList
                     horizontal={false}
@@ -159,6 +176,7 @@ function SearchListScreen({ navigation }) {
                     
                 />
             </ScrollView>
+        </View>
         </View>
     )
 }

@@ -20,6 +20,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { getDimen } from '../../../dimensions/dimen';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
 import { getData } from '../../../utils/asyncStore';
 import {doLogout} from '../../../actions/ProfileAction'
@@ -133,7 +134,26 @@ function ProfileScreen({ navigation }) {
     };
 
     return (
-        <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
+
+        <View style={{ flex: 1}}>
+            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() =>
+                    navigation.dispatch(DrawerActions.toggleDrawer())
+                }>
+                    <Image source={require('../../../assets/icons/3.png')}
+                        style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>
+
+                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    <Image source={require('../../../assets/icons/2.png')}
+                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                    <Image source={require('../../../assets/images/logo.png')}
+                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                </View>
+            </View>
+
+        <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
             
             <View style={{backgroundColor: 'white', height: getDimen(0.46), width: '100%', justifyContent:'center', alignItems:'center', alignContent:'center'}}>
                <TouchableOpacity 
@@ -160,18 +180,18 @@ function ProfileScreen({ navigation }) {
                 <TouchableOpacity
                     // onPress={() => Alert.alert('Logged Out!!')
                     onPress={() => logOutApiIntegration()}
-                    style={{ marginTop: getDimen(0.02)}}
+                    style={{ marginTop: getDimen(0.03)}}
                 >
                 <Text style={{ fontSize: getDimen(0.04), fontWeight: 'bold', color:'red'}}> LogOut </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
+                {/* <TouchableOpacity
                     onPress={() => navigation.navigate('Change Password Screen')}
                     // onPress={() => logOutApiIntegration()}
                     style={{ marginTop: getDimen(0.02) }}
                 >
                     <Text style={{ fontSize: getDimen(0.04), fontWeight: 'bold', }}> Change Password </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
             </View>
             
@@ -320,6 +340,7 @@ function ProfileScreen({ navigation }) {
                 keyExtractor={item => item.id}
                 />
             </ScrollView>
+        </View>
         </View>
     )
 }
