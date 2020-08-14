@@ -476,7 +476,7 @@ function PropertyScreen({ navigation }) {
                             /> */}
 
 
-                            <SectionedMultiSelect
+                            {/* <SectionedMultiSelect
                                 items={items}
                                 uniqueKey="id"
                                 subKey="children"
@@ -485,7 +485,7 @@ function PropertyScreen({ navigation }) {
                                 readOnlyHeadings={true}
                                 onSelectedItemsChange={setSelectedItems()}
                                 selectedItems={selectdItems}
-                            />
+                            /> */}
                             {/* <View>
                                 {this.multiSelect.getSelectedItemsExt(selectedItems)}
                             </View> */}
