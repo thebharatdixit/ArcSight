@@ -1,1 +1,1 @@
-{"mName":"externalOverride","mStoreFile":"/home/gaurav/Documents/React-Native/github /ArcSight/android/app/arcSight.jks","mStorePassword":"arcsight@123","mKeyAlias":"key0","mKeyPassword":"arcsight@123","mStoreType":"jks","mV1SigningEnabled":true,"mV2SigningEnabled":true}
+{"mName":"debug","mStoreFile":"H:\\project\\ArcSight\\android\\app\\debug.keystore","mStorePassword":"android","mKeyAlias":"androiddebugkey","mKeyPassword":"android","mStoreType":"jks","mV1SigningEnabled":true,"mV2SigningEnabled":true}

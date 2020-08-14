@@ -1,0 +1,23 @@
+{
+  "presets": ["babel-preset-expo", "react-native", "react-native-dotenv", "react-native-stage-0/decorator-support", "babel-preset-react-native-stage-0/decorator-support"],
+  "env": {
+    "development": {
+      "plugins": [
+        "transform-react-jsx-source",
+        ["module-alias", [
+          { "src": "./src/services", "expose": "services" },
+        ]]
+      ]
+    }
+  },
+  "plugins": [
+    ["module-resolver", {
+      "root": [
+        "./src"
+      ],
+      "alias": {
+        "services": "./src/services",
+      }
+    }]
+  ]
+}

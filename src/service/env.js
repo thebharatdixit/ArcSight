@@ -7,9 +7,10 @@ let API = {
         AUTH: {
             LOGIN: { url: 'api/v1/login', method: 'POST' },
             SIGN_UP: { url: 'api/v1/signup', method: 'POST' },
+            CREATE_LIST: { url: 'api/v1/create-listing', method: 'POST' },
             FB_SIGNUP: { url: 'Traveller/facebookSignUpLogin', method: 'POST' },
             COUNTRY_LIST: { url: 'Traveller/countryList', method: 'GET' },
-            FORGOT_PASSWORD: { url: 'Traveller/forgotPassword', method: 'POST' },
+            FORGOT_PASSWORD: { url: 'api/v1/forgot-password', method: 'POST' },
             VERIFY_OTP: { url: 'Traveller/verifyOTP', method: 'POST' },
             RESET_PASSWORD: { url: 'Traveller/resetTravellerPassword', method: 'POST' },
             LOGOUT: { url: 'api/v1/logout', method: 'GET' },

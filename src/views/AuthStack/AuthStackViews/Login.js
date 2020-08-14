@@ -30,6 +30,7 @@ import { storeData, getData } from '../../../utils/asyncStore';
 
 function LoginScreen({ navigation }) {
 
+    
     const options = {
         title: 'Select Avatar',
         customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
@@ -76,19 +77,59 @@ function LoginScreen({ navigation }) {
             }
         });
     };
-
-    function validation(userName, password) {
+    /// Email Validation
+    const validate = (text) => {
+        // console.log(text);
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        //console.log(''+userName+'=='+password);
+        if (reg.test(text) === false) {
+            // alert("Email is Not Correct");
+            // this.setState({ email: text })
+            setUsername(username);
+            return false;
+        }
+        else {
+            setUsername(username);
+            // alert("Email is Correct");
+            return true
+        }
+    }
 
-        if (userName === '') {
-            //ToastAndroid.show("Please Enter Name ", ToastAndroid.SHORT);
-            alert('Please Enter Email');
-        } else if (reg.test(userName) === false) {
-            alert('Please Enter Valide Email');
-        } else if (password === '') {
-            alert('Please Enter password');
-        } else {
+    const emailWithoutSpaceHandle = (value) => {
+
+        console.log('whitespace: ' + value + ':');
+        var withOutSpaceVal = value.replace(/\s/g, '');
+        console.log('withoutspace: ' + withOutSpaceVal + ':');
+        return withOutSpaceVal;
+    }
+    function validation(userName, password) {
+        var emailWithoutSpace = emailWithoutSpaceHandle(userName);
+        //console.log(''+userName+'=='+password);
+        if (!userName) {
+            Alert.alert('', 'Please Enter Email ID..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (userName.trim() === '') {
+            Alert.alert('', 'Please Enter Email ID..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
+        if (validate(emailWithoutSpace)) {
+            // console.log('email is correct.');
+
+        }
+        else {
+            Alert.alert('', 'Email Id is Not Correct', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (!password) {
+            Alert.alert('', 'Please Enter Password..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+        if (password.trim() === '') {
+            Alert.alert('', 'Please Enter Password..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
             let data = {
                 "email": userName,
                 "password": password,
@@ -103,6 +144,11 @@ function LoginScreen({ navigation }) {
                     setUsername('');
                     setPassword('');
                     navigation.navigate('Main Stack');
+                    Alert.alert('' + response.message, [{
+                        text: 'OK', onPress: () => 
+                        {setUsername('')
+                        setPassword('')} 
+                    }], { cancelable: false });
                 }
                 else{
                     Alert.alert('' +response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -110,13 +156,10 @@ function LoginScreen({ navigation }) {
     
             })
 
-        
-        }
     }
 
 
     return (
-
         <ImageBackground
             source={require('../../../assets/images/bg_1.png')}
             style={{ width: '100%', height: '100%', position: 'absolute' }}>
@@ -137,7 +180,7 @@ function LoginScreen({ navigation }) {
                     <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
                         <TouchableOpacity
                             // onPress={() => Alert.alert('Show gallery!!')}
-                            onPress={chooseFile.bind(this)}
+                            // onPress={chooseFile.bind(this)}
                         >
                             <Image source={require('../../../assets/icons/2.png')}
                                 style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
@@ -164,10 +207,7 @@ function LoginScreen({ navigation }) {
                         placeholder="Password"
                         secureTextEntry={true}
                         style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-
                         onChangeText={(val) => setPassword(val)}
-
-
                     />
                     <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
                     <View style={{ marginTop: getDimen(0.08), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.09) }}>
@@ -201,17 +241,21 @@ function LoginScreen({ navigation }) {
                                 Register
                             </Text>
                         </TouchableOpacity>
-
+                        <TouchableOpacity onPress={() => 
+                        navigation.navigate('ForgotPassword Screen')
+                        }>
                         <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: 'gray', fontSize: getDimen(0.04) }}>
                             Forgot Password?
                         </Text>
-
+                        </TouchableOpacity>
                     </View>
 
                 </View>
+
             </ScrollView>
 
         </ImageBackground>
+           
     );
 }
 

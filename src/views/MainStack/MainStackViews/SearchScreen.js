@@ -17,18 +17,17 @@ import {
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Picker } from 'native-base';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
 import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
-// import { Container, Header, Content, Picker, Form, Icon, Textarea, CheckBox, PickerItem } from 'native-base';
+import { getData } from '../../../utils/asyncStore';
 
 
-
-const Drawer = createDrawerNavigator();
+// const Drawer = createDrawerNavigator();
 
 function SearchScreen({ navigation }) {
 
@@ -37,19 +36,87 @@ function SearchScreen({ navigation }) {
         { id: '2', value: '10,000', },
         { id: '3', value: '5,000', },
     ];
-    const [price, setPrice] = React.useState('20,000');
     const [checked1, setChecked1] = useState(false);
     const [checked2, setChecked2] = useState(false);
     const [checked3, setChecked3] = useState(false);
     const [checkedForSale, setCheckedForSale] = useState(false);
     const [checkedForRent, setCheckedForRent] = useState(false);
-    const [password, setPassword] = React.useState('');
-    const [username, setUsername] = React.useState('');
-    const [selectedValue, setSelectedValue] = React.useState('&00,0000');
-    
-    return (
-        <View style={{ backgroundColor: 'blue', flex: 1 }}>
+    const [bedRoom, setBedroom] = React.useState('00');
+    const [bathRoom, setBathroom] = React.useState('00');
+    const [location, setLocation] = React.useState('');
+    const [selectedValue, setSelectedValue] = React.useState('50,0000');
+    const [homeType, setHomeType] = React.useState('Home');
+    const [sqFeetMin, setSqFeetMin] = React.useState('5,000');
+    const [sqFeetMax, setSqFeetMax] = React.useState('10,000');
+    const [accessToken, setAccessToken] = React.useState('')
+    const [listing, setListing] = React.useState('my')
 
+    getData('userData').then((data) => {
+        const userData = JSON.parse(data);
+        const listTokens = userData.token;
+        setAccessToken(listTokens);
+        console.log('token1', listTokens)
+    })
+
+    const searchListingApiIntegration = () => {
+        console.log('Search Details',listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
+        fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                 Authorization: `Bearer ${accessToken}`
+
+            },
+            body: JSON.stringify({
+                "listing": listing,
+                "location": location,
+                "home_type": "",
+                "listing_type": [
+                    "For Sale"
+                ],
+                "bedrooms": parseInt(bedRoom),
+                "bathrooms": parseInt(bathRoom),
+                "price": parseInt(selectedValue),
+                "sq_feet_min": parseInt(sqFeetMin),
+                "sq_feet_max": parseInt(sqFeetMax)
+            })
+        }).then(res => res.json())
+            .then(res => {
+                if (res.status) {
+                    console.log(listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
+                    console.log('Search Listing', res.message);
+                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                } else {
+                    console.log('Search Listing Error', res.message);
+                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                }
+            })
+            .catch(err => {
+                console.error("error: ", err);
+            });
+    }
+
+    return (
+        <View style={{flex:1}}>
+        <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+            <TouchableOpacity onPress={() =>
+                navigation.dispatch(DrawerActions.toggleDrawer())
+            }>
+                <Image source={require('../../../assets/icons/3.png')}
+                    style={{ height: 25, width: 25 }} />
+            </TouchableOpacity>
+
+            <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <Image source={require('../../../assets/icons/2.png')}
+                    style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                <Image source={require('../../../assets/images/logo.png')}
+                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+            </View>
+        </View>
+        <View style={{ backgroundColor: 'blue', flex: 0.90 }}>
+            
             <View style={{ height: getDimen(0.14), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
@@ -58,26 +125,42 @@ function SearchScreen({ navigation }) {
                 </View>
             </View>
             <ScrollView style={styles.container}>
-
-
+                
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
-
+                    <TouchableOpacity 
+                        style={{ marginLeft: getDimen(0.001) }}
+                    onPress={() => setListing('all')}>
                     <CheckBox
                         onPress={() => setChecked1(!checked1)}
                         checked={checked1} color="#94803F" 
                         />
                    
-                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>All Listing</Text>
+                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.095), marginTop: getDimen(-0.05) }}>All Listing</Text>
+                    </TouchableOpacity>
 
+                    <TouchableOpacity 
+                        style={{ marginLeft: getDimen(-0.006) }}
+                    onPress={() => 
+                    setListing('colleague')
+                    }
+                    >
                     <CheckBox
                         onPress={() => setChecked2(!checked2)}
                         checked={checked2} color="#94803F" />
-                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>Colleague Listings</Text>
+
+                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.095), marginTop:getDimen(-0.05) }}>Colleague Listings</Text>
+                   </TouchableOpacity>
+                    
+                    <TouchableOpacity 
+                        style={{ marginLeft: getDimen(-0.006) }}
+                    onPress={() => 
+                    setListing('my')
+                    }>
                     <CheckBox
                         onPress={() => setChecked3(!checked3)}
                         checked={checked3} color="#94803F" />
-                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>My Listings</Text>
-
+                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.095), marginTop: getDimen(-0.05) }}>My Listings</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Location</Text>
@@ -85,6 +168,7 @@ function SearchScreen({ navigation }) {
                     <Item style={{ marginLeft: getDimen(0.03), marginRight: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                         <Input placeholder='Current Location / City,State / Zip Code'
                             style={{ fontSize: getDimen(0.038), }}
+                            onChangeText={(val) => setLocation(val)}
 
                         />
                     </Item>
@@ -126,9 +210,9 @@ function SearchScreen({ navigation }) {
                             selectedValue={selectedValue}
                             onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
                         >
-                            <Picker.Item label="20,000" value="key0" />
-                            <Picker.Item label="40,000" value="key1" />
-                            <Picker.Item label="100,000" value="key2" />
+                            <Picker.Item label="20,000" value="20,000" />
+                            <Picker.Item label="40,000" value="40,000" />
+                            <Picker.Item label="100,000" value="100,000" />
 
                         </Picker>
                     </Item>
@@ -142,6 +226,7 @@ function SearchScreen({ navigation }) {
                         <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                             <Input placeholder='00'
                                 style={{ fontSize: getDimen(0.038), }}
+                                onChangeText={(val) => setBedroom(val)}
                             />
                         </Item>
                     </View>
@@ -151,6 +236,7 @@ function SearchScreen({ navigation }) {
                         <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                             <Input placeholder='00'
                                 style={{ fontSize: getDimen(0.038), }}
+                                onChangeText={(val) => setBathroom(val)}
                             />
                         </Item>
                     </View>
@@ -171,17 +257,17 @@ function SearchScreen({ navigation }) {
                             mode="dropdown"
                             iosIcon={<Icon />}
                             style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03)}}
-                            placeholder="$00,0000"
+                            placeholder="Home"
                             placeholderStyle={{ color: "black", fontSize: 14 }}
                             placeholderIconColor="#a43d3e"
-                            selectedValue={selectedValue}
-                            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+                            selectedValue={homeType}
+                            onValueChange={(itemValue, itemIndex) => setHomeType(itemValue, itemIndex)}
                         >
-                            <Picker.Item label="Townhouse" value="key0" />
-                            <Picker.Item label="Co-op / Condo" value="key1" />
-                            <Picker.Item label="Land" value="key2" />
-                            <Picker.Item label="Home" value="key3" />
-                            <Picker.Item label="Other" value="key4" />
+                            <Picker.Item label="Townhouse" value="Townhouse" />
+                            <Picker.Item label="Co-op / Condo" value="Co-op / Condo" />
+                            <Picker.Item label="Land" value="Land" />
+                            <Picker.Item label="Home" value="Home" />
+                            <Picker.Item label="Other" value="Other" />
                         </Picker>
                     </Item>
                 </View>
@@ -202,15 +288,16 @@ function SearchScreen({ navigation }) {
                                 mode="dropdown"
                                 iosIcon={<Icon />}
                                 style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03)}}
-                                placeholder="$00,0000"
+                                placeholder="$00,00"
                                 placeholderStyle={{ color: "black", fontSize: 14 }}
                                 placeholderIconColor="#a43d3e"
-                                selectedValue={selectedValue}
-                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+                                selectedValue={sqFeetMax}
+                                onValueChange={(itemValue, itemIndex) => setSqFeetMax(itemValue, itemIndex)}
                             >
-                                <Picker.Item label="0,000" value="key0" />
-                                <Picker.Item label="600" value="key1" />
-                                <Picker.Item label="5,000" value="key2" />
+                                <Picker.Item label="0,000" value="0,000"/>
+                                <Picker.Item label="600" value="600"/>
+                                <Picker.Item label="5,000" value="5,000"/>
+                                <Picker.Item label="4,000" value="4,000" />
                             </Picker>
                         </Item>
                     </View>
@@ -227,15 +314,16 @@ function SearchScreen({ navigation }) {
                                 mode="dropdown"
                                 iosIcon={<Icon />}
                                 style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
-                                placeholder="$00,0000"
+                                placeholder="$00"
                                 placeholderStyle={{ color: "black", fontSize: 14 }}
                                 placeholderIconColor="#a43d3e"
-                                selectedValue={selectedValue}
-                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+                                selectedValue={sqFeetMin}
+                                onValueChange={(itemValue, itemIndex) => setSqFeetMin(itemValue, itemIndex)}
                             >
-                                <Picker.Item label="0,000" value="key0" />
-                                <Picker.Item label="600" value="key1" />
-                                <Picker.Item label="5,000" value="key2" />
+                                <Picker.Item label="0,000" value="0,000" />
+                                <Picker.Item label="600" value="600" />
+                                <Picker.Item label="5,000" value="5,000" />
+                                <Picker.Item label="4,000" value="4,000" />
                             </Picker>
                         </Item>
                     </View>
@@ -249,7 +337,11 @@ function SearchScreen({ navigation }) {
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Search List')}
+                            onPress={() => 
+                            {
+                            navigation.navigate('Search List')
+                            searchListingApiIntegration()}
+                            }
                         >
                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH</Text>
                         </TouchableOpacity>
@@ -266,12 +358,7 @@ function SearchScreen({ navigation }) {
                     </View>
                 </View>
             </View>
-
-            <Drawer.Navigator initialRouteName="Home">
-                <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
-                <Drawer.Screen name="MyColleagueScreen" component={MyColleagueScreen} />
-
-                </Drawer.Navigator>
+        </View>
         </View>
     );
 }
