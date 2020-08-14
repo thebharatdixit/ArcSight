@@ -71,7 +71,7 @@ function BaseScreen({ navigation }) {
         <View style={{ flex: 1, flexDirection: 'column', }}>
 
 
-            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+            {/* <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <Image source={require('../../../assets/icons/3.png')}
                     style={{ height: 25, width: 25 }} />
 
@@ -84,8 +84,8 @@ function BaseScreen({ navigation }) {
                 </View>
 
 
-            </View>
-            <View style={{ flex: 0.90, flexDirection: 'column', }}>
+            </View> */}
+            <View style={{ flex: 1, flexDirection: 'column', }}>
                 <Tab.Navigator
                     tabBarOptions={{
                         activeTintColor: '#0088DD',

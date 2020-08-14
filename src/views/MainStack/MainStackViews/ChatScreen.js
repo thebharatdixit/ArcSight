@@ -57,9 +57,11 @@ function ChatScreen({ navigation }) {
         { id: '6' },
     ];
 
-    const [checked, setChecked] = React.useState(false);
+    const [chatData, setChatData] = React.useState([]);
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
+
+    
     return (
 
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
@@ -111,7 +113,7 @@ function ChatScreen({ navigation }) {
                                         </View>
                                         <View style={{ flex: 1, height: '100%', }}>
                                             <View style={{ marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                                <Text style={{ fontSize: getDimen(0.045), fontWeight: 'bold' }}>Name Here</Text>
+                                                <Text style={{ fontSize: getDimen(0.045), fontWeight: 'bold' }}>Name Here..</Text>
                                                 <Text style={{ fontSize: getDimen(0.043), marginTop: getDimen(0.01), color: 'gray' }}
                                                     numberOfLines={2}
                                                 >

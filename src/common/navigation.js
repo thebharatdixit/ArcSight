@@ -65,12 +65,14 @@ const Nav = function Navigator({ navigation, isLoggedIn, protocol }) {
     <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
       {/* {console.log("Did mount called Navigation 2")} */}
 
-      {
+      {/* {
         login ?
           <MainStack />
           :
           <AuthStack />
-      }
+      } */}
+
+      <MainStack />
 
     </SafeAreaView>
 
