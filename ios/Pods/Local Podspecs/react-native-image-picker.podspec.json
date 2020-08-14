@@ -9,7 +9,7 @@
   },
   "homepage": "https://github.com/react-community/react-native-image-picker#readme",
   "platforms": {
-    "ios": "7.0"
+    "ios": "8.0"
   },
   "source": {
     "git": "https://github.com/react-native-community/react-native-image-picker.git",

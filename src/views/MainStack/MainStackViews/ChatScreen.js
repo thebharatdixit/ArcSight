@@ -59,9 +59,10 @@ function ChatScreen({ navigation }) {
         { id: '6' },
     ];
 
-    const [checked, setChecked] = React.useState(false);
+    const [chatData, setChatData] = React.useState([]);
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
+<<<<<<< HEAD
     const [tokens, setTokens] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState('');
     const [colleaguesData, setColleaguesData] = React.useState();
@@ -174,6 +175,10 @@ function ChatScreen({ navigation }) {
 
 
 
+=======
+
+    
+>>>>>>> c129534f33c55f7c865a0452c4a91ade31b600c7
     return (
 
 
@@ -281,7 +286,11 @@ function ChatScreen({ navigation }) {
                                         </View>
                                         <View style={{ flex: 1, height: '100%', }}>
                                             <View style={{ marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
+<<<<<<< HEAD
                                                 <Text style={{ fontSize: getDimen(0.045), fontWeight: 'bold' }}>{item.name}</Text>
+=======
+                                                <Text style={{ fontSize: getDimen(0.045), fontWeight: 'bold' }}>Name Here..</Text>
+>>>>>>> c129534f33c55f7c865a0452c4a91ade31b600c7
                                                 <Text style={{ fontSize: getDimen(0.043), marginTop: getDimen(0.01), color: 'gray' }}
                                                     numberOfLines={2}
                                                 >

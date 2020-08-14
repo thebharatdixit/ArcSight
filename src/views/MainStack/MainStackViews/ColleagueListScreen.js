@@ -56,13 +56,7 @@ const onShare = async () => {
           const [tokens, setTokens] = React.useState('');
           const [show, setShow] = React.useState(true);
 
-          ShowHideComponent = () => {
-            if (show === true) {
-                setShow({ show: false });
-            } else {
-                setShow({ show: true });
-            }
-          };
+          
           global.id='';
 
           getData('userData').then((data) => {
@@ -72,6 +66,16 @@ const onShare = async () => {
             setTokens(listTokens);
             
         })
+
+        getData('show').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            id = userData.user.id;
+            setTokens(listTokens);
+            
+        })
+
+        
 
 
           function addColleagues(){
@@ -101,6 +105,7 @@ const onShare = async () => {
                     //     console.log("show",show)
                     // }
                     setShow(false)
+                    storeData('show',show);
     
                      alert(res.message)
                     

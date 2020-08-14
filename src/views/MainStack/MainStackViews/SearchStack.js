@@ -1,19 +1,17 @@
 import * as React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text } from 'react-native';
-//import MainScreen from './MainStackViews/Home';
-// import homeScreen from '../Home/homeScreen';
 import SearchScreen from './SearchScreen';
 import SearchList from './SearchList'
 import SearchListDetailScreen  from './SearchListDetailScreen'
-
-// import FilterScreen from './filter';
+import colleagueScreen from './ColleagueListScreen'
 
 const Stack = createStackNavigator();
-const SearchStack = function authNavigator({  }) {
+
+const SearchStack = function authNavigator({ navigation }) {
    
     return (
+        
         <Stack.Navigator
             screenOptions={{
                 headerShown: false
@@ -25,9 +23,8 @@ const SearchStack = function authNavigator({  }) {
             />
             <Stack.Screen name="Search List Detail" component={SearchListDetailScreen}
             />
-
+            
         </Stack.Navigator>
-
     );
 }
 

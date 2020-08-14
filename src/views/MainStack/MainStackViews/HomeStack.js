@@ -1,21 +1,17 @@
 import * as React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text } from 'react-native';
-//import MainScreen from './MainStackViews/Home';
-// import homeScreen from '../Home/homeScreen';
-import AddListScreen from './AddListScreen';
 import ChatLayout from './ChatLayout';
 import MainScreen from './Home';
 import ColleagueListScreen from './ColleagueListScreen'
 
 
-// import FilterScreen from './filter';
 
 const Stack = createStackNavigator();
 const HomeStack = function authNavigator({ }) {
 
     return (
+       
         <Stack.Navigator
             screenOptions={{
                 headerShown: false
@@ -28,8 +24,7 @@ const HomeStack = function authNavigator({ }) {
             /> */}
             <Stack.Screen name="Colleague List" component={ColleagueListScreen}
             />
-
-
+            
 
         </Stack.Navigator>
 

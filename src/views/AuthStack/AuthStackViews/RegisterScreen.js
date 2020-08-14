@@ -142,7 +142,6 @@ function RegisterScreen({ navigation }) {
             "notification_token": "",
             "profile_image": filePath.uri
         }
-
         // this.setState({ isAuthenticating: true })
         registerNewUser(data).then((response) => {
             if (response.status) {
@@ -154,7 +153,7 @@ function RegisterScreen({ navigation }) {
                 setCompanyName('')
                 setPassword('')
                 navigation.navigate('Login Screen');
-                // navigation.navigate('Main Stack');
+                Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             }
             else {
                 Alert.alert('', response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -198,41 +197,52 @@ function RegisterScreen({ navigation }) {
     };
 
     return (
+         <View style={{ width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
+        <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+            <TouchableOpacity
+                onPress={() => navigation.goBack()}
+            >
+                <Image source={require('../../../assets/icons/back.png')}
+                    style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+            </TouchableOpacity>
 
+            <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <Image source={require('../../../assets/icons/2.png')}
+                    style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                <Image source={require('../../../assets/images/logo.png')}
+                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+            </View>
+
+
+        </View>
         <ImageBackground
             source={require('../../../assets/images/Splash.png')}
             style={{ flex: 1 }}>
 
-            <View style={{ width: '100%', height: getDimen(0.08), marginTop: getDimen(0.06), paddingLeft: getDimen(0.03) }}>
+            {/* <View style={{ width: '100%', height: getDimen(0.08), marginTop: getDimen(0.06), paddingLeft: getDimen(0.03) }}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
                 >
                     <Image source={require('../../../assets/icons/return.png')}
                         style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
                 </TouchableOpacity>
-            </View>
-
-            <ScrollView>
-
-                {/* <View style={{ width: '100%', height: 60, backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <Image source={require('../../../assets/icons/3.png')}
-                    style={{ height: 25, width: 25 }} />
-
-                <Image source={require('../../../assets/images/logo.png')}
-                    style={{ height: 55, width: 55 }} />
             </View> */}
 
+            <ScrollView>
                 <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}>
+<<<<<<< HEAD
                     <View style={{ width: '95%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05),borderRadius: 12, shadowColor: 'black' }}>
                     {/* <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.15), marginTop: 0, marginRight: 0, borderRadius: 12, }}> */}
+=======
+                    {/* <View style={{ width: '90%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}> */}
+                    <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.22), marginTop: 0, marginRight: 0, borderRadius: 12, }}>
+>>>>>>> c129534f33c55f7c865a0452c4a91ade31b600c7
                         <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' ,}}>
                             <TouchableOpacity
                                 //  onPress = {()=> Alert.alert('Show gallery!!')}
                                 onPress={chooseFile.bind(this)}
                             >
-
-                                {/* <Image source={require('../../../assets/icons/29.png')}
-                                    style={{ height: getDimen(0.2), width: getDimen(0.2) }} /> */}
 
                                 {filePath === '' ?
                                     <Image
@@ -325,10 +335,16 @@ function RegisterScreen({ navigation }) {
 
                         />
 
+<<<<<<< HEAD
                         {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
+=======
+                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                        <Text style={{ color: 'gray', marginTop: getDimen(0.02), marginLeft: getDimen(0.17), fontSize: getDimen(0.035) }}>6-8 Letters, 1 Capital, 1 Special Character</Text>
+                       
+>>>>>>> c129534f33c55f7c865a0452c4a91ade31b600c7
                         <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
-                            <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
+                            <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center', }}>
                                
                                     <CheckBox
                                         onPress={() => setChecked(!checked)
@@ -345,40 +361,12 @@ function RegisterScreen({ navigation }) {
                             </Text>
                         </TouchableOpacity>
                     </View>
-
-                    {/* <View style={{ alignSelf: 'center', marginTop: getDimen(0.04), flexDirection: 'row', alignItems: 'center' }}>
-
-                    <CheckBox color={'#8d8865'}
-                    style={{width:18,height:18}}/>
-
-                    <Text style={{ paddingLeft: 12, color: '#8d8865' }}>
-                        Remember Me
-                    </Text>
-
-                    <Text style={{ paddingLeft: getDimen(0.03), alignContent: 'space-around', color: '#d2d6d5' }}>
-                        Forgot Password?
-                    </Text>
-
-
-
-                </View> */}
-
-                    {/* <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
-
-                    <View style={{ alignSelf: 'center', marginTop: 5, flexDirection: 'row', alignItems: 'center' }}>
-
-                        <Text style={{ color: '#8d8865' }}>
-                            Register
-                    </Text>
-                    </View>
-                </TouchableOpacity> */}
-
-
                 </View>
                 </View>
 
             </ScrollView>
         </ImageBackground >
+        </View>
     );
 }
 

@@ -6,7 +6,7 @@ import { View, Text } from 'react-native';
 // import homeScreen from '../Home/homeScreen';
 import BaseScreen from './MainStackViews/BaseScreen';
 import ChatScreen from './MainStackViews/ChatScreen';
-
+import DrawerNavigator from '../../common/DrawerNavigator';
 
 
 const Stack = createStackNavigator();
@@ -31,14 +31,11 @@ const MainStack = function authNavigator({  }) {
             //     },
             // }}
             /> */}
-            <Stack.Screen name="Base Screen" component={BaseScreen}
+            <Stack.Screen name="Drawer Navigator" component={DrawerNavigator} />
             
             
-            />
-            <Stack.Screen name="ChatScreen" component={ChatScreen}
             
-            
-            />
+            {/* /> */}
             {/* <Stack.Screen name="Reset Password" component={ResetPassword} />
             <Stack.Screen name="Terms &amp; Condition" component={TermsCondition} /> */}
 

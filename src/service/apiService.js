@@ -29,61 +29,13 @@ async function requestAPI(url, options = {}) {
 
     return fetch(url, reqBody)
         .then(function (resp) {
-            // if (resp) {
-            //     if (resp.status === 401) {
-            //         apiCallParams.onUnAuthenticated();
-            //     } else if (resp.status === 200) {
-            //         apiCallParams.onSuccess(resp);
-            //     } else if (resp.status === 403) {
-            //         apiCallParams.onUnauthorized("Sorry you are not authorised to view this page. Please login again.");
-            //     } else {
-            //         apiCallParams.onError(AXIOS_ERROR_WITH_RESPONSE, resp.status);
-            //     }
-            // }
-
-
-
+           
             return resp.json();
 
         })
         .catch(function (err) {
             console.log('Error:', JSON.stringify(err));
-            // The following code is mostly copy/pasted from axios documentation at https://github.com/axios/axios#handling-errors
-            // Added support for handling timeout errors separately, dont use this code in production
-            // if (err.response) {
-            //     // The request was made and the server responded with a status code
-            //     // that falls out of the range of 2xx
-            //     if (err.response.status === 401) {
-            //         apiCallParams.onUnAuthenticated();
-            //     }
-            //     else if (err.response.status === 403) {
-            //         //message.info('You are not authorised to view this page. Please login again.');
-            //         apiCallParams.onUnauthorized("Sorry you are not authorised to view this page. Please login again.");
-            //     }
-            //     else {
-            //         apiCallParams.onError(AXIOS_ERROR_WITH_RESPONSE, error.response.status);
-            //     }
-            // }
-            // else if (err.code) {
-            //     console.lg(err.code)
-            //     // This is a timeout error
-            //     if (err.code === 'ECONNABORTED') {
-            //         apiCallParams.onTimeout();
-            //     }
-            //     else {
-            //         apiCallParams.onError(AXIOS_ERROR_OTHER_ERROR);
-            //     }
-            // }
-            // else if (err.request) {
-            //     // The request was made but no response was received
-            //     // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-            //     // http.ClientRequest in node.js
-            //     apiCallParams.onError(AXIOS_ERROR_NO_RESPONSE);
-            // }
-            // else {
-            //     // Something happened in setting up the request that triggered an Error
-            //     apiCallParams.onError(AXIOS_ERROR_INTERNAL);
-            // }
+            
         })
 }
 
@@ -142,20 +94,12 @@ export function getLogin( data, option = {}) {
     return requestAPI(URL, option)
 }
 
-export function getCreateList(formData, option = {}) {
-    let { url, method } = API.ENDPOINT.AUTH.CREATE_LIST;
-    let URL = `${API_BASE + url}`;
-    option.method = method;
-    option.payload = formData;
-    return requestAPI(URL, option)
-}
-
-export function makeForgotPassword(dispatch, data, option = {}) {
+export function makeForgotPassword(data, option = {}) {
     let { url, method } = API.ENDPOINT.AUTH.FORGOT_PASSWORD;
     let URL = `${API_BASE + url}`;
     option.method = method;
     option.payload = data;
-    return requestAPI(URL, option, dispatch)
+    return requestAPI(URL, option)
 }
 
 export function makeResetPassword(dispatch, data, option = {}) {

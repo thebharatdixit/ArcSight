@@ -72,6 +72,8 @@ const Nav = function Navigator({ navigation, isLoggedIn, protocol }) {
           <AuthStack />
       }
 
+      {/* <MainStack /> */}
+
     </SafeAreaView>
 
   );
