@@ -21,6 +21,8 @@ import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Picker } from 'native-base';
 import { storeData, getData } from '../../../utils/asyncStore';
+import SearchInput, { createFilter } from 'react-native-search-filter';
+
 
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
@@ -47,6 +49,8 @@ const onShare = async () => {
     }
     //console.log('hello');
 }
+
+const KEYS_TO_FILTERS = ['name', 'company_name'];
 function ChatScreen({ navigation }) {
 
     const dummyData = [
@@ -60,15 +64,29 @@ function ChatScreen({ navigation }) {
     ];
 
     const [checked, setChecked] = React.useState(false);
-    
+
     const [tokens, setTokens] = React.useState('');
+    const [searchTerm, setSearchTerm] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState('');
     const [colleaguesData, setColleaguesData] = React.useState();
     const [allColleagues, setAllColleagues] = React.useState([]);
+    const [filteredData, setFilteredData] = React.useState([]);
     const [searchValue, setSearchValue] = React.useState('');
     const [checked1, setChecked1] = React.useState(true);
     const [checked2, setChecked2] = React.useState(false);
     global.listData = [{}];
+
+    const searchUpdated = (term) => {
+        setSearchTerm(term);
+        setTimeout(() => {
+            filterArray(term);
+        }, 1000);
+    }
+
+    const filterArray = (term) => {
+        const fltrdData = allColleagues.filter(createFilter(term, KEYS_TO_FILTERS))
+        setFilteredData(fltrdData);
+    }
     // global.name = '';
     useEffect(() => {
         tokens ? getDropValue() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
@@ -142,10 +160,13 @@ function ChatScreen({ navigation }) {
         }).then(res => res.json())
             .then(res => {
 
-                console.log('listLog1', res.data);
-                //setAllColleagues([]);
-                //listData = res.data;
                 setAllColleagues(res.data);
+                setFilteredData(res.data);
+
+                // console.log('listLog1', res.data);
+                // //setAllColleagues([]);
+                // //listData = res.data;
+                // setAllColleagues(res.data);
                 //console.log('listLog1', allColleagues);
                 //  name = listData.name;
                 //  console.log('listLog1', name);
@@ -240,13 +261,13 @@ function ChatScreen({ navigation }) {
                             keyboardType='email-address'
                             style={{ width: '80%', marginLeft: getDimen(0.05), marginRight: getDimen(0.05), height: getDimen(0.1) }}
                             // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(val) => setSearchValue(val)}
+                            onChangeText={(val) => searchUpdated(val)}
                         />
 
-                        <TouchableOpacity onPress={() => getSearchData()}>
+                        {/* <TouchableOpacity onPress={() => getSearchData()}>
                             <Image source={require('../../../assets/icons/6.png')}
                                 style={{ height: getDimen(0.07), width: getDimen(0.07), justifyContent: 'center', marginTop: 6 }} />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
 
 
 
@@ -262,8 +283,8 @@ function ChatScreen({ navigation }) {
                     horizontal={false}
                     showsVerticalScrollIndicator={false}
                     style={{ marginTop: 0, }}
-                    
-                    data={allColleagues}
+
+                    data={filteredData}
                     renderItem={({ item, separators, index }) => (
                         <TouchableWithoutFeedback onPress={() => navigation.navigate('Colleague List')} >
                             <View>
