@@ -179,7 +179,7 @@ function AddListScreen({ navigation }) {
                                             </View>
 
                                         </View>
-                                        {item.unread_count || item.unread_count > 0 ?
+                                        {item.unread_message || item.unread_message > 0 ?
                                             <View style={{ marginLeft: getDimen(0.05), height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                                                 <View style={{ height: getDimen(0.045), width: getDimen(0.045), borderRadius: getDimen(0.045) / 2, backgroundColor: '#f1ac35', alignItems: 'center', justifyContent: 'center' }}>
                                                     <Text style={{ fontSize: getDimen(0.030), fontWeight: 'bold', color: 'white' }}>{item.unread_count ? item.unread_count : ""}</Text>

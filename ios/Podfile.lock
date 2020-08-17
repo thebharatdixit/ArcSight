@@ -312,22 +312,12 @@ PODS:
     - React
   - RNGestureHandler (1.6.1):
     - React
-  - RNImageCropPicker (0.32.2):
-    - React-Core
-    - React-RCTImage
-    - RNImageCropPicker/QBImagePickerController (= 0.32.2)
-    - TOCropViewController
-  - RNImageCropPicker/QBImagePickerController (0.32.2):
-    - React-Core
-    - React-RCTImage
-    - TOCropViewController
   - RNReanimated (1.9.0):
     - React
   - RNScreens (2.9.0):
     - React
   - RNVectorIcons (6.7.0):
     - React
-  - TOCropViewController (2.5.4)
   - toolbar-android (0.1.0-rc.2):
     - React
   - Yoga (1.14.0)
@@ -389,7 +379,6 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - "RNCPicker (from `../node_modules/@react-native-community/picker`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -409,7 +398,6 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - OpenSSL-Universal
-    - TOCropViewController
     - YogaKit
 
 EXTERNAL SOURCES:
@@ -479,8 +467,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/picker"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
-  RNImageCropPicker:
-    :path: "../node_modules/react-native-image-crop-picker"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -537,11 +523,9 @@ SPEC CHECKSUMS:
   RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
   RNCPicker: 494015f2b7ec4bee5484b6f235aa19691426dcdb
   RNGestureHandler: 8f09cd560f8d533eb36da5a6c5a843af9f056b38
-  RNImageCropPicker: f0557a908758c4a3f83978894ec7227651529b45
   RNReanimated: b5ccb50650ba06f6e749c7c329a1bc3ae0c88b43
   RNScreens: c526239bbe0e957b988dacc8d75ac94ec9cb19da
   RNVectorIcons: 368d6d8b8301224e5ffb6254191f4f8876c2be0d
-  TOCropViewController: 2a1ae1242600b1f2d996fd91a5268b2309a33b5c
   toolbar-android: 404f4450b203597e7b417f714ff417bed562a1be
   Yoga: d5bd05a2b6b94c52323745c2c2b64557c8c66f64
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
