@@ -44,6 +44,8 @@ function LoginScreen({ navigation }) {
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [filePath, setFilePath] = React.useState([])
+    const [showLoader, setShowLoader] = React.useState('hide');
+    
 
     chooseFile = () => {
         var options = {
@@ -129,6 +131,37 @@ function LoginScreen({ navigation }) {
             Alert.alert('', 'Please Enter Password..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             return;
         }
+<<<<<<< HEAD
+        
+       
+            let data = {
+                "email": userName,
+                "password": password,
+                "login_device": Platform.OS,
+                "notification_token": ""
+            }
+            setShowLoader('');
+            login(data).then((response) => {
+                if(response.status){
+                    storeData('isLogin', 'true');
+                    storeData('userData', JSON.stringify(response.data));
+                    setUsername('');
+                    setPassword('');
+                    setShowLoader('hide');
+                    navigation.navigate('Main Stack');
+                    Alert.alert('' + response.message, [{
+                        text: 'OK', onPress: () => 
+                        {setUsername('')
+                        setPassword('')} 
+                    }], { cancelable: false });
+                }
+                else{
+                    Alert.alert('' +response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    
+                }
+    
+            })
+=======
 
         let data = {
             "email": userName,
@@ -156,6 +189,7 @@ function LoginScreen({ navigation }) {
             }
 
         })
+>>>>>>> e38259149176680fb5212582db591186e4ca2b66
 
     }
 
@@ -450,11 +484,33 @@ function LoginScreen({ navigation }) {
 
                     </View>
 
+<<<<<<< HEAD
+                    {
+                (showLoader === '') ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
+
+                </View>
+=======
                 </ScrollView>
+>>>>>>> e38259149176680fb5212582db591186e4ca2b66
 
             </ImageBackground>
         </View>
 
+<<<<<<< HEAD
+            
+
+        </ImageBackground>
+           
+=======
+>>>>>>> e38259149176680fb5212582db591186e4ca2b66
     );
 }
 

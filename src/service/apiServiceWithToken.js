@@ -103,5 +103,15 @@ export function getSendChat(token, data, option = {}) {
     return requestAPI(token, URL, option)
 }
 
+export function getFetchProfile(token, data, option = {}) {
+    let { url, method } = API.ENDPOINT.PROFILE.FETCH_PROFILE;
+    let URL = `${API_BASE + url}`;
+    option.method = method;
+    option.payload = data;
+    return requestAPI(token, URL, option)
+}
+
+
+
 
 
