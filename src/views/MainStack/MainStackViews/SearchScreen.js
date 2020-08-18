@@ -55,7 +55,7 @@ function SearchScreen({ navigation }) {
         const userData = JSON.parse(data);
         const listTokens = userData.token;
         setAccessToken(listTokens);
-        console.log('token1', listTokens)
+        // console.log('token1', listTokens)
     })
 
     const searchListingApiIntegration = () => {

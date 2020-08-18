@@ -66,7 +66,7 @@ function PropertyScreen({ navigation }) {
         const userData = JSON.parse(data);
         const listTokens = userData.token;
         setTokens(listTokens);
-        console.log('token1', listTokens)
+        // console.log('token1', listTokens)
         // const tokens = userData.token;
         // setAccessToken(tokens)
         // console.log('userDataPrachi:', userData)

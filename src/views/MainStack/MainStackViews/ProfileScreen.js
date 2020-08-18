@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 
 import {
     View, Text, TouchableOpacity, StyleSheet,
@@ -32,6 +32,9 @@ function ProfileScreen({ navigation }) {
     const [accessToken, setAccessToken] = React.useState('')
     const [userId, setUserId] = React.useState('')
     const [userProfileData, setUserProfileData] = React.useState([]);
+    const [userImage, setUserImage] = React.useState("");
+    const [name, setName] = React.useState("");
+    const [companyName, setCompanyName] = React.useState("");
     const [showLoader, setShowLoader] = React.useState('');
     const dummyData = [
         // mainSt: '1234 Main St',
@@ -50,8 +53,28 @@ function ProfileScreen({ navigation }) {
         },
     };
    
-    React.useEffect(() => {
+    // React.useEffect(() => {
+    //     console.log('check...');
+    //     getData('userData').then((data) => {
+    //         const userData = JSON.parse(data);
+    //         const listTokens = userData.token;
+    //         // const userData = 
+    //         console.log('USER id : ' + userData.user.id);
+    //         setAccessToken(listTokens);
+    //         setUserId(userData.user.id)
+    //         // console.log('token1', listTokens)
+    //         if (accessToken) {
+    //             getUserProfileData();
+    //         }
 
+    //     })
+
+    // }, [accessToken])
+
+    React.useEffect(() => {
+        
+        console.log('On Profile screen');
+            
         getData('userData').then((data) => {
             const userData = JSON.parse(data);
             const listTokens = userData.token;
@@ -59,7 +82,8 @@ function ProfileScreen({ navigation }) {
             console.log('USER id : ' + userData.user.id);
             setAccessToken(listTokens);
             setUserId(userData.user.id)
-            console.log('token1', listTokens)
+            console.log('tokenProfilescreen', listTokens)
+            
             if (accessToken) {
                 getUserProfileData();
             }
@@ -78,12 +102,16 @@ function ProfileScreen({ navigation }) {
             "user_id": userId
         }
         let token = accessToken;
+        console.log('data :' + JSON.stringify(data) + "token :" + token);
         fetchProfile(token, data).then((response) => {
             setTimeout(() => {
                 // ShowAlertWithDelay();
             }, 1000);
             if (response.status) {
                 setUserProfileData(response.data);
+                setUserImage(response.data.profile.profile_image_url);
+                setName(response.data.profile.name);
+                setCompanyName(response.data.profile.company_name);
                 console.log('profileData :' + JSON.stringify(response.data) );
             }
             else {
@@ -155,23 +183,25 @@ function ProfileScreen({ navigation }) {
                         //    onPress={() => Alert.alert('Show Gallery')}
                         onPress={chooseFile.bind(this)}
                     >
-                        <Image source={require('../../../assets/icons/2.png')}
-                            style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04) }}
+                        <Image 
+                            source={{ uri: userImage }}
+                            // source={require('../../../assets/icons/2.png')}
+                            style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18)/2 }}
                         />
 
                     </TouchableOpacity>
 
                    
 
-                    <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>{userProfileData.profile.name ? userProfileData.profile.name : ""}</Text>
-                    <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop: getDimen(0.005) }}>company name</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>{name}</Text>
+                    <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop: getDimen(0.005) }}>{companyName}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.04), }}>
                         <View style={{ justifyContent: 'flex-start', alignContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'white', marginRight: getDimen(0.02) }}>
-                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> Listings</Text>
+            <Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData ? userProfileData.total_colleagues+ " Listings" : "Listing"}</Text>
                         </View>
                         <View style={{ width: 1, height: '100%', backgroundColor: 'gray', marginLeft: getDimen(0.02) }}></View>
                         <View style={{ justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', backgroundColor: 'white', marginLeft: getDimen(0.03) }}>
-                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> Colleagues</Text>
+                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> {userProfileData ? userProfileData.total_listings+ " Colleagues" : "Colleagues"}</Text>
                         </View>
                     </View>
                     {/* <TouchableOpacity
