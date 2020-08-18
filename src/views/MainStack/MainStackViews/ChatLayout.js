@@ -60,7 +60,12 @@ function ChatLayout({ route, navigation }) {
     }
 
     React.useEffect(() => {
-
+        const didBlurSubscription = navigation.addListener(
+            'willFocus',
+            payload => {
+              console.log('willFocus', payload);
+            }
+          );
         getData('userData').then((data) => {
             const userData = JSON.parse(data);
             const listTokens = userData.token;
@@ -69,6 +74,7 @@ function ChatLayout({ route, navigation }) {
             setAccessToken(listTokens);
             setUserId(userData.user.id)
             console.log('token1', listTokens)
+            
             if (accessToken) {
                 loadChatList();
             }
