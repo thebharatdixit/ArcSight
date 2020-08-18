@@ -61,6 +61,7 @@ function ProfileScreen({ navigation }) {
             setUserId(userData.user.id)
             console.log('token1', listTokens)
             if (accessToken) {
+                console.log('Prachi123')
                 getUserProfileData();
             }
 
@@ -69,6 +70,12 @@ function ProfileScreen({ navigation }) {
     }, [accessToken])
 
     
+    // useEffect(() => {
+    //     accessToken ? getUserProfileData() : getData('userData').then((data) =>{
+    //          setAccessToken(JSON.parse(data).token))
+    //          setUserId(JSON.parse(data).token))}
+    // }, [accessToken, userId])
+
 
     const getUserProfileData = () => {
 
@@ -83,8 +90,9 @@ function ProfileScreen({ navigation }) {
                 // ShowAlertWithDelay();
             }, 1000);
             if (response.status) {
+                console.log('profileData1234 :' + JSON.stringify(response.data) );
                 setUserProfileData(response.data);
-                console.log('profileData :' + JSON.stringify(response.data) );
+                console.log('profileDataName&&### :' + JSON.stringify(userProfileData.profile.name) );
             }
             else {
                 Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -163,7 +171,7 @@ function ProfileScreen({ navigation }) {
 
                    
 
-                    <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>{userProfileData.profile.name ? userProfileData.profile.name : ""}</Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>Name Here</Text>
                     <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop: getDimen(0.005) }}>company name</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.04), }}>
                         <View style={{ justifyContent: 'flex-start', alignContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'white', marginRight: getDimen(0.02) }}>

@@ -30,7 +30,7 @@ import { storeData, getData } from '../../../utils/asyncStore';
 
 function LoginScreen({ navigation }) {
 
-
+    
     const options = {
         title: 'Select Avatar',
         customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
@@ -44,8 +44,6 @@ function LoginScreen({ navigation }) {
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [filePath, setFilePath] = React.useState([])
-    const [showLoader, setShowLoader] = React.useState('hide');
-    
 
     chooseFile = () => {
         var options = {
@@ -117,7 +115,6 @@ function LoginScreen({ navigation }) {
 
         if (validate(emailWithoutSpace)) {
             // console.log('email is correct.');
-
         }
         else {
             Alert.alert('', 'Email Id is Not Correct', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -131,23 +128,20 @@ function LoginScreen({ navigation }) {
             Alert.alert('', 'Please Enter Password..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             return;
         }
-<<<<<<< HEAD
-        
-       
+
             let data = {
                 "email": userName,
                 "password": password,
                 "login_device": Platform.OS,
                 "notification_token": ""
             }
-            setShowLoader('');
+
             login(data).then((response) => {
                 if(response.status){
                     storeData('isLogin', 'true');
                     storeData('userData', JSON.stringify(response.data));
                     setUsername('');
                     setPassword('');
-                    setShowLoader('hide');
                     navigation.navigate('Main Stack');
                     Alert.alert('' + response.message, [{
                         text: 'OK', onPress: () => 
@@ -157,360 +151,111 @@ function LoginScreen({ navigation }) {
                 }
                 else{
                     Alert.alert('' +response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                    
                 }
     
             })
-=======
 
-        let data = {
-            "email": userName,
-            "password": password,
-            "login_device": Platform.OS,
-            "notification_token": ""
-        }
-
-        login(data).then((response) => {
-            if (response.status) {
-                storeData('isLogin', 'true');
-                storeData('userData', JSON.stringify(response.data));
-                setUsername('');
-                setPassword('');
-                navigation.navigate('Main Stack');
-                Alert.alert('' + response.message, [{
-                    text: 'OK', onPress: () => {
-                        setUsername('')
-                        setPassword('')
-                    }
-                }], { cancelable: false });
-            }
-            else {
-                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-            }
-
-        })
->>>>>>> e38259149176680fb5212582db591186e4ca2b66
-
-    }
-
-    const androidView = () => {
-        return
-        // <View style={{ width: '100%', height: '100%' }}>
-            <ImageBackground
-                source={require('../../../assets/images/bg_1.png')}
-                style={{ width: '100%', height: '100%', position: 'absolute' }}>
-
-                <ScrollView style={{ flex: 1, flexDirection: 'column' }}>
-
-                    <View style={{ width: '90%', height: getDimen(0.95), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}>
-                        {/* <View style={{ width: '90%', height: getDimen(0.9), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}> */}
-
-                        <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
-                            <TouchableOpacity
-                            // onPress={() => Alert.alert('Show gallery!!')}
-                            // onPress={chooseFile.bind(this)}
-                            >
-                                <Image source={require('../../../assets/icons/2.png')}
-                                    style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
-                            </TouchableOpacity>
-                        </View>
-
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Email"
-                            keyboardType='email-address'
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-                            // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(val) => setUsername(val)}
-                        />
-                        {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(val) => setPassword(val)}
-                        />
-                        {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
-                        <View style={{ marginTop: getDimen(0.08), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.09) }}>
-
-                            <CheckBox color={'#8d8865'}
-                                style={{ width: 18, height: 18 }} />
-
-                            <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865', fontSize: getDimen(0.04) }}>
-                                Remember Me
-                    </Text>
-
-
-                        </View>
-
-                        <TouchableOpacity onPress={() => validation(username, password)}>
-
-                            <View style={{ alignItems: 'center', marginTop: getDimen(0.08) }}>
-
-                                <Text style={{
-                                    backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2),
-                                    paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03)
-                                }}>
-                                    LOGIN NOW
-                        </Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <View style={{ alignSelf: 'center', marginTop: getDimen(0.06), flexDirection: 'row', alignItems: 'center' }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
-                                <Text style={{ color: '#8d8865', fontSize: getDimen(0.04), paddingRight: getDimen(0.05) }}>
-                                    Register
-                        </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() =>
-                                navigation.navigate('ForgotPassword Screen')
-                            }>
-                                <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: 'gray', fontSize: getDimen(0.04) }}>
-                                    Forgot Password?
-                    </Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-
-                </ScrollView>
-
-            </ImageBackground>
-        // </View>
-    }
-
-
-    const iosView = () => {
-        return <View style={{ width: '100%', height: '100%' }}>
-            <ImageBackground
-                source={require('../../../assets/images/bg_1.png')}
-                style={{ width: '100%', height: '100%', position: 'absolute' }}>
-
-                <ScrollView style={{ flex: 1, flexDirection: 'column' }}>
-
-                    {/* <View style={{ width:'100%',height:60, backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-            <Image source={require('../../../assets/icons/3.png')}
-                style={{ height: 25, width: 25 }} />
-
-            <Image source={require('../../../assets/images/logo.png')}
-                style={{ height: 55, width: 55 }} />
-        </View> */}
-
-
-                    <View style={{ width: '90%', height: getDimen(0.95), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}>
-                        {/* <View style={{ width: '90%', height: getDimen(0.9), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}> */}
-
-                        <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
-                            <TouchableOpacity
-                            // onPress={() => Alert.alert('Show gallery!!')}
-                            // onPress={chooseFile.bind(this)}
-                            >
-                                <Image source={require('../../../assets/icons/2.png')}
-                                    style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
-                            </TouchableOpacity>
-                        </View>
-
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Email"
-                            keyboardType='email-address'
-                            // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(val) => setUsername(val)}
-                        />
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(val) => setPassword(val)}
-                        />
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
-                        <View style={{ marginTop: getDimen(0.08), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.09) }}>
-
-                            <CheckBox color={'#8d8865'}
-                                style={{ width: 18, height: 18 }} />
-
-                            <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865', fontSize: getDimen(0.04) }}>
-                                Remember Me
-                    </Text>
-
-
-                        </View>
-
-                        <TouchableOpacity onPress={() => validation(username, password)}>
-
-                            <View style={{ alignItems: 'center', marginTop: getDimen(0.08) }}>
-
-                                <Text style={{
-                                    backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2),
-                                    paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03)
-                                }}>
-                                    LOGIN NOW
-                        </Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <View style={{ alignSelf: 'center', marginTop: getDimen(0.06), flexDirection: 'row', alignItems: 'center' }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
-                                <Text style={{ color: '#8d8865', fontSize: getDimen(0.04), paddingRight: getDimen(0.05) }}>
-                                    Register
-                        </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() =>
-                                navigation.navigate('ForgotPassword Screen')
-                            }>
-                                <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: 'gray', fontSize: getDimen(0.04) }}>
-                                    Forgot Password?
-                    </Text>
-                            </TouchableOpacity>
-                        </View>
-
-                    </View>
-
-                </ScrollView>
-
-            </ImageBackground>
-        </View >
     }
 
 
     return (
-        <View style={{ width: '100%', height: '100%' }}>
-            <ImageBackground
-                source={require('../../../assets/images/bg_1.png')}
-                style={{ width: '100%', height: '100%', position: 'absolute' }}>
+        <ImageBackground
+            source={require('../../../assets/images/bg_1.png')}
+            style={{ width: '100%', height: '100%', position: 'absolute' }}>
 
-                <ScrollView style={{ flex: 1, flexDirection: 'column' }}>
+            <ScrollView style={{ flex: 1, flexDirection: 'column' }}>
 
-                    {/* <View style={{ width:'100%',height:60, backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-            <Image source={require('../../../assets/icons/3.png')}
-                style={{ height: 25, width: 25 }} />
+                {/* <View style={{ width:'100%',height:60, backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <Image source={require('../../../assets/icons/3.png')}
+                    style={{ height: 25, width: 25 }} />
 
-            <Image source={require('../../../assets/images/logo.png')}
-                style={{ height: 55, width: 55 }} />
-        </View> */}
+                <Image source={require('../../../assets/images/logo.png')}
+                    style={{ height: 55, width: 55 }} />
+            </View> */}
 
 
-                    <View style={{ width: '90%', height: getDimen(0.95), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}>
-                        {/* <View style={{ width: '90%', height: getDimen(0.9), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}> */}
+                <View style={{ width: '90%', height: getDimen(0.95), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}>
+                {/* <View style={{ width: '90%', height: getDimen(0.9), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}> */}
 
-                        <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
-                            <TouchableOpacity
+                    <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
+                        <TouchableOpacity
                             // onPress={() => Alert.alert('Show gallery!!')}
                             // onPress={chooseFile.bind(this)}
-                            >
-                                <Image source={require('../../../assets/icons/2.png')}
-                                    style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
-                            </TouchableOpacity>
-                        </View>
-
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Email"
-                            keyboardType='email-address'
-                            // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(val) => setUsername(val)}
-                        />
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
-                        <TextInput
-                            keyboardType="default"
-                            underlineColorAndroid="#8d8865"
-                            placeholderTextColor="gray"
-                            autoCapitalize="none"
-                            placeholder="Password"
-                            secureTextEntry={true}
-                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                            onChangeText={(val) => setPassword(val)}
-                        />
-                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
-                        <View style={{ marginTop: getDimen(0.08), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.09) }}>
-
-                            <CheckBox color={'#8d8865'}
-                                style={{ width: 18, height: 18 }} />
-
-                            <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865', fontSize: getDimen(0.04) }}>
-                                Remember Me
-                    </Text>
-
-
-                        </View>
-
-                        <TouchableOpacity onPress={() => validation(username, password)}>
-
-                            <View style={{ alignItems: 'center', marginTop: getDimen(0.08) }}>
-
-                                <Text style={{
-                                    backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2),
-                                    paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03)
-                                }}>
-                                    LOGIN NOW
-                        </Text>
-                            </View>
+                        >
+                            <Image source={require('../../../assets/icons/2.png')}
+                                style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
                         </TouchableOpacity>
+                    </View>
 
-                        <View style={{ alignSelf: 'center', marginTop: getDimen(0.06), flexDirection: 'row', alignItems: 'center' }}>
-                            <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
-                                <Text style={{ color: '#8d8865', fontSize: getDimen(0.04), paddingRight: getDimen(0.05) }}>
-                                    Register
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="gray"
+                        autoCapitalize="none"
+                        placeholder="Email"
+                        keyboardType='email-address'
+                        // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                        onChangeText={(val) => setUsername(val)}
+                    />
+                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                    <TextInput
+                        keyboardType="default"
+                        underlineColorAndroid="#8d8865"
+                        placeholderTextColor="gray"
+                        autoCapitalize="none"
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                        onChangeText={(val) => setPassword(val)}
+                    />
+                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                    <View style={{ marginTop: getDimen(0.08), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.09) }}>
+
+                        <CheckBox color={'#8d8865'}
+                            style={{ width: 18, height: 18 }} />
+
+                        <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865', fontSize: getDimen(0.04) }}>
+                            Remember Me
                         </Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() =>
-                                navigation.navigate('ForgotPassword Screen')
-                            }>
-                                <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: 'gray', fontSize: getDimen(0.04) }}>
-                                    Forgot Password?
-                    </Text>
-                            </TouchableOpacity>
+
+
+                    </View>
+
+                    <TouchableOpacity onPress={() => validation(username, password)}>
+
+                        <View style={{ alignItems: 'center', marginTop: getDimen(0.08) }}>
+
+                            <Text style={{
+                                backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2),
+                                paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03)
+                            }}>
+                                LOGIN NOW
+                            </Text>
                         </View>
+                    </TouchableOpacity>
 
+                    <View style={{ alignSelf: 'center', marginTop: getDimen(0.06), flexDirection: 'row', alignItems: 'center' }}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
+                            <Text style={{ color: '#8d8865', fontSize: getDimen(0.04), paddingRight: getDimen(0.05) }}>
+                                Register
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => 
+                        navigation.navigate('ForgotPassword Screen')
+                        }>
+                        <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: 'gray', fontSize: getDimen(0.04) }}>
+                            Forgot Password?
+                        </Text>
+                        </TouchableOpacity>
                     </View>
-
-<<<<<<< HEAD
-                    {
-                (showLoader === '') ?
-                    <View
-                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
-                    >
-                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
-                    </View>
-                    :
-                    null
-            }
 
                 </View>
-=======
-                </ScrollView>
->>>>>>> e38259149176680fb5212582db591186e4ca2b66
 
-            </ImageBackground>
-        </View>
-
-<<<<<<< HEAD
-            
+            </ScrollView>
 
         </ImageBackground>
            
-=======
->>>>>>> e38259149176680fb5212582db591186e4ca2b66
     );
 }
 
