@@ -22,6 +22,9 @@ let API = {
             FETCH_CHAT: { url: 'api/v1/fetch-chat', method: 'POST' },
             SEND_CHAT: { url: 'api/v1/send-message', method: 'POST' }
         },
+        PROFILE: {
+            FETCH_PROFILE: { url: 'api/v1/user/profile', method: 'POST' },
+        },
         
 
         SITES_DETAIL: {

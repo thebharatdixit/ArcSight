@@ -74,6 +74,7 @@ function ChatScreen({ navigation }) {
     const [searchValue, setSearchValue] = React.useState('');
     const [checked1, setChecked1] = React.useState(true);
     const [checked2, setChecked2] = React.useState(false);
+    const [showLoader, setShowLoader] = React.useState('');
     global.listData = [{}];
 
     const searchUpdated = (term) => {
@@ -105,6 +106,8 @@ function ChatScreen({ navigation }) {
     }
 
     const getSearchData = () => {
+
+        setShowLoader('');
         let data = {
 
             "search_type": "all",
@@ -127,6 +130,7 @@ function ChatScreen({ navigation }) {
                 console.log('listLog1', res.data);
 
                 setAllColleagues(res.data);
+                setShowLoader('hide');
 
 
 
@@ -200,7 +204,7 @@ function ChatScreen({ navigation }) {
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
             {/* {getColleaguesList()} */}
 
-            {console.log("allColleagues :  " + JSON.stringify(allColleagues))}
+            {/* {console.log("allColleagues :  " + JSON.stringify(allColleagues))} */}
 
             <ScrollView style={styles.container}>
                 <View style={{ flex: 0.1, backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0.0) }}>
@@ -338,6 +342,17 @@ function ChatScreen({ navigation }) {
                     keyExtractor={item => item.id}
                 />
             </ScrollView>
+
+            {
+                (showLoader === '') ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
         </View>
     );
 }
