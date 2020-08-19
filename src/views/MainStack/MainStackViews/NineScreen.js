@@ -1,63 +1,35 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Image, Text } from 'react-native';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-import {
-    View, Text, TouchableOpacity, StyleSheet,
-    ScrollView,
-    ImageBackground,
-    Image,
-    StatusBar,
-    ActivityIndicator,
-    Modal,
-    Dimensions,
-    TextInput,
-    ToastAndroid,
-    FlatList,
-    TouchableWithoutFeedback,
-    Share,
-    Alert
-} from 'react-native';
+const homePlace = {
+    description: 'Home',
+    geometry: { location: { lat: 28.5838, lng: 77.3597 } },
+};
+const workPlace = {
+    description: 'Work',
+    geometry: { location: { lat: 28.628454, lng: 77.376945 } },
+};
 
-import SplashScreen from 'react-native-splash-screen'
-import { connect } from 'react-redux';
-import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
-import { getDimen } from '../../../dimensions/dimen';
-import { NavigationContainer, DrawerActions } from '@react-navigation/native';
-
-function nineScreen({ navigation }) {
-    
+const GooglePlacesInput = () => {
     return (
-        <View style={{ flex: 1,}}>
-            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() =>
-                    navigation.dispatch(DrawerActions.toggleDrawer())
-                }>
-                    <Image source={require('../../../assets/icons/3.png')}
-                        style={{ height: 25, width: 25 }} />
-                </TouchableOpacity>
+        <GooglePlacesAutocomplete
+            placeholder='Search'
+            autoFocus={false}
+            returnKeyType={'default'}
+            fetchDetails={true}
+            currentLocation={true}
+            onPress={(data, details = null) => {
+                // 'details' is provided when fetchDetails = true
+                console.log(data, details);
+            }}
+            query={{
+                key: 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k',
+                language: 'en',
+            }}
+            // predefinedPlaces={[homePlace, workPlace]}
+        />
+    );
+};
 
-                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                    <Image source={require('../../../assets/icons/2.png')}
-                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
-
-                    <Image source={require('../../../assets/images/logo.png')}
-                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
-                </View>
-            </View>
-            <View style={{ flex: 0.90, justifyContent: 'center', alignContent: 'center', alignItems:'center'}}>
-                <Text>In Progress</Text>
-            </View>
-            
-        </View>
-    )
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        backgroundColor: '#ffffff',
-        marginTop: 0,
-        width: getDimen(1)
-    },
-});
-
-export default nineScreen;
+export default GooglePlacesInput;

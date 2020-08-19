@@ -160,8 +160,7 @@ function LoginScreen({ navigation }) {
     }
 
     const androidView = () => {
-        return
-        // <View style={{ width: '100%', height: '100%' }}>
+        return <View style={{ width: '100%', height: '100%' }}>
             <ImageBackground
                 source={require('../../../assets/images/bg_1.png')}
                 style={{ width: '100%', height: '100%', position: 'absolute' }}>
@@ -249,7 +248,7 @@ function LoginScreen({ navigation }) {
                 </ScrollView>
 
             </ImageBackground>
-        // </View>
+         </View>
     }
 
 

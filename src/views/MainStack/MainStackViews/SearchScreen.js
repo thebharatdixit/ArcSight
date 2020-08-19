@@ -25,9 +25,19 @@ import { getDimen } from '../../../dimensions/dimen';
 import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
 import { getData } from '../../../utils/asyncStore';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
 
-// const Drawer = createDrawerNavigator();
+
+const homePlace = {
+    description: 'Home',
+    geometry: { location: { lat: 28.5838, lng: 77.3597 } },
+};
+const workPlace = {
+    description: 'Work',
+    geometry: { location: { lat: 28.628454, lng: 77.376945 } },
+};
+
 
 function SearchScreen({ navigation }) {
 
@@ -66,7 +76,6 @@ function SearchScreen({ navigation }) {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
                  Authorization: `Bearer ${accessToken}`
-
             },
             body: JSON.stringify({
                 "listing": listing,
@@ -86,6 +95,7 @@ function SearchScreen({ navigation }) {
                 if (res.status) {
                     console.log(listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
                     console.log('Search Listing', res.message);
+                    console.log('Search Data', res.data);
                     Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('Search Listing Error', res.message);
@@ -124,16 +134,18 @@ function SearchScreen({ navigation }) {
                     </View>
                 </View>
             </View>
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container}
+                keyboardShouldPersistTaps='always'
+            >
                 
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
                     <TouchableOpacity 
                         style={{ marginLeft: getDimen(0.001) }}
-                    onPress={() => setListing('all')}>
+                        onPress={() => setListing('all')}>
                     <CheckBox
                         onPress={() => setChecked1(!checked1)}
                         checked={checked1} color="#94803F" 
-                        />
+                    />
                    
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.095), marginTop: getDimen(-0.05) }}>All Listing</Text>
                     </TouchableOpacity>
@@ -165,13 +177,43 @@ function SearchScreen({ navigation }) {
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                     <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Location</Text>
                     {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop:getDimen(0.025), color:'gray',}}>Current Location / City,State / Zip Code</Text> */}
-                    <Item style={{ marginLeft: getDimen(0.03), marginRight: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
+                        <GooglePlacesAutocomplete
+                            placeholder='Current Location / City,State / Zip Code'
+                            autoFocus={false}
+                            returnKeyType={'default'}
+                            fetchDetails={true}
+                            currentLocation={true}
+                            keyboardShouldPersistTaps={'handled'}
+                            styles={{
+                                textInputContainer: {
+                                    width: '100%',
+                                    marginTop: 10
+                                },
+                                textInput: {
+                                    marginLeft: 0,
+                                    marginRight: 0,
+                                    marginTop: 0,
+                                    marginBottom: 0,
+                                    height: '98%'
+                                }
+                            }}
+                            onPress={(data, details = null) => {
+                                // 'details' is provided when fetchDetails = true
+                                console.log(data, details);
+                            }}
+                            query={{
+                                key: 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k',
+                                language: 'en',
+                            }}
+                        //  predefinedPlaces={[homePlace, workPlace]}
+                        />
+                    {/* <Item style={{ marginLeft: getDimen(0.03), marginRight: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                         <Input placeholder='Current Location / City,State / Zip Code'
                             style={{ fontSize: getDimen(0.038), }}
                             onChangeText={(val) => setLocation(val)}
 
                         />
-                    </Item>
+                    </Item> */}
                 </View>
                 {/* <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View> */}
 
