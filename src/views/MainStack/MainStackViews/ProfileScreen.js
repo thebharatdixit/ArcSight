@@ -134,13 +134,9 @@ function ProfileScreen({ navigation }) {
 
 
                 setPhotoData(response);
-
-                console.log("photoData : ", photoData)
-                setPhotoPath(photoData.path);
-                setFilePath(photoData.uri)
-                setPhotoName(photoData.fileName);
-
-                //alert(photoData.uri)
+                setPhotoPath(response.path);
+                setFilePath(response.uri)
+                //setPhotoName(photoData.fileName);
 
                 uploadPhoto();
 
@@ -243,7 +239,7 @@ function ProfileScreen({ navigation }) {
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={()=> updateProfile()}>
+                    <TouchableOpacity onPress={()=> navigation.navigate('Update Profile')}>
 
                         <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>{name}</Text>
                     </TouchableOpacity>
