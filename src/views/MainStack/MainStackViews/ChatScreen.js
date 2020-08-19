@@ -54,16 +54,6 @@ const onShare = async () => {
 const KEYS_TO_FILTERS = ['name', 'company_name'];
 function ChatScreen({ navigation }) {
 
-    const dummyData = [
-        // mainSt: '1234 Main St',
-        { id: '1' },
-        { id: '2' },
-        { id: '3' },
-        { id: '4' },
-        { id: '5' },
-        { id: '6' },
-    ];
-
     const [checked, setChecked] = React.useState(false);
 
     const [tokens, setTokens] = React.useState('');
@@ -199,17 +189,7 @@ function ChatScreen({ navigation }) {
                 setAllColleagues(res.data);
                 setFilteredData(res.data);
 
-                // console.log('listLog1', res.data);
-                // //setAllColleagues([]);
-                // //listData = res.data;
-                // setAllColleagues(res.data);
-                //console.log('listLog1', allColleagues);
-                //  name = listData.name;
-                //  console.log('listLog1', name);
-
-                // for(var i =0;i<listData.length;i++){
-
-                //  }
+               
 
 
                 //   Alert.alert(
@@ -390,7 +370,7 @@ function ChatScreen({ navigation }) {
                                                             <Image source={require('../../../assets/icons/cross.png')}
                                                                 style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} />
                                                         </TouchableOpacity>
-                                                        <TouchableOpacity onPress={() => onShare()}>
+                                                        <TouchableOpacity onPress={() => navigation.navigate('Chat Layout')}>
                                                             <Image source={require('../../../assets/icons/25.png')}
                                                                 style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                                         </TouchableOpacity>

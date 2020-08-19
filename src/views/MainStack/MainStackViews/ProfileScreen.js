@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import {
     View, Text, TouchableOpacity, StyleSheet,
@@ -26,21 +26,32 @@ import { getData } from '../../../utils/asyncStore';
 import { doLogout } from '../../../actions/ProfileAction'
 import AsyncStorage from '@react-native-community/async-storage';
 import { fetchProfile } from '../../../actions/ProfileAction';
+import { updateProfile } from '../../../service/apiService';
 
 function ProfileScreen({ navigation }) {
 
     const [accessToken, setAccessToken] = React.useState('')
     const [userId, setUserId] = React.useState('')
     const [userProfileData, setUserProfileData] = React.useState([]);
+    const [profileListing, setProfileListing] = React.useState([]);
+    const [userImage, setUserImage] = React.useState("");
+    const [name, setName] = React.useState("");
+    const [companyName, setCompanyName] = React.useState("");
     const [showLoader, setShowLoader] = React.useState('');
+    const [imgs, setImgs] = React.useState('');
+    const [filePath, setFilePath] = React.useState('')
+    const [photoData, setPhotoData] = React.useState();
+    const [photoPath, setPhotoPath] = React.useState('');
+    const [photoName,setPhotoName] = React.useState('');
+
     const dummyData = [
         // mainSt: '1234 Main St',
         { id: '1' },
         { id: '2' },
         { id: '3' },
     ];
-    const [ArrData, setData] = React.useState(dummyData);
-    const [filePath, setFilePath] = React.useState([])
+    const [ArrData, setData] = useState(dummyData);
+
     const options = {
         title: 'Select Avatar',
         customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
@@ -49,8 +60,12 @@ function ProfileScreen({ navigation }) {
             path: 'images',
         },
     };
-   
+
+
+
     React.useEffect(() => {
+
+        console.log('On Profile screen');
 
         getData('userData').then((data) => {
             const userData = JSON.parse(data);
@@ -59,7 +74,8 @@ function ProfileScreen({ navigation }) {
             console.log('USER id : ' + userData.user.id);
             setAccessToken(listTokens);
             setUserId(userData.user.id)
-            console.log('token1', listTokens)
+            console.log('tokenProfilescreen', listTokens)
+
             if (accessToken) {
                 console.log('Prachi123')
                 getUserProfileData();
@@ -69,30 +85,32 @@ function ProfileScreen({ navigation }) {
 
     }, [accessToken])
 
-    
-    // useEffect(() => {
-    //     accessToken ? getUserProfileData() : getData('userData').then((data) =>{
-    //          setAccessToken(JSON.parse(data).token))
-    //          setUserId(JSON.parse(data).token))}
-    // }, [accessToken, userId])
+
+
+
 
 
     const getUserProfileData = () => {
 
-        
+        setShowLoader('');
         let data = {
             "profile": "my",
             "user_id": userId
         }
         let token = accessToken;
+        console.log('data :' + JSON.stringify(data) + "token :" + token);
         fetchProfile(token, data).then((response) => {
-            setTimeout(() => {
-                // ShowAlertWithDelay();
-            }, 1000);
+
             if (response.status) {
-                console.log('profileData1234 :' + JSON.stringify(response.data) );
+
+                setUserProfileData(response.data)
+                setProfileListing(response.data.listing.data)
                 setUserProfileData(response.data);
-                console.log('profileDataName&&### :' + JSON.stringify(userProfileData.profile.name) );
+                setUserImage(response.data.profile.profile_image_url);
+                setName(response.data.profile.name);
+                setCompanyName(response.data.profile.company_name);
+                setShowLoader('hide');
+
             }
             else {
                 Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -101,38 +119,82 @@ function ProfileScreen({ navigation }) {
         })
     }
 
-   
 
-    chooseFile = () => {
-        var options = {
-            title: 'Select Image',
-            // customButtons: [
-            //     { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-            // ],
-            storageOptions: {
-                skipBackup: true,
-                path: 'images',
-            },
-        };
-        ImagePicker.showImagePicker(options, response => {
+
+
+
+    chooseFile = async () => {
+
+        ImagePicker.showImagePicker({ noData: true, mediaType: "photo" }, (response) => {
             console.log('Response = ', response);
 
             if (response.didCancel) {
                 console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-                alert(response.customButton);
             } else {
-                // let source = response;
-                const source = { uri: response.uri };
-                console.log("response  :  " + response.uri);
-                setFilePath(source);
-                responseUri: response
+
+
+                setPhotoData(response);
+
+                console.log("photoData : ", photoData)
+                setPhotoPath(photoData.path);
+                setFilePath(photoData.uri)
+                setPhotoName(photoData.fileName);
+
+                //alert(photoData.uri)
+
+                uploadPhoto();
+
+
+
             }
         });
     };
+
+    const updateProfile = () => {
+        alert("hello");
+    }
+
+    const uploadPhoto = () => {
+        setShowLoader('');
+        //console.log('token',tokens);
+        const formData = new FormData();
+
+
+        formData.append('profile_image', photoName);
+
+
+        fetch("http://arc.softwaresolutions.website/api/v1/user/upload-profile-image", {
+            method: "post",
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+            body: formData,
+        }).then(res => res.json())
+            .then(res => {
+
+
+
+                if (res.status == true) {
+                    console.log('uploadImage : ', res.data);
+                    setShowLoader('hide');
+                    alert(res.message)
+                }
+
+                //   Alert.alert(
+                //     "Success",
+                //     "Bill of Loading Uploaded Successfully!",
+                //     [{ text: "OK", onPress: () => that.props.close() }],
+                //     { cancelable: false }
+                //   );
+            })
+            .catch(err => {
+                console.error("error uploading images: ", err);
+            });
+
+
+
+    }
 
     return (
 
@@ -163,23 +225,36 @@ function ProfileScreen({ navigation }) {
                         //    onPress={() => Alert.alert('Show Gallery')}
                         onPress={chooseFile.bind(this)}
                     >
-                        <Image source={require('../../../assets/icons/2.png')}
-                            style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04) }}
-                        />
+
+
+                        {filePath === '' ?
+                            <Image
+                                source={{ uri: userImage }}
+                                // source={require('../../../assets/icons/2.png')}
+                                style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
+                            /> :
+                            <Image
+                                style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.3), marginTop: getDimen(0.1 / 2) }}
+                                source={{ uri: filePath }}
+                            />
+                        }
+
+
 
                     </TouchableOpacity>
 
-                   
+                    <TouchableOpacity onPress={()=> updateProfile()}>
 
-                    <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>Name Here</Text>
-                    <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop: getDimen(0.005) }}>company name</Text>
+                        <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>{name}</Text>
+                    </TouchableOpacity>
+                    <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop: getDimen(0.005) }}>{companyName}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.04), }}>
                         <View style={{ justifyContent: 'flex-start', alignContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'white', marginRight: getDimen(0.02) }}>
-                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> Listings</Text>
+                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData ? userProfileData.total_colleagues + " Listings" : "Listing"}</Text>
                         </View>
                         <View style={{ width: 1, height: '100%', backgroundColor: 'gray', marginLeft: getDimen(0.02) }}></View>
                         <View style={{ justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', backgroundColor: 'white', marginLeft: getDimen(0.03) }}>
-                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> Colleagues</Text>
+                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> {userProfileData ? userProfileData.total_listings + " Colleagues" : "Colleagues"}</Text>
                         </View>
                     </View>
                     {/* <TouchableOpacity
@@ -251,7 +326,7 @@ function ProfileScreen({ navigation }) {
                         horizontal={false}
                         showsVerticalScrollIndicator={false}
                         style={{ marginTop: 0, }}
-                        data={dummyData}
+                        data={profileListing}
                         renderItem={({ item, separators, index }) => (
                             <View>
                                 <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
@@ -259,15 +334,22 @@ function ProfileScreen({ navigation }) {
                                     <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
                                         <View style={{ flex: 0.6, height: '100%' }}>
                                             <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
-                                                <Image
-                                                    source={require('../../../assets/icons/19.png')}
-                                                    style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
+                                                {/* <Image
+                                                    source={{ uri: item.profile_image_url }}
+                                                    // source={require('../../../assets/icons/2.png')}
+                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
+                                                /> */}
+
+                                                <Image source={{
+                                                    uri: `${item.profile_image_url}`,
+                                                }}
+                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), }}
                                                 />
                                             </View>
 
                                             <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
                                                 <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
-                                                    <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text>
+                                                    <Text style={{ fontSize: getDimen(0.04), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
                                                 </View>
                                                 <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
                                                     <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
@@ -277,20 +359,20 @@ function ProfileScreen({ navigation }) {
                                         </View>
                                         <View style={{ flex: 1, height: '100%', }}>
                                             <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                                <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text>
+                                                <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
                                             </View>
 
                                             <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
                                                 <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    <Text style={{ fontSize: getDimen(0.06) }}>2</Text>
+                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
                                                     <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
                                                 </View>
                                                 <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                    <Text style={{ fontSize: getDimen(0.06) }}>2</Text>
+                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.bathrooms}</Text>
                                                     <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
                                                 </View>
                                                 <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                    <Text style={{ fontSize: getDimen(0.06) }}>1</Text>
+                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
                                                     <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
                                                 </View>
                                             </View>
@@ -302,7 +384,7 @@ function ProfileScreen({ navigation }) {
                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                                 </View>
                                                 <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text>
+                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
                                                 </View>
                                                 <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
                                                     {/* <Image source={require('../../../assets/icons/dummyLine.png')}
@@ -322,7 +404,7 @@ function ProfileScreen({ navigation }) {
                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                                 </View>
                                                 <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>0000 Sq Feet</Text>
+                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
                                                 </View>
                                                 <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
                                                     {/* <Image source={require('../../../assets/icons/20.png')}
@@ -345,6 +427,17 @@ function ProfileScreen({ navigation }) {
                         keyExtractor={item => item.id}
                     />
                 </ScrollView>
+
+                {
+                    (showLoader === '') ?
+                        <View
+                            style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                        >
+                            <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                        </View>
+                        :
+                        null
+                }
             </View>
         </View >
     )

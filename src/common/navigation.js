@@ -3,12 +3,14 @@ import * as React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, SafeAreaView } from 'react-native';
+import Blank from '../views/AuthStack/AuthStackViews/Blank';
 // import AuthStack from './AuthStack';
 // import PatientSelectionStack from './PatientSelectionStack';
 // import ProtocolStack from './protocolStack';
 // import AppNavigator from './drawerNavigator';
 // import ScreeningStack from './ScreeningPatientStack';
 // import EnrolledStack from './EnrolledPatientStack';
+import { getData, storeData } from '../utils/asyncStore';
 import { connect } from 'react-redux';
 import AuthStack from '../views/AuthStack/AuthStack';
 import MainStack from '../views/MainStack/MainStack';
@@ -27,7 +29,8 @@ const Nav = function Navigator({ navigation, isLoggedIn, protocol }) {
   // } else {
   //     console.log("Login false")
   // }
-  const [login, setIsLogin] = React.useState(false);
+  const [login, setIsLogin] = React.useState("");
+  const [loading, setloading] = React.useState("false");
   const [proto, setProto] = React.useState(false);
   const [isEnrolled, setIsEnrolled] = React.useState(false);
 
@@ -48,28 +51,26 @@ const Nav = function Navigator({ navigation, isLoggedIn, protocol }) {
   }
   React.useEffect(() => {
     console.log("Did mount called Navigation")
-    if (isLoggedIn) {
-      console.log("Login true")
-    } else {
-      console.log("Login false")
-    }
-    if (protocol) {
-      console.log("protocol true")
-    } else {
-      console.log("protocol false")
-    }
+    getData('isLogin').then((isLogin) => {
+      if (isLogin === 'true') {
+        setIsLogin("true")
+        setloading("true");
+      }
+      else {
+        setIsLogin("false");
+        setloading("false");
+      }
+    })
 
-  }, [isLoggedIn])
+  }, [])
   return (
 
     <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
       {/* {console.log("Did mount called Navigation 2")} */}
 
       {
-        login ?
-          <MainStack />
-          :
-          <AuthStack />
+        login === "false" ? <AuthStack /> : login === "true" ? <MainStack /> : <Blank />
+
       }
 
       {/* <MainStack /> */}

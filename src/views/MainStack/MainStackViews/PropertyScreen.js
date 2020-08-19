@@ -66,7 +66,7 @@ function PropertyScreen({ navigation }) {
         const userData = JSON.parse(data);
         const listTokens = userData.token;
         setTokens(listTokens);
-        console.log('token1', listTokens)
+        // console.log('token1', listTokens)
         // const tokens = userData.token;
         // setAccessToken(tokens)
         // console.log('userDataPrachi:', userData)
@@ -152,9 +152,7 @@ function PropertyScreen({ navigation }) {
         var options = {
             title: 'Select Image',
 
-            // customButtons: [
-            //     { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-            // ],
+            
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
@@ -170,33 +168,12 @@ function PropertyScreen({ navigation }) {
                 //console.log('hello india')
             } else {
 
-                //console.log('hello')
+                
                 let source = { uri: response.uri };
                 setFilePath(source);
-                //responseUri: response
-                // const source = { uri: response.uri };
-                // setPicture(source);
-                // console.log(picture);
-                // // const temp = response.data;
-                // // const fileUri = response.uri;
-                // // console.log(fileUri);
+                
 
-                // //Or:
-                // // if (Platform.OS === 'android') {
-                // //     source = { uri: response.uri, isStatic: true };
-                // // } else {
-                // //     source = { uri: response.uri.replace('file://', ''), isStatic: true };
-                // // }
-                // // You can also display the image using data:
-                // // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-                // //  this.setState({
-                // //     filePath: source
-                // // });
-
-                // // console.log(temp);
-                // // setFilePath(source);
-                // // <Image source={{ uri: data.path }} style={{ width: 100, height: 100 }} />
-                // // console.log('SetFilePath', setFilePath)
+                
             }
         });
     };
