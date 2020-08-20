@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 
 import {
     View, Text, TouchableOpacity, StyleSheet,
@@ -43,6 +44,7 @@ function ProfileScreen({ navigation }) {
     const [photoData, setPhotoData] = React.useState();
     const [photoPath, setPhotoPath] = React.useState('');
     const [photoName, setPhotoName] = React.useState('');
+    const isFocused = useIsFocused();
 
     const dummyData = [
         // mainSt: '1234 Main St',
@@ -83,7 +85,7 @@ function ProfileScreen({ navigation }) {
 
         })
 
-    }, [accessToken])
+    }, [accessToken,isFocused])
 
 
 
@@ -159,7 +161,7 @@ function ProfileScreen({ navigation }) {
 
         formData.append('profile_image', filePath);
 
-        console.log('filePath : ',filePath)
+        //console.log('filePath : ',filePath)
 
 
         fetch("http://arc.softwaresolutions.website/api/v1/user/upload-profile-image", {

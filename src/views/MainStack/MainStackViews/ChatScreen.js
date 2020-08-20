@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 
 import {
     View, Text, TouchableOpacity, StyleSheet,
@@ -52,7 +53,7 @@ const onShare = async () => {
 }
 
 const KEYS_TO_FILTERS = ['name', 'company_name'];
-function ChatScreen({route, navigation }) {
+function ChatScreen({ route, navigation }) {
 
     const [checked, setChecked] = React.useState(false);
 
@@ -68,7 +69,9 @@ function ChatScreen({route, navigation }) {
     const [showLoader, setShowLoader] = React.useState('');
     const [showAll, setShowAll] = React.useState(true);
     const [showMy, setShowMy] = React.useState(false);
-    const [name,setName] = React.useState('All Colleagues');
+    const [name, setName] = React.useState('All Colleagues');
+    const isFocused = useIsFocused();
+
     global.listData = [{}];
 
     const searchUpdated = (term) => {
@@ -85,25 +88,23 @@ function ChatScreen({route, navigation }) {
     // global.name = '';
     useEffect(() => {
         tokens ? getDropValue() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
-    }, [tokens])
+    }, [tokens, isFocused, name])
 
-    useEffect(() => {
-        getDropValue()
-    }, [])
 
-    useEffect(() => { getSearchData() }, [])
+
+    useEffect(() => { getSearchData() }, [isFocused])
     const getDropValue = () => {
-        if(showAll==true){
+        if (showAll == true) {
             const val = "all"
 
             getColleaguesList(val);
-        }else if(showMy== true){
+        } else if (showMy == true) {
             const val = "my"
             getColleaguesList(val)
         }
         return undefined;
     }
-    
+
 
     const showHideAll = () => {
 
@@ -111,15 +112,15 @@ function ChatScreen({route, navigation }) {
             setShowAll(false)
             setShowMy(true)
             setName('My Colleagues')
-          } else {
+        } else {
             setShowAll(true)
             setShowMy(false)
             setName('All Colleagues')
-          }
+        }
 
-        
-        
-        
+
+
+
     }
 
     const showHideMy = () => {
@@ -127,14 +128,14 @@ function ChatScreen({route, navigation }) {
             setShowMy(false)
             setShowAll(true)
             setName('All Colleagues')
-          } else {
+        } else {
             setShowMy(true)
             setShowAll(false)
             setName('My Colleagues')
-          }
+        }
 
-        
-        
+
+
     }
 
     const getSearchData = () => {
@@ -198,9 +199,9 @@ function ChatScreen({route, navigation }) {
 
                 setAllColleagues(res.data);
                 setFilteredData(res.data);
-                console.log("colleagues : ",res.data)
+                console.log("colleagues : ", res.data)
 
-               
+
 
 
                 //   Alert.alert(
@@ -276,7 +277,7 @@ function ChatScreen({route, navigation }) {
                         <Icon active name='arrow' /> */}
                                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(0.3 / 2) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
 
-                                    <View style={{ marginRight: getDimen(0.05),flexDirection:'row',alignItems:'center' }}>
+                                    <View style={{ marginRight: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
                                         <TouchableOpacity onPress={() => showHideAll()}>
 
                                             {showAll ? (
@@ -286,10 +287,10 @@ function ChatScreen({route, navigation }) {
                                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
                                         </TouchableOpacity>
-                                        <Text style={{ marginLeft:getDimen(0.05) }}>All Colleague</Text>
+                                        <Text style={{ marginLeft: getDimen(0.05) }}>All Colleague</Text>
 
                                     </View>
-                                    <View style={{ marginRight: getDimen(0.05),flexDirection:'row',alignItems:'center' }}>
+                                    <View style={{ marginRight: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
 
                                         <TouchableOpacity onPress={() => showHideMy()}>
 
@@ -300,7 +301,7 @@ function ChatScreen({route, navigation }) {
                                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
                                         </TouchableOpacity>
-                                        <Text style={{ marginLeft:getDimen(0.05) }}>My Colleague</Text>
+                                        <Text style={{ marginLeft: getDimen(0.05) }}>My Colleague</Text>
 
                                     </View>
 
@@ -349,7 +350,7 @@ function ChatScreen({route, navigation }) {
 
                         data={filteredData}
                         renderItem={({ item, separators, index }) => (
-                            <TouchableWithoutFeedback onPress={() => navigation.navigate('Colleague List',({"name":item.name,"companyName": item.company_name, "profile_image_url": item.profile_image_url }))} >
+                            <TouchableWithoutFeedback onPress={() => navigation.navigate('Colleague List', ({ "name": item.name, "companyName": item.company_name, "profile_image_url": item.profile_image_url }))} >
                                 <View>
                                     <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
 

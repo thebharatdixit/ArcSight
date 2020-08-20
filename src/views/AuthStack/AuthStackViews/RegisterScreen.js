@@ -358,24 +358,6 @@ function RegisterScreen({ navigation }) {
         </View>
 
 
-    
-
-    return (
-        <View style={{ width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
-            {Platform.OS === "android" ? androidView : iosView}
-
-            {/* {
-                (showLoader === '') ?
-                    <View
-                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
-                    >
-                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
-                    </View>
-                    :
-                    null
-            } */}
-        </View>
-    );
 }
 
 const styles = StyleSheet.create({
