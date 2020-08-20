@@ -199,9 +199,9 @@ function RegisterScreen({ navigation }) {
         });
     };
 
-    return (
-        <View style={{ width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
-            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+    
+        return <View style={{ width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
+            <View style={{ width: '100%', backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
                 >
@@ -224,19 +224,18 @@ function RegisterScreen({ navigation }) {
                 style={{ flex: 1 }}>
 
                 {/* <View style={{ width: '100%', height: getDimen(0.08), marginTop: getDimen(0.06), paddingLeft: getDimen(0.03) }}>
-                <TouchableOpacity
-                    onPress={() => navigation.goBack()}
-                >
-                    <Image source={require('../../../assets/icons/return.png')}
-                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                </TouchableOpacity>
-            </View> */}
+        <TouchableOpacity
+            onPress={() => navigation.goBack()}
+        >
+            <Image source={require('../../../assets/icons/return.png')}
+                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+        </TouchableOpacity>
+    </View> */}
 
                 <ScrollView>
-                    <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}>
-                        {/* <View style={{ width: '90%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}> */}
-                        <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.2), marginTop: 0, marginRight: 0, borderRadius: 12, }}>
-                            {/* <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.22), marginTop: 0, marginRight: 0, borderRadius: 12, }}></View> */}
+                    {/* <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}> */}
+                    <View style={{ width: '90%', height: getDimen(1.4), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}>
+                        <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.22), marginTop: 0, marginRight: 0, borderRadius: 12, }}>
                             <View style={{ marginTop: getDimen(-0.1), alignItems: 'center', }}>
                                 <TouchableOpacity
                                     //  onPress = {()=> Alert.alert('Show gallery!!')}
@@ -261,7 +260,7 @@ function RegisterScreen({ navigation }) {
 
                             <TextInput
                                 keyboardType="default"
-                                underlineColorAndroid="#8d8865"
+                                
                                 placeholderTextColor="gray"
                                 autoCapitalize="none"
                                 placeholder="Email"
@@ -271,70 +270,70 @@ function RegisterScreen({ navigation }) {
                                 value={email}
                             />
 
-                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
                             <TextInput
                                 keyboardType="default"
-                                underlineColorAndroid="#8d8865"
+                                
                                 placeholderTextColor="gray"
                                 autoCapitalize="none"
                                 placeholder="First Name"
                                 keyboardType='default'
-                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                                // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                                // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
                                 onChangeText={(firstName) => setFirstName(firstName)}
                                 value={firstName}
 
                             />
 
-                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
 
                             <TextInput
                                 keyboardType="default"
-                                underlineColorAndroid="#8d8865"
+                                
                                 placeholderTextColor="gray"
                                 autoCapitalize="none"
                                 placeholder="Last Name"
                                 keyboardType='default'
-                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                                // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                                // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
                                 onChangeText={(lastName) => setLastName(lastName)}
                                 value={lastName}
 
                             />
 
-                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
 
                             <TextInput
                                 keyboardType="default"
-                                underlineColorAndroid="#8d8865"
+                                
                                 placeholderTextColor="gray"
                                 autoCapitalize="none"
                                 placeholder="Real Estate Company"
                                 keyboardType='default'
-                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                                // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                                // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
                                 onChangeText={(companyName) => setCompanyName(companyName)}
                                 value={companyName}
 
                             />
 
-                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
 
                             <TextInput
                                 keyboardType="default"
-                                underlineColorAndroid="#8d8865"
+                                
                                 placeholderTextColor="gray"
                                 autoCapitalize="none"
                                 placeholder="Password"
                                 secureTextEntry={true}
-                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                                // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                                // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
                                 onChangeText={(password) => setPassword(password)}
                                 value={password}
 
                             />
 
-                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View>
+                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
                             <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
                                 <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center', }}>
@@ -345,13 +344,13 @@ function RegisterScreen({ navigation }) {
                                         checked={checked} color="#8d8865" />
                                     <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
                                         Sign up for ArcSight alerts
-                                </Text>
+                        </Text>
 
                                 </View>
                                 <TouchableOpacity onPress={() => signupApiIntegration()}>
                                     <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
                                         JOIN NOW
-                            </Text>
+                    </Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -359,18 +358,7 @@ function RegisterScreen({ navigation }) {
 
                 </ScrollView>
             </ImageBackground >
-            {
-                (showLoader === '') ?
-                    <View
-                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
-                    >
-                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
-                    </View>
-                    :
-                    null
-            }
         </View>
-    );
 }
 
 const styles = StyleSheet.create({

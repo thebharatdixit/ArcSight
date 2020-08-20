@@ -42,7 +42,7 @@ function ProfileScreen({ navigation }) {
     const [filePath, setFilePath] = React.useState('')
     const [photoData, setPhotoData] = React.useState();
     const [photoPath, setPhotoPath] = React.useState('');
-    const [photoName,setPhotoName] = React.useState('');
+    const [photoName, setPhotoName] = React.useState('');
 
     const dummyData = [
         // mainSt: '1234 Main St',
@@ -97,8 +97,8 @@ function ProfileScreen({ navigation }) {
         console.log('data :' + JSON.stringify(data) + "token :" + token);
         fetchProfile(token, data).then((response) => {
 
-            if (response.status) {
 
+            if (response.status) {
                 setUserProfileData(response.data)
                 setProfileListing(response.data.listing.data)
                 setUserProfileData(response.data);
@@ -106,6 +106,7 @@ function ProfileScreen({ navigation }) {
                 setName(response.data.profile.name);
                 setCompanyName(response.data.profile.company_name);
                 setShowLoader('hide');
+
 
             }
             else {
@@ -127,13 +128,9 @@ function ProfileScreen({ navigation }) {
 
 
                 setPhotoData(response);
-
-                console.log("photoData : ", photoData)
-                setPhotoPath(photoData.path);
-                setFilePath(photoData.uri)
-                setPhotoName(photoData.fileName);
-
-                //alert(photoData.uri)
+                setPhotoPath(response.path);
+                setFilePath(response.uri)
+                //setPhotoName(photoData.fileName);
 
                 uploadPhoto();
 
@@ -149,11 +146,13 @@ function ProfileScreen({ navigation }) {
 
     const uploadPhoto = () => {
         setShowLoader('');
-        //console.log('token',tokens);
+
         const formData = new FormData();
 
 
-        formData.append('profile_image', photoName);
+        formData.append('profile_image', filePath);
+
+        console.log('filePath : ',filePath)
 
 
         fetch("http://arc.softwaresolutions.website/api/v1/user/upload-profile-image", {
@@ -166,13 +165,12 @@ function ProfileScreen({ navigation }) {
         }).then(res => res.json())
             .then(res => {
 
+                console.log('uploadImage : ', res.data);
+                setShowLoader('hide');
+                alert(res.message)
+                // if (res.status == true) {
 
-
-                if (res.status == true) {
-                    console.log('uploadImage : ', res.data);
-                    setShowLoader('hide');
-                    alert(res.message)
-                }
+                // }
 
                 //   Alert.alert(
                 //     "Success",
@@ -236,7 +234,7 @@ function ProfileScreen({ navigation }) {
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={()=> updateProfile()}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Update Profile')}>
 
                         <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>{name}</Text>
                     </TouchableOpacity>

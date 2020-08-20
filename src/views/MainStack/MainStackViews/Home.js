@@ -28,8 +28,6 @@ import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
 
 
-
-
 const DATA = [
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -134,9 +132,56 @@ const onShare = async () => {
     }
     //console.log('hello');
 }
-// const Drawer = createDrawerNavigator();
 
 function MainScreen({ navigation }) {
+
+
+    const homeListingApiIntegration = () => {
+        console.log('Search Details', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
+        fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+                "listing": "all",
+                "location": "ludhiana",
+                "home_type": "",
+                "listing_type": [
+                    "For Sale"
+                ],
+                "bedrooms": 5,
+                "bathrooms": 2,
+                "price": 2500,
+                "sq_feet_min": 4000,
+                "sq_feet_max": 4600
+                // "bedrooms": parseInt(bedRoom),
+                // "bathrooms": parseInt(bathRoom),
+                // "price": parseInt(selectedValue),
+                // "sq_feet_min": parseInt(sqFeetMin),
+                // "sq_feet_max": parseInt(sqFeetMax)
+            })
+        }).then(res => res.json())
+            .then(res => {
+                if (res.status) {
+                    console.log(listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
+                    console.log('Search Listing', res.message);
+                    console.log('Search Data', JSON.stringify(res.data));
+                    setSearchList(res.data)
+                    setAlertMessage(res.message)
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                } else {
+                    console.log('Search Listing Error', res.message);
+                    setAlertMessage(res.message)
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                }
+            })
+            .catch(err => {
+                console.error("error: ", err);
+            });
+    }
 
 
     const renderItem = ({ item }) => (

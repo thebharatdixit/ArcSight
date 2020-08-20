@@ -218,9 +218,6 @@ function PropertyScreen({ navigation }) {
         });
     };
 
-
-
-
     return (
         <View style={{flex:1}}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
