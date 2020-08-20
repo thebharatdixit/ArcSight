@@ -30,7 +30,7 @@ import { storeData, getData } from '../../../utils/asyncStore';
 
 function LoginScreen({ navigation }) {
 
-    
+
     const options = {
         title: 'Select Avatar',
         customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
@@ -44,6 +44,22 @@ function LoginScreen({ navigation }) {
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [filePath, setFilePath] = React.useState([])
+    const [showAll, setShowAll] = React.useState(false);
+    const [showLoader, setShowLoader] = React.useState('hide');
+
+
+
+    const showHideAll = () => {
+
+        if (showAll == true) {
+            setShowAll(false)
+            
+        } else {
+            setShowAll(true)
+            
+        }
+    }
+
 
     chooseFile = () => {
         var options = {
@@ -129,31 +145,35 @@ function LoginScreen({ navigation }) {
             return;
         }
 
-            let data = {
-                "email": userName,
-                "password": password,
-                "login_device": Platform.OS,
-                "notification_token": ""
+        setShowLoader('');
+
+        let data = {
+            "email": userName,
+            "password": password,
+            "login_device": Platform.OS,
+            "notification_token": ""
+        }
+
+        login(data).then((response) => {
+            if (response.status) {
+                storeData('isLogin', 'true');
+                storeData('userData', JSON.stringify(response.data));
+                setUsername('');
+                setPassword('');
+                
+                navigation.navigate('Main Stack');
+                setShowLoader('hide');
+                // Alert.alert('' + response.message, [{
+                //     text: 'OK', onPress: () => 
+                //     {setUsername('')
+                //     setPassword('')} 
+                // }], { cancelable: false });
+            }
+            else {
+                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             }
 
-            login(data).then((response) => {
-                if(response.status){
-                    storeData('isLogin', 'true');
-                    storeData('userData', JSON.stringify(response.data));
-                    setUsername('');
-                    setPassword('');
-                    navigation.navigate('Main Stack');
-                    Alert.alert('' + response.message, [{
-                        text: 'OK', onPress: () => 
-                        {setUsername('')
-                        setPassword('')} 
-                    }], { cancelable: false });
-                }
-                else{
-                    Alert.alert('' +response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                }
-    
-            })
+        })
 
     }
 
@@ -175,45 +195,77 @@ function LoginScreen({ navigation }) {
 
 
                 <View style={{ width: '90%', height: getDimen(0.95), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}>
-                {/* <View style={{ width: '90%', height: getDimen(0.9), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}> */}
+                    {/* <View style={{ width: '90%', height: getDimen(0.9), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}> */}
 
                     <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>
                         <TouchableOpacity
-                            // onPress={() => Alert.alert('Show gallery!!')}
-                            // onPress={chooseFile.bind(this)}
+                        // onPress={() => Alert.alert('Show gallery!!')}
+                        // onPress={chooseFile.bind(this)}
                         >
                             <Image source={require('../../../assets/icons/2.png')}
                                 style={{ height: getDimen(0.2), width: getDimen(0.2) }} />
                         </TouchableOpacity>
                     </View>
 
-                    <TextInput
+                    {Platform.OS === 'ios' ? <TextInput
                         keyboardType="default"
-                        
+
                         placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Email"
                         keyboardType='email-address'
                         // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.04) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                         onChangeText={(val) => setUsername(val)}
-                    />
-                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
-                    <TextInput
+                    /> : <TextInput
+                    keyboardType="default"
+
+                    placeholderTextColor="gray"
+                    autoCapitalize="none"
+                    placeholder="Email"
+                    keyboardType='email-address'
+                    // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.04) }}
+                    onChangeText={(val) => setUsername(val)}
+                />}
+
+                    
+                    {Platform.OS === 'ios' ? <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> : <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>}
+                    {Platform.OS === 'ios' ? <TextInput
                         keyboardType="default"
-                        
+
                         placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Password"
                         secureTextEntry={true}
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.04) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                         onChangeText={(val) => setPassword(val)}
-                    />
-                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
+                    /> : <TextInput
+                    keyboardType="default"
+
+                    placeholderTextColor="gray"
+                    autoCapitalize="none"
+                    placeholder="Password"
+                    secureTextEntry={true}
+                    style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.04) }}
+                    onChangeText={(val) => setPassword(val)}
+                />}
+                    
+                    {Platform.OS === 'ios' ? <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> : <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>}
                     <View style={{ marginTop: getDimen(0.08), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.09) }}>
 
-                        <CheckBox color={'#8d8865'}
-                            style={{ width: 18, height: 18 }} />
+                        {/* <CheckBox color={'#8d8865'}
+                            style={{ width: 18, height: 18 }} /> */}
+
+                        <TouchableOpacity onPress={() => showHideAll()}>
+
+                            {showAll ? (
+                                <Image source={require('../../../assets/icons/28.png')}
+                                    style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
+                            ) : <Image source={require('../../../assets/icons/24.png')}
+                                style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
+
+                        </TouchableOpacity>
 
                         <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865', fontSize: getDimen(0.04) }}>
                             Remember Me
@@ -241,21 +293,34 @@ function LoginScreen({ navigation }) {
                                 Register
                             </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => 
-                        navigation.navigate('ForgotPassword Screen')
+                        <TouchableOpacity onPress={() =>
+                            navigation.navigate('ForgotPassword Screen')
                         }>
-                        <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: 'gray', fontSize: getDimen(0.04) }}>
-                            Forgot Password?
+                            <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: 'gray', fontSize: getDimen(0.04) }}>
+                                Forgot Password?
                         </Text>
                         </TouchableOpacity>
                     </View>
+
+                    {
+                    (showLoader === '') ?
+                        <View
+                            style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                        >
+                            <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                        </View>
+                        :
+                        null
+                }
 
                 </View>
 
             </ScrollView>
 
-        </ImageBackground>
            
+
+        </ImageBackground>
+
     );
 }
 
