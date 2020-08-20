@@ -51,12 +51,7 @@ const onShare = async () => {
 const KEYS_TO_FILTERS = ['name', 'company_name'];
 function AddListScreen({ navigation }) {
 
-    const dummyData = [
-        // mainSt: '1234 Main St',
-        { id: '1' },
-        { id: '2' },
-        { id: '3' },
-    ];
+    
     const [searchTerm, setSearchTerm] = React.useState('');
     const [chatData, setChatData] = React.useState([]);
     const [filteredData, setFilteredData] = React.useState([]);
@@ -81,7 +76,7 @@ function AddListScreen({ navigation }) {
             const userData = JSON.parse(data);
             const listTokens = userData.token;
             setAccessToken(listTokens);
-            console.log('token1', listTokens)
+            // console.log('token1', listTokens)
             if (accessToken) {
                 chatListApiIntegration();
             }
@@ -95,7 +90,7 @@ function AddListScreen({ navigation }) {
             const userData = JSON.parse(data);
             const listTokens = userData.token;
             setAccessToken(listTokens);
-            console.log('token1', listTokens)
+            // console.log('token1', listTokens)
             if (accessToken) {
                 chatListApiIntegration();
             }

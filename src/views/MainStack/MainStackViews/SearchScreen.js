@@ -46,6 +46,7 @@ function SearchScreen({ navigation }) {
         { id: '2', value: '10,000', },
         { id: '3', value: '5,000', },
     ];
+    const [userId, setUserId] = React.useState('')
     const [checked1, setChecked1] = useState(false);
     const [checked2, setChecked2] = useState(false);
     const [checked3, setChecked3] = useState(false);
@@ -60,13 +61,28 @@ function SearchScreen({ navigation }) {
     const [sqFeetMax, setSqFeetMax] = React.useState('10,000');
     const [accessToken, setAccessToken] = React.useState('')
     const [listing, setListing] = React.useState('my')
+    const [searchList, setSearchList] = React.useState([])
+    const [alertMessage, setAlertMessage] = React.useState('')
 
-    getData('userData').then((data) => {
-        const userData = JSON.parse(data);
-        const listTokens = userData.token;
-        setAccessToken(listTokens);
-        console.log('token1', listTokens)
-    })
+
+    React.useEffect(() => {
+
+        console.log('Search screen');
+        getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            console.log('USER id : ' + userData.user.id);
+            setAccessToken(listTokens);
+            setUserId(userData.user.id)
+            console.log('Search Screen Token', listTokens)
+
+            if (accessToken) {
+                console.log('Prachi123')
+                searchListingApiIntegration();
+            }
+        })
+
+    }, [accessToken])
 
     const searchListingApiIntegration = () => {
         console.log('Search Details',listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
@@ -78,28 +94,36 @@ function SearchScreen({ navigation }) {
                  Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify({
-                "listing": listing,
-                "location": location,
+                "listing": "my",
+                "location": "ludhiana",
                 "home_type": "",
                 "listing_type": [
                     "For Sale"
                 ],
-                "bedrooms": parseInt(bedRoom),
-                "bathrooms": parseInt(bathRoom),
-                "price": parseInt(selectedValue),
-                "sq_feet_min": parseInt(sqFeetMin),
-                "sq_feet_max": parseInt(sqFeetMax)
+                "bedrooms": 5,
+                "bathrooms": 2,
+                "price": 2500,
+                "sq_feet_min": 4000,
+                "sq_feet_max": 4600
+                // "bedrooms": parseInt(bedRoom),
+                // "bathrooms": parseInt(bathRoom),
+                // "price": parseInt(selectedValue),
+                // "sq_feet_min": parseInt(sqFeetMin),
+                // "sq_feet_max": parseInt(sqFeetMax)
             })
         }).then(res => res.json())
             .then(res => {
                 if (res.status) {
                     console.log(listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
                     console.log('Search Listing', res.message);
-                    console.log('Search Data', res.data);
-                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                    console.log('Search Data', JSON.stringify(res.data));
+                    setSearchList(res.data)
+                    setAlertMessage(res.message)
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('Search Listing Error', res.message);
-                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    setAlertMessage(res.message)
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 }
             })
             .catch(err => {
@@ -199,7 +223,7 @@ function SearchScreen({ navigation }) {
                             }}
                             onPress={(data, details = null) => {
                                 // 'details' is provided when fetchDetails = true
-                                console.log(data, details);
+                                console.log('Google Details => ',data, details);
                             }}
                             query={{
                                 key: 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k',
@@ -255,6 +279,7 @@ function SearchScreen({ navigation }) {
                             <Picker.Item label="20,000" value="20,000" />
                             <Picker.Item label="40,000" value="40,000" />
                             <Picker.Item label="100,000" value="100,000" />
+                            <Picker.Item label="100,000" value="2500" />
 
                         </Picker>
                     </Item>
@@ -339,7 +364,7 @@ function SearchScreen({ navigation }) {
                                 <Picker.Item label="0,000" value="0,000"/>
                                 <Picker.Item label="600" value="600"/>
                                 <Picker.Item label="5,000" value="5,000"/>
-                                <Picker.Item label="4,000" value="4,000" />
+                                <Picker.Item label="4000" value="4000" />
                             </Picker>
                         </Item>
                     </View>
@@ -365,7 +390,7 @@ function SearchScreen({ navigation }) {
                                 <Picker.Item label="0,000" value="0,000" />
                                 <Picker.Item label="600" value="600" />
                                 <Picker.Item label="5,000" value="5,000" />
-                                <Picker.Item label="4,000" value="4,000" />
+                                <Picker.Item label="4600" value="4600" />
                             </Picker>
                         </Item>
                     </View>
@@ -381,8 +406,12 @@ function SearchScreen({ navigation }) {
                         <TouchableOpacity
                             onPress={() => 
                             {
-                            navigation.navigate('Search List')
-                            searchListingApiIntegration()}
+                           console.log('searchListJsonOnPress', JSON.stringify(searchList))
+                        //    console.log('searchListJson', JSON.stringify(searchList.data[0].location))
+                            // searchListingApiIntegration()
+                            Alert.alert('', alertMessage, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                            navigation.navigate('Search List',({"SearchList": searchList}))
+                            }
                             }
                         >
                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH</Text>
