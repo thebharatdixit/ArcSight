@@ -81,6 +81,7 @@ function ProfileUpdateScreen({ navigation }) {
                 if(res.status == true){
                     alert(res.message)
                     setShowLoader('hide');
+                    //navigation.navigate('Profile Screen');
                     navigation.goBack();
                 }
 
