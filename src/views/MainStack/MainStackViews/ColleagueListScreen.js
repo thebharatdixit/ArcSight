@@ -50,6 +50,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
     const [tokens, setTokens] = React.useState('');
     const [show, setShow] = React.useState(true);
+    const [flags,setFlags] = React.useState(true);
 
     //const { colleagues } = route.params 
     const { name } = route.params ? route.params : ""
@@ -116,7 +117,8 @@ function ColleaguageListScreen({ route, navigation }) {
                 setShow(false)
                 storeData('show', show);
 
-                alert(res.message)
+                //alert(res.message)
+                setFlags(false)
 
                 //   Alert.alert(
                 //     "Success",
@@ -181,7 +183,8 @@ function ColleaguageListScreen({ route, navigation }) {
                             {show ? (
                                 <Image source={require('../../../assets/icons/dmyCollegue.png')}
                                     style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
-                            ) : null}
+                            ) : (<Image source={require('../../../assets/icons/cross.png')}
+                            style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} />)}
                         </TouchableOpacity>
                     </View>
                     <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02) }}></View>

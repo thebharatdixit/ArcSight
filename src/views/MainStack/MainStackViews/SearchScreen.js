@@ -63,7 +63,49 @@ function SearchScreen({ navigation }) {
     const [listing, setListing] = React.useState('my')
     const [searchList, setSearchList] = React.useState([])
     const [alertMessage, setAlertMessage] = React.useState('')
+    const [forSaleText, setForSaleText] = React.useState('For Sale')
+    const [forRentText, setForRentText] = React.useState('For Rent')
 
+
+    const allButton = () => {
+        setChecked1(true)
+        setChecked2(false)
+        setChecked3(false)
+        setListing('all')
+    }
+
+    const colleagueButton = () => {
+        setChecked1(false)
+        setChecked2(true)
+        setChecked3(false)
+        setListing('colleague')
+    }
+
+    const myButton = () => {
+        setChecked1(false)
+        setChecked2(false)
+        setChecked3(true)
+        setListing('my')
+    }
+    const forSale = () => {
+        if (checkedForSale == true) {
+            setCheckedForSale(false)
+            setForSaleText('')
+        } else {
+            setCheckedForSale(true)
+            setForSaleText('For Sale')
+        }
+    }
+
+    const forRent = () => {
+        if (checkedForRent == true){
+            setCheckedForRent(false)
+            setForRentText('')
+        }else{
+            setCheckedForRent(true)
+            setForRentText('For Rent')
+        }
+    }
 
     React.useEffect(() => {
 
@@ -85,7 +127,7 @@ function SearchScreen({ navigation }) {
     }, [accessToken])
 
     const searchListingApiIntegration = () => {
-        console.log('Search Details', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
+        console.log('Search Details', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax, forSaleText, forRentText)
         fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
             method: "POST",
             headers: {
@@ -163,30 +205,39 @@ function SearchScreen({ navigation }) {
                 >
 
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
+                        <TouchableOpacity
+                            onPress={() => allButton()}
+                        >
+                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.026) }}>
 
-                        <View style={{ flexDirection: 'row', backgroundColor: 'red', alignItems: 'center', marginLeft: getDimen(0.01), width: '30%'}}>
-                            <TouchableOpacity
-                                onPress={() => setListing('all')}>
-                                <Image source={require('../../../assets/icons/circle.png')}
-                                    style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.09), textAlign:'center'}}>All Listing</Text>
-                            </TouchableOpacity>
-                        </View>
+                                {checked1 ? (
+                                    <Image source={require('../../../assets/icons/radio.png')}
+                                        style={{ height: getDimen(0.06), width: getDimen(0.06), }} />
+                                ) : <Image source={require('../../../assets/icons/circle.png')}
+                                    style={{ height: getDimen(0.06), width: getDimen(0.06), }} />}
 
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01), textAlign: 'center', textAlignVertical: 'center' }}>All Listing</Text>
+
+                            </View>
+                        </TouchableOpacity>
 
                         <TouchableOpacity
                             style={{ marginLeft: getDimen(-0.006) }}
                             onPress={() =>
-                                setListing('colleague')
+                                colleagueButton()
                             }
                         >
-                            {/* <CheckBox
-                        onPress={() => setChecked2(!checked2)}
-                        checked={checked2} color="#94803F" /> */}
-                            <View style={{ flexDirection: 'row', backgroundColor: 'white', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.01), }}>
-                                <Image source={require('../../../assets/icons/circle.png')}
-                                    style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.095) }}>Colleague Listings</Text>
+                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.028) }}>
+                                {
+                                    checked2 ? (
+                                        <Image source={require('../../../assets/icons/radio.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    ) :
+                                        <Image source={require('../../../assets/icons/circle.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                }
+
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01) }}>Colleague Listings</Text>
                             </View>
 
 
@@ -195,12 +246,20 @@ function SearchScreen({ navigation }) {
                         <TouchableOpacity
                             style={{ marginLeft: getDimen(-0.006) }}
                             onPress={() =>
-                                setListing('my')
+                                myButton()
                             }>
-                            <CheckBox
-                                onPress={() => setChecked3(!checked3)}
-                                checked={checked3} color="#94803F" />
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.095), marginTop: getDimen(-0.05) }}>My Listings</Text>
+                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.028) }}>
+                                {
+                                    checked3 ? (
+                                        <Image source={require('../../../assets/icons/radio.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    ) :
+                                        <Image source={require('../../../assets/icons/circle.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                }
+
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01) }}>My Listings</Text>
+                            </View>
                         </TouchableOpacity>
                     </View>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
@@ -247,25 +306,49 @@ function SearchScreen({ navigation }) {
                     {/* <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View> */}
 
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: getDimen(0.01), marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
+                        <TouchableOpacity
+                            style={{ marginLeft: getDimen(-0.006) }}
+                            onPress={() =>
+                                forSale()
+                            }>
+                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.03) }}>
+                                {
+                                    checkedForSale ? (
+                                        <Image source={require('../../../assets/icons/tick.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    ) :
+                                        <Image source={require('../../../assets/icons/circle.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                }
 
-                        <CheckBox
-                            onPress={() => setCheckedForSale(!checkedForSale)}
-                            checked={checkedForSale} color="#94803F" />
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.02) }}>For Sale</Text>
+                            </View>
+                        </TouchableOpacity>
 
-                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>For Sale</Text>
+                        <TouchableOpacity
+                            style={{ marginLeft: getDimen(-0.006) }}
+                            onPress={() =>
+                                forRent()
+                            }>
+                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.05) }}>
+                                {
+                                    checkedForRent ? (
+                                        <Image source={require('../../../assets/icons/tick.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    ) :
+                                        <Image source={require('../../../assets/icons/circle.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                }
 
-                        <CheckBox
-                            onPress={() => setCheckedForRent(!checkedForRent)}
-                            checked={checkedForRent} color="#94803F" />
-
-                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04) }}>For Rent</Text>
-
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.02) }}>For Rent</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
 
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Price</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
-                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
+                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.02), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                             {/* <Input placeholder='$000,000'
                             style={{ fontSize: getDimen(0.038) }}
                         />

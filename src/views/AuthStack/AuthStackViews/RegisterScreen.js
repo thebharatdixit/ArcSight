@@ -253,14 +253,10 @@ function RegisterScreen({ navigation }) {
                                             source={filePath}
                                         />
                                     }
-
-
                                 </TouchableOpacity>
                             </View>
-
                             <TextInput
                                 keyboardType="default"
-                                
                                 placeholderTextColor="gray"
                                 autoCapitalize="none"
                                 placeholder="Email"
@@ -269,7 +265,6 @@ function RegisterScreen({ navigation }) {
                                 onChangeText={(email) => setEmail(email)}
                                 value={email}
                             />
-
                             <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
                             <TextInput
                                 keyboardType="default"
@@ -305,7 +300,6 @@ function RegisterScreen({ navigation }) {
 
                             <TextInput
                                 keyboardType="default"
-                                
                                 placeholderTextColor="gray"
                                 autoCapitalize="none"
                                 placeholder="Real Estate Company"
@@ -314,7 +308,6 @@ function RegisterScreen({ navigation }) {
                                 style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
                                 onChangeText={(companyName) => setCompanyName(companyName)}
                                 value={companyName}
-
                             />
 
                             <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
@@ -359,6 +352,8 @@ function RegisterScreen({ navigation }) {
                 </ScrollView>
             </ImageBackground >
         </View>
+
+
 }
 
 const styles = StyleSheet.create({

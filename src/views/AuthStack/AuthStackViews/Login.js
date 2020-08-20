@@ -43,7 +43,7 @@ function LoginScreen({ navigation }) {
     const [checked, setChecked] = React.useState(false);
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
-    const [filePath, setFilePath] = React.useState([])
+    const [filePath, setFilePath] = React.useState([]);
 
     chooseFile = () => {
         var options = {
@@ -146,7 +146,7 @@ function LoginScreen({ navigation }) {
                     Alert.alert('' + response.message, [{
                         text: 'OK', onPress: () => 
                         {setUsername('')
-                        setPassword('')} 
+                         setPassword('')} 
                     }], { cancelable: false });
                 }
                 else{
@@ -187,29 +187,50 @@ function LoginScreen({ navigation }) {
                         </TouchableOpacity>
                     </View>
 
-                    <TextInput
+                    {Platform.OS === 'ios' ? <TextInput
                         keyboardType="default"
-                        
+
                         placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Email"
                         keyboardType='email-address'
                         // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.04) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                         onChangeText={(val) => setUsername(val)}
-                    />
-                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
-                    <TextInput
+                    /> : <TextInput
+                            keyboardType="default"
+
+                            placeholderTextColor="gray"
+                            autoCapitalize="none"
+                            placeholder="Email"
+                            keyboardType='email-address'
+                            // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
+                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.04) }}
+                            onChangeText={(val) => setUsername(val)}
+                        />}
+                    {Platform.OS === 'ios' ? <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> : <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>}
+                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View> */}
+                    {Platform.OS === 'ios' ? <TextInput
                         keyboardType="default"
-                        
+
                         placeholderTextColor="gray"
                         autoCapitalize="none"
                         placeholder="Password"
                         secureTextEntry={true}
-                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.04) }}
+                        style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                         onChangeText={(val) => setPassword(val)}
-                    />
-                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
+                    /> : <TextInput
+                            keyboardType="default"
+
+                            placeholderTextColor="gray"
+                            autoCapitalize="none"
+                            placeholder="Password"
+                            secureTextEntry={true}
+                            style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.04) }}
+                            onChangeText={(val) => setPassword(val)}
+                        />}
+                    {/* <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View> */}
+                    {Platform.OS === 'ios' ? <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> : <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>}
                     <View style={{ marginTop: getDimen(0.08), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.09) }}>
 
                         <CheckBox color={'#8d8865'}

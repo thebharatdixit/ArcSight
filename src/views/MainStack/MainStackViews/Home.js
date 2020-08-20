@@ -26,7 +26,7 @@ import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { getDimen } from '../../../dimensions/dimen';
 import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
-
+import { getData } from '../../../utils/asyncStore';
 
 const DATA = [
     {
@@ -43,8 +43,8 @@ const DATA = [
     },
 ];
 
+
 const Item = ({ title }) => (
-    
     <View style={{flex:1}}>
         <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), backgroundColor: 'white' }}>
             
@@ -55,10 +55,12 @@ const Item = ({ title }) => (
 
             <TouchableOpacity onPress={() => Alert.alert('name')}>
                 <View>
-                    <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+                    {/* <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
                         Name Here
+                        </Text> */}
+                        <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+                            {(title && title.userinfo) ? title.name : ''}
                         </Text>
-
                     <Text style={{ fontSize: 14, paddingRight: getDimen(0.02), alignContent: 'space-between' }}>
                         Listed 2 Days Ago
                         </Text>
@@ -134,10 +136,25 @@ const onShare = async () => {
 }
 
 function MainScreen({ navigation }) {
+    const [accessToken, setAccessToken] = React.useState('')
+    const [homeList, setHomeList] = React.useState([])
 
+    React.useEffect(() => {
+        console.log('Search screen');
+        getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            setAccessToken(listTokens);
+            console.log('Search Screen Token', listTokens)
+
+            if (accessToken) {
+                console.log('Prachi123')
+                homeListingApiIntegration();
+            }
+        })
+    }, [accessToken])
 
     const homeListingApiIntegration = () => {
-        console.log('Search Details', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
         fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
             method: "POST",
             headers: {
@@ -147,35 +164,17 @@ function MainScreen({ navigation }) {
             },
             body: JSON.stringify({
                 "listing": "all",
-                "location": "ludhiana",
-                "home_type": "",
-                "listing_type": [
-                    "For Sale"
-                ],
-                "bedrooms": 5,
-                "bathrooms": 2,
-                "price": 2500,
-                "sq_feet_min": 4000,
-                "sq_feet_max": 4600
-                // "bedrooms": parseInt(bedRoom),
-                // "bathrooms": parseInt(bathRoom),
-                // "price": parseInt(selectedValue),
-                // "sq_feet_min": parseInt(sqFeetMin),
-                // "sq_feet_max": parseInt(sqFeetMax)
             })
         }).then(res => res.json())
             .then(res => {
                 if (res.status) {
-                    console.log(listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
-                    console.log('Search Listing', res.message);
-                    console.log('Search Data', JSON.stringify(res.data));
-                    setSearchList(res.data)
-                    setAlertMessage(res.message)
-                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                    console.log('Home Listing Data', JSON.stringify(res.data));
+                    setHomeList(res.data)
+                    console.log('homeList', homeList.data)
+                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
-                    console.log('Search Listing Error', res.message);
-                    setAlertMessage(res.message)
-                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    console.log('Home Listing Error', res.message);
+                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 }
             })
             .catch(err => {
@@ -185,13 +184,9 @@ function MainScreen({ navigation }) {
 
 
     const renderItem = ({ item }) => (
-        <Item title={item.title} />
+        <Item title={item.id} />
     );
 
-
-    // const [checked, setChecked] = React.useState(false);
-    // const [password, setPassword] = React.useState('');
-    // const [username, setUsername] = React.useState('');
     return (
 
         <View style={{flex:1}} >
@@ -225,7 +220,7 @@ function MainScreen({ navigation }) {
             
                 <SafeAreaView >
                     <FlatList
-                        data={DATA}
+                        data={homeList.data}
                         renderItem={renderItem}
                         keyExtractor={item => item.id}
                     />
