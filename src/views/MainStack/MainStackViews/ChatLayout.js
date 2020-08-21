@@ -34,6 +34,8 @@ function ChatLayout({ route, navigation }) {
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [accessToken, setAccessToken] = React.useState('')
     const [userId, setUserId] = React.useState('')
+    // const [flatRef, setFlatRef] = useRef(null);
+    const scrollViewRef = useRef();
     // const [ref, setRef] = React.i = useRef('flatlist');
     // const [keyboardHeight, setKeyboardHeight] = useState(0);
 
@@ -313,8 +315,9 @@ function ChatLayout({ route, navigation }) {
                         data={chatList}
                         // ref={React.useRef("flatlist")}
                         // onContentSizeChange={() => useRef('flatlist').scrollToEnd({ animated: false })}
-                        // ref="flatList"
-                        // onContentSizeChange={() => this.refs.flatList.scrollToEnd({ animated: false })}
+                        ref={scrollViewRef}
+                        onContentSizeChange={(contentWidth, contentHeight)=> {scrollViewRef.current.scrollToEnd({animated: false})}}
+                        // onContentSizeChange={() => flatRef.current.scrollToEnd({ animated: false })}
                         renderItem={({ item, separators, index }) => {
 
                             if (item.right_side_message === 'yes') {

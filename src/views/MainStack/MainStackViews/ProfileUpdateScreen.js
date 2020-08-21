@@ -142,72 +142,52 @@ function ProfileUpdateScreen({ navigation }) {
 
                                 </TouchableOpacity>
                             </View>
-                            <TextInput
-                                keyboardType="default"
-                                editable={false}
-                                placeholderTextColor="gray"
-                                autoCapitalize="none"
-                                placeholder={email}
-                                keyboardType='default'
-                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
 
-                                onChangeText={(email) => setFirstName(email)}
-                                value={email}
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Email"
+                                    placeholderTextColor="#8A8A8A"
+                                    // secureTextEntry={true}
+                                    underlineColorAndroid='transparent'
+                                    onChangeText={(email) => setEmail(email)}
+                                    value={email} />
+                            </View>
 
-                            />
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="First Name"
+                                    placeholderTextColor="#8A8A8A"
+                                    // secureTextEntry={true}
+                                    underlineColorAndroid='transparent'
+                                    onChangeText={(firstName) => setFirstName(firstName)}
+                                    value={firstName} />
+                            </View>
 
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Last Name"
+                                    placeholderTextColor="#8A8A8A"
+                                    // secureTextEntry={true}
+                                    underlineColorAndroid='transparent'
+                                    onChangeText={(lastName) => setLastName(lastName)}
+                                    value={lastName} />
+                            </View>
 
-                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
-                            <TextInput
-                                keyboardType="default"
-
-                                placeholderTextColor="gray"
-                                autoCapitalize="none"
-                                placeholder={firstName}
-                                keyboardType='default'
-                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-
-                                onChangeText={(firstName) => setFirstName(firstName)}
-                                value={firstName}
-
-                            />
-
-                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
-
-                            <TextInput
-                                keyboardType="default"
-
-                                placeholderTextColor="gray"
-                                autoCapitalize="none"
-                                placeholder="Last Name"
-                                keyboardType='default'
-                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.03) }}
-
-                                onChangeText={(lastName) => setLastName(lastName)}
-                                value={lastName}
-
-                            />
-
-                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
-
-                            <TextInput
-                                keyboardType="default"
-
-                                placeholderTextColor="gray"
-                                autoCapitalize="none"
-                                placeholder="Real Estate Company"
-                                keyboardType='default'
-                                style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.05) }}
-
-                                onChangeText={(companyName) => setCompanyName(companyName)}
-                                value={companyName}
-
-                            />
-
-                            <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.01) }}></View>
-
-
-
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Real Estate Company"
+                                    placeholderTextColor="#8A8A8A"
+                                    // secureTextEntry={true}
+                                    underlineColorAndroid='transparent'
+                                    onChangeText={(companyName) => setCompanyName(companyName)}
+                                    value={companyName} />
+                            </View>
+                            
+                            
 
                             <View style={{ alignItems: 'center', marginTop: getDimen(0.08) }}>
 
@@ -245,11 +225,21 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%'
     },
+    inputContainer: {
+        marginTop: 10,
+        borderWidth: 1,
+        marginLeft: 25,
+        marginRight: 25,
+        paddingBottom: -5,
+        borderBottomColor: '#CCC',
+        borderColor: 'transparent',
+        flexDirection: 'row'
+    },
     input: {
         height: 50,
         flex: 10,
         paddingLeft: 10,
-        fontSize: getDimen(0.045),
+        fontSize: 14,
         // fontFamily: 'Poppins-Regular',
         color: 'black'
     },

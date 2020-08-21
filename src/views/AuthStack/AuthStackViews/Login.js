@@ -161,6 +161,15 @@ function LoginScreen({ navigation }) {
 
     }
 
+    const checkViewHeight = () => {
+        if (Platform.OS === 'android') {
+            return getDimen(0.95)
+        }
+        else {
+            return '85%'
+        }
+    }
+
     return (
         <View style={{ width: '100%', height: '100%' }}>
             <ImageBackground
@@ -169,7 +178,7 @@ function LoginScreen({ navigation }) {
 
                 <ScrollView style={{ flex: 1, flexDirection: 'column' }}>
 
-                    <View style={{ width: '90%', height: '80%', backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}>
+                    <View style={{ width: '90%', height: checkViewHeight(), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}>
                         {/* <View style={{ width: '90%', height: getDimen(0.9), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.3), borderRadius: getDimen(0.03), shadowColor: 'black' }}> */}
 
                         <View style={{ marginTop: getDimen(-0.1), alignItems: 'center' }}>

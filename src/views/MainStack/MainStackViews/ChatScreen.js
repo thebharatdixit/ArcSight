@@ -70,6 +70,7 @@ function ChatScreen({ route, navigation }) {
     const [showAll, setShowAll] = React.useState(true);
     const [showMy, setShowMy] = React.useState(false);
     const [name, setName] = React.useState('All Colleagues');
+    const [isFriend, setIsFriend] = React.useState('');
     const isFocused = useIsFocused();
 
     global.listData = [{}];
@@ -88,7 +89,7 @@ function ChatScreen({ route, navigation }) {
     // global.name = '';
     useEffect(() => {
         tokens ? getDropValue() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
-    }, [tokens, isFocused, name])
+    }, [tokens, isFocused, name, allColleagues])
 
 
 
@@ -181,6 +182,8 @@ function ChatScreen({ route, navigation }) {
     }
 
     const getColleaguesList = (value) => {
+
+        setShowLoader('');
         let data = {
             "search_type": value
         }
@@ -199,7 +202,7 @@ function ChatScreen({ route, navigation }) {
 
                 setAllColleagues(res.data);
                 setFilteredData(res.data);
-                console.log("colleagues : ", res.data)
+                setShowLoader('hide');
 
 
 
@@ -212,9 +215,86 @@ function ChatScreen({ route, navigation }) {
                 //   );
             })
             .catch(err => {
-                console.error("error uploading images: ", err);
+                console.error("error Search colleagues : ", err);
             });
         return undefined;
+    }
+
+    const addColleagues = (id) => {
+
+        setShowLoader('');
+
+        fetch("http://arc.softwaresolutions.website/api/v1/add-colleague", {
+            method: "post",
+            headers: {
+                Accept: "application/json",
+                'Content-Type': "application/json",
+                Authorization: `Bearer ${tokens}`,
+            },
+            body: JSON.stringify(
+                { "user_id": id }
+            ),
+        }).then(res => res.json())
+            .then(res => {
+
+                // console.log("status : ", res.status)
+                if (res.status === true) {
+                    alert(res.message);
+
+                    setShowLoader('hide');
+                } else {
+                    alert(res.message);
+                    setShowLoader('hide');
+                }
+
+            })
+            .catch(err => {
+                console.error("error add colleague : ", err);
+                setShowLoader('hide');
+            });
+    }
+
+    const removeColleagu = (id) => {
+        setShowLoader('');
+
+        fetch("http://arc.softwaresolutions.website/api/v1/remove-colleague", {
+            method: "post",
+            headers: {
+                Accept: "application/json",
+                'Content-Type': "application/json",
+                Authorization: `Bearer ${tokens}`,
+            },
+            body: JSON.stringify(
+                { "user_id": id }
+            ),
+        }).then(res => res.json())
+            .then(res => {
+
+                if (res.status === true) {
+                    alert(res.message);
+
+                    setShowLoader('hide');
+                } else {
+                    alert(res.message);
+                    setShowLoader('hide');
+                }
+
+            })
+            .catch(err => {
+                console.error("error uploading images: ", err);
+            });
+    }
+
+    const addAndRemoveColleague = (isFriend, userId) => {
+        //alert("add and remove")
+
+        if (isFriend === "no") {
+            addColleagues(userId);
+            //alert("hello I am add Colleague method"+userId)
+        } else {
+            removeColleagu(userId);
+            //alert("hello I am remove Colleague method" + userId)
+        }
     }
 
 
@@ -350,7 +430,7 @@ function ChatScreen({ route, navigation }) {
 
                         data={filteredData}
                         renderItem={({ item, separators, index }) => (
-                            <TouchableWithoutFeedback onPress={() => navigation.navigate('Colleague List', ({ "name": item.name, "companyName": item.company_name, "profile_image_url": item.profile_image_url }))} >
+                            <TouchableWithoutFeedback onPress={() => navigation.navigate('Colleague List', ({ "name": item.name, "companyName": item.company_name, "profile_image_url": item.profile_image_url, "isFriend": item.is_friend, "userId": item.id }))} >
                                 <View>
                                     <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
 
@@ -378,9 +458,12 @@ function ChatScreen({ route, navigation }) {
                                                 <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'white', justifyContent: 'flex-end', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0) }}>
 
                                                     <View style={{ flexDirection: 'row', backgroundColor: 'white', justifyContent: 'flex-end', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0), marginRight: getDimen(0.01), marginBottom: getDimen(0.03) }}>
-                                                        <TouchableOpacity onPress={() => Alert.alert('Do you want to delete')}>
-                                                            <Image source={require('../../../assets/icons/cross.png')}
-                                                                style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} />
+                                                        <TouchableOpacity onPress={() => addAndRemoveColleague(item.is_friend, item.id)}>
+                                                            {(item.is_friend === 'no') ? (
+                                                                <Image source={require('../../../assets/icons/dmyCollegue.png')}
+                                                                    style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
+                                                            ) : (<Image source={require('../../../assets/icons/cross.png')}
+                                                                style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} />)}
                                                         </TouchableOpacity>
                                                         <TouchableOpacity onPress={() => navigation.navigate('Chat Layout')}>
                                                             <Image source={require('../../../assets/icons/25.png')}

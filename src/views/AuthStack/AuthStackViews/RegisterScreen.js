@@ -196,6 +196,15 @@ function RegisterScreen({ navigation }) {
         });
     };
 
+    const checkViewHeight = () => {
+        if (Platform.OS === 'android') {
+            return getDimen(1.4)
+        }
+        else {
+            return '90%'
+        }
+    }
+
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
@@ -231,7 +240,7 @@ function RegisterScreen({ navigation }) {
 
                 <ScrollView>
                     {/* <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}> */}
-                    <View style={{ width: '90%', height: '90%', backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}>
+                    <View style={{ width: '90%', height: checkViewHeight(), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}>
                         <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.22), marginTop: 0, marginRight: 0, borderRadius: 12, }}>
                             <View style={{ marginTop: getDimen(-0.1), alignItems: 'center', }}>
                                 <TouchableOpacity
@@ -242,8 +251,8 @@ function RegisterScreen({ navigation }) {
                                     {filePath === '' ?
                                         <Image
                                             style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.32) / 2 }}
-                                            source={{ uri: "" }}
-                                            defaultSource={require('../../../assets/icons/29.png')}
+                                            source={require('../../../assets/icons/29.png')}
+                                        // defaultSource={require('../../../assets/icons/29.png')}
                                         /> :
                                         <Image
                                             style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.32) / 2 }}

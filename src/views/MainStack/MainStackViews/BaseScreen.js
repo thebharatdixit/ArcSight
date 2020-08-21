@@ -39,6 +39,7 @@ import AddListingStack from './AddListingStack';
 import HomeStack from './HomeStack';
 import ProfileStack from './ProfileStack'
 import DrawerNavigator from '../../../common/DrawerNavigator'
+import PropertyStack from './PropertyStack';
 
 
 
@@ -202,7 +203,7 @@ function BaseScreen({ navigation }) {
                             )
                         }}
                     />
-                    <Tab.Screen name="Property Screen" component={PropertyScreen}
+                    <Tab.Screen name="Property Screen" component={PropertyStack}
                         options={{
                             tabBarLabel: '',
                             tabBarIcon: ({ focused, horizontal, tintColor }) => (
