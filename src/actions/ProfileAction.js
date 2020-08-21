@@ -1,5 +1,4 @@
-import {doSignout} from '../service/apiService'
-import { getFetchProfile } from '../service/apiServiceWithToken'
+import { getFetchProfile, doSignout } from '../service/apiServiceWithToken'
 
 
 export const doLogout = () => {

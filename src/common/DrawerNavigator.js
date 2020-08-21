@@ -20,7 +20,7 @@ function DrawerNavigator({ navigation }) {
             drawerContentOptions={{
                 activeTintColor: 'white',
                 inactiveTintColor: 'white',
-                labelStyle: { fontSize: getDimen(0.05) }
+                labelStyle: { fontSize: getDimen(0.05)}
             }}
             drawerContent={(route) => <DrawerContent {...route} />}
         >
@@ -46,3 +46,4 @@ function DrawerNavigator({ navigation }) {
 };
 
 export default DrawerNavigator;
+

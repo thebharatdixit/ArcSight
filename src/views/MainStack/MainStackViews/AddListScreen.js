@@ -22,6 +22,7 @@ import { getData } from '../../../utils/asyncStore';
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import SearchInput, { createFilter } from 'react-native-search-filter';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
@@ -133,6 +134,34 @@ function AddListScreen({ navigation }) {
     return (
 
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
+            {/* <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity style={{ height: 25, width: 25 }} onPress={() => navigation.goBack()}>
+                    <Image source={require('../../../assets/images/back.png')}
+                        style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>
+                
+                <Text style={{ fontSize: getDimen(0.055), marginLeft: getDimen(0.15) }}>Chat List </Text>
+
+                <Image source={require('../../../assets/images/logo.png')}
+                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+
+
+            </View> */}
+            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() =>
+                    navigation.dispatch(DrawerActions.toggleDrawer())
+                }>
+                    <Image source={require('../../../assets/icons/3.png')}
+                        style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>
+
+                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <Text style={{ fontSize: getDimen(0.055), marginLeft: getDimen(0.035) }}>Chat List </Text>
+
+                    <Image source={require('../../../assets/images/logo.png')}
+                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                </View>
+            </View>
             <ScrollView style={styles.container}>
                 <SearchInput
                     onChangeText={(term) => { searchUpdated(term) }}
@@ -209,6 +238,7 @@ function AddListScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 0.90,
         flexDirection: 'column',
         backgroundColor: '#ffffff',
         marginTop: getDimen(0),

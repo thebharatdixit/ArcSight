@@ -20,10 +20,63 @@ import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { getDimen } from '../../../dimensions/dimen';
+import { getData } from '../../../utils/asyncStore';
 
+function SearchListDetailScreen({ navigation, route }) {
 
-function SearchListDetailScreen({ navigation }) {
-  
+    const { user_idSearchDetail } = route.params ? route.params : ""
+    const [accessToken, setAccessToken] = React.useState('')
+    const [searchListDetail, setSearchListDetail] = React.useState([])
+    const [userImage, setUserImage] = React.useState('')
+    
+
+    React.useEffect(() => {
+        getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            console.log('USER id : ' + userData.user.id);
+            setAccessToken(listTokens);
+            console.log('Search Detail Screen Token', listTokens)
+
+            if (accessToken) {
+                console.log('Prachi1234')
+                searchListingDetailApiIntegration();
+            }
+        })
+        
+    }, [accessToken])
+
+   
+
+    const searchListingDetailApiIntegration = () => {
+        fetch("http://arc.softwaresolutions.website/api/v1/listing/detail", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+               'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+                "listing_id": 5
+            })
+        }).then(res => res.json())
+            .then(res => {
+                if (res.status) {
+                    console.log('Search Listing Details', res.data);
+                    setSearchListDetail(res.data)
+                    setUserImage(res.data.listing.userinfo.profile_image_url)
+                    // console.log('listing/detail', searchListDetail);
+                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                } else {
+                    console.log('Search Listing Details Error', res.message);
+                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                }
+            })
+            .catch(err => {
+                console.error("error: ", err);
+            });
+    }
+
     return (
         <View style={{flex: 1}}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
@@ -64,25 +117,43 @@ function SearchListDetailScreen({ navigation }) {
                 </View>
                 <View style={{ justifyContent: 'flex-end', flexDirection: 'row', marginTop: getDimen(-0.12), marginRight: getDimen(0.1) }}>
                     <TouchableOpacity
-                        onPress={() => Alert.alert('I can change my profile photo')}
+                        // onPress={() => {Alert.alert('I can change my profile photo')
+                        //         var fetchUserId = user_idSearchDetail;
+                        //         console.log('fetchUserId', fetchUserId)
+                        // }
+                        
+                        // }
                     >
-                        <Image source={require('../../../assets/icons/2.png')}
-                            style={{ height: getDimen(0.4 / 2), width: getDimen(0.4 / 2) }} />
+                            {
+                                (userImage === 'http://arc.softwaresolutions.website/images/UserImages/') ?
+                                    <Image source={require('../../../assets/icons/2.png')}
+                                        style={{ height: getDimen(0.4 / 2), width: getDimen(0.4 / 2) }} />
+                                    :
+                                    <Image source={{
+                                        uri: `${userImage}`
+                                    }}
+                                        style={{ height: getDimen(0.4 / 2), width: getDimen(0.4 / 2), borderRadius: getDimen(0.1) }} />
+                            }  
+                        
                     </TouchableOpacity>
                 </View>
                 {/* <ScrollView style={styles.container}> */}
                 <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05), flexDirection: 'row' }}>
-                    <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text>
-                    <View style={{ flexDirection: 'column', marginLeft: getDimen(0.2), justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+                    {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
+                        <Text 
+                        style={{ fontSize: getDimen(0.045) , width: '55%', fontWeight:'500'}}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
+                    <View style={{ flexDirection: 'column', marginLeft: getDimen(0.07), justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
                         <TouchableOpacity
                             onPress={() => Alert.alert('Broker Name Here Details')}
                         >
-                            <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left' }}>Broker Name Here</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left' }}>Broker Name Here</Text> */}
+                                <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.userinfo.name) ? searchListDetail.listing.userinfo.name : ''}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => Alert.alert('Real Estate Company')}
                         >
-                            <Text style={{ fontSize: getDimen(0.038), marginTop: getDimen(0.005), color: 'gray' }}>Real Estate Company</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.038), marginTop: getDimen(0.005), color: 'gray' }}>Real Estate Company</Text> */}
+                                <Text style={{ fontSize: getDimen(0.038), marginTop: getDimen(0.005), color: 'gray' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.userinfo.company_name) ? searchListDetail.listing.userinfo.company_name : ''}</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -90,15 +161,15 @@ function SearchListDetailScreen({ navigation }) {
 
                 <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
                     <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
-                        <Text style={{ fontSize: getDimen(0.06) }}>2</Text>
+                            <Text style={{ fontSize: getDimen(0.06) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.bedrooms) ? searchListDetail.listing.bedrooms : ''}</Text>
                         <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
                     </View>
                     <View style={{ flex: 0.22, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                        <Text style={{ fontSize: getDimen(0.06) }}>2</Text>
-                        <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
+                            <Text style={{ fontSize: getDimen(0.06) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.bathrooms) ? searchListDetail.listing.bathrooms : ''}</Text>
+                        <Text style={{ fontSize: getDimen(0.035) }}>Bathrooms</Text>
                     </View>
                     <View style={{ flex: 0.21, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                        <Text style={{ fontSize: getDimen(0.06) }}>1</Text>
+                            <Text style={{ fontSize: getDimen(0.06) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.terrace) ? searchListDetail.listing.terrace : ''}</Text>
                         <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
                     </View>
                     <View style={{ backgroundColor: '#a43d3e', flex: 0.395, height: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>

@@ -25,6 +25,9 @@ let API = {
         PROFILE: {
             FETCH_PROFILE: { url: 'api/v1/user/profile', method: 'POST' },
         },
+        ADD_LISTINGS: {
+            FETCH_AMINITIES: { url: 'api/v1/amenities', method: 'GET' },
+        },
         
 
         SITES_DETAIL: {

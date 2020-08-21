@@ -88,10 +88,6 @@ function ProfileScreen({ navigation }) {
     }, [accessToken,isFocused])
 
 
-
-
-
-
     const getUserProfileData = () => {
 
         setShowLoader('');
@@ -121,9 +117,6 @@ function ProfileScreen({ navigation }) {
 
         })
     }
-
-
-
 
 
     chooseFile = async () => {

@@ -20,11 +20,12 @@ const HomeStack = function authNavigator({ }) {
             <Stack.Screen name="MainScreen" component={MainScreen}
             />
 
-            {/* <Stack.Screen name="Chat Layout" component={ChatLayout}
-            /> */}
+            
             <Stack.Screen name="Colleague List" component={ColleagueListScreen}
             />
             
+            <Stack.Screen name="Chat Layout" component={ChatLayout}
+            />
 
         </Stack.Navigator>
 
