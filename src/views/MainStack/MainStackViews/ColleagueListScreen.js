@@ -21,6 +21,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { storeData, getData } from '../../../utils/asyncStore';
+import { fetchProfile } from '../../../actions/ProfileAction';
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
@@ -50,16 +51,20 @@ const onShare = async () => {
 function ColleaguageListScreen({ route, navigation }) {
 
     const [tokens, setTokens] = React.useState('');
-    const [show, setShow] = React.useState(true);
-    const [flags,setFlags] = React.useState(true);
-    
+    const [showLoader, setShowLoader] = React.useState('hide');
+    const [userProfileData, setUserProfileData] = React.useState([]);
+    const [profileListing, setProfileListing] = React.useState([]);
+
+
 
     //const { colleagues } = route.params 
     const { name } = route.params ? route.params : ""
     const { companyName } = route.params ? route.params : ""
     const { profile_image_url } = route.params ? route.params : ""
+    const { isFriend } = route.params ? route.params : ""
+    const { userId } = route.params ? route.params : ""
 
-    //console.log("ccolleagues : ",colleagues)
+
 
     const dummyData = [
         // mainSt: '1234 Main St',
@@ -67,6 +72,10 @@ function ColleaguageListScreen({ route, navigation }) {
         { id: '2' },
         { id: '3' },
     ];
+
+    useEffect(() => {
+        tokens ? getColleagueProfileData() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
+    }, [tokens])
 
 
     global.id = '';
@@ -79,24 +88,13 @@ function ColleaguageListScreen({ route, navigation }) {
 
     })
 
-    getData('show').then((data) => {
-        const userData = JSON.parse(data);
-        const listTokens = userData.token;
-        id = userData.user.id;
-        setTokens(listTokens);
-
-    })
 
 
 
 
-    function addColleagues() {
+    const addColleagues = (id) => {
 
-        //console.log('hello')
-
-        // let data = {
-        //     "user_id" : 13
-        // }
+        setShowLoader('');
 
         fetch("http://arc.softwaresolutions.website/api/v1/add-colleague", {
             method: "post",
@@ -106,37 +104,107 @@ function ColleaguageListScreen({ route, navigation }) {
                 Authorization: `Bearer ${tokens}`,
             },
             body: JSON.stringify(
-                { "user_id": 13 }
+                { "user_id": id }
             ),
         }).then(res => res.json())
             .then(res => {
 
-                //console.log('status',res.status)
-                // if(res.status===false){
-                //     setShow(false)
-                //     console.log("show",show)
-                // }
-                setShow(false)
-                storeData('show', show);
+                // console.log("status : ", res.status)
+                if (res.status === true) {
+                    alert(res.message);
 
-                //alert(res.message)
-                setFlags(false)
+                    setShowLoader('hide');
+                } else {
+                    alert(res.message);
+                    setShowLoader('hide');
+                }
 
-                //   Alert.alert(
-                //     "Success",
-                //     res.message,
-                //     [{ text: "OK", onPress: () => that.props.close() }],
-                //     { cancelable: false }
-                //   );
+            })
+            .catch(err => {
+                console.error("error add colleague : ", err);
+                setShowLoader('hide');
+            });
+    }
+
+
+    const removeColleagu = (id) => {
+        setShowLoader('');
+
+        fetch("http://arc.softwaresolutions.website/api/v1/remove-colleague", {
+            method: "post",
+            headers: {
+                Accept: "application/json",
+                'Content-Type': "application/json",
+                Authorization: `Bearer ${tokens}`,
+            },
+            body: JSON.stringify(
+                { "user_id": id }
+            ),
+        }).then(res => res.json())
+            .then(res => {
+
+                if (res.status === true) {
+                    alert(res.message);
+
+                    setShowLoader('hide');
+                } else {
+                    alert(res.message);
+                    setShowLoader('hide');
+                }
+
             })
             .catch(err => {
                 console.error("error uploading images: ", err);
             });
     }
+
+
+    const addAndRemoveColleague = (isFriend, userId) => {
+        //alert("add and remove")
+
+        if (isFriend === "no") {
+            addColleagues(userId);
+            // alert("hello I am add Colleague method"+userId)
+        } else {
+            removeColleagu(userId);
+            //alert("hello I am remove Colleague method" + userId)
+        }
+    }
+
+
+    const getColleagueProfileData = () => {
+
+        setShowLoader('');
+        let data = {
+            "profile": "other",
+            "user_id": userId
+        }
+        let token = tokens;
+        console.log('data :' + JSON.stringify(data) + "token :" + token);
+        fetchProfile(token, data).then((response) => {
+
+
+            if (response.status) {
+                setUserProfileData(response.data)
+                setProfileListing(response.data.listing.data)
+                console.log('colleagues profile : ', profileListing)
+
+                setShowLoader('hide');
+
+
+            }
+            else {
+                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            }
+
+        })
+    }
+
+
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
 
-            <View style={{ width: '100%',  backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+            <View style={{ width: '100%', backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
                 >
@@ -180,13 +248,13 @@ function ColleaguageListScreen({ route, navigation }) {
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.01), }}>
                     <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginRight: getDimen(0.05) }}>
-                        <TouchableOpacity onPress={() => addColleagues()}>
+                        <TouchableOpacity onPress={() => addAndRemoveColleague(isFriend, userId)}>
 
-                            {show ? (
+                            {(isFriend === 'no') ? (
                                 <Image source={require('../../../assets/icons/dmyCollegue.png')}
                                     style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
                             ) : (<Image source={require('../../../assets/icons/cross.png')}
-                            style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} />)}
+                                style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} />)}
                         </TouchableOpacity>
                     </View>
                     <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02) }}></View>
@@ -235,7 +303,7 @@ function ColleaguageListScreen({ route, navigation }) {
                     horizontal={false}
                     showsVerticalScrollIndicator={false}
                     style={{ marginTop: 0, }}
-                    data={dummyData}
+                    data={profileListing}
                     renderItem={({ item, separators, index }) => (
                         <View>
                             <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
@@ -243,15 +311,21 @@ function ColleaguageListScreen({ route, navigation }) {
                                 <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
                                     <View style={{ flex: 0.6, height: '100%' }}>
                                         <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
-                                            <Image
+                                            {/* <Image
                                                 source={require('../../../assets/icons/19.png')}
                                                 style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
+                                            /> */}
+
+                                            <Image source={{
+                                                uri: `${item.main_image_url}`,
+                                            }}
+                                                style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), }}
                                             />
                                         </View>
 
                                         <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
                                             <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
-                                                <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text>
+                                                <Text style={{ fontSize: getDimen(0.04), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
                                             </View>
                                             <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
                                                 <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
@@ -261,20 +335,20 @@ function ColleaguageListScreen({ route, navigation }) {
                                     </View>
                                     <View style={{ flex: 1, height: '100%', }}>
                                         <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                            <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text>
+                                            <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
                                         </View>
 
                                         <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
                                             <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                <Text style={{ fontSize: getDimen(0.06) }}>2</Text>
+                                                <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
                                                 <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
                                             </View>
                                             <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                <Text style={{ fontSize: getDimen(0.06) }}>2</Text>
+                                                <Text style={{ fontSize: getDimen(0.06) }}>{item.bathrooms}</Text>
                                                 <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
                                             </View>
                                             <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                <Text style={{ fontSize: getDimen(0.06) }}>1</Text>
+                                                <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
                                                 <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
                                             </View>
                                         </View>
@@ -286,7 +360,7 @@ function ColleaguageListScreen({ route, navigation }) {
                                                     style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                             </View>
                                             <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text>
+                                                <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
                                             </View>
                                             <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
                                                 {/* <Image source={require('../../../assets/icons/dummyLine.png')}
@@ -306,7 +380,7 @@ function ColleaguageListScreen({ route, navigation }) {
                                                     style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                             </View>
                                             <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                <Text style={{ fontSize: getDimen(0.035) }}>0000 Sq Feet</Text>
+                                                <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
                                             </View>
                                             <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
                                                 {/* <Image source={require('../../../assets/icons/20.png')}
@@ -329,6 +403,17 @@ function ColleaguageListScreen({ route, navigation }) {
                     keyExtractor={item => item.id}
                 />
             </ScrollView>
+
+            {
+                (showLoader === '') ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
         </View>
     );
 }
