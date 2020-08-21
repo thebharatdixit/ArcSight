@@ -187,11 +187,7 @@ function MainScreen({ navigation }) {
                 </SafeAreaView>
             </ScrollView>
 
-            {/* <Drawer.Navigator initialRouteName="Home">
-                <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
-                <Drawer.Screen name="MyColleagueScreen" component={MyColleagueScreen} />
-
-                </Drawer.Navigator> */}
+            
 
             </View> 
         </View>
