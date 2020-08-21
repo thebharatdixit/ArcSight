@@ -114,9 +114,9 @@ function ProfileUpdateScreen({ navigation }) {
                         style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
                 </TouchableOpacity>
 
-                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                    <Image source={require('../../../assets/icons/2.png')}
-                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    {/* <Image source={require('../../../assets/icons/2.png')}
+                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} /> */}
 
                     <Image source={require('../../../assets/images/logo.png')}
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />

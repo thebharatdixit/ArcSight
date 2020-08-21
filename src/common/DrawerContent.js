@@ -112,7 +112,7 @@ export function DrawerContent({ route, navigation }) {
                         <DrawerItem
                             label="CHANGE PASSWORD"
                             labelStyle={{ color: 'white', fontSize: getDimen(0.041) }}
-                            onPress={() => navigation.navigate('Change Password Screen')}
+                            onPress={() => navigation.navigate('CHANGE PASSWORD')}
                         />
                         <DrawerItem
                             label="COLLEAGUES + CLIENTS"
@@ -137,7 +137,7 @@ export function DrawerContent({ route, navigation }) {
                         <DrawerItem
                             label="UPGRADE TO PRO"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold' }}
-                            onPress={() => alert('')}
+                            // onPress={() => alert('')}
                         />
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
                         <DrawerItem
@@ -146,7 +146,7 @@ export function DrawerContent({ route, navigation }) {
                             )}
                             label="SETTINGS"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
-                            onPress={() => alert('')}
+                            // onPress={() => alert('')}
                         />
                         <DrawerItem
                             icon={({ focused, color, size }) => (
