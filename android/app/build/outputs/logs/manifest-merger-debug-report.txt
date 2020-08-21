@@ -142,13 +142,13 @@ MERGED from [com.facebook.soloader:annotation:0.8.2] C:\Users\Nura\.gradle\cache
 	tools:ignore
 		ADDED from H:\project\ArcSight\android\app\src\debug\AndroidManifest.xml:8:75-114
 	android:roundIcon
-		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:16:9-54
-		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:16:9-54
+		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:16:9-44
+		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:16:9-44
 	tools:targetApi
 		ADDED from H:\project\ArcSight\android\app\src\debug\AndroidManifest.xml:8:54-74
 	android:icon
-		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:14:9-43
-		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:14:9-43
+		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:14:9-39
+		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:14:9-39
 	android:allowBackup
 		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:13:9-36
 		ADDED from H:\project\ArcSight\android\app\src\main\AndroidManifest.xml:13:9-36

@@ -6958,8 +6958,9 @@ public final class R {
     public static final int text_view_without_line_height=0x7f0b0064;
   }
   public static final class mipmap {
-    public static final int ic_launcher=0x7f0c0000;
-    public static final int ic_launcher_round=0x7f0c0001;
+    public static final int appicon=0x7f0c0000;
+    public static final int ic_launcher=0x7f0c0001;
+    public static final int ic_launcher_round=0x7f0c0002;
   }
   public static final class plurals {
     public static final int mtrl_badge_content_description=0x7f0d0000;
