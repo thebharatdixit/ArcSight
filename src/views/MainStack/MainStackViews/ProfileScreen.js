@@ -142,9 +142,7 @@ function ProfileScreen({ navigation }) {
         });
     };
 
-    const updateProfile = () => {
-        alert("hello");
-    }
+    
 
     const uploadPhoto = () => {
         setShowLoader('');

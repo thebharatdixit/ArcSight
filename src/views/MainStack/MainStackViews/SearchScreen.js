@@ -27,8 +27,6 @@ import MyColleagueScreen from '../MainStackViews/MyColleague';
 import { getData } from '../../../utils/asyncStore';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-
-
 const homePlace = {
     description: 'Home',
     geometry: { location: { lat: 28.5838, lng: 77.3597 } },
@@ -52,20 +50,22 @@ function SearchScreen({ navigation }) {
     const [checked3, setChecked3] = useState(false);
     const [checkedForSale, setCheckedForSale] = useState(false);
     const [checkedForRent, setCheckedForRent] = useState(false);
-    const [bedRoom, setBedroom] = React.useState('00');
-    const [bathRoom, setBathroom] = React.useState('00');
+    const [bedRoom, setBedroom] = React.useState(5);
+    const [bathRoom, setBathroom] = React.useState(2);
     const [location, setLocation] = React.useState('');
-    const [selectedValue, setSelectedValue] = React.useState('50,0000');
-    const [homeType, setHomeType] = React.useState('Home');
-    const [sqFeetMin, setSqFeetMin] = React.useState('5,000');
-    const [sqFeetMax, setSqFeetMax] = React.useState('10,000');
+    const [selectedValue, setSelectedValue] = React.useState(2500);
+    const [homeType, setHomeType] = React.useState('');
+    const [sqFeetMin, setSqFeetMin] = React.useState(4000);
+    const [sqFeetMax, setSqFeetMax] = React.useState(4600);
     const [accessToken, setAccessToken] = React.useState('')
     const [listing, setListing] = React.useState('my')
     const [searchList, setSearchList] = React.useState([])
     const [alertMessage, setAlertMessage] = React.useState('')
     const [forSaleText, setForSaleText] = React.useState('For Sale')
     const [forRentText, setForRentText] = React.useState('For Rent')
-
+    const [showGoogleView, setGoogleView] = React.useState(false)
+    const [showLoader, setShowLoader] = React.useState('hide');
+    const [aminitiesList, setAminitiesList] = React.useState([]);
 
     const allButton = () => {
         setChecked1(true)
@@ -107,6 +107,43 @@ function SearchScreen({ navigation }) {
         }
     }
 
+    const resetAction = () =>{
+        setLocation('')
+        setSelectedValue()
+        setSqFeetMax()
+        setSqFeetMin()
+        setBedroom()
+        setBathroom()
+        setCheckedForSale(false)
+        setCheckedForRent(false)
+    }
+
+    const getAminities = () => {
+        console.log('fetch Aminities');
+        setShowLoader('')
+        fetch("http://arc.softwaresolutions.website/api/v1/amenities", {
+            method: "GET",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+        }).then(res => res.json())
+            .then(res => {
+                setShowLoader('hide')
+                if (res.status) {
+                    console.log('Aminities Data', JSON.stringify(res.data));
+                    setAminitiesList(res.data)
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                } else {
+                    console.log('Aminities Error', res.message);
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                }
+            })
+            .catch(err => {
+                console.error("error: ", err);
+            });
+    }
+
     React.useEffect(() => {
 
         console.log('Search screen');
@@ -117,10 +154,11 @@ function SearchScreen({ navigation }) {
             setAccessToken(listTokens);
             setUserId(userData.user.id)
             console.log('Search Screen Token', listTokens)
-
+            setLocation('')
             if (accessToken) {
                 console.log('Prachi123')
                 searchListingApiIntegration();
+                getAminities();
             }
         })
 
@@ -128,6 +166,7 @@ function SearchScreen({ navigation }) {
 
     const searchListingApiIntegration = () => {
         console.log('Search Details', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax, forSaleText, forRentText)
+        setShowLoader('')
         fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
             method: "POST",
             headers: {
@@ -137,24 +176,26 @@ function SearchScreen({ navigation }) {
             },
             body: JSON.stringify({
                 "listing": "my",
-                "location": "ludhiana",
+                "location": location,
                 "home_type": "",
                 "listing_type": [
-                    "For Sale"
+                    forSaleText,
+                    forRentText
                 ],
-                "bedrooms": 5,
-                "bathrooms": 2,
-                "price": 2500,
-                "sq_feet_min": 4000,
-                "sq_feet_max": 4600
-                // "bedrooms": parseInt(bedRoom),
-                // "bathrooms": parseInt(bathRoom),
-                // "price": parseInt(selectedValue),
-                // "sq_feet_min": parseInt(sqFeetMin),
-                // "sq_feet_max": parseInt(sqFeetMax)
+                // "bedrooms": 5,
+                // "bathrooms": 2,
+                // "price": 2500,
+                // "sq_feet_min": 4000,
+                // "sq_feet_max": 4600
+                "bedrooms": bedRoom,
+                "bathrooms": bathRoom,
+                "price": selectedValue,
+                "sq_feet_min": sqFeetMin,
+                "sq_feet_max": sqFeetMax
             })
         }).then(res => res.json())
             .then(res => {
+                setShowLoader('hide')
                 if (res.status) {
                     console.log(listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
                     console.log('Search Listing', res.message);
@@ -193,8 +234,8 @@ function SearchScreen({ navigation }) {
             </View>
             <View style={{ backgroundColor: 'blue', flex: 0.90 }}>
 
-                <View style={{ height: getDimen(0.14), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
+                <View style={{ height: getDimen(0.12), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(0), marginRight: 10, alignItems: 'center', }}>
                         <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH LISTINGS</Text>
                         </View>
@@ -263,38 +304,22 @@ function SearchScreen({ navigation }) {
                         </TouchableOpacity>
                     </View>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                        
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Location</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop:getDimen(0.025), color:'gray',}}>Current Location / City,State / Zip Code</Text> */}
-                        <GooglePlacesAutocomplete
-                            placeholder='Current Location / City,State / Zip Code'
-                            autoFocus={false}
-                            returnKeyType={'default'}
-                            fetchDetails={true}
-                            currentLocation={true}
-                            keyboardShouldPersistTaps={'handled'}
-                            styles={{
-                                textInputContainer: {
-                                    width: '100%',
-                                    marginTop: 10
-                                },
-                                textInput: {
-                                    marginLeft: 0,
-                                    marginRight: 0,
-                                    marginTop: 0,
-                                    marginBottom: 0,
-                                    height: '98%'
-                                }
-                            }}
-                            onPress={(data, details = null) => {
-                                // 'details' is provided when fetchDetails = true
-                                console.log('Google Details => ', data, details);
-                            }}
-                            query={{
-                                key: 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k',
-                                language: 'en',
-                            }}
-                        //  predefinedPlaces={[homePlace, workPlace]}
-                        />
+
+                        <View>
+                        <TouchableOpacity onPress={()=> setGoogleView(true)}>
+                                {
+                                    (location === '') ?
+                                        <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>Current Location / City,State / Zip Code</Text> 
+                                        :
+                                        <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>{location}</Text>
+                                }  
+                            
+                            </TouchableOpacity>
+                        </View>
+
                         {/* <Item style={{ marginLeft: getDimen(0.03), marginRight: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
                         <Input placeholder='Current Location / City,State / Zip Code'
                             style={{ fontSize: getDimen(0.038), }}
@@ -303,7 +328,7 @@ function SearchScreen({ navigation }) {
                         />
                     </Item> */}
                     </View>
-                    {/* <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View> */}
+                    <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
 
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: getDimen(0.01), marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
                         <TouchableOpacity
@@ -364,10 +389,10 @@ function SearchScreen({ navigation }) {
                                 selectedValue={selectedValue}
                                 onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
                             >
-                                <Picker.Item label="20,000" value="20,000" />
-                                <Picker.Item label="40,000" value="40,000" />
-                                <Picker.Item label="100,000" value="100,000" />
-                                <Picker.Item label="100,000" value="2500" />
+                                <Picker.Item label="20000" value="20000" />
+                                <Picker.Item label="40000" value="40000" />
+                                <Picker.Item label="100000" value="100000" />
+                                <Picker.Item label="100000" value="2500" />
 
                             </Picker>
                         </Item>
@@ -418,11 +443,15 @@ function SearchScreen({ navigation }) {
                                 selectedValue={homeType}
                                 onValueChange={(itemValue, itemIndex) => setHomeType(itemValue, itemIndex)}
                             >
-                                <Picker.Item label="Townhouse" value="Townhouse" />
+                                {aminitiesList.map((item, index) => {
+                                    console.log('PickerValue:', item)
+                                    return (< Picker.Item label={item} value={index} key={index} />);
+                                })}  
+                                {/* <Picker.Item label="Townhouse" value="Townhouse" />
                                 <Picker.Item label="Co-op / Condo" value="Co-op / Condo" />
                                 <Picker.Item label="Land" value="Land" />
                                 <Picker.Item label="Home" value="Home" />
-                                <Picker.Item label="Other" value="Other" />
+                                <Picker.Item label="Other" value="Other" /> */}
                             </Picker>
                         </Item>
                     </View>
@@ -449,9 +478,9 @@ function SearchScreen({ navigation }) {
                                     selectedValue={sqFeetMax}
                                     onValueChange={(itemValue, itemIndex) => setSqFeetMax(itemValue, itemIndex)}
                                 >
-                                    <Picker.Item label="0,000" value="0,000" />
+                                    <Picker.Item label="0,000" value="0000" />
                                     <Picker.Item label="600" value="600" />
-                                    <Picker.Item label="5,000" value="5,000" />
+                                    <Picker.Item label="5,000" value="5000" />
                                     <Picker.Item label="4000" value="4000" />
                                 </Picker>
                             </Item>
@@ -475,9 +504,9 @@ function SearchScreen({ navigation }) {
                                     selectedValue={sqFeetMin}
                                     onValueChange={(itemValue, itemIndex) => setSqFeetMin(itemValue, itemIndex)}
                                 >
-                                    <Picker.Item label="0,000" value="0,000" />
+                                    <Picker.Item label="0,000" value="0000" />
                                     <Picker.Item label="600" value="600" />
-                                    <Picker.Item label="5,000" value="5,000" />
+                                    <Picker.Item label="5,000" value="5000" />
                                     <Picker.Item label="4600" value="4600" />
                                 </Picker>
                             </Item>
@@ -507,8 +536,7 @@ function SearchScreen({ navigation }) {
                         </View>
                         <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                             <TouchableOpacity
-                                // onPress={() => navigation.goBack()}
-                                onPress={() => Alert.alert('Reset')}
+                                onPress={() => resetAction()}
                             >
                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>RESET</Text>
                             </TouchableOpacity>
@@ -517,21 +545,83 @@ function SearchScreen({ navigation }) {
                     </View>
                 </View>
             </View>
+
+            {
+                (showGoogleView === true) ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'flex-start', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() =>
+                                {setGoogleView(false)
+                                console.log('location', location)
+                                }
+                            }>
+                                <Image source={require('../../../assets/icons/cross.png')}
+                                    style={{ height: 20, width: 20 }} />
+                            </TouchableOpacity>
+
+                            <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                                <Image source={require('../../../assets/icons/2.png')}
+                                    style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                                <Image source={require('../../../assets/images/logo.png')}
+                                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                            </View>
+                        </View>
+
+                        <GooglePlacesAutocomplete
+                            placeholder='Current Location / City,State / Zip Code'
+                            autoFocus={false}
+                            returnKeyType={'default'}
+                            fetchDetails={true}
+                            listViewDisplayed={false}
+                            currentLocation={true}
+                            keyboardShouldPersistTaps={'handled'}
+                            styles={{
+                                textInputContainer: {
+                                    width: '100%',
+                                    marginTop:0
+                                },
+                                textInput: {
+                                    // marginLeft: 0,
+                                    // marginRight: 0,
+                                    // marginTop: 0,
+                                    // marginBottom: 0,
+                                    // height: '98%'
+                                }
+                            }}
+                            onPress={(data, details = null) => {
+                                // 'details' is provided when fetchDetails = true
+                                console.log('Google Details => ', data.description);
+                                setLocation(data.description)
+                            }}
+                            query={{
+                                key: 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k',
+                                language: 'en',
+                            }}
+                        //  predefinedPlaces={[homePlace, workPlace]}
+                        />
+
+                    </View>
+                    :
+                    null
+            }
+
+            {
+                (showLoader === true) ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
+
         </View>
     );
 }
-
-// const StackList = createStackNavigator();
-// function SearchListScreen({ navigation }) {
-//     return (
-//         <StackList.Navigator>
-//             <StackList.Screen
-//                 name="SearchList"
-//                 component={SearchList}
-//             />
-//         </StackList.Navigator>
-//     )
-// }
 
 const styles = StyleSheet.create({
     container: {

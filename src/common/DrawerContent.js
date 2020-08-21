@@ -13,7 +13,7 @@ import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navi
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Drawer } from 'native-base';
 import { getData } from '../utils/asyncStore';
 import BaseScreen from '../views/MainStack/MainStackViews/BaseScreen';
-
+import { storeData } from '../utils/asyncStore'
 
 export function DrawerContent({ route, navigation }) {
     console.log('route', route, navigation)
@@ -57,6 +57,7 @@ export function DrawerContent({ route, navigation }) {
                 if (res.status) {
                     console.log('logged out123456', res.message);
                     AsyncStorage.clear();
+                    storeData('isLogin', 'false');
                     navigation.navigate('Login Screen');
                     Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
