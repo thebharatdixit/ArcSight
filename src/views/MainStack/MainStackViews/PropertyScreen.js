@@ -24,7 +24,7 @@ import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Picker } from 'native-base';
 //import CustomMultiPicker from "react-native-multiple-select-list";
 import { getDimen } from '../../../dimensions/dimen';
-import ImagePicker from 'react-native-image-crop-picker';
+//import ImagePicker from 'react-native-image-crop-picker';
 // import ImagePicker from 'react-native-image-picker';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { createList } from '../../../actions/createListAction';

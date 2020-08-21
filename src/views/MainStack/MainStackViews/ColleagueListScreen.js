@@ -75,7 +75,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
     useEffect(() => {
         tokens ? getColleagueProfileData() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
-    }, [tokens])
+    }, [tokens,isFriend])
 
 
     global.id = '';
