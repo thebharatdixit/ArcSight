@@ -40,6 +40,7 @@ import HomeStack from './HomeStack';
 import ProfileStack from './ProfileStack'
 import DrawerNavigator from '../../../common/DrawerNavigator'
 import PropertyStack from './PropertyStack';
+import changePassword from './ChangePassword'
 
 
 

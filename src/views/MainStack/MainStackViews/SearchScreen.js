@@ -26,6 +26,7 @@ import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
 import { getData } from '../../../utils/asyncStore';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { fetchAminities } from '../../../actions/addListingActions';
 
 const homePlace = {
     description: 'Home',
@@ -434,12 +435,12 @@ function SearchScreen({ navigation }) {
                         <Icon active name='arrow' /> */}
                             <Picker
                                 note
-                                mode="dropdown"
+                                mode="dialog"
                                 iosIcon={<Icon />}
                                 style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
-                                placeholder="Home"
-                                placeholderStyle={{ color: "black", fontSize: 14 }}
-                                placeholderIconColor="#a43d3e"
+                                placeholder="Select Home Type"
+                                placeholderStyle={{ color: "#000000", fontSize: 14 }}
+                                placeholderIconColor="#000000"
                                 selectedValue={homeType}
                                 onValueChange={(itemValue, itemIndex) => setHomeType(itemValue, itemIndex)}
                             >
@@ -447,11 +448,13 @@ function SearchScreen({ navigation }) {
                                     console.log('PickerValue:', item)
                                     return (< Picker.Item label={item} value={index} key={index} />);
                                 })}   */}
-                                <Picker.Item label="Townhouse" value="Townhouse" />
-                                <Picker.Item label="Co-op / Condo" value="Co-op / Condo" />
-                                <Picker.Item label="Land" value="Land" />
-                                <Picker.Item label="Home" value="Home" />
-                                <Picker.Item label="Other" value="Other" />
+                                <Picker.Item label="House" value="key0" />
+                                <Picker.Item label="Co-op" value="key1" />
+                                <Picker.Item label="Condo" value="key2" />
+                                <Picker.Item label="Town House" value="key3" />
+                                <Picker.Item label="Multi Family" value="key4" />
+                                <Picker.Item label="Land" value="key5" />
+                                <Picker.Item label="Other" value="key6" />
                             </Picker>
                         </Item>
                     </View>
