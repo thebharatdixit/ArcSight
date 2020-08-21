@@ -31,6 +31,8 @@ function RegisterScreen({ navigation }) {
     const [companyName, setCompanyName] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [filePath, setFilePath] = React.useState('')
+    const [showLoader, setShowLoader] = React.useState('hide');
+
     var IsAlert = ''
 
     const options = {
@@ -143,7 +145,9 @@ function RegisterScreen({ navigation }) {
             "profile_image": filePath.uri
         }
         // this.setState({ isAuthenticating: true })
+        setShowLoader('')
         registerNewUser(data).then((response) => {
+            setShowLoader('hide')
             if (response.status) {
                 storeData('isLogin', 'true');
                 storeData('userData', JSON.stringify(response.data));
@@ -215,9 +219,9 @@ function RegisterScreen({ navigation }) {
                         style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
                 </TouchableOpacity>
 
-                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                    <Image source={require('../../../assets/icons/2.png')}
-                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    {/* <Image source={require('../../../assets/icons/2.png')}
+                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} /> */}
 
                     <Image source={require('../../../assets/images/logo.png')}
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
@@ -345,6 +349,16 @@ function RegisterScreen({ navigation }) {
 
                 </ScrollView>
             </ImageBackground >
+            {
+                (showLoader === true) ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
         </View>
     );
 }

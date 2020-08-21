@@ -138,8 +138,9 @@ function LoginScreen({ navigation }) {
             "login_device": Platform.OS,
             "notification_token": ""
         }
-
+        setShowLoader('')
         login(data).then((response) => {
+            setShowLoader('hide')
             if (response.status) {
                 storeData('isLogin', 'true');
                 storeData('userData', JSON.stringify(response.data));
@@ -260,6 +261,16 @@ function LoginScreen({ navigation }) {
                 </ScrollView>
 
             </ImageBackground>
+            {
+                (showLoader === true) ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
         </View>
 
     );
