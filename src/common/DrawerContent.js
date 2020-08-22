@@ -15,9 +15,10 @@ import BaseScreen from '../views/MainStack/MainStackViews/BaseScreen';
 import { storeData,clearData } from '../utils/asyncStore'
 import { connect } from 'react-redux';
 import { changeAuthState } from '../actions/authAction';
+import { NavigationActions, StackActions } from 'react-navigation';
 import { AsyncStorage } from '@react-native-community/async-storage';
 
-function DrawerScreen({ route, navigation }) {
+function DrawerScreen({ route, navigation, changeAuthState }) {
     console.log('route', route, navigation)
     const [accessToken, setAccessToken] = React.useState('')
     const [userImage, setUserImage] = React.useState('')
@@ -61,6 +62,8 @@ function DrawerScreen({ route, navigation }) {
                    // AsyncStorage.clear();
                     clearData()
                     changeAuthState(false)
+                    // navigation.navigate("Login Screen");
+                    
                     //Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('No logged Out');

@@ -17,6 +17,7 @@ export function splashFunction(state = initialState, action) {
         case 'LOGIN':
       //      console.log('Login Reducer Called.')
             state = action.payload;
+            console.log('Login Reducer Called.' + state);
             break;
     }
     return state;

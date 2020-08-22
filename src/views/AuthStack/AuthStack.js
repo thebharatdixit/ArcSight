@@ -40,14 +40,15 @@ import LoginScreen from './AuthStackViews/Login';
 import RegisterScreen from './AuthStackViews/RegisterScreen';
 import ForgotPasswordScreen from './AuthStackViews/ForgotPassword'
 import MainStack from '../MainStack/MainStack';
- const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
 const Nav = function Navigator(props) {
 
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
-            {!props.isLoggedIn ? (
+            {!props.isLoggedIn.isLoggedIn ? (
                 <Stack.Navigator
+                    initialRouteName="AuthStack"
                     screenOptions={{
                         headerShown: false
                     }}
