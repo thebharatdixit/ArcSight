@@ -24,8 +24,8 @@ import {useSelector} from "react-redux";
 const Stack = createStackNavigator();
 
 const Nav = function Navigator({ isLoggedIn, changeAuthState }) {
-  console.log( "yha aaya :" + JSON.stringify(isLoggedIn.isLoggedIn) );
-  console.log(isLoggedIn.isLoggedIn ? "LOgin true " : "login false")
+  console.log( "after Navigator :" + JSON.stringify(isLoggedIn) + ":>" + isLoggedIn );
+  console.log(isLoggedIn ? "LOgin true " : "login false")
   const [login, setIsLogin] = React.useState("");
   const [loading, setloading] = React.useState(true);
   const [proto, setProto] = React.useState(false);
@@ -33,7 +33,9 @@ const Nav = function Navigator({ isLoggedIn, changeAuthState }) {
 
 
   React.useEffect(() => {
+    console.log('aysncsto');
     getData('isLogin').then((isLogin) => {
+      console.log('aysncsto :'+ isLogin);
       if (isLogin === 'true') {
         changeAuthState(true)
         setIsLogin(true)
@@ -49,10 +51,10 @@ const Nav = function Navigator({ isLoggedIn, changeAuthState }) {
   return (
     
     <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
-      {console.log( "yha aaya2 :" + JSON.stringify(isLoggedIn.isLoggedIn) + "..:." + login )}
+      {console.log( "In return :" + JSON.stringify(isLoggedIn) + "..:." + login )}
       {/* <AuthStack /> */}
       {
-        (isLoggedIn.isLoggedIn == true && login == true) ? <DrawerNavigator setIsLogin={setIsLogin} /> : <AuthStack />
+        (isLoggedIn && login) ? <DrawerNavigator setIsLogin={setIsLogin} /> : <AuthStack />
       }
     </SafeAreaView>
 

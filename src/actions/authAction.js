@@ -6,7 +6,7 @@ export const changeAuthState = (isLoggedIn) => {
 
     return {
         type: 'LOG_IN',
-        payload: { isLoggedIn }
+        payload: {isLoggedIn}
     }
 };
 
