@@ -21,6 +21,8 @@ import com.reactnativecommunity.picker.RNCPickerPackage;
 import com.reactnativecommunity.toolbarandroid.ReactToolbarPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+// react-native-image-crop-picker
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 // react-native-image-picker
 import com.imagepicker.ImagePickerPackage;
 // react-native-reanimated
@@ -85,6 +87,7 @@ public class PackageList {
       new RNCPickerPackage(),
       new ReactToolbarPackage(),
       new RNGestureHandlerPackage(),
+      new PickerPackage(),
       new ImagePickerPackage(),
       new ReanimatedPackage(),
       new SafeAreaContextPackage(),
