@@ -89,11 +89,11 @@ function ChatScreen({ route, navigation }) {
     // global.name = '';
     useEffect(() => {
         tokens ? getDropValue() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
-    }, [tokens, isFocused, name, allColleagues])
+    }, [tokens, isFocused, name])
 
 
 
-    useEffect(() => { getSearchData() }, [isFocused])
+    // useEffect(() => { getSearchData() }, [isFocused])
     const getDropValue = () => {
         if (showAll == true) {
             const val = "all"
@@ -139,47 +139,47 @@ function ChatScreen({ route, navigation }) {
 
     }
 
-    const getSearchData = () => {
+    // const getSearchData = () => {
 
-        setShowLoader('');
-        let data = {
+    //     setShowLoader('');
+    //     let data = {
 
-            "search_type": "all",
-            "search_query": searchValue
+    //         "search_type": "all",
+    //         "search_query": searchValue
 
-        }
-        fetch("http://arc.softwaresolutions.website/api/v1/search-colleagues", {
-            method: "post",
-            headers: {
-                Accept: "application/json",
-                'Content-Type': "application/json",
-                Authorization: `Bearer ${tokens}`,
-            },
-            body: JSON.stringify(
-                data
-            ),
-        }).then(res => res.json())
-            .then(res => {
+    //     }
+    //     fetch("http://arc.softwaresolutions.website/api/v1/search-colleagues", {
+    //         method: "post",
+    //         headers: {
+    //             Accept: "application/json",
+    //             'Content-Type': "application/json",
+    //             Authorization: `Bearer ${tokens}`,
+    //         },
+    //         body: JSON.stringify(
+    //             data
+    //         ),
+    //     }).then(res => res.json())
+    //         .then(res => {
 
-                console.log('listLog1', res.data);
+    //             console.log('listLog1', res.data);
 
-                setAllColleagues(res.data);
-                setShowLoader('hide');
+    //             setAllColleagues(res.data);
+    //             setShowLoader('hide');
 
 
 
-                //   Alert.alert(
-                //     "Success",
-                //     "Bill of Loading Uploaded Successfully!",
-                //     [{ text: "OK", onPress: () => that.props.close() }],
-                //     { cancelable: false }
-                //   );
-            })
-            .catch(err => {
-                console.error("error uploading images: ", err);
-            });
-        return undefined;
-    }
+    //             //   Alert.alert(
+    //             //     "Success",
+    //             //     "Bill of Loading Uploaded Successfully!",
+    //             //     [{ text: "OK", onPress: () => that.props.close() }],
+    //             //     { cancelable: false }
+    //             //   );
+    //         })
+    //         .catch(err => {
+    //             console.error("error uploading images: ", err);
+    //         });
+    //     return undefined;
+    // }
 
     const getColleaguesList = (value) => {
 
@@ -199,20 +199,11 @@ function ChatScreen({ route, navigation }) {
             ),
         }).then(res => res.json())
             .then(res => {
+                //console.error(" res.data: " + JSON.stringify(res.data));
 
                 setAllColleagues(res.data);
                 setFilteredData(res.data);
                 setShowLoader('hide');
-
-
-
-
-                //   Alert.alert(
-                //     "Success",
-                //     "Bill of Loading Uploaded Successfully!",
-                //     [{ text: "OK", onPress: () => that.props.close() }],
-                //     { cancelable: false }
-                //   );
             })
             .catch(err => {
                 console.error("error Search colleagues : ", err);
@@ -240,7 +231,7 @@ function ChatScreen({ route, navigation }) {
                 // console.log("status : ", res.status)
                 if (res.status === true) {
                     alert(res.message);
-
+                    getDropValue()
                     setShowLoader('hide');
                 } else {
                     alert(res.message);
@@ -272,7 +263,7 @@ function ChatScreen({ route, navigation }) {
 
                 if (res.status === true) {
                     alert(res.message);
-
+                    getDropValue()
                     setShowLoader('hide');
                 } else {
                     alert(res.message);
@@ -438,11 +429,17 @@ function ChatScreen({ route, navigation }) {
                                             <View style={{
                                                 flex: 0.25, height: '100%', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginTop: getDimen(0.05)
                                             }}>
-                                                <Image source={{
-                                                    uri: `${item.profile_image_url}`,
-                                                }}
-                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
-                                                />
+                                                {
+                                                    (item.profile_image_url && (item.profile_image_url.includes('.jpg') || item.profile_image_url.includes('.png'))) ? <Image
+                                                        source={{
+                                                            uri: `${item.profile_image_url}`,
+                                                        }}
+                                                        style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
+                                                    /> :
+                                                        <Image source={require('../../../assets/icons/2.png')}
+                                                            style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                                                }
+
                                             </View>
                                             <View style={{ flex: 1, height: '100%', }}>
                                                 <View style={{ marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>

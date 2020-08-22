@@ -24,7 +24,7 @@ import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Picker } from 'native-base';
 //import CustomMultiPicker from "react-native-multiple-select-list";
 import { getDimen } from '../../../dimensions/dimen';
-//import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 // import ImagePicker from 'react-native-image-picker';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { createList } from '../../../actions/createListAction';
@@ -82,7 +82,7 @@ function PropertyScreen({ navigation }) {
         // console.log('UserAccessToken67777Prachi:', 'Bearer ' + accessToken )
     })
     //const tokens = datas.token;
-    const createProperty=()=> {
+    const createProperty = () => {
 
 
         //console.log('token',tokens);
@@ -125,7 +125,7 @@ function PropertyScreen({ navigation }) {
                 setArrImages([]);
                 setArrSelectedAminities([]);
                 setFilePath('');
-                
+
             })
             .catch(err => {
                 console.error("error uploading images: ", err);
@@ -218,12 +218,13 @@ function PropertyScreen({ navigation }) {
                 // this.setState({ ImageSource: response })
                 console.log("responseimagearray" + JSON.stringify(response));
                 response.forEach((item) => {
+
                     let image = {
                         uri: item.path,
                         // width: item.width,
                         // height: item.height,
                     }
-                    console.log("imagpath==========" + image)
+                    console.log("imagpath==========" + JSON.stringify(item))
                     tempArray.push(image)
                     //   this.setState({ ImageSourceviewarray: tempArray })
                     console.log('savedimageuri=====' + item.path);
@@ -234,11 +235,13 @@ function PropertyScreen({ navigation }) {
                 setFilePath(tempArray[0].uri)
                 console.log("finalImageArray==========" + JSON.stringify(tempArray))
 
+            }).catch(e => {
+                console.log("e.message :   "+e.message)
             })
 
     }
 
-    const seeImageInZoom = (item) =>{
+    const seeImageInZoom = (item) => {
         setFilePath(item.uri)
     }
 
