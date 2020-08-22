@@ -25,10 +25,7 @@
     "react-native-gesture-handler": "^1.6.1",
     "react-native-gifted-chat": "^0.16.3",
     "react-native-google-places-autocomplete": "^1.8.0",
-<<<<<<< HEAD
-=======
     "react-native-image-crop-picker": "^0.32.2",
->>>>>>> d4a5c9e34fb9d7dc1ae13786eab1bf071db5af5e
     "react-native-image-picker": "^2.3.3",
     "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-modal": "^11.5.6",
