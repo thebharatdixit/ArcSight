@@ -6,21 +6,23 @@ import {
     Image,
     TouchableOpacity,
     Alert,
-    AsyncStorage
 } from 'react-native';
 import { getDimen } from '../dimensions/dimen';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Drawer } from 'native-base';
 import { getData } from '../utils/asyncStore';
 import BaseScreen from '../views/MainStack/MainStackViews/BaseScreen';
-import { storeData } from '../utils/asyncStore'
+import { storeData,clearData } from '../utils/asyncStore'
+import { connect } from 'react-redux';
+import { changeAuthState } from '../actions/authAction';
+import { AsyncStorage } from '@react-native-community/async-storage';
 
-export function DrawerContent({ route, navigation }) {
+function DrawerScreen({ route, navigation }) {
     console.log('route', route, navigation)
     const [accessToken, setAccessToken] = React.useState('')
     const [userImage, setUserImage] = React.useState('')
 
-    openTwoButtonAlert = () => {
+    const openTwoButtonAlert = () => {
         Alert.alert(
             'Alert!', 'Are you sure want to logout',
             [
@@ -42,7 +44,7 @@ export function DrawerContent({ route, navigation }) {
         console.log('UserImage', userData.user.profile_image_url)
     })
 
-    function logOutApiIntegration() {
+    const logOutApiIntegration = () => {
 
         fetch("http://arc.softwaresolutions.website/api/v1/logout", {
             method: "get",
@@ -56,10 +58,10 @@ export function DrawerContent({ route, navigation }) {
                 console.log('TokenResponse', res, accessToken)
                 if (res.status) {
                     console.log('logged out123456', res.message);
-                    AsyncStorage.clear();
-                    storeData('isLogin', 'false');
-                    navigation.navigate('Login Screen');
-                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                   // AsyncStorage.clear();
+                    clearData()
+                    changeAuthState(false)
+                    //Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('No logged Out');
                     Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -87,8 +89,8 @@ export function DrawerContent({ route, navigation }) {
                                     <Image source={{
                                         uri: `${userImage}`
                                     }}
-                                  style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1) }} />
-                            }                                           
+                                        style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1) }} />
+                            }
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -137,7 +139,7 @@ export function DrawerContent({ route, navigation }) {
                         <DrawerItem
                             label="UPGRADE TO PRO"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold' }}
-                            // onPress={() => alert('')}
+                        // onPress={() => alert('')}
                         />
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
                         <DrawerItem
@@ -146,7 +148,7 @@ export function DrawerContent({ route, navigation }) {
                             )}
                             label="SETTINGS"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
-                            // onPress={() => alert('')}
+                        // onPress={() => alert('')}
                         />
                         <DrawerItem
                             icon={({ focused, color, size }) => (
@@ -163,3 +165,11 @@ export function DrawerContent({ route, navigation }) {
         </View>
     )
 }
+const mapStateToProps = (state) => ({
+    // isLoggedIn: state.auth.isLoggedIn,
+});
+const mapDispatchToProps = {
+    changeAuthState
+}
+const DrawerContent = connect(mapStateToProps, mapDispatchToProps)(DrawerScreen);
+export default DrawerContent;
