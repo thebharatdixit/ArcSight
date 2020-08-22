@@ -43,6 +43,14 @@ function Login({ navigation, changeAuthState }) {
     const [filePath, setFilePath] = React.useState([])
     const [showLoader, setShowLoader] = React.useState('hide');
 
+    const rememberMeCheck = () => {
+        if (checked == true) {
+            setChecked(false)
+        } else {
+            setChecked(true)
+        }
+    }
+
 
     chooseFile = () => {
         var options = {
@@ -209,11 +217,22 @@ function Login({ navigation, changeAuthState }) {
                                 value={password} />
                         </View>
 
-                        <View style={{ height: getDimen(0.085), marginTop: getDimen(0.025), alignItems: "center", marginLeft: getDimen(.085), marginRight: getDimen(.025), flexDirection: 'row' }}>
-                            <CheckBox
+                        <View style={{ height: getDimen(0.085), marginTop: getDimen(0.025), alignItems: "center", marginLeft: getDimen(.085), marginRight: getDimen(.025), flexDirection: 'row', }}>
+                            <TouchableOpacity onPress={() => rememberMeCheck()}>
+                                {
+                                    checked ? (
+                                        <Image source={require('../../../assets/icons/tick.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    ) :
+                                        <Image source={require('../../../assets/icons/circle.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                }
+
+                            </TouchableOpacity>
+                            {/* <CheckBox
                                 onPress={() => setChecked(!checked)}
-                                checked={checked} color="#8d8865" />
-                            <Text style={{ marginLeft: 20, color: '#8d8865', fontSize: getDimen(0.04) }}>Remember Me</Text>
+                                checked={checked} color="#8d8865" /> */}
+                            <Text style={{ marginLeft: 10, color: '#8d8865', fontSize: getDimen(0.04) }}>Remember Me</Text>
                         </View>
 
                         <TouchableOpacity onPress={() => validation(username, password)}>

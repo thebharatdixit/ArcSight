@@ -78,11 +78,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
         <View style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
                 <View style={{ paddingLeft: 10, marginTop: 20 }}>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <TouchableOpacity onPress={() => navigation.closeDrawer()}>
-                            <Image source={require('../assets/icons/crossWhite.png')}
-                                style={{ height: 20, width: 20, marginTop: getDimen(0.03) }} />
-                        </TouchableOpacity>
+                    <View style={{ flexDirection: 'row', marginTop: 10 , width: '100%'}}>
                         <TouchableOpacity>
                             {
                                 (userImage === 'http://arc.softwaresolutions.website/images/UserImages/') ?
@@ -95,6 +91,12 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                                         style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1) }} />
                             }
                         </TouchableOpacity>
+                        <View style={{width: '50%', alignItems: 'flex-start', justifyContent: 'flex-end', paddingRight: 0, paddingLeft: getDimen(0.02), flexDirection: 'row'}}>
+                        <TouchableOpacity onPress={() => navigation.closeDrawer()}>
+                            <Image source={require('../assets/icons/crossWhite.png')}
+                                style={{ height: 20, width: 20, marginTop: getDimen(0.03) }} />
+                        </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
                 <DrawerContentScrollView {...route}>
@@ -147,7 +149,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
                         <DrawerItem
                             icon={({ focused, size, color }) => (
-                                <Icon name='ios-settings' size={size} style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
+                                <Icon name='settings' size={size} style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
                             )}
                             label="SETTINGS"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
@@ -155,7 +157,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         />
                         <DrawerItem
                             icon={({ focused, color, size }) => (
-                                <Icon name='ios-log-out' size={size} color="white" style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
+                                <Icon name='log-out' size={size} color="white" style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
                             )}
                             label="LOG OUT"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
