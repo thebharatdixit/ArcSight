@@ -16,98 +16,47 @@ import AuthStack from '../views/AuthStack/AuthStack';
 import MainStack from '../views/MainStack/MainStack';
 // import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { changeAuthState, changeProtocolState, changeToLogoutState } from '../actions/authAction';
-
-
+import DrawerNavigator from './DrawerNavigator';
+import {useSelector} from "react-redux";
 
 const Stack = createStackNavigator();
 
-const Nav = function Navigator({ navigation, isLoggedIn, protocol }) {
-  // const isLoggedIn = true;
-  // const protocol = false;
-  // if (isLoggedIn) {
-  //     console.log("Login true")
-  // } else {
-  //     console.log("Login false")
-  // }
+const Nav = function Navigator({ isLoggedIn, changeAuthState }) {
+  console.log(isLoggedIn ? "LOgin true " : "login false")
   const [login, setIsLogin] = React.useState("");
-  const [loading, setloading] = React.useState("false");
+  const [loading, setloading] = React.useState(true);
   const [proto, setProto] = React.useState(false);
   const [isEnrolled, setIsEnrolled] = React.useState(false);
 
-  const changeProtocol = function (protocol) {
-    //   changeAuthState(false);
-    // console.log("protocol state changed");
-    setProto(protocol)
-  }
-  const changeLogin = function (login) {
-    //   changeAuthState(false);
-    // console.log("protocol state changed");
-    setIsLogin(login)
-  }
-  const changeIsEnrolled = function (isEnrolled) {
-    //   changeAuthState(false);
-    // console.log("protocol state changed");
-    setIsEnrolled(isEnrolled)
-  }
+
   React.useEffect(() => {
-    console.log("Did mount called Navigation")
     getData('isLogin').then((isLogin) => {
       if (isLogin === 'true') {
-        setIsLogin("true")
-        setloading("true");
+        changeAuthState(true)
       }
       else {
-        setIsLogin("false");
-        setloading("false");
+        changeAuthState(false)
       }
     })
 
   }, [])
+  
   return (
 
     <SafeAreaView style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
-      {/* {console.log("Did mount called Navigation 2")} */}
-
       {
-        login === "false" ? <AuthStack /> : login === "true" ? <MainStack /> : <Blank />
-
+        (isLoggedIn && login) ? <DrawerNavigator setIsLogin={setIsLogin} /> : <AuthStack />
       }
-
-      {/* <MainStack /> */}
-
     </SafeAreaView>
 
   );
 }
 const mapStateToProps = (state) => ({
-  // isLoggedIn: state.auth.isLoggedIn,
-  // protocol: state.auth.protocol,
-  // count: state.navigation.count,
-  // badge: state.navigation.badge
-
+  isLoggedIn: state.auth.isLoggedIn,
 });
 const mapDispatchToProps = (dispatch) => ({
   changeAuthState, changeProtocolState, changeToLogoutState
 });
-
-// function mapStateToProps(state) {
-//   return {
-//     count: state.navigation.count,
-//     badge: state.navigation.badge
-//   }
-// }
-
-// function mapDispatchToProps(dispatch) {
-
-//   return {
-//     dispatch,
-//     ...bindActionCreators({
-
-//     },
-//       dispatch
-//     ),
-//   };
-// }
 
 const Navigation = connect(mapStateToProps, mapDispatchToProps)(Nav);
 export default Navigation;

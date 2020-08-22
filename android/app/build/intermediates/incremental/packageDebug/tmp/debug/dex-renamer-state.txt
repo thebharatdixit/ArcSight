@@ -1,4 +1,10 @@
-#Fri Aug 21 22:11:04 IST 2020
-base.0=H\:\\project\\ArcSight\\android\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out\\classes.dex
+#Sat Aug 22 11:38:42 IST 2020
+path.2=classes3.dex
+path.1=classes2.dex
 path.0=classes.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
 renamed.0=classes.dex
+base.2=/home/gaurav/Documents/React-Native/github /ArcSight/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes3.dex
+base.1=/home/gaurav/Documents/React-Native/github /ArcSight/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes2.dex
+base.0=/home/gaurav/Documents/React-Native/github /ArcSight/android/app/build/intermediates/dex/debug/mergeDexDebug/out/classes.dex
