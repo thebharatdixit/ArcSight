@@ -15,8 +15,8 @@ import BaseScreen from '../views/MainStack/MainStackViews/BaseScreen';
 import { storeData,clearData } from '../utils/asyncStore'
 import { connect } from 'react-redux';
 import { changeAuthState } from '../actions/authAction';
-import { NavigationActions, StackActions } from 'react-navigation';
-import { AsyncStorage } from '@react-native-community/async-storage';
+// import { NavigationActions, StackActions } from 'react-navigation';
+// import { AsyncStorage } from '@react-native-community/async-storage';
 
 function DrawerScreen({ route, navigation, changeAuthState }) {
     console.log('route', route, navigation)
