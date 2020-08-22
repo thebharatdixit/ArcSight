@@ -16401,31 +16401,6 @@
 			};
 			name = Release;
 		};
-		2AB569C148A52147CC122FE3616ABBFD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D718C148287A2344B4DBB3DA31D12546 /* react-native-image-picker.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-image-picker/react-native-image-picker-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = react_native_image_picker;
-				PRODUCT_NAME = "react-native-image-picker";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		2BA2C71BD76402EF94CFA2C0020025F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 35E1AFE28AB2CE0C3DBF1BE748EA293F /* React-callinvoker.debug.xcconfig */;
@@ -16436,6 +16411,30 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2DD3B3E55E0DE54B715EDD263302FB28 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 238B12B2FA07B08680DFA75253718892 /* react-native-splash-screen.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-splash-screen/react-native-splash-screen-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = react_native_splash_screen;
+				PRODUCT_NAME = "react-native-splash-screen";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -16830,31 +16829,6 @@
 			};
 			name = Debug;
 		};
-		5F4F9583DD80517564ADC42D2096ED29 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 395BECF732A52F99B85D8AA312C5F92B /* react-native-splash-screen.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-splash-screen/react-native-splash-screen-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = react_native_splash_screen;
-				PRODUCT_NAME = "react-native-splash-screen";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		6116D1555725BCF0E5A4D8B9B66A574A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85F82F9914DF9FEFC18F1A3A63208519 /* React-RCTActionSheet.debug.xcconfig */;
@@ -17175,6 +17149,31 @@
 			};
 			name = Debug;
 		};
+		7CCB94DD87D64DFBF5EE82D27661CB52 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D718C148287A2344B4DBB3DA31D12546 /* react-native-image-picker.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-image-picker/react-native-image-picker-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = react_native_image_picker;
+				PRODUCT_NAME = "react-native-image-picker";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		7D71C1BE1EB6A974A30B46585B6DDA56 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 53C1DB55F3AF39D6302E69E0573EB9A6 /* CocoaLibEvent.release.xcconfig */;
@@ -17439,30 +17438,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 4.1;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		8E31F07F4B47A1A05EAF0CFD71BCA86A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 238B12B2FA07B08680DFA75253718892 /* react-native-splash-screen.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-splash-screen/react-native-splash-screen-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = react_native_splash_screen;
-				PRODUCT_NAME = "react-native-splash-screen";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -18269,6 +18244,31 @@
 			};
 			name = Release;
 		};
+		C9CA6EEFA5DAE69B14484186B7B2B0FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 395BECF732A52F99B85D8AA312C5F92B /* react-native-splash-screen.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-splash-screen/react-native-splash-screen-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = react_native_splash_screen;
+				PRODUCT_NAME = "react-native-splash-screen";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		CA820FD80EF2742FAD3B38435D183DFA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 324DEF4DC9579FF869225607D3D450E7 /* React-RCTNetwork.debug.xcconfig */;
@@ -18367,6 +18367,30 @@
 			};
 			name = Release;
 		};
+		DD7880A92C7D04CB3CA8D7124DD8BAED /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0A54775C0A35DECA5DF0B00D0E02C84B /* react-native-image-picker.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/react-native-image-picker/react-native-image-picker-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = react_native_image_picker;
+				PRODUCT_NAME = "react-native-image-picker";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		E1677CE80A7854E2CDDCCF3A7B794271 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D3EF60A1652F2CDB61399B248F3FD369 /* React-RCTLinking.release.xcconfig */;
@@ -18409,30 +18433,6 @@
 				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_MODULE_NAME = ReactCommon;
 				PRODUCT_NAME = ReactCommon;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		E2EEF3487986B12916BAB6C7F2572CF3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A54775C0A35DECA5DF0B00D0E02C84B /* react-native-image-picker.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/react-native-image-picker/react-native-image-picker-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = react_native_image_picker;
-				PRODUCT_NAME = "react-native-image-picker";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -18746,8 +18746,8 @@
 		327F6541D079AAD82263FB8FB829FC61 /* Build configuration list for PBXNativeTarget "react-native-image-picker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E2EEF3487986B12916BAB6C7F2572CF3 /* Debug */,
-				2AB569C148A52147CC122FE3616ABBFD /* Release */,
+				DD7880A92C7D04CB3CA8D7124DD8BAED /* Debug */,
+				7CCB94DD87D64DFBF5EE82D27661CB52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -18998,8 +18998,8 @@
 		A926EA654492A1A3D153D0BA19F1D1AD /* Build configuration list for PBXNativeTarget "react-native-splash-screen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8E31F07F4B47A1A05EAF0CFD71BCA86A /* Debug */,
-				5F4F9583DD80517564ADC42D2096ED29 /* Release */,
+				2DD3B3E55E0DE54B715EDD263302FB28 /* Debug */,
+				C9CA6EEFA5DAE69B14484186B7B2B0FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
