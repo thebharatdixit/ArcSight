@@ -148,7 +148,12 @@ function Login({ navigation, changeAuthState }) {
                 //     }
                 // }], { cancelable: false });
                 console.log("trying to login")
-                changeAuthState(true)
+                setTimeout(function () {
+
+                    //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
+                    changeAuthState(true)
+
+                }, 1000);
             }
             else {
                 Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });

@@ -36,14 +36,18 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
         );
     }
 
-    getData('userData').then((data) => {
-        const userData = JSON.parse(data);
-        const listTokens = userData.token;
-        setAccessToken(listTokens);
-        // console.log('token1', listTokens)
-        setUserImage(userData.user.profile_image_url)
-        console.log('UserImage', userData.user.profile_image_url)
-    })
+    
+
+    React.useEffect(() => {
+        getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            setAccessToken(listTokens);
+            // console.log('token1', listTokens)
+            setUserImage(userData.user.profile_image_url)
+            console.log('UserImage', userData.user.profile_image_url)
+        })
+    }, [])
 
     const logOutApiIntegration = () => {
 

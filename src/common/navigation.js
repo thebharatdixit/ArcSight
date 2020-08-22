@@ -24,8 +24,8 @@ import {useSelector} from "react-redux";
 const Stack = createStackNavigator();
 
 const Nav = function Navigator({ isLoggedIn, changeAuthState }) {
-  console.log( "after Navigator :" + JSON.stringify(isLoggedIn) + ":>" + isLoggedIn );
-  console.log(isLoggedIn ? "LOgin true " : "login false")
+  console.log( "after Navigator :" + JSON.stringify(isLoggedIn) + ":>" + isLoggedIn.isLoggedIn );
+  console.log(isLoggedIn.isLoggedIn ? "LOgin true " : "login false")
   const [login, setIsLogin] = React.useState("");
   const [loading, setloading] = React.useState(true);
   const [proto, setProto] = React.useState(false);
@@ -54,7 +54,8 @@ const Nav = function Navigator({ isLoggedIn, changeAuthState }) {
       {console.log( "In return :" + JSON.stringify(isLoggedIn) + "..:." + login )}
       {/* <AuthStack /> */}
       {
-        (isLoggedIn && login) ? <DrawerNavigator setIsLogin={setIsLogin} /> : <AuthStack />
+        ((isLoggedIn.isLoggedIn === false) ) ? <AuthStack /> : isLoggedIn.isLoggedIn ? <DrawerNavigator setIsLogin={setIsLogin} /> : <Blank />
+        // (isLoggedIn && login) ? <DrawerNavigator setIsLogin={setIsLogin} /> : <AuthStack />
       }
     </SafeAreaView>
 
@@ -63,9 +64,9 @@ const Nav = function Navigator({ isLoggedIn, changeAuthState }) {
 const mapStateToProps = (state) => ({
   isLoggedIn: state.auth.isLoggedIn,
 });
-const mapDispatchToProps = (dispatch) => ({
-  changeAuthState, changeProtocolState, changeToLogoutState
-});
+const mapDispatchToProps = {
+  changeAuthState
+}
 
 const Navigation = connect(mapStateToProps, mapDispatchToProps)(Nav);
 export default Navigation;
