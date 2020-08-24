@@ -59,7 +59,7 @@ function SearchListDetailScreen({ navigation, route }) {
                 Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify({
-                "listing_id": userId
+                "listing_id": 5
             })
         }).then(res => res.json())
             .then(res => {

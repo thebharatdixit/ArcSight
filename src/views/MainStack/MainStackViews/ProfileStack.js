@@ -5,6 +5,7 @@ import { View, Text } from 'react-native';
 import ProfileScreen from './ProfileScreen'
 import ChangePasswordScreen from './ChangePassword'
 import ProfileUpdate from './ProfileUpdateScreen'
+import SearchListDetailScreen from './SearchListDetailScreen'
 
 
 //import { updateProfile } from '../../../service/apiService';
@@ -26,6 +27,8 @@ const ProfileStack = function authNavigator({ }) {
             <Stack.Screen name="Profile Screen" component={ProfileScreen}
             />
             <Stack.Screen name="Update Profile" component={ProfileUpdate}
+            />
+            <Stack.Screen name="Search List Detail" component={SearchListDetailScreen}
             />
             
             

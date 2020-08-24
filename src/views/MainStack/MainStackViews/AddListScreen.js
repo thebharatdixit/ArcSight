@@ -163,72 +163,83 @@ function AddListScreen({ navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            
-                <SearchInput
-                    onChangeText={(term) => { searchUpdated(term) }}
-                    style={{ height: 50, marginLeft: getDimen(.025), alignSelf: 'flex-start', fontSize: getDimen(.045), padding: getDimen(.035), borderColor: '#CCC', }}
-                    placeholder="Enter to search.."
-                />
-                <View style={{ height: 1, width: '100%', backgroundColor: '#8A8A8A' }}></View>
-                <SafeAreaView style={{ flex: 1 }}>
-                    <FlatList
-                        ///// Search List Screen
-                        
 
-                        horizontal={false}
-                        showsVerticalScrollIndicator={false}
-                        style={{ marginTop: 0, }}
-                        data={filteredData}
-                        renderItem={({ item, separators, index }) => (
-                            <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.fetch_chat_user_id, "name": item.name, "companyName": item.company_name, "profile_image_url": item.profile_image_url }))} >
-                                <View>
-                                    <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
+            <SearchInput
+                onChangeText={(term) => { searchUpdated(term) }}
+                style={{ height: 50, marginLeft: getDimen(.025), alignSelf: 'flex-start', fontSize: getDimen(.045), padding: getDimen(.035), borderColor: '#CCC', }}
+                placeholder="Enter to search.."
+            />
+            <View style={{ height: 1, width: '100%', backgroundColor: '#8A8A8A' }}></View>
+            <SafeAreaView style={{ flex: 1 }}>
+                <FlatList
+                    ///// Search List Screen
 
-                                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.25), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
-                                            <View style={{
-                                                flex: 0.25, height: '100%', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginTop: getDimen(0.02)
-                                            }}>
-                                                <Image
+
+                    horizontal={false}
+                    showsVerticalScrollIndicator={false}
+                    style={{ marginTop: 0, }}
+                    data={filteredData}
+                    renderItem={({ item, separators, index }) => (
+                        <TouchableWithoutFeedback onPress={() => navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.fetch_chat_user_id, "name": item.name, "companyName": item.company_name, "profile_image_url": item.profile_image_url }))} >
+                            <View>
+                                <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
+
+                                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.25), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
+                                        <View style={{
+                                            flex: 0.25, height: '100%', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginTop: getDimen(0.02)
+                                        }}>
+                                            {/* <Image
                                                     source={{ uri: item.profile_image_url }}
                                                     defaultSource={require('../../../assets/icons/2.png')}
                                                     // source={require('../../../assets/icons/2.png')}
                                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: getDimen(0.18) / 2 }}
-                                                />
-                                            </View>
-                                            <View style={{ flex: 1, height: '100%', }}>
-                                                <View style={{ marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                                    <Text style={{ fontSize: getDimen(0.045), fontWeight: 'bold' }}>{item.name}</Text>
-                                                    <Text style={{ fontSize: getDimen(0.043), marginTop: getDimen(0.01), color: 'gray' }}
-                                                        numberOfLines={2}
-                                                    >
-                                                        {item.company_name}
-                                                    </Text>
+                                                /> */}
 
-                                                </View>
+                                            {
+                                                (item.profile_image_url && (item.profile_image_url.includes('.jpg') || item.profile_image_url.includes('.png'))) ? <Image
+                                                    source={{
+                                                        uri: `${item.profile_image_url}`,
+                                                    }}
+                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
+                                                /> :
+                                                    <Image source={require('../../../assets/icons/2.png')}
+                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: getDimen(0.18) / 2 }} />
+                                            }
+                                        </View>
+                                        <View style={{ flex: 1, height: '100%', }}>
+                                            <View style={{ marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
+                                                <Text style={{ fontSize: getDimen(0.045), fontWeight: 'bold' }}>{item.name}</Text>
+                                                <Text style={{ fontSize: getDimen(0.043), marginTop: getDimen(0.01), color: 'gray' }}
+                                                    numberOfLines={2}
+                                                >
+                                                    {item.company_name}
+                                                </Text>
 
                                             </View>
-                                            {item.unread_message || item.unread_message > 0 ?
-                                                <View style={{ marginLeft: getDimen(0.05), height: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                                                    <View style={{ height: getDimen(0.045), width: getDimen(0.045), borderRadius: getDimen(0.045) / 2, backgroundColor: '#f1ac35', alignItems: 'center', justifyContent: 'center' }}>
-                                                        <Text style={{ fontSize: getDimen(0.030), fontWeight: 'bold', color: 'white' }}>{item.unread_count ? item.unread_count : ""}</Text>
-                                                    </View>
-                                                </View>
-                                                : null}
 
                                         </View>
+                                        {item.unread_message || item.unread_message > 0 ?
+                                            <View style={{ marginLeft: getDimen(0.05), height: '100%', alignItems: 'center', justifyContent: 'center' }}>
+                                                <View style={{ height: getDimen(0.045), width: getDimen(0.045), borderRadius: getDimen(0.045) / 2, backgroundColor: '#f1ac35', alignItems: 'center', justifyContent: 'center' }}>
+                                                    <Text style={{ fontSize: getDimen(0.030), fontWeight: 'bold', color: 'white' }}>{item.unread_count ? item.unread_count : ""}</Text>
+                                                </View>
+                                            </View>
+                                            : null}
+
                                     </View>
-                                    <View style={{ height: 1, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'gray' }}></View>
-
                                 </View>
-                            </TouchableWithoutFeedback>
-                        )}
-                        keyExtractor={item => '' + item.fetch_chat_user_id}
-                    />
+                                <View style={{ height: 1, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'gray' }}></View>
 
-                </SafeAreaView>
+                            </View>
+                        </TouchableWithoutFeedback>
+                    )}
+                    keyExtractor={item => '' + item.fetch_chat_user_id}
+                />
+
+            </SafeAreaView>
 
 
-            
+
             {
                 (showLoader === '') ?
                     <View

@@ -65,9 +65,9 @@ function ChatLayout({ route, navigation }) {
         const didBlurSubscription = navigation.addListener(
             'willFocus',
             payload => {
-              console.log('willFocus', payload);
+                console.log('willFocus', payload);
             }
-          );
+        );
         getData('userData').then((data) => {
             const userData = JSON.parse(data);
             const listTokens = userData.token;
@@ -76,7 +76,7 @@ function ChatLayout({ route, navigation }) {
             setAccessToken(listTokens);
             setUserId(userData.user.id)
             console.log('token1', listTokens)
-            
+
             if (accessToken) {
                 loadChatList();
             }
@@ -282,11 +282,22 @@ function ChatLayout({ route, navigation }) {
                         style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>
                 {/* <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}> */}
-                <Image
+                {/* <Image
                     source={{ uri: profile_image_url }}
                     defaultSource={require('../../../assets/icons/2.png')}
                     // source={require('../../../assets/icons/2.png')}
-                    style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }} />
+                    style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }} /> */}
+
+                {
+                    (profile_image_url && (profile_image_url.includes('.jpg') || profile_image_url.includes('.png'))) ? <Image
+                        source={{
+                            uri: `${profile_image_url}`,
+                        }}
+                        style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }}
+                    /> :
+                        <Image source={require('../../../assets/icons/2.png')}
+                            style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }} />
+                }
 
                 <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.015) }}>{username} </Text>
                 <Text style={{ fontSize: getDimen(0.025) }}>{"(" + cmpanyName + ")"} </Text>
@@ -316,7 +327,7 @@ function ChatLayout({ route, navigation }) {
                         // ref={React.useRef("flatlist")}
                         // onContentSizeChange={() => useRef('flatlist').scrollToEnd({ animated: false })}
                         ref={scrollViewRef}
-                        onContentSizeChange={(contentWidth, contentHeight)=> {scrollViewRef.current.scrollToEnd({animated: false})}}
+                        onContentSizeChange={(contentWidth, contentHeight) => { scrollViewRef.current.scrollToEnd({ animated: false }) }}
                         // onContentSizeChange={() => flatRef.current.scrollToEnd({ animated: false })}
                         renderItem={({ item, separators, index }) => {
 
