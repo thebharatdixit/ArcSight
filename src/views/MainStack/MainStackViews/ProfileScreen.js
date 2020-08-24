@@ -14,7 +14,8 @@ import {
     ToastAndroid,
     FlatList,
     Share,
-    Alert
+    Alert,
+    SafeAreaView
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
@@ -35,7 +36,7 @@ function ProfileScreen({ navigation }) {
     const [userId, setUserId] = React.useState('')
     const [userProfileData, setUserProfileData] = React.useState([]);
     const [profileListing, setProfileListing] = React.useState([]);
-    const [userImage, setUserImage] = React.useState("");
+    const [userImage, setUserImage] = React.useState('http://www.tiptoncommunications.com/components/com_easyblog/themes/wireframe/images/placeholder-image.png');
     const [name, setName] = React.useState("");
     const [companyName, setCompanyName] = React.useState("");
     const [showLoader, setShowLoader] = React.useState('');
@@ -312,6 +313,8 @@ function ProfileScreen({ navigation }) {
 
                     </View>
 
+                    <SafeAreaView style={{flex:1}}>
+
                     <FlatList
                         ///// Search List Screen
                         horizontal={false}
@@ -415,8 +418,9 @@ function ProfileScreen({ navigation }) {
 
                             </View>
                         )}
-                        keyExtractor={item => item.id}
+                        keyExtractor={item =>""+ item.id}
                     />
+                    </SafeAreaView>
                 </ScrollView>
 
                 {
