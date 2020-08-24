@@ -71,8 +71,6 @@ function RegisterScreen({ navigation }) {
 
     const signupApiIntegration = () => {
 
-
-
         var emailWithoutSpace = emailWithoutSpaceHandle(email);
 
         if (!email) {
@@ -209,6 +207,14 @@ function RegisterScreen({ navigation }) {
         }
     }
 
+    const signUpAlert = () => {
+        if (checked == true) {
+            setChecked(false)
+        } else {
+            setChecked(true)
+        }
+    }
+
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
@@ -329,13 +335,25 @@ function RegisterScreen({ navigation }) {
 
                                 <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center', }}>
 
-                                    <CheckBox
+                                    <TouchableOpacity onPress={() => signUpAlert()}>
+                                        {
+                                            checked ? (
+                                                <Image source={require('../../../assets/icons/tick.png')}
+                                                    style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                            ) :
+                                                <Image source={require('../../../assets/icons/circle.png')}
+                                                    style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        }
+
+                                    </TouchableOpacity>
+
+                                    {/* <CheckBox
                                         onPress={() => setChecked(!checked)
                                         }
-                                        checked={checked} color="#8d8865" />
+                                        checked={checked} color="#8d8865" /> */}
                                     <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
                                         Sign up for ArcSight alerts
-                        </Text>
+                                    </Text>
 
                                 </View>
                                 <TouchableOpacity onPress={() => signupApiIntegration()}>
@@ -350,7 +368,7 @@ function RegisterScreen({ navigation }) {
                 </ScrollView>
             </ImageBackground >
             {
-                (showLoader === true) ?
+                (showLoader === '') ?
                     <View
                         style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >

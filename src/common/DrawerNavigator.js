@@ -6,8 +6,7 @@ import { getDimen } from '../dimensions/dimen';
 import nineScreen from '../views/MainStack/MainStackViews/NineScreen'
 import ChangePassword from '../views/MainStack/MainStackViews/ChangePassword'
 import ProfileScreen from '../views/MainStack/MainStackViews/ProfileScreen'
-import { DrawerContent } from '../../src/common/DrawerContent'
-
+import DrawerContent from './DrawerContent';
 
 const Drawer = createDrawerNavigator();
 

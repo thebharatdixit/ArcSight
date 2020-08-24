@@ -6,21 +6,24 @@ import {
     Image,
     TouchableOpacity,
     Alert,
-    AsyncStorage
 } from 'react-native';
 import { getDimen } from '../dimensions/dimen';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Drawer } from 'native-base';
 import { getData } from '../utils/asyncStore';
 import BaseScreen from '../views/MainStack/MainStackViews/BaseScreen';
-import { storeData } from '../utils/asyncStore'
+import { storeData,clearData } from '../utils/asyncStore'
+import { connect } from 'react-redux';
+import { changeAuthState } from '../actions/authAction';
+// import { NavigationActions, StackActions } from 'react-navigation';
+// import { AsyncStorage } from '@react-native-community/async-storage';
 
-export function DrawerContent({ route, navigation }) {
+function DrawerScreen({ route, navigation, changeAuthState }) {
     console.log('route', route, navigation)
     const [accessToken, setAccessToken] = React.useState('')
     const [userImage, setUserImage] = React.useState('')
 
-    openTwoButtonAlert = () => {
+    const openTwoButtonAlert = () => {
         Alert.alert(
             'Alert!', 'Are you sure want to logout',
             [
@@ -33,16 +36,20 @@ export function DrawerContent({ route, navigation }) {
         );
     }
 
-    getData('userData').then((data) => {
-        const userData = JSON.parse(data);
-        const listTokens = userData.token;
-        setAccessToken(listTokens);
-        // console.log('token1', listTokens)
-        setUserImage(userData.user.profile_image_url)
-        console.log('UserImage', userData.user.profile_image_url)
-    })
+    
 
-    function logOutApiIntegration() {
+    React.useEffect(() => {
+        getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            setAccessToken(listTokens);
+            // console.log('token1', listTokens)
+            setUserImage(userData.user.profile_image_url)
+            console.log('UserImage', userData.user.profile_image_url)
+        })
+    }, [])
+
+    const logOutApiIntegration = () => {
 
         fetch("http://arc.softwaresolutions.website/api/v1/logout", {
             method: "get",
@@ -56,10 +63,12 @@ export function DrawerContent({ route, navigation }) {
                 console.log('TokenResponse', res, accessToken)
                 if (res.status) {
                     console.log('logged out123456', res.message);
-                    AsyncStorage.clear();
-                    storeData('isLogin', 'false');
-                    navigation.navigate('Login Screen');
-                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                   // AsyncStorage.clear();
+                    clearData()
+                    changeAuthState(false)
+                    // navigation.navigate("Login Screen");
+                    
+                    //Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('No logged Out');
                     Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -73,11 +82,7 @@ export function DrawerContent({ route, navigation }) {
         <View style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
                 <View style={{ paddingLeft: 10, marginTop: 20 }}>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <TouchableOpacity onPress={() => navigation.closeDrawer()}>
-                            <Image source={require('../assets/icons/crossWhite.png')}
-                                style={{ height: 20, width: 20, marginTop: getDimen(0.03) }} />
-                        </TouchableOpacity>
+                    <View style={{ flexDirection: 'row', marginTop: 10 , width: '100%'}}>
                         <TouchableOpacity>
                             {
                                 (userImage === 'http://arc.softwaresolutions.website/images/UserImages/') ?
@@ -87,9 +92,15 @@ export function DrawerContent({ route, navigation }) {
                                     <Image source={{
                                         uri: `${userImage}`
                                     }}
-                                  style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1) }} />
-                            }                                           
+                                        style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1) }} />
+                            }
                         </TouchableOpacity>
+                        <View style={{width: '50%', alignItems: 'flex-start', justifyContent: 'flex-end', paddingRight: 0, paddingLeft: getDimen(0.02), flexDirection: 'row'}}>
+                        <TouchableOpacity onPress={() => navigation.closeDrawer()}>
+                            <Image source={require('../assets/icons/crossWhite.png')}
+                                style={{ height: 20, width: 20, marginTop: getDimen(0.03) }} />
+                        </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
                 <DrawerContentScrollView {...route}>
@@ -137,20 +148,20 @@ export function DrawerContent({ route, navigation }) {
                         <DrawerItem
                             label="UPGRADE TO PRO"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold' }}
-                            // onPress={() => alert('')}
+                        // onPress={() => alert('')}
                         />
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
                         <DrawerItem
                             icon={({ focused, size, color }) => (
-                                <Icon name='ios-settings' size={size} style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
+                                <Icon name='settings' size={size} style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
                             )}
                             label="SETTINGS"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
-                            // onPress={() => alert('')}
+                        // onPress={() => alert('')}
                         />
                         <DrawerItem
                             icon={({ focused, color, size }) => (
-                                <Icon name='ios-log-out' size={size} color="white" style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
+                                <Icon name='log-out' size={size} color="white" style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
                             )}
                             label="LOG OUT"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
@@ -163,3 +174,11 @@ export function DrawerContent({ route, navigation }) {
         </View>
     )
 }
+const mapStateToProps = (state) => ({
+    // isLoggedIn: state.auth.isLoggedIn,
+});
+const mapDispatchToProps = {
+    changeAuthState
+}
+const DrawerContent = connect(mapStateToProps, mapDispatchToProps)(DrawerScreen);
+export default DrawerContent;

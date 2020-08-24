@@ -278,7 +278,7 @@ function ChatLayout({ route, navigation }) {
 
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity style={{ height: 25, width: 25 }} onPress={() => navigation.goBack()}>
-                    <Image source={require('../../../assets/images/back.png')}
+                    <Image source={require('../../../assets/icons/back.png')}
                         style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>
                 {/* <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}> */}

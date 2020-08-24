@@ -19,16 +19,13 @@ import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 
-// import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
 import ImagePicker from 'react-native-image-picker';
-//import loginActions from '../../actions/authAction';
-//import loginActions from '../../actions/loginActions';
 import { login } from '../../../actions/loginAction';
 import { storeData, getData } from '../../../utils/asyncStore';
+import { changeAuthState } from '../../../actions/authAction';
 
-
-function LoginScreen({ navigation }) {
+function Login({ navigation, changeAuthState }) {
 
 
     const options = {
@@ -46,13 +43,19 @@ function LoginScreen({ navigation }) {
     const [filePath, setFilePath] = React.useState([])
     const [showLoader, setShowLoader] = React.useState('hide');
 
+    const rememberMeCheck = () => {
+        if (checked == true) {
+            setChecked(false)
+        } else {
+            setChecked(true)
+        }
+    }
+
 
     chooseFile = () => {
         var options = {
             title: 'Select Image',
-            // customButtons: [
-            //     { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-            // ],
+
             storageOptions: {
                 skipBackup: true,
                 path: 'images',
@@ -70,11 +73,7 @@ function LoginScreen({ navigation }) {
                 alert(response.customButton);
             } else {
                 let source = response;
-                // You can also display the image using data:
-                // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-                //  this.setState({
-                //     filePath: source
-                // });
+
                 setFilePath(source);
             }
         });
@@ -84,14 +83,12 @@ function LoginScreen({ navigation }) {
         // console.log(text);
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (reg.test(text) === false) {
-            // alert("Email is Not Correct");
-            // this.setState({ email: text })
+
             setUsername(username);
             return false;
         }
         else {
             setUsername(username);
-            // alert("Email is Correct");
             return true
         }
     }
@@ -105,7 +102,6 @@ function LoginScreen({ navigation }) {
     }
     function validation(userName, password) {
         var emailWithoutSpace = emailWithoutSpaceHandle(userName);
-        //console.log(''+userName+'=='+password);
         if (!userName) {
             Alert.alert('', 'Please Enter Email ID..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             return;
@@ -116,8 +112,6 @@ function LoginScreen({ navigation }) {
         }
 
         if (validate(emailWithoutSpace)) {
-            // console.log('email is correct.');
-
         }
         else {
             Alert.alert('', 'Email Id is Not Correct', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -146,13 +140,20 @@ function LoginScreen({ navigation }) {
                 storeData('userData', JSON.stringify(response.data));
                 setUsername('');
                 setPassword('');
-                navigation.navigate('Main Stack');
-                Alert.alert('' + response.message, [{
-                    text: 'OK', onPress: () => {
-                        setUsername('')
-                        setPassword('')
-                    }
-                }], { cancelable: false });
+                // navigation.navigate('Main Stack');
+                // Alert.alert('' + response.message, [{
+                //     text: 'OK', onPress: () => {
+                //         setUsername('')
+                //         setPassword('')
+                //     }
+                // }], { cancelable: false });
+                console.log("trying to login")
+                setTimeout(function () {
+
+                    //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
+                    changeAuthState(true)
+
+                }, 1000);
             }
             else {
                 Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -221,11 +222,22 @@ function LoginScreen({ navigation }) {
                                 value={password} />
                         </View>
 
-                        <View style={{ height: getDimen(0.085), marginTop: getDimen(0.025), alignItems: "center", marginLeft: getDimen(.085), marginRight: getDimen(.025), flexDirection: 'row' }}>
-                            <CheckBox
+                        <View style={{ height: getDimen(0.085), marginTop: getDimen(0.025), alignItems: "center", marginLeft: getDimen(.085), marginRight: getDimen(.025), flexDirection: 'row', }}>
+                            <TouchableOpacity onPress={() => rememberMeCheck()}>
+                                {
+                                    checked ? (
+                                        <Image source={require('../../../assets/icons/tick.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    ) :
+                                        <Image source={require('../../../assets/icons/circle.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                }
+
+                            </TouchableOpacity>
+                            {/* <CheckBox
                                 onPress={() => setChecked(!checked)}
-                                checked={checked} color="#8d8865" />
-                            <Text style={{ marginLeft: 20, color: '#8d8865', fontSize: getDimen(0.04) }}>Remember Me</Text>
+                                checked={checked} color="#8d8865" /> */}
+                            <Text style={{ marginLeft: 10, color: '#8d8865', fontSize: getDimen(0.04) }}>Remember Me</Text>
                         </View>
 
                         <TouchableOpacity onPress={() => validation(username, password)}>
@@ -262,7 +274,7 @@ function LoginScreen({ navigation }) {
 
             </ImageBackground>
             {
-                (showLoader === true) ?
+                (showLoader === '') ?
                     <View
                         style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >
@@ -275,7 +287,12 @@ function LoginScreen({ navigation }) {
 
     );
 }
-
+const mapStateToProps = (state) => ({
+    // isLoggedIn: state.auth.isLoggedIn,
+});
+const mapDispatchToProps = {
+    changeAuthState
+}
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -365,5 +382,5 @@ const styles = StyleSheet.create({
         marginRight: getDimen(.085)
     },
 });
-// const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+const LoginScreen = connect(mapStateToProps, mapDispatchToProps)(Login);
 export default LoginScreen;
