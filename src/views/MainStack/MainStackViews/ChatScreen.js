@@ -93,7 +93,7 @@ function ChatScreen({ route, navigation }) {
 
 
 
-    // useEffect(() => { getSearchData() }, [isFocused])
+
     const getDropValue = () => {
         if (showAll == true) {
             const val = "all"
@@ -227,8 +227,6 @@ function ChatScreen({ route, navigation }) {
             ),
         }).then(res => res.json())
             .then(res => {
-
-                // console.log("status : ", res.status)
                 if (res.status === true) {
                     alert(res.message);
                     getDropValue()
@@ -295,8 +293,8 @@ function ChatScreen({ route, navigation }) {
 
     return (
 
-        <View style={{ flexDirection: 'column' }}>
-
+        <View style={{ width: '100%', height: '100%', flexDirection: 'column', flex: 1,backgroundColor:'white' }}>
+{/* header start */}
             <View style={{ width: '100%', backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() =>
                     navigation.dispatch(DrawerActions.toggleDrawer())
@@ -314,174 +312,167 @@ function ChatScreen({ route, navigation }) {
                 </View>
             </View>
 
+            {/* header close */}
 
-            <View style={{ width: '100%', height: '100%' }}>
-                {/* {getColleaguesList()} */}
-
-                {/* {console.log("allColleagues :  " + JSON.stringify(allColleagues))} */}
-
-                <ScrollView style={styles.container}>
-                    <View style={{ flex: 0.1, backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0.0) }}>
-                        <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
-                            <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
-                                <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                                    {/* <TouchableOpacity onPress={() => getColleaguesList()}> */}
-                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>{name}</Text>
-                                    {/* </TouchableOpacity> */}
-                                </View>
-
-                            </View>
+            {/* all colleagues mu colleagues title  start*/}
 
 
-
+            <View style={{ backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0.0) }}>
+                <View style={{ flexDirection: 'row', width: '100%', }}>
+                    <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                            {/* <TouchableOpacity onPress={() => getColleaguesList()}> */}
+                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>{name}</Text>
+                            {/* </TouchableOpacity> */}
                         </View>
 
+                    </View>
+                </View>
 
-                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(0.2), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+            </View>
 
+            {/* all colleagues mu colleagues title  close*/}
 
-                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
-                            <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
-                                {/* <Input placeholder='$000,000'
-                            style={{ fontSize: getDimen(0.038) }}
-                        />
-                        <Icon active name='arrow' /> */}
-                                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(0.3 / 2) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
+            {/* allcolleagues mycolleagues check start */}
 
-                                    <View style={{ marginRight: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
-                                        <TouchableOpacity onPress={() => showHideAll()}>
+            <View style={{ backgroundColor: 'white', flexDirection: 'row', width: '100%', height: getDimen(0.09), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', justifyContent: 'center' }}>
 
-                                            {showAll ? (
-                                                <Image source={require('../../../assets/icons/28.png')}
-                                                    style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
-                                            ) : <Image source={require('../../../assets/icons/24.png')}
-                                                style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
+                <View style={{ marginRight: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => showHideAll()}>
 
-                                        </TouchableOpacity>
-                                        <Text style={{ marginLeft: getDimen(0.05) }}>All Colleague</Text>
+                        {showAll ? (
+                            <Image source={require('../../../assets/icons/28.png')}
+                                style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
+                        ) : <Image source={require('../../../assets/icons/24.png')}
+                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
-                                    </View>
-                                    <View style={{ marginRight: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
+                    </TouchableOpacity>
+                    <Text style={{ marginLeft: getDimen(0.05) }}>All Colleague</Text>
 
-                                        <TouchableOpacity onPress={() => showHideMy()}>
+                </View>
+                <View style={{ marginRight: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
 
-                                            {showMy ? (
-                                                <Image source={require('../../../assets/icons/28.png')}
-                                                    style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
-                                            ) : <Image source={require('../../../assets/icons/24.png')}
-                                                style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
+                    <TouchableOpacity onPress={() => showHideMy()}>
 
-                                        </TouchableOpacity>
-                                        <Text style={{ marginLeft: getDimen(0.05) }}>My Colleague</Text>
+                        {showMy ? (
+                            <Image source={require('../../../assets/icons/28.png')}
+                                style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
+                        ) : <Image source={require('../../../assets/icons/24.png')}
+                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
-                                    </View>
+                    </TouchableOpacity>
+                    <Text style={{ marginLeft: getDimen(0.05) }}>My Colleague</Text>
 
+                </View>
+            </View>
 
+            {/* allcolleagues mycolleagues check close */}
 
-                                </View>
-                            </Item>
-                        </View>
+            {/* search colleague start */}
 
-                        <View style={{
-                            flexDirection: 'row', borderWidth: 1, borderColor: '#ebebe0',
-                            height: getDimen(0.1), width: '98%'
-                        }}>
+            <View style={{
+                flexDirection: 'row', borderWidth: 1, borderColor: '#ebebe0',
+                height: getDimen(0.1), width: '98%'
+            }}>
 
-                            <TextInput
-                                keyboardType="default"
+                <TextInput
+                    keyboardType="default"
 
-                                placeholderTextColor="gray"
-                                autoCapitalize="none"
-                                placeholder="Search colleagues..."
-                                keyboardType='email-address'
-                                style={{ width: '80%', marginLeft: getDimen(0.05), marginRight: getDimen(0.05), height: getDimen(0.1) }}
-                                // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
-                                onChangeText={(val) => searchUpdated(val)}
-                            />
+                    placeholderTextColor="gray"
+                    autoCapitalize="none"
+                    placeholder="Search colleagues..."
+                    keyboardType='email-address'
+                    style={{ width: '80%', marginLeft: getDimen(0.05), marginRight: getDimen(0.05), height: getDimen(0.1) }}
+                    // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
+                    onChangeText={(val) => searchUpdated(val)}
+                />
 
-                            {/* <TouchableOpacity onPress={() => getSearchData()}>
+                {/* <TouchableOpacity onPress={() => getSearchData()}>
                             <Image source={require('../../../assets/icons/6.png')}
                                 style={{ height: getDimen(0.07), width: getDimen(0.07), justifyContent: 'center', marginTop: 6 }} />
                         </TouchableOpacity> */}
 
 
 
-                            {/* <View style={{ height: 1, width: getDimen(0.95), marginLeft: getDimen(0.08), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.004), }}></View> */}
-                        </View>
+                {/* <View style={{ height: 1, width: getDimen(0.95), marginLeft: getDimen(0.08), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.004), }}></View> */}
+            </View>
+
+            {/* search colleague close */}
 
 
+{/* flatlist view start */}
+            <View style={{ width: '100%', height: '100%', flexDirection: 'column', backgroundColor: 'white' }}>
 
-                    </View>
 
-                    <FlatList
-                        ///// Search List Screen
-                        horizontal={false}
-                        showsVerticalScrollIndicator={false}
-                        style={{ marginTop: 0, }}
+                <FlatList
+                    ///// Search List Screen
+                    horizontal={false}
+                    showsVerticalScrollIndicator={false}
+                    style={{ marginTop: 0, }}
 
-                        data={filteredData}
-                        renderItem={({ item, separators, index }) => (
-                            <TouchableWithoutFeedback onPress={() => navigation.navigate('Colleague List', ({ "name": item.name, "companyName": item.company_name, "profile_image_url": item.profile_image_url, "isFriend": item.is_friend, "userId": item.id }))} >
-                                <View>
-                                    <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
+                    data={filteredData}
+                    renderItem={({ item, separators, index }) => (
+                        <TouchableWithoutFeedback onPress={() => navigation.navigate('Colleague List', ({ "name": item.name, "companyName": item.company_name, "profile_image_url": item.profile_image_url, "isFriend": item.is_friend, "userId": item.id }))} >
+                            <View>
+                                <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
 
-                                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.28), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
-                                            <View style={{
-                                                flex: 0.25, height: '100%', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginTop: getDimen(0.05)
-                                            }}>
-                                                {
-                                                    (item.profile_image_url && (item.profile_image_url.includes('.jpg') || item.profile_image_url.includes('.png'))) ? <Image
-                                                        source={{
-                                                            uri: `${item.profile_image_url}`,
-                                                        }}
-                                                        style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
-                                                    /> :
-                                                        <Image source={require('../../../assets/icons/2.png')}
-                                                            style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
-                                                }
+                                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.28), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
+                                        <View style={{
+                                            flex: 0.25, height: '100%', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginTop: getDimen(0.05)
+                                        }}>
+                                            {
+                                                (item.profile_image_url && (item.profile_image_url.includes('.jpg') || item.profile_image_url.includes('.png'))) ? <Image
+                                                    source={{
+                                                        uri: `${item.profile_image_url}`,
+                                                    }}
+                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
+                                                /> :
+                                                    <Image source={require('../../../assets/icons/2.png')}
+                                                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                                            }
+
+                                        </View>
+                                        <View style={{ flex: 1, height: '100%', }}>
+                                            <View style={{ marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
+                                                <Text style={{ fontSize: getDimen(0.045), fontWeight: 'bold' }}>{item.name}</Text>
+                                                <Text style={{ fontSize: getDimen(0.043), marginTop: getDimen(0.01), color: 'gray' }}
+                                                    numberOfLines={2}
+                                                >
+                                                    {item.company_name}
+                                                </Text>
 
                                             </View>
-                                            <View style={{ flex: 1, height: '100%', }}>
-                                                <View style={{ marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                                    <Text style={{ fontSize: getDimen(0.045), fontWeight: 'bold' }}>{item.name}</Text>
-                                                    <Text style={{ fontSize: getDimen(0.043), marginTop: getDimen(0.01), color: 'gray' }}
-                                                        numberOfLines={2}
-                                                    >
-                                                        {item.company_name}
-                                                    </Text>
 
-                                                </View>
+                                            <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'white', justifyContent: 'flex-end', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0) }}>
 
-                                                <View style={{ flex: 1, flexDirection: 'row', backgroundColor: 'white', justifyContent: 'flex-end', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0) }}>
-
-                                                    <View style={{ flexDirection: 'row', backgroundColor: 'white', justifyContent: 'flex-end', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0), marginRight: getDimen(0.01), marginBottom: getDimen(0.03) }}>
-                                                        <TouchableOpacity onPress={() => addAndRemoveColleague(item.is_friend, item.id)}>
-                                                            {(item.is_friend === 'no') ? (
-                                                                <Image source={require('../../../assets/icons/dmyCollegue.png')}
-                                                                    style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
-                                                            ) : (<Image source={require('../../../assets/icons/cross.png')}
-                                                                style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} />)}
-                                                        </TouchableOpacity>
-                                                        <TouchableOpacity onPress={() => navigation.navigate('Chat Layout')}>
-                                                            <Image source={require('../../../assets/icons/25.png')}
-                                                                style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                                                        </TouchableOpacity>
-                                                    </View>
-
+                                                <View style={{ flexDirection: 'row', backgroundColor: 'white', justifyContent: 'flex-end', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0), marginRight: getDimen(0.01), marginBottom: getDimen(0.03) }}>
+                                                    <TouchableOpacity onPress={() => addAndRemoveColleague(item.is_friend, item.id)}>
+                                                        {(item.is_friend === 'no') ? (
+                                                            <Image source={require('../../../assets/icons/dmyCollegue.png')}
+                                                                style={{ height: getDimen(0.065), width: getDimen(0.065) }} />
+                                                        ) : (<Image source={require('../../../assets/icons/cross.png')}
+                                                            style={{ height: getDimen(0.030), width: getDimen(0.030), marginRight: getDimen(0.03) }} />)}
+                                                    </TouchableOpacity>
+                                                    <TouchableOpacity onPress={() => navigation.navigate('Chat Layout')}>
+                                                        <Image source={require('../../../assets/icons/25.png')}
+                                                            style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                    </TouchableOpacity>
                                                 </View>
 
                                             </View>
 
                                         </View>
-                                    </View>
-                                    <View style={{ height: 1, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'gray' }}></View>
 
+                                    </View>
                                 </View>
-                            </TouchableWithoutFeedback>
-                        )}
-                        keyExtractor={item => item.id}
-                    />
-                </ScrollView>
+                                <View style={{ height: 1, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'gray' }}></View>
+
+                            </View>
+                        </TouchableWithoutFeedback>
+                    )}
+                    keyExtractor={item => "" + item.id}
+                />
+
 
                 {
                     (showLoader === '') ?
@@ -493,7 +484,18 @@ function ChatScreen({ route, navigation }) {
                         :
                         null
                 }
+
+<View style={{marginBottom:getDimen(0.9/2)}}>
+
+</View>
             </View>
+
+            {/* search colleague close */}
+
+            
+
+
+
         </View>
     );
 }
