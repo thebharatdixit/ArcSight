@@ -71,8 +71,6 @@ function RegisterScreen({ navigation }) {
 
     const signupApiIntegration = () => {
 
-
-
         var emailWithoutSpace = emailWithoutSpaceHandle(email);
 
         if (!email) {
@@ -355,7 +353,7 @@ function RegisterScreen({ navigation }) {
                                         checked={checked} color="#8d8865" /> */}
                                     <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
                                         Sign up for ArcSight alerts
-                        </Text>
+                                    </Text>
 
                                 </View>
                                 <TouchableOpacity onPress={() => signupApiIntegration()}>
@@ -370,7 +368,7 @@ function RegisterScreen({ navigation }) {
                 </ScrollView>
             </ImageBackground >
             {
-                (showLoader === true) ?
+                (showLoader === '') ?
                     <View
                         style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >

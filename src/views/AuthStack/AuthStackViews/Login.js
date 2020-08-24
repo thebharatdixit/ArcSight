@@ -269,7 +269,7 @@ function Login({ navigation, changeAuthState }) {
 
             </ImageBackground>
             {
-                (showLoader === true) ?
+                (showLoader === '') ?
                     <View
                         style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >
