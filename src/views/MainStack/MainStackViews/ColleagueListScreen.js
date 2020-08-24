@@ -16,6 +16,7 @@ import {
     Alert,
     Share
 } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
@@ -54,6 +55,8 @@ function ColleaguageListScreen({ route, navigation }) {
     const [showLoader, setShowLoader] = React.useState('hide');
     const [userProfileData, setUserProfileData] = React.useState([]);
     const [profileListing, setProfileListing] = React.useState([]);
+    const isFocused = useIsFocused();
+    const [isFrnd, setFrnd] = React.useState();
 
 
 
@@ -74,7 +77,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
     useEffect(() => {
         tokens ? getColleagueProfileData() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
-    }, [tokens])
+    }, [tokens, isFocused])
 
 
     global.id = '';
@@ -111,6 +114,8 @@ function ColleaguageListScreen({ route, navigation }) {
                 // console.log("status : ", res.status)
                 if (res.status === true) {
                     alert(res.message);
+                    setFrnd(isFriend)
+                    console.log("isAdd : ", isFrnd)
 
                     setShowLoader('hide');
                 } else {
@@ -144,7 +149,8 @@ function ColleaguageListScreen({ route, navigation }) {
 
                 if (res.status === true) {
                     alert(res.message);
-
+                    setFrnd(isFriend)
+                    console.log("isAdd : ", isFrnd)
                     setShowLoader('hide');
                 } else {
                     alert(res.message);
@@ -225,11 +231,22 @@ function ColleaguageListScreen({ route, navigation }) {
             <View style={{ backgroundColor: 'white', height: getDimen(0.55), width: '100%', justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
                 <TouchableOpacity onPress={() => Alert.alert('Show Gallery')}>
 
-                    <Image source={{
+                    {/* <Image source={{
                         uri: `${profile_image_url}`,
                     }}
                         style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.1), borderRadius: 40 }}
-                    />
+                    /> */}
+
+                    {
+                        (profile_image_url && (profile_image_url.includes('.jpg') || profile_image_url.includes('.png'))) ? <Image
+                            source={{
+                                uri: `${profile_image_url}`,
+                            }}
+                            style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
+                        /> :
+                            <Image source={require('../../../assets/icons/2.png')}
+                                style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                    }
                     {/* <Image source={require('../../../assets/icons/2.png')}
                         style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.06) }}
                     /> */}
@@ -258,7 +275,7 @@ function ColleaguageListScreen({ route, navigation }) {
                     </View>
                     <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02) }}></View>
                     <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginLeft: getDimen(0) }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Chat Layout')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": name, "companyName": companyName }))}>
                             <Image source={require('../../../assets/icons/dymChat.png')}
                                 style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
                         </TouchableOpacity>
@@ -334,7 +351,9 @@ function ColleaguageListScreen({ route, navigation }) {
                                     </View>
                                     <View style={{ flex: 1, height: '100%', }}>
                                         <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
+                                            <TouchableOpacity onPress={()=> navigation.navigate('Search List Detail')}>
                                             <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
+                                            </TouchableOpacity>
                                         </View>
 
                                         <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>

@@ -30,10 +30,13 @@ function SearchListDetailScreen({ navigation, route }) {
     const [userImage, setUserImage] = React.useState('')
     const [userName, setUserName] = React.useState('')
     const [companyName, setCompanyName] = React.useState('')
-    const [userId, setUserId] = React.useState('')
+    const [userIdd, setUserId] = React.useState('')
     const [IsFeatured, setIsFeatured] = React.useState('')
     const [primaryImage, setPrimaryImage] = React.useState('')
 
+
+    const { userId } = route.params ? route.params : ""
+    
 
     React.useEffect(() => {
         getData('userData').then((data) => {
@@ -145,7 +148,7 @@ function SearchListDetailScreen({ navigation, route }) {
                     </View>
                     <View style={{ justifyContent: 'flex-end', flexDirection: 'row', marginTop: getDimen(-0.12), marginRight: getDimen(0.1) }}>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('Colleague List', ({ "name": userName, "companyName": companyName, "profile_image_url": userImage, "isFriend": '', "userId": userId }))}
+                            onPress={() => navigation.navigate('Colleague List', ({ "name": userName, "companyName": companyName, "profile_image_url": userImage, "isFriend": '', "userId": userIdd }))}
                         >
                             {
                                 (userImage === 'http://arc.softwaresolutions.website/images/UserImages/') ?
@@ -167,7 +170,7 @@ function SearchListDetailScreen({ navigation, route }) {
                             style={{ fontSize: getDimen(0.045), width: '55%', fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
                         <View style={{ flexDirection: 'column', marginLeft: getDimen(0.07), justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('Colleague List', ({ "name": userName, "companyName": companyName, "profile_image_url": userImage, "isFriend": '', "userId": userId }))}
+                                onPress={() => navigation.navigate('Colleague List', ({ "name": userName, "companyName": companyName, "profile_image_url": userImage, "isFriend": '', "userId": userIdd }))}
                             >
                                 {/* <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left' }}>Broker Name Here</Text> */}
                                 <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.userinfo.name) ? searchListDetail.listing.userinfo.name : ''}</Text>
