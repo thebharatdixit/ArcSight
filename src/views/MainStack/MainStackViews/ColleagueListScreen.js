@@ -56,7 +56,7 @@ function ColleaguageListScreen({ route, navigation }) {
     const [userProfileData, setUserProfileData] = React.useState([]);
     const [profileListing, setProfileListing] = React.useState([]);
     const isFocused = useIsFocused();
-    const [isFrnd, setFrnd] = React.useState();
+    const [isFrnd, setFrnd] = React.useState('');
 
 
 
@@ -68,6 +68,9 @@ function ColleaguageListScreen({ route, navigation }) {
     const { userId } = route.params ? route.params : ""
 
 
+    
+
+
     const dummyData = [
         // mainSt: '1234 Main St',
         { id: '1' },
@@ -77,7 +80,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
     useEffect(() => {
         tokens ? getColleagueProfileData() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
-    }, [tokens, isFocused])
+    }, [tokens, isFocused,isFrnd])
 
 
     global.id = '';
@@ -114,7 +117,7 @@ function ColleaguageListScreen({ route, navigation }) {
                 // console.log("status : ", res.status)
                 if (res.status === true) {
                     alert(res.message);
-
+                    
                     setShowLoader('hide');
                 } else {
                     alert(res.message);
@@ -272,7 +275,7 @@ function ColleaguageListScreen({ route, navigation }) {
                     </View>
                     <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02) }}></View>
                     <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginLeft: getDimen(0) }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": name, "companyName": companyName,"fetch_chat_user_id": userId,"profile_image_url": profile_image_url }))}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": name, "companyName": companyName, "fetch_chat_user_id": userId, "profile_image_url": profile_image_url }))}>
                             <Image source={require('../../../assets/icons/dymChat.png')}
                                 style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
                         </TouchableOpacity>
@@ -324,36 +327,36 @@ function ColleaguageListScreen({ route, navigation }) {
                                 <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
 
                                     <View style={{ flex: 0.6, height: '100%' }}>
-                                        
 
-                                            <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
-                                                {/* <Image
+
+                                        <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
+                                            {/* <Image
                                                 source={require('../../../assets/icons/19.png')}
                                                 style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
                                             /> */}
                                             <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId }))}>
 
-                                                <Image 
-                                                // source={{
-                                                //     uri: `${item.main_image_url}`,
-                                                // }}
-                                                source={require('../../../assets/icons/19.png')}
+                                                <Image
+                                                    // source={{
+                                                    //     uri: `${item.main_image_url}`,
+                                                    // }}
+                                                    source={require('../../../assets/icons/19.png')}
                                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), }}
                                                 />
-                                                </TouchableOpacity>
+                                            </TouchableOpacity>
+                                        </View>
+
+
+                                        <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
+
+                                            <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
+                                                <Text style={{ fontSize: getDimen(0.04), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
                                             </View>
-
-
-                                            <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
-
-                                                <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
-                                                    <Text style={{ fontSize: getDimen(0.04), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
-                                                </View>
-                                                <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
-                                                    <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
-                                                </View>
+                                            <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
+                                                <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
                                             </View>
-                                        
+                                        </View>
+
 
                                     </View>
 
