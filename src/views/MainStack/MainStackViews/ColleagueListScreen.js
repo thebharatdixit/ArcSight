@@ -65,7 +65,6 @@ function ColleaguageListScreen({ route, navigation }) {
     const { userId } = route.params ? route.params : ""
 
 
-
     const dummyData = [
         // mainSt: '1234 Main St',
         { id: '1' },

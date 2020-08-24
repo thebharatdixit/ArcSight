@@ -51,15 +51,15 @@ function SearchScreen({ navigation }) {
     const [checked3, setChecked3] = useState(false);
     const [checkedForSale, setCheckedForSale] = useState(false);
     const [checkedForRent, setCheckedForRent] = useState(false);
-    const [bedRoom, setBedroom] = React.useState(5);
-    const [bathRoom, setBathroom] = React.useState(2);
+    const [bedRoom, setBedroom] = React.useState(0);
+    const [bathRoom, setBathroom] = React.useState(0);
     const [location, setLocation] = React.useState('');
-    const [selectedValue, setSelectedValue] = React.useState(2500);
+    const [selectedValue, setSelectedValue] = React.useState(0);
     const [homeType, setHomeType] = React.useState('');
-    const [sqFeetMin, setSqFeetMin] = React.useState(4000);
-    const [sqFeetMax, setSqFeetMax] = React.useState(4600);
+    const [sqFeetMin, setSqFeetMin] = React.useState(0);
+    const [sqFeetMax, setSqFeetMax] = React.useState(0);
     const [accessToken, setAccessToken] = React.useState('')
-    const [listing, setListing] = React.useState('my')
+    const [listing, setListing] = React.useState('')
     const [searchList, setSearchList] = React.useState([])
     const [alertMessage, setAlertMessage] = React.useState('')
     const [forSaleText, setForSaleText] = React.useState('For Sale')
@@ -117,6 +117,11 @@ function SearchScreen({ navigation }) {
         setBathroom()
         setCheckedForSale(false)
         setCheckedForRent(false)
+        setChecked3(false)
+        setChecked2(false)
+        setChecked1(false)
+        setListing('')
+
     }
 
     const getAminities = () => {
@@ -165,7 +170,11 @@ function SearchScreen({ navigation }) {
 
     }, [accessToken])
 
-    const searchListingApiIntegration = () => {
+
+    const validation = () => {
+    }
+
+    const searchListingApiIntegration = (navigation) => {        
         console.log('Search Details', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax, forSaleText, forRentText)
         setShowLoader('')
         fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
@@ -176,23 +185,29 @@ function SearchScreen({ navigation }) {
                 Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify({
-                "listing": "my",
-                "location": location,
+                // "listing": "my",
+                // "location": "Ludhiana",
+                // "home_type": "",
+                // "listing_type": [
+                //     forSaleText,
+                //     forRentText
+                // ],
+                // "bedrooms": bedRoom,
+                // "bathrooms": bathRoom,
+                // "price": selectedValue,
+                // "sq_feet_min": sqFeetMin,
+                // "sq_feet_max": sqFeetMax
+                 "listing": "my",
+                "location": "Ludhiana",
                 "home_type": "",
                 "listing_type": [
-                    forSaleText,
-                    forRentText
+                    "For Sale"
                 ],
-                // "bedrooms": 5,
-                // "bathrooms": 2,
-                // "price": 2500,
-                // "sq_feet_min": 4000,
-                // "sq_feet_max": 4600
-                "bedrooms": bedRoom,
-                "bathrooms": bathRoom,
-                "price": selectedValue,
-                "sq_feet_min": sqFeetMin,
-                "sq_feet_max": sqFeetMax
+                "bedrooms": 5,
+                "bathrooms": 2,
+                "price": 2500,
+                "sq_feet_min": 4000,
+                "sq_feet_max": 4600
             })
         }).then(res => res.json())
             .then(res => {
@@ -377,6 +392,7 @@ function SearchScreen({ navigation }) {
                         <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.02), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
                             <Input placeholder='$000,000'
                                 style={{ fontSize: getDimen(0.038), borderBottomWidth: 0 }}
+                                onChangeText={(selectedValue) => setSelectedValue(selectedValue)}
                         />
                         {/* <Icon active name='arrow' /> */}
                             {/* <Picker
@@ -427,7 +443,7 @@ function SearchScreen({ navigation }) {
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Home Type</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
-                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), borderBottomWidth: 0 }}>
+                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#000000', textAlign: 'justify', marginTop: getDimen(0), borderBottomWidth: 0 }}>
                             {/* <Input placeholder='Co-op / Condo'
                             style={{ fontSize: getDimen(0.038), }}
 
@@ -467,7 +483,7 @@ function SearchScreen({ navigation }) {
                             <Item style={{ marginLeft: getDimen(0.04), color: 'black', textAlign: 'justify', marginTop: getDimen(0), color: 'black', borderBottomWidth: 0 }}>
                              <Input placeholder='$00'
                                 style={{ fontSize: getDimen(0.038), }}
-
+                                    onChangeText={(val) => setSqFeetMax(val)}
                             />
                             {/* <Icon active name='arrow' /> */} 
                                 {/* <Picker
@@ -494,6 +510,7 @@ function SearchScreen({ navigation }) {
                             <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', marginTop: getDimen(0), borderBottomWidth: 0 }}>
                                 <Input placeholder='$00'
                                 style={{ fontSize: getDimen(0.038), }}
+                                    onChangeText={(val) => setSqFeetMin(val)}
                             />
                             {/* <Icon active name='arrow' /> */}
                                 {/* <Picker
@@ -526,10 +543,60 @@ function SearchScreen({ navigation }) {
                             <TouchableOpacity
                                 onPress={() => {
                                     console.log('searchListJsonOnPress', JSON.stringify(searchList))
-                                    //    console.log('searchListJson', JSON.stringify(searchList.data[0].location))
-                                    // searchListingApiIntegration()
-                                    Alert.alert('', alertMessage, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    
+                                    // if (checked1 === false && setChecked2 === false && checked3 === false) {
+                                    //     Alert.alert('', 'Please Select Listing..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+
+                                    // if (listing === '') {
+                                    //     Alert.alert('', 'Please Select Listing..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+
+                                    // if (location === '') {
+                                    //     Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+                                    
+                                    // if (checkedForSale === false && checkedForRent === false) {
+                                    //     Alert.alert('', 'Please Select Rent/Sale..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+                                    // if (selectedValue === 0) {
+                                    //     Alert.alert('', 'Please Enter Price..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+
+                                    // if (bedRoom === 0) {
+                                    //     Alert.alert('', 'Please Enter Bedroom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+
+                                    // if (bathRoom === 0) {
+                                    //     Alert.alert('', 'Please Enter BathRoom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+
+                                    // if (homeType === '') {
+                                    //     Alert.alert('', 'Please Select Home Type..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+
+                                    // if (sqFeetMax === 0) {
+                                    //     Alert.alert('', 'Please Enter Max. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+                                    // if (sqFeetMin === 0) {
+                                    //     Alert.alert('', 'Please Enter Min. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+                                    // Alert.alert('', alertMessage, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                                     navigation.navigate('Search List', ({ "SearchList": searchList }))
+                                    
+                                    // searchListingApiIntegration()
+                                    
+                                    
                                 }
                                 }
                             >
@@ -571,6 +638,7 @@ function SearchScreen({ navigation }) {
                                 <Image source={require('../../../assets/images/logo.png')}
                                     style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                             </View>
+
                         </View>
 
                         <GooglePlacesAutocomplete
@@ -605,6 +673,26 @@ function SearchScreen({ navigation }) {
                             }}
                         //  predefinedPlaces={[homePlace, workPlace]}
                         />
+
+                        {/* <View style={{}}> */}
+                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' , marginBottom: getDimen(0.01)}}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (location === ''){
+                                        // Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }else{
+                                        setGoogleView(false)
+                                    }
+                                    console.log('location', location)
+                                }
+                                } 
+                            >
+                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>SAVE</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                        {/* </View> */}
 
                     </View>
                     :
