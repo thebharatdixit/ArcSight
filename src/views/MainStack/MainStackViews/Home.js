@@ -208,7 +208,7 @@ function MainScreen({ navigation }) {
                     setWerUrl(homeList && homeList.data && homeList.data.web_share_url)
                     console.log('homeList', homeList.data)
                     console.log('WebUrl', webUrl)
-                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('Home Listing Error', res.message);
                     Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -260,6 +260,7 @@ function MainScreen({ navigation }) {
                             renderItem={({ renderItem, index, item }) => (
                                 <View style={{ flex: 1 }}>
                                     <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
+                                        <TouchableOpacity onPress={() => navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))}>
                                         {
                                             (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
                                                 <Image source={require('../../../assets/icons/2.png')}
@@ -270,12 +271,12 @@ function MainScreen({ navigation }) {
                                                 }}
                                                     style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2), borderRadius: getDimen(0.1) }} />
                                         }
-
+                                        </TouchableOpacity>
                                         <View style={{ flexDirection: 'row', width: '100%', backgroundColor: 'white', marginLeft: getDimen(0.02), }}>
                                             {/* <TouchableOpacity onPress={() => Alert.alert('name')}> */}
 
                                             <View style={{ backgroundColor: 'white', flexDirection: 'column', width: '40%' }}>
-                                                <TouchableOpacity onPress={() => console.log(item)}>
+                                                <TouchableOpacity onPress={() => navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))}>
 
                                                     <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
                                                         {(item && item.userinfo) ? item.userinfo.name : ''}
