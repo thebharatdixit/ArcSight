@@ -114,8 +114,6 @@ function ColleaguageListScreen({ route, navigation }) {
                 // console.log("status : ", res.status)
                 if (res.status === true) {
                     alert(res.message);
-                    setFrnd(isFriend)
-                    console.log("isAdd : ", isFrnd)
 
                     setShowLoader('hide');
                 } else {
@@ -149,8 +147,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
                 if (res.status === true) {
                     alert(res.message);
-                    setFrnd(isFriend)
-                    console.log("isAdd : ", isFrnd)
+
                     setShowLoader('hide');
                 } else {
                     alert(res.message);
@@ -275,7 +272,7 @@ function ColleaguageListScreen({ route, navigation }) {
                     </View>
                     <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02) }}></View>
                     <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginLeft: getDimen(0) }}>
-                        <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": name, "companyName": companyName }))}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": name, "companyName": companyName,"fetch_chat_user_id": userId,"profile_image_url": profile_image_url }))}>
                             <Image source={require('../../../assets/icons/dymChat.png')}
                                 style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
                         </TouchableOpacity>
@@ -325,34 +322,45 @@ function ColleaguageListScreen({ route, navigation }) {
                             <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
 
                                 <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
+
                                     <View style={{ flex: 0.6, height: '100%' }}>
-                                        <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
-                                            {/* <Image
+                                        
+
+                                            <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
+                                                {/* <Image
                                                 source={require('../../../assets/icons/19.png')}
                                                 style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
                                             /> */}
+                                            <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId }))}>
 
-                                            <Image source={{
-                                                uri: `${item.main_image_url}`,
-                                            }}
-                                                style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), }}
-                                            />
-                                        </View>
+                                                <Image 
+                                                // source={{
+                                                //     uri: `${item.main_image_url}`,
+                                                // }}
+                                                source={require('../../../assets/icons/19.png')}
+                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), }}
+                                                />
+                                                </TouchableOpacity>
+                                            </View>
 
-                                        <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
-                                            <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
-                                                <Text style={{ fontSize: getDimen(0.04), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
+
+                                            <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
+
+                                                <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
+                                                    <Text style={{ fontSize: getDimen(0.04), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
+                                                </View>
+                                                <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
+                                                    <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
+                                                </View>
                                             </View>
-                                            <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
-                                                <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
-                                            </View>
-                                        </View>
+                                        
 
                                     </View>
+
                                     <View style={{ flex: 1, height: '100%', }}>
                                         <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                            <TouchableOpacity onPress={()=> navigation.navigate('Search List Detail')}>
-                                            <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
+                                            <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId }))}>
+                                                <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
                                             </TouchableOpacity>
                                         </View>
 

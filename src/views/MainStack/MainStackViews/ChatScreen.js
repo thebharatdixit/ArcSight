@@ -453,7 +453,7 @@ function ChatScreen({ route, navigation }) {
                                                         ) : (<Image source={require('../../../assets/icons/cross.png')}
                                                             style={{ height: getDimen(0.030), width: getDimen(0.030), marginRight: getDimen(0.03) }} />)}
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": item.name, "companyName": item.company_name }))}>
+                                                    <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": item.name, "companyName": item.company_name,"fetch_chat_user_id": item.id,"profile_image_url": item.profile_image_url }))}>
                                                         <Image source={require('../../../assets/icons/25.png')}
                                                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                                     </TouchableOpacity>

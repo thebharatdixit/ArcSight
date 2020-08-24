@@ -86,7 +86,7 @@ function ProfileScreen({ navigation }) {
 
         })
 
-    }, [accessToken,isFocused])
+    }, [accessToken, isFocused])
 
 
     const getUserProfileData = () => {
@@ -105,7 +105,8 @@ function ProfileScreen({ navigation }) {
                 setUserProfileData(response.data)
                 setProfileListing(response.data.listing.data)
                 setUserProfileData(response.data);
-                setUserImage(response.data.profile.profile_image_url);
+                setFilePath(response.data.profile.profile_image_url);
+                console.log('filepath : ', filePath)
                 setName(response.data.profile.name);
                 setCompanyName(response.data.profile.company_name);
                 setShowLoader('hide');
@@ -142,7 +143,7 @@ function ProfileScreen({ navigation }) {
         });
     };
 
-    
+
 
     const uploadPhoto = () => {
         setShowLoader('');
@@ -217,16 +218,27 @@ function ProfileScreen({ navigation }) {
                     >
 
 
-                        {filePath === '' ?
-                            <Image
-                                source={{ uri: userImage }}
-                                // source={require('../../../assets/icons/2.png')}
-                                style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
-                            /> :
+                        {/* {filePath === '' ?
                             <Image
                                 style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.3), marginTop: getDimen(0.1 / 2) }}
+                                source={require('../../../assets/icons/2.png')}
+                            /> : <Image
                                 source={{ uri: filePath }}
+                                // source={require('../../../assets/icons/2.png')}
+                                style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
                             />
+
+                        } */}
+
+                        {
+                            (filePath && (filePath.includes('.jpg') || filePath.includes('.png'))) ? <Image
+                                source={{
+                                    uri: `${filePath}`,
+                                }}
+                                style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
+                            /> :
+                                <Image source={require('../../../assets/icons/2.png')}
+                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }} />
                         }
 
 
@@ -311,113 +323,124 @@ function ProfileScreen({ navigation }) {
 
                     </View>
 
-                    <SafeAreaView style={{flex:1}}>
+                    <SafeAreaView style={{ flex: 1 }}>
 
-                    <FlatList
-                        ///// Search List Screen
-                        horizontal={false}
-                        showsVerticalScrollIndicator={false}
-                        style={{ marginTop: 0, }}
-                        data={profileListing}
-                        renderItem={({ item, separators, index }) => (
-                            <View>
-                                <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
+                        <FlatList
+                            ///// Search List Screen
+                            horizontal={false}
+                            showsVerticalScrollIndicator={false}
+                            style={{ marginTop: 0, }}
+                            data={profileListing}
+                            renderItem={({ item, separators, index }) => (
+                                <View>
+                                    <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
 
-                                    <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
-                                        <View style={{ flex: 0.6, height: '100%' }}>
-                                            <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
-                                                {/* <Image
+                                        <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
+                                            <View style={{ flex: 0.6, height: '100%' }}>
+
+                                                <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
+                                                    {/* <Image
                                                     source={{ uri: item.profile_image_url }}
                                                     // source={require('../../../assets/icons/2.png')}
                                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
                                                 /> */}
+                                                    <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId }))}>
 
-                                                <Image source={{
-                                                    uri: `${item.profile_image_url}`,
-                                                }}
-                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), }}
-                                                />
+
+                                                        <Image
+                                                            // source={{
+                                                            //     uri: `${item.profile_image_url}`,
+                                                            // }}
+                                                            source={require('../../../assets/icons/2.png')}
+                                                            style={{ height: getDimen(0.4), width: getDimen(0.4), marginTop: getDimen(0), }}
+                                                        />
+                                                    </TouchableOpacity>
+
+                                                </View>
+
+
+                                                <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
+                                                    <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
+                                                        <Text style={{ fontSize: getDimen(0.04), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
+                                                    </View>
+                                                    <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
+                                                        <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
+                                                    </View>
+                                                </View>
+
                                             </View>
+                                            <View style={{ flex: 1, height: '100%', }}>
 
-                                            <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
-                                                <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
-                                                    <Text style={{ fontSize: getDimen(0.04), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
-                                                </View>
-                                                <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
-                                                    <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
-                                                </View>
-                                            </View>
-
-                                        </View>
-                                        <View style={{ flex: 1, height: '100%', }}>
-                                            <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                                <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
-                                            </View>
-
-                                            <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
-                                                </View>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.bathrooms}</Text>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
-                                                </View>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
-                                                </View>
-                                            </View>
-
-                                            <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05), marginLeft: getDimen(0) }}>
-
-                                                <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    <Image source={require('../../../assets/icons/pin.png')}
-                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                                                </View>
-                                                <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
-                                                </View>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    {/* <Image source={require('../../../assets/icons/dummyLine.png')}
-                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                    <TouchableOpacity onPress={() => Alert.alert('Clicked!')}>
-                                                        <Image source={require('../../../assets/icons/dummyLine.png')}
-                                                            style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
+                                                    <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId }))}>
+                                                        <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
                                                     </TouchableOpacity>
                                                 </View>
 
-                                            </View>
-
-                                            <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0) }}>
-
-                                                <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    <Image source={require('../../../assets/icons/map.png')}
-                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
+                                                    <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                        <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
+                                                        <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
+                                                    </View>
+                                                    <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                        <Text style={{ fontSize: getDimen(0.06) }}>{item.bathrooms}</Text>
+                                                        <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
+                                                    </View>
+                                                    <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                        <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
+                                                        <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
+                                                    </View>
                                                 </View>
-                                                <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
-                                                </View>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    {/* <Image source={require('../../../assets/icons/20.png')}
-                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                    <TouchableOpacity onPress={() => onShare()}>
-                                                        <Image source={require('../../../assets/icons/20.png')}
+
+                                                <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05), marginLeft: getDimen(0) }}>
+
+                                                    <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                        <Image source={require('../../../assets/icons/pin.png')}
                                                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                                                    </TouchableOpacity>
+                                                    </View>
+                                                    <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
+                                                        <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                    </View>
+                                                    <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                        {/* <Image source={require('../../../assets/icons/dummyLine.png')}
+                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
+                                                        <TouchableOpacity onPress={() => Alert.alert('Clicked!')}>
+                                                            <Image source={require('../../../assets/icons/dummyLine.png')}
+                                                                style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                        </TouchableOpacity>
+                                                    </View>
+
+                                                </View>
+
+                                                <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0) }}>
+
+                                                    <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                        <Image source={require('../../../assets/icons/map.png')}
+                                                            style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                    </View>
+                                                    <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
+                                                        <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
+                                                    </View>
+                                                    <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                        {/* <Image source={require('../../../assets/icons/20.png')}
+                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
+                                                        <TouchableOpacity onPress={() => onShare()}>
+                                                            <Image source={require('../../../assets/icons/20.png')}
+                                                                style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                        </TouchableOpacity>
+                                                    </View>
+
                                                 </View>
 
                                             </View>
 
                                         </View>
-
                                     </View>
-                                </View>
 
-                            </View>
-                        )}
-                        keyExtractor={item =>""+ item.id}
-                    />
+                                </View>
+                            )}
+                            keyExtractor={item => "" + item.id}
+                        />
                     </SafeAreaView>
                 </ScrollView>
 
