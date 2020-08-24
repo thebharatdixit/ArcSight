@@ -36,7 +36,6 @@ function SearchListDetailScreen({ navigation, route }) {
 
 
     const { userId } = route.params ? route.params : ""
-    
 
     React.useEffect(() => {
         getData('userData').then((data) => {
@@ -131,8 +130,10 @@ function SearchListDetailScreen({ navigation, route }) {
                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
                             </View>
                         </View>
-
-                        {
+                        <ScrollView
+                            horizontal={true}
+                        >
+                        {/* {
                             (primaryImage === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
                                 <Image source={require('../../../assets/icons/19.png')}
                                     style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
@@ -142,8 +143,17 @@ function SearchListDetailScreen({ navigation, route }) {
                                     uri: `${primaryImage}`
                                 }}
                                     style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}/>
-                        }
-                        
+                        } */}
+                            <Image source={require('../../../assets/icons/19.png')}
+                                style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
+                            />
+                            <Image source={require('../../../assets/icons/19.png')}
+                                style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
+                            />
+                            <Image source={require('../../../assets/icons/19.png')}
+                                style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
+                            />
+                        </ScrollView>
 
                     </View>
                     <View style={{ justifyContent: 'flex-end', flexDirection: 'row', marginTop: getDimen(-0.12), marginRight: getDimen(0.1) }}>

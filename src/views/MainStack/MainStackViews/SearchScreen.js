@@ -544,53 +544,53 @@ function SearchScreen({ navigation }) {
                                 onPress={() => {
                                     console.log('searchListJsonOnPress', JSON.stringify(searchList))
                                     
-                                    // if (checked1 === false && setChecked2 === false && checked3 === false) {
-                                    //     Alert.alert('', 'Please Select Listing..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
+                                    if (checked1 === false && setChecked2 === false && checked3 === false) {
+                                        Alert.alert('', 'Please Select Listing..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
 
-                                    // if (listing === '') {
-                                    //     Alert.alert('', 'Please Select Listing..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
+                                    if (listing === '') {
+                                        Alert.alert('', 'Please Select Listing..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
 
-                                    // if (location === '') {
-                                    //     Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
+                                    if (location === '') {
+                                        Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
                                     
-                                    // if (checkedForSale === false && checkedForRent === false) {
-                                    //     Alert.alert('', 'Please Select Rent/Sale..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
-                                    // if (selectedValue === 0) {
-                                    //     Alert.alert('', 'Please Enter Price..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
+                                    if (checkedForSale === false && checkedForRent === false) {
+                                        Alert.alert('', 'Please Select Rent/Sale..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
+                                    if (selectedValue === 0) {
+                                        Alert.alert('', 'Please Enter Price..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
 
-                                    // if (bedRoom === 0) {
-                                    //     Alert.alert('', 'Please Enter Bedroom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
+                                    if (bedRoom === 0) {
+                                        Alert.alert('', 'Please Enter Bedroom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
 
-                                    // if (bathRoom === 0) {
-                                    //     Alert.alert('', 'Please Enter BathRoom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
+                                    if (bathRoom === 0) {
+                                        Alert.alert('', 'Please Enter BathRoom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
 
-                                    // if (homeType === '') {
-                                    //     Alert.alert('', 'Please Select Home Type..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
+                                    if (homeType === '') {
+                                        Alert.alert('', 'Please Select Home Type..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
 
-                                    // if (sqFeetMax === 0) {
-                                    //     Alert.alert('', 'Please Enter Max. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
-                                    // if (sqFeetMin === 0) {
-                                    //     Alert.alert('', 'Please Enter Min. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
+                                    if (sqFeetMax === 0) {
+                                        Alert.alert('', 'Please Enter Max. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
+                                    if (sqFeetMin === 0) {
+                                        Alert.alert('', 'Please Enter Min. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    }
                                     // Alert.alert('', alertMessage, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                                     navigation.navigate('Search List', ({ "SearchList": searchList }))
                                     
