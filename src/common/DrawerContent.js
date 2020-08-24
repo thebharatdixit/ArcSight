@@ -15,9 +15,10 @@ import BaseScreen from '../views/MainStack/MainStackViews/BaseScreen';
 import { storeData,clearData } from '../utils/asyncStore'
 import { connect } from 'react-redux';
 import { changeAuthState } from '../actions/authAction';
-import { AsyncStorage } from '@react-native-community/async-storage';
+// import { NavigationActions, StackActions } from 'react-navigation';
+// import { AsyncStorage } from '@react-native-community/async-storage';
 
-function DrawerScreen({ route, navigation }) {
+function DrawerScreen({ route, navigation, changeAuthState }) {
     console.log('route', route, navigation)
     const [accessToken, setAccessToken] = React.useState('')
     const [userImage, setUserImage] = React.useState('')
@@ -35,14 +36,18 @@ function DrawerScreen({ route, navigation }) {
         );
     }
 
-    getData('userData').then((data) => {
-        const userData = JSON.parse(data);
-        const listTokens = userData.token;
-        setAccessToken(listTokens);
-        // console.log('token1', listTokens)
-        setUserImage(userData.user.profile_image_url)
-        console.log('UserImage', userData.user.profile_image_url)
-    })
+    
+
+    React.useEffect(() => {
+        getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            setAccessToken(listTokens);
+            // console.log('token1', listTokens)
+            setUserImage(userData.user.profile_image_url)
+            console.log('UserImage', userData.user.profile_image_url)
+        })
+    }, [])
 
     const logOutApiIntegration = () => {
 
@@ -61,6 +66,8 @@ function DrawerScreen({ route, navigation }) {
                    // AsyncStorage.clear();
                     clearData()
                     changeAuthState(false)
+                    // navigation.navigate("Login Screen");
+                    
                     //Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('No logged Out');

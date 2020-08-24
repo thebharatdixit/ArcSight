@@ -1,12 +1,13 @@
 
 const initialState = {
-    isLoggedIn: false,
+    isLoggedIn: undefined,
 };
 
 export function auth(state = initialState, action) {
     switch (action.type) {
         case "LOG_IN": {
-            let isLoggedIn = action.payload;
+            let isLoggedIn = action.payload.isLoggedIn;
+            console.log("LOG_IN : " + JSON.stringify(isLoggedIn))
             return { ...state, isLoggedIn }
         }
         default:
