@@ -160,7 +160,6 @@ function MainScreen({ navigation }) {
             setAccessToken(listTokens);
             setUserId(userrId)
 
-            console.log('Home Screen Token', userrId)
             console.log('Home Screen Id', userrId)
 
             if (accessToken) {
@@ -211,8 +210,9 @@ function MainScreen({ navigation }) {
                     console.log('Home Listing Data', JSON.stringify(res.data));
                     setHomeList(res.data)
                     setWerUrl(homeList && homeList.data && homeList.data.web_share_url)
-                    console.log('homeList', homeList.data)
+                    console.log('homeList', homeList && homeList.data)
                     console.log('WebUrl', webUrl)
+                    console.log('Home List User Id', homeList && homeList.data && homeList.data.user_id)
                     // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('Home Listing Error', res.message);
@@ -301,23 +301,26 @@ function MainScreen({ navigation }) {
                                             <View style={{ backgroundColor: 'white', width: '10%', paddingLeft: getDimen(0) }}>
                                                 <TouchableOpacity onPress={() => onShare()}>
                                                     {
-                                                        (webUrl === !'') ?
+                                                        (webUrl === '' || webUrl === undefined) ?
+                                                            null
+                                                            :
                                                             <Image source={require('../../../assets/icons/20.png')}
                                                                 style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
-                                                            :
-                                                           null
                                                     }
                                                     
                                                 </TouchableOpacity>
-                                                <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.user_id, "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url }))}>
+                                                <TouchableOpacity onPress={() => console.log("userId1234:", userId, item.user_id)
+                                                // navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.user_id, "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url }))
+                                                }>
                                                     {
-                                                        (userId === !item.user_id ) ?
+                                                        (userId === item.user_id ) ?
+                                                            null
+                                                            :
                                                             <Image source={require('../../../assets/icons/25.png')}
                                                                 style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                                            :
-                                                            null
                                                     }
-                                                    
+                                                    {/* <Image source={require('../../../assets/icons/25.png')}
+                                                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} /> */}
                                                 </TouchableOpacity>
 
                                             </View>
