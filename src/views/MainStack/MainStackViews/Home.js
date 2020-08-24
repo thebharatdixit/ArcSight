@@ -149,14 +149,19 @@ function MainScreen({ navigation }) {
     const [accessToken, setAccessToken] = React.useState('')
     const [homeList, setHomeList] = React.useState([])
     const [webUrl, setWerUrl] = React.useState('')
+    const [userId, setUserId] = React.useState('')
 
     React.useEffect(() => {
         console.log('Search screen');
         getData('userData').then((data) => {
             const userData = JSON.parse(data);
             const listTokens = userData.token;
+            const userrId = userData.user.id;
             setAccessToken(listTokens);
-            console.log('Search Screen Token', listTokens)
+            setUserId(userrId)
+
+            console.log('Home Screen Token', userrId)
+            console.log('Home Screen Id', userrId)
 
             if (accessToken) {
                 console.log('Prachi123')
@@ -295,12 +300,24 @@ function MainScreen({ navigation }) {
                                             </View>
                                             <View style={{ backgroundColor: 'white', width: '10%', paddingLeft: getDimen(0) }}>
                                                 <TouchableOpacity onPress={() => onShare()}>
-                                                    <Image source={require('../../../assets/icons/20.png')}
-                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                    {
+                                                        (webUrl === !'') ?
+                                                            <Image source={require('../../../assets/icons/20.png')}
+                                                                style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
+                                                            :
+                                                           null
+                                                    }
+                                                    
                                                 </TouchableOpacity>
                                                 <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.user_id, "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url }))}>
-                                                    <Image source={require('../../../assets/icons/25.png')}
-                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                    {
+                                                        (userId === !item.user_id ) ?
+                                                            <Image source={require('../../../assets/icons/25.png')}
+                                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                                            :
+                                                            null
+                                                    }
+                                                    
                                                 </TouchableOpacity>
 
                                             </View>

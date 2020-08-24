@@ -25,7 +25,8 @@ import { getDimen } from '../../../dimensions/dimen';
 function SearchListScreen({ navigation, route }) {
  
     const { SearchList } = route.params ? route.params : ""
- 
+    const [webUrl, setWerUrl] = React.useState('')
+
     React.useEffect(() => {
         console.log('json data in useEffect:', SearchList.data);
         // const searchListData = SearchList.data[0].location
@@ -89,11 +90,6 @@ function SearchListScreen({ navigation, route }) {
                     data={SearchList.data}
                     renderItem={({ item, separators, index }) => (
                         <TouchableWithoutFeedback 
-                            onPress={() => {
-                                navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id }))
-                        //  console.log('SearchList.data',SearchList.data[0].bedrooms)
-                        }
-                        }
                             // onPress={() => Alert.alert('Search List Detail')}
                         >
                         <View>
@@ -102,23 +98,27 @@ function SearchListScreen({ navigation, route }) {
                                 <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
                                     <View style={{ flex: 0.6, height: '100%'}}>
                                         <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
-                                            <Image
+                                                <TouchableOpacity onPress={() => {
+                                                    navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id }))
+                                                }
+                                                }>
+                                            {/* <Image
                                                 source={require('../../../assets/icons/19.png')}
                                                 style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09)}}
-                                            />
-                                                {/* {
-                                                    (SearchList.data[0]. === 'http://arc.softwaresolutions.website/images/UserImages/') ?
-                                                        <Image
-                                                            source={require('../../../assets/icons/19.png')}
-                                                            style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
-                                                        />
+                                            /> */}
+                                                {
+                                                        (item && item.main_image_url === undefined || item.main_image_url === null || item.main_image_url === 'http://arc.softwaresolutions.website/images/ListingImages/' || '') ?
+                                                            <Image
+                                                                source={require('../../../assets/icons/19.png')}
+                                                                style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
+                                                            /> 
                                                         :
                                                         <Image source={{
-                                                            uri: `${userImage}`
+                                                                uri: `${item.main_image_url}`
                                                         }}
-                                                            style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1) }} />
-                                                }   */}
-
+                                                                style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }} />
+                                                }  
+                                                </TouchableOpacity>
                                         </View>
 
                                         <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
@@ -134,10 +134,15 @@ function SearchListScreen({ navigation, route }) {
                                     </View>
                                     <View style={{ flex: 1, height: '100%', }}>
                                         <View style={{ flex: 0.3, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
+                                                <TouchableOpacity onPress={() => {
+                                                    navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id }))
+                                                }
+                                                }>
                                             {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
                                                 <Text 
                                                 numberOfLines={2}
                                                 style={{ fontSize: getDimen(0.045), fontWeight:'600'}}>{item.location}</Text>
+                                                </TouchableOpacity>
                                         </View>
 
                                         <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
@@ -168,9 +173,9 @@ function SearchListScreen({ navigation, route }) {
                                             <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
                                                 {/* <Image source={require('../../../assets/icons/dummyLine.png')}
                                                          style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                <TouchableOpacity onPress={() => Alert.alert('Clicked!')}>
+                                                <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
                                                     <Image source={require('../../../assets/icons/dummyLine.png')}
-                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                        style={{ height: getDimen(0.08), width: getDimen(0.08) }} />
                                                 </TouchableOpacity>
                                             </View>
 
@@ -186,11 +191,17 @@ function SearchListScreen({ navigation, route }) {
                                                     <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
                                             </View>
                                             <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                {/* <Image source={require('../../../assets/icons/20.png')}
-                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
+                                                
                                                 <TouchableOpacity onPress={() => onShare()}>
-                                                    <Image source={require('../../../assets/icons/20.png')}
-                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                        {
+                                                            (item && item.web_share_url === !'') ?
+                                                                <Image source={require('../../../assets/icons/20.png')}
+                                                                    style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
+                                                                :
+                                                                null
+                                                        }
+                                                    {/* <Image source={require('../../../assets/icons/20.png')}
+                                                        style={{ height: getDimen(0.07), width: getDimen(0.07) }} /> */}
                                                 </TouchableOpacity>
                                             </View>
 

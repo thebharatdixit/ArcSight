@@ -111,7 +111,6 @@ function ProfileScreen({ navigation }) {
                 setCompanyName(response.data.profile.company_name);
                 setShowLoader('hide');
 
-
             }
             else {
                 Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -150,7 +149,6 @@ function ProfileScreen({ navigation }) {
         setShowLoader('');
 
         const formData = new FormData();
-
 
         formData.append('profile_image', filePath);
 
