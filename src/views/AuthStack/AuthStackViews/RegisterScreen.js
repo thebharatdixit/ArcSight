@@ -71,6 +71,11 @@ function RegisterScreen({ navigation }) {
 
     const signupApiIntegration = () => {
 
+        if (!filePath.uri){
+            Alert.alert('', 'Please Select Image..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
         var emailWithoutSpace = emailWithoutSpaceHandle(email);
 
         if (!email) {
