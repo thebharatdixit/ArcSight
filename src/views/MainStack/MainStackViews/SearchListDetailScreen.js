@@ -28,6 +28,8 @@ function SearchListDetailScreen({ navigation, route }) {
     const [accessToken, setAccessToken] = React.useState('')
     const [searchListDetail, setSearchListDetail] = React.useState([])
     const [userImage, setUserImage] = React.useState('')
+
+    const { userId } = route.params ? route.params : ""
     
 
     React.useEffect(() => {
@@ -57,7 +59,7 @@ function SearchListDetailScreen({ navigation, route }) {
                 Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify({
-                "listing_id": 5
+                "listing_id": userId
             })
         }).then(res => res.json())
             .then(res => {

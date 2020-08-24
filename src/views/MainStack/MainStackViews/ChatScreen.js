@@ -293,8 +293,8 @@ function ChatScreen({ route, navigation }) {
 
     return (
 
-        <View style={{ width: '100%', height: '100%', flexDirection: 'column', flex: 1,backgroundColor:'white' }}>
-{/* header start */}
+        <View style={{ width: '100%', height: '100%', flexDirection: 'column', flex: 1, backgroundColor: 'white' }}>
+            {/* header start */}
             <View style={{ width: '100%', backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() =>
                     navigation.dispatch(DrawerActions.toggleDrawer())
@@ -335,15 +335,15 @@ function ChatScreen({ route, navigation }) {
 
             {/* allcolleagues mycolleagues check start */}
 
-            <View style={{ backgroundColor: 'white', flexDirection: 'row', width: '100%', height: getDimen(0.09), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={{ backgroundColor: 'white', flexDirection: 'row', width: '100%', height: getDimen(0.3 / 2), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', justifyContent: 'center' }}>
 
                 <View style={{ marginRight: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => showHideAll()}>
 
                         {showAll ? (
-                            <Image source={require('../../../assets/icons/28.png')}
+                            <Image source={require('../../../assets/icons/check.png')}
                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
-                        ) : <Image source={require('../../../assets/icons/24.png')}
+                        ) : <Image source={require('../../../assets/icons/uncheck.png')}
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
                     </TouchableOpacity>
@@ -355,9 +355,9 @@ function ChatScreen({ route, navigation }) {
                     <TouchableOpacity onPress={() => showHideMy()}>
 
                         {showMy ? (
-                            <Image source={require('../../../assets/icons/28.png')}
+                            <Image source={require('../../../assets/icons/check.png')}
                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
-                        ) : <Image source={require('../../../assets/icons/24.png')}
+                        ) : <Image source={require('../../../assets/icons/uncheck.png')}
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
                     </TouchableOpacity>
@@ -371,8 +371,8 @@ function ChatScreen({ route, navigation }) {
             {/* search colleague start */}
 
             <View style={{
-                flexDirection: 'row', borderWidth: 1, borderColor: '#ebebe0',
-                height: getDimen(0.1), width: '98%'
+                flexDirection: 'row',  
+                height: getDimen(0.3/2), width: '100%',alignItems:'center'
             }}>
 
                 <TextInput
@@ -382,7 +382,7 @@ function ChatScreen({ route, navigation }) {
                     autoCapitalize="none"
                     placeholder="Search colleagues..."
                     keyboardType='email-address'
-                    style={{ width: '80%', marginLeft: getDimen(0.05), marginRight: getDimen(0.05), height: getDimen(0.1) }}
+                    style={{ width: '90%', marginLeft: getDimen(0.05), marginRight: getDimen(0.05), height: getDimen(0.3/2),borderColor: '#ebebe0',borderWidth: 1,paddingLeft:getDimen(0.02) }}
                     // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                     onChangeText={(val) => searchUpdated(val)}
                 />
@@ -400,7 +400,7 @@ function ChatScreen({ route, navigation }) {
             {/* search colleague close */}
 
 
-{/* flatlist view start */}
+            {/* flatlist view start */}
             <View style={{ width: '100%', height: '100%', flexDirection: 'column', backgroundColor: 'white' }}>
 
 
@@ -453,7 +453,7 @@ function ChatScreen({ route, navigation }) {
                                                         ) : (<Image source={require('../../../assets/icons/cross.png')}
                                                             style={{ height: getDimen(0.030), width: getDimen(0.030), marginRight: getDimen(0.03) }} />)}
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity onPress={() => navigation.navigate('Chat Layout')}>
+                                                    <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": item.name, "companyName": item.company_name }))}>
                                                         <Image source={require('../../../assets/icons/25.png')}
                                                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                                     </TouchableOpacity>
@@ -485,14 +485,14 @@ function ChatScreen({ route, navigation }) {
                         null
                 }
 
-<View style={{marginBottom:getDimen(0.9/2)}}>
+                <View style={{ marginBottom: getDimen(0.6) }}>
 
-</View>
+                </View>
             </View>
 
             {/* search colleague close */}
 
-            
+
 
 
 
