@@ -138,8 +138,7 @@ function Login({ navigation, changeAuthState }) {
             if (response.status) {
                 storeData('isLogin', 'true');
                 storeData('userData', JSON.stringify(response.data));
-                setUsername('');
-                setPassword('');
+                
                 // navigation.navigate('Main Stack');
                 // Alert.alert('' + response.message, [{
                 //     text: 'OK', onPress: () => {
@@ -149,11 +148,12 @@ function Login({ navigation, changeAuthState }) {
                 // }], { cancelable: false });
                 console.log("trying to login")
                 setTimeout(function () {
-
+                    setUsername('');
+                    setPassword('');
                     //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
                     changeAuthState(true)
 
-                }, 1000);
+                }, 300);
             }
             else {
                 Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -276,7 +276,7 @@ function Login({ navigation, changeAuthState }) {
             {
                 (showLoader === '') ?
                     <View
-                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >
                         <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
                     </View>

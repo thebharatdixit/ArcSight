@@ -9,12 +9,17 @@ import {
 } from 'react-native';
 import { getDimen } from '../dimensions/dimen';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Drawer } from 'native-base';
+import { Button, Item, Input, CheckBox, ListItem, Body, Drawer } from 'native-base';
 import { getData } from '../utils/asyncStore';
 import BaseScreen from '../views/MainStack/MainStackViews/BaseScreen';
 import { storeData,clearData } from '../utils/asyncStore'
 import { connect } from 'react-redux';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { changeAuthState } from '../actions/authAction';
+import { Fontisto } from 'react-native-vector-icons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon2 from 'react-native-vector-icons/AntDesign';
+
 // import { NavigationActions, StackActions } from 'react-navigation';
 // import { AsyncStorage } from '@react-native-community/async-storage';
 
@@ -64,6 +69,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                 if (res.status) {
                     console.log('logged out123456', res.message);
                    // AsyncStorage.clear();
+                    navigation.dispatch(DrawerActions.toggleDrawer())
                     clearData()
                     changeAuthState(false)
                     // navigation.navigate("Login Screen");
@@ -153,7 +159,8 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
                         <DrawerItem
                             icon={({ focused, size, color }) => (
-                                <Icon name='settings' size={size} style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
+                                // <Fontisto name="player-settings" size={size} style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
+                                <Icon name='settings' size={size} style={{ fontSize: getDimen(.07), color: '#FAAE00' }} />
                             )}
                             label="SETTINGS"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
@@ -161,7 +168,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         />
                         <DrawerItem
                             icon={({ focused, color, size }) => (
-                                <Icon name='log-out' size={size} color="white" style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
+                                <Icon2 name='logout' size={size} color="white" style={{ fontSize: getDimen(.06), color: '#FAAE00' }} />
                             )}
                             label="LOG OUT"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}

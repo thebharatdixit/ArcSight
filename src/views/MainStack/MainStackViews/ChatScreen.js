@@ -139,47 +139,7 @@ function ChatScreen({ route, navigation }) {
 
     }
 
-    // const getSearchData = () => {
-
-    //     setShowLoader('');
-    //     let data = {
-
-    //         "search_type": "all",
-    //         "search_query": searchValue
-
-    //     }
-    //     fetch("http://arc.softwaresolutions.website/api/v1/search-colleagues", {
-    //         method: "post",
-    //         headers: {
-    //             Accept: "application/json",
-    //             'Content-Type': "application/json",
-    //             Authorization: `Bearer ${tokens}`,
-    //         },
-    //         body: JSON.stringify(
-    //             data
-    //         ),
-    //     }).then(res => res.json())
-    //         .then(res => {
-
-    //             console.log('listLog1', res.data);
-
-    //             setAllColleagues(res.data);
-    //             setShowLoader('hide');
-
-
-
-    //             //   Alert.alert(
-    //             //     "Success",
-    //             //     "Bill of Loading Uploaded Successfully!",
-    //             //     [{ text: "OK", onPress: () => that.props.close() }],
-    //             //     { cancelable: false }
-    //             //   );
-    //         })
-    //         .catch(err => {
-    //             console.error("error uploading images: ", err);
-    //         });
-    //     return undefined;
-    // }
+    
 
     const getColleaguesList = (value) => {
 
