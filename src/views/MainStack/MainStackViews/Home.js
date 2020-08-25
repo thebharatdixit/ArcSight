@@ -151,6 +151,7 @@ function MainScreen({ navigation }) {
     const [webUrl, setWerUrl] = React.useState('')
     const [userId, setUserId] = React.useState('')
     const [createdDate, setCreatedDate] = React.useState('')
+    const [showLoader, setShowLoader] = React.useState('');
 
     React.useEffect(() => {
         console.log('Search screen');
@@ -210,6 +211,7 @@ function MainScreen({ navigation }) {
             .then(res => {
                 daysFunction();
                 if (res.status) {
+                    setShowLoader('hide')
                     console.log('Home Listing Data', JSON.stringify(res.data));
                     console.log('Creted Date0000', JSON.stringify(res.data.created_at));
                     setHomeList(res.data)
@@ -376,7 +378,7 @@ function MainScreen({ navigation }) {
                                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
                                             </View>
                                         </View>
-                                          <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id }))} style={styles.item}>
+                                                    <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url}))} style={styles.item}>
                                     
                                                     {
                                             (item.main_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
@@ -568,6 +570,16 @@ function MainScreen({ navigation }) {
                 </ScrollView>
 
             </View>
+            {
+                (showLoader === '') ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
         </View>
     );
 

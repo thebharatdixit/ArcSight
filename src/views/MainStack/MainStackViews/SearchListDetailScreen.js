@@ -35,6 +35,7 @@ function SearchListDetailScreen({ navigation, route }) {
     const [IsFeatured, setIsFeatured] = React.useState('')
     const [primaryImage, setPrimaryImage] = React.useState('')
     const [loginUserId, setLoginUserId] = React.useState('')
+    const [showLoader, setShowLoader] = React.useState('');
 
     const { userId } = route.params ? route.params : ""
 
@@ -73,6 +74,7 @@ function SearchListDetailScreen({ navigation, route }) {
         }).then(res => res.json())
             .then(res => {
                 if (res.status) {
+                    setShowLoader('hide')
                     console.log('Search Listing Details', res.data);
                     setSearchListDetail(res.data)
                     setUserId(res.data.listing.user_id)
@@ -243,6 +245,16 @@ function SearchListDetailScreen({ navigation, route }) {
 
                 </ScrollView>
             </View>
+            {
+                (showLoader === '') ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
         </View >
     );
 }
