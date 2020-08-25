@@ -16,11 +16,12 @@ import {
 } from 'react-native';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { getDimen } from '../../../dimensions/dimen';
-import {forgotPassword} from '../../../actions/forgotPasswordAction'
+import { forgotPassword } from '../../../actions/forgotPasswordAction'
 
 function ForgotPasswordScreen({ navigation }) {
 
     const [email, setEmail] = React.useState('');
+    const [showLoader, setShowLoader] = React.useState('hide');
     /// Email Validation
     const validate = (text) => {
         // console.log(text);
@@ -46,7 +47,7 @@ function ForgotPasswordScreen({ navigation }) {
         return withOutSpaceVal;
     }
 
-   
+
 
     const forgotPasswordApiCall = () => {
 
@@ -83,22 +84,24 @@ function ForgotPasswordScreen({ navigation }) {
         //     }
 
         // })
+        setShowLoader('')
         fetch("http://arc.softwaresolutions.website/api/v1/forgot-password", {
             method: "POST",
             headers: {
-                 Accept: 'application/json',
-                 'Content-Type': 'application/json',
-                
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+
             },
             body: JSON.stringify({
                 email: email,
             })
         }).then(res => res.json())
             .then(res => {
+                setShowLoader('hide')
                 console.log('Reset Password', res.message, email);
                 if (res.status) {
                     console.log('Reset Password', res.message);
-                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => setEmail('')}], { cancelable: false })
+                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => setEmail('') }], { cancelable: false })
                 } else {
                     console.log('No Reset Password', res.message);
                     Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
@@ -133,32 +136,42 @@ function ForgotPasswordScreen({ navigation }) {
             </View>
             <ImageBackground
                 source={require('../../../assets/images/Splash.png')}
-                style={{ flex: 1, resizeMode: 'contain',}}>
+                style={{ flex: 1, resizeMode: 'contain', }}>
 
-                <View style={{ flex: 0.70, borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2), backgroundColor: 'white', borderRadius: 12}}>
-           
-            {/* <Text style={styles.textStyle2}>Please enter your registered email ID</Text> */}
-            <View style={styles.inputContainer}>
-                
-                <TextInput
-                    style={[styles.input]}
-                    placeholder="Enter your email"
-                    placeholderTextColor="#8A8A8A"
-                    underlineColorAndroid='transparent'
-                    onChangeText={(email) => setEmail(email)}
-                    value={email} />
-            </View>
-         <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.002) }}></View>
+                <View style={{ flex: 0.70, borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2), backgroundColor: 'white', borderRadius: 12 }}>
+
+                    {/* <Text style={styles.textStyle2}>Please enter your registered email ID</Text> */}
+                    <View style={styles.inputContainer}>
+
+                        <TextInput
+                            style={[styles.input]}
+                            placeholder="Enter your email"
+                            placeholderTextColor="#8A8A8A"
+                            underlineColorAndroid='transparent'
+                            onChangeText={(email) => setEmail(email)}
+                            value={email} />
+                    </View>
+                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.002) }}></View>
                     <TouchableOpacity
                         style={styles.submit}
                         onPress={() => forgotPasswordApiCall()}
-                        >
+                    >
                         <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
                             <Text style={{ color: '#FFF', fontSize: getDimen(.055), textAlign: 'center', alignSelf: 'center', fontWeight: 'bold' }}>Submit</Text>
                         </View>
                     </TouchableOpacity>
-        </View>
+                </View>
             </ImageBackground >
+            {
+                (showLoader === '') ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
         </View>
     )
 }

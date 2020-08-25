@@ -71,10 +71,10 @@ function RegisterScreen({ navigation }) {
 
     const signupApiIntegration = () => {
 
-        if (!filePath.uri){
-            Alert.alert('', 'Please Select Image..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-            return;
-        }
+        // if (!filePath.uri){
+        //     Alert.alert('', 'Please Select Image..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+        //     return;
+        // }
 
         var emailWithoutSpace = emailWithoutSpaceHandle(email);
 
@@ -334,7 +334,10 @@ function RegisterScreen({ navigation }) {
                                     underlineColorAndroid='transparent'
                                     onChangeText={(password) => setPassword(password)}
                                     value={password} />
+                                    <Text style={{color:'gray', marginTop:getDimen(0.01), alignSelf: 'flex-end', fontSize:getDimen(0.025)}}>6-8 Letters, 1 Capital, 1 Special Character</Text>
+
                             </View>
+
 
                             <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
@@ -375,7 +378,7 @@ function RegisterScreen({ navigation }) {
             {
                 (showLoader === '') ?
                     <View
-                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >
                         <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
                     </View>
@@ -409,6 +412,7 @@ const styles = StyleSheet.create({
         flex: 10,
         paddingLeft: 10,
         fontSize: 14,
+        width: '100%',
         // fontFamily: 'Poppins-Regular',
         color: 'black'
     },
