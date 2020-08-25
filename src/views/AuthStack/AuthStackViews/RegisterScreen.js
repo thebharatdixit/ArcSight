@@ -152,7 +152,7 @@ function RegisterScreen({ navigation }) {
         registerNewUser(data).then((response) => {
             setShowLoader('hide')
             if (response.status) {
-                storeData('isLogin', 'true');
+                // storeData('isLogin', 'true');
                 storeData('userData', JSON.stringify(response.data));
                 setEmail('')
                 setFirstName('')
