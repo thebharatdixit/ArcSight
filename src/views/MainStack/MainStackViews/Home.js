@@ -165,6 +165,7 @@ function MainScreen({ navigation }) {
             if (accessToken) {
                 console.log('Prachi123')
                 homeListingApiIntegration();
+                daysFunction();
             }
         })
     }, [accessToken])
@@ -224,6 +225,11 @@ function MainScreen({ navigation }) {
             });
     }
 
+    const daysFunction = () => {
+        var msDiff = new Date("August 10, 2020").getTime() - new Date().getTime();    //Future date - current date
+        var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
+        console.log('Days***!!!:',daysTill30June2035);
+    }
 
     const renderItem = ({ item }) => (
         <Item title={item} />
@@ -263,9 +269,27 @@ function MainScreen({ navigation }) {
                         <FlatList
                             data={homeList.data}
                             renderItem={({ renderItem, index, item }) => (
+                                <TouchableWithoutFeedback
+                                    onPress={() => {
+                                        (userId === item.user_id) ?
+                                            navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
+                                            :
+                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))
+
+                                    }
+                                    }
+                                 >
                                 <View style={{ flex: 1 }}>
                                     <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
-                                        <TouchableOpacity onPress={() => navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))}>
+                                        <TouchableOpacity onPress={() => 
+                                        {
+                                            (userId === item.user_id) ?
+                                                navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
+                                                :
+                                                navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))
+
+                                        }
+                                        }>
                                         {
                                             (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
                                                 <Image source={require('../../../assets/icons/2.png')}
@@ -281,14 +305,26 @@ function MainScreen({ navigation }) {
                                             {/* <TouchableOpacity onPress={() => Alert.alert('name')}> */}
 
                                             <View style={{ backgroundColor: 'white', flexDirection: 'column', width: '40%' }}>
-                                                <TouchableOpacity onPress={() => navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))}>
+                                                <TouchableOpacity onPress={() => 
+                                                // console.log('Prachiiiii', userId === item.user_id)
+                                                {
+                                                        (userId === item.user_id ) ?
+                                                            navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
+                                                            :
+                                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))
+                                                            
+                                                }
+                                                
+                                                }
+                                                >
 
                                                     <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
                                                         {(item && item.userinfo) ? item.userinfo.name : ''}
                                                     </Text>
                                                     <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01) }}>
                                                         Listed 2 Days Ago
-                        </Text>
+                                                        
+                                                     </Text>
                                                 </TouchableOpacity>
                                             </View>
 
@@ -309,8 +345,9 @@ function MainScreen({ navigation }) {
                                                     }
                                                     
                                                 </TouchableOpacity>
-                                                <TouchableOpacity onPress={() => console.log("userId1234:", userId, item.user_id)
-                                                // navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.user_id, "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url }))
+                                                <TouchableOpacity onPress={() => 
+                                                // console.log("userId1234:", userId, item.user_id)
+                                                navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.user_id, "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url }))
                                                 }>
                                                     {
                                                         (userId === item.user_id ) ?
@@ -374,6 +411,7 @@ function MainScreen({ navigation }) {
                                         </View>
                                     </View>
                                 </View>
+                                </TouchableWithoutFeedback>
                             )}
 
                             keyExtractor={item => '' + item.id}

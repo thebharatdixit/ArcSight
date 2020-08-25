@@ -30,7 +30,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { fetchProfile } from '../../../actions/ProfileAction';
 import { updateProfile } from '../../../service/apiService';
 
-function ProfileScreen({ navigation }) {
+function ProfileScreen({ navigation, route }) {
 
     const [accessToken, setAccessToken] = React.useState('')
     const [userId, setUserId] = React.useState('')
@@ -46,6 +46,8 @@ function ProfileScreen({ navigation }) {
     const [photoPath, setPhotoPath] = React.useState('');
     const [photoName, setPhotoName] = React.useState('');
     const isFocused = useIsFocused();
+
+    const { user_Id } = route.params ? route.params : ""
 
     const dummyData = [
         // mainSt: '1234 Main St',

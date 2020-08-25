@@ -26,9 +26,17 @@ function SearchListScreen({ navigation, route }) {
  
     const { SearchList } = route.params ? route.params : ""
     const [webUrl, setWerUrl] = React.useState('')
+    const [length, setLength] = React.useState()
 
     React.useEffect(() => {
         console.log('json data in useEffect:', SearchList.data);
+        setLength(SearchList.data.length)
+        {
+            (length === 0) ?
+                Alert.alert('No Data Found')
+                :
+                null
+        }
         // const searchListData = SearchList.data[0].location
         // const listDetail = searchListData.location
         // console.log('location', JSON.stringify(searchListData))
@@ -218,8 +226,11 @@ function SearchListScreen({ navigation, route }) {
                     keyExtractor={item => item.id}
                     
                 />
+                   
             </ScrollView>
+                
         </View>
+        
         </View>
     )
 }

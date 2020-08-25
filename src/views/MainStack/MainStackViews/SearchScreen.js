@@ -545,12 +545,12 @@ function SearchScreen({ navigation }) {
                                     console.log('searchListJsonOnPress', JSON.stringify(searchList))
                                     
                                     if (checked1 === false && setChecked2 === false && checked3 === false) {
-                                        Alert.alert('', 'Please Select Listing..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                                         return;
                                     }
 
                                     if (listing === '') {
-                                        Alert.alert('', 'Please Select Listing..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                                         return;
                                     }
 

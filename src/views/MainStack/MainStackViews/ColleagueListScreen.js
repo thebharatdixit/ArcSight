@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 
 import {
@@ -51,12 +51,12 @@ const onShare = async () => {
 
 function ColleaguageListScreen({ route, navigation }) {
 
-    const [tokens, setTokens] = React.useState('');
-    const [showLoader, setShowLoader] = React.useState('hide');
-    const [userProfileData, setUserProfileData] = React.useState([]);
-    const [profileListing, setProfileListing] = React.useState([]);
+    const [tokens, setTokens] = useState('');
+    const [showLoader, setShowLoader] = useState('hide');
+    const [userProfileData, setUserProfileData] = useState([]);
+    const [profileListing, setProfileListing] = useState([]);
     const isFocused = useIsFocused();
-    const [isFrnd, setIsFrnd] = React.useState('');
+    const [isFrnd, setIsFrnd] = useState(true);
 
 
 
@@ -68,9 +68,9 @@ function ColleaguageListScreen({ route, navigation }) {
     const { userId } = route.params ? route.params : ""
 
     let ab = isFriend;
-    
-    console.log('ab isFrnd :',ab)
-    
+
+
+
 
 
 
@@ -82,6 +82,15 @@ function ColleaguageListScreen({ route, navigation }) {
         { id: '2' },
         { id: '3' },
     ];
+    useEffect(() => {
+        const { isFriend } = route.params ? route.params : ""
+        if (isFriend) {
+            isFriend === 'yes' ? setIsFrnd(true) : setIsFrnd(false)
+        } else {
+            setIsFrnd(false)
+        }
+
+    }, [])
 
     useEffect(() => {
         tokens ? getColleagueProfileData() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
@@ -103,8 +112,8 @@ function ColleaguageListScreen({ route, navigation }) {
 
 
     const addColleagues = (id) => {
-        
 
+console.log(" id  : "+ id)
         setShowLoader('');
 
         fetch("http://arc.softwaresolutions.website/api/v1/add-colleague", {
@@ -123,7 +132,7 @@ function ColleaguageListScreen({ route, navigation }) {
                 // console.log("status : ", res.status)
                 if (res.status === true) {
                     alert(res.message);
-                    
+                    setIsFrnd(true)
                     setShowLoader('hide');
                 } else {
                     alert(res.message);
@@ -140,6 +149,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
     const removeColleagu = (id) => {
         setShowLoader('');
+        console.log("remove  id  : "+ id)
 
         fetch("http://arc.softwaresolutions.website/api/v1/remove-colleague", {
             method: "post",
@@ -156,6 +166,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
                 if (res.status === true) {
                     alert(res.message);
+                    setIsFrnd(false)
 
                     setShowLoader('hide');
                 } else {
@@ -173,12 +184,14 @@ function ColleaguageListScreen({ route, navigation }) {
     const addAndRemoveColleague = (isFriend, userId) => {
         //alert("add and remove")
 
-        if (isFriend === "no") {
-            addColleagues(userId);
-            // alert("hello I am add Colleague method"+userId)
-        } else {
+        if (isFrnd) {
             removeColleagu(userId);
-            //alert("hello I am remove Colleague method" + userId)
+
+        //alert("hello I am add Colleague method"+userId)
+        } else {
+            addColleagues(userId);
+
+          //  alert("hello I am remove Colleague method" + userId)
         }
     }
 
@@ -271,12 +284,12 @@ function ColleaguageListScreen({ route, navigation }) {
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.01), }}>
                     <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginRight: getDimen(0.05) }}>
                         <TouchableOpacity onPress={() => addAndRemoveColleague(isFriend, userId)}>
-
-                            {(isFriend === 'no') ? (
+                            {isFrnd ? <Image source={require('../../../assets/icons/cross.png')}
+                                style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} /> :
                                 <Image source={require('../../../assets/icons/dmyCollegue.png')}
                                     style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
-                            ) : (<Image source={require('../../../assets/icons/cross.png')}
-                                style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} />)}
+                            }
+
                         </TouchableOpacity>
                     </View>
                     <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02) }}></View>
