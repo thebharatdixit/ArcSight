@@ -153,7 +153,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
                         <DrawerItem
                             icon={({ focused, size, color }) => (
-                                <Icon name='settings' size={size} style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
+                                <Icon name='settings-sharp' size={size} style={{ fontSize: getDimen(.09), color: '#FAAE00' }} />
                             )}
                             label="SETTINGS"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
