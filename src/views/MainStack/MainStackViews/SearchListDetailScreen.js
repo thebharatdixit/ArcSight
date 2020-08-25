@@ -25,6 +25,7 @@ import { getData } from '../../../utils/asyncStore';
 function SearchListDetailScreen({ navigation, route }) {
 
     const { user_idSearchDetail } = route.params ? route.params : ""
+    const { ProfileImage } = route.params ? route.params : ""
     const [accessToken, setAccessToken] = React.useState('')
     const [searchListDetail, setSearchListDetail] = React.useState([])
     const [userImage, setUserImage] = React.useState('')
@@ -44,7 +45,8 @@ function SearchListDetailScreen({ navigation, route }) {
             console.log('USER id : ' + userData.user.id);
             setLoginUserId(userData.user.id)
             setAccessToken(listTokens);
-
+            setPrimaryImage(ProfileImage)
+            console.log('ProfileImage:', ProfileImage)
             console.log('Search Detail Screen Token', listTokens)
 
             if (accessToken) {
@@ -134,7 +136,7 @@ function SearchListDetailScreen({ navigation, route }) {
                         <ScrollView
                             horizontal={true}
                         >
-                        {/* {
+                         {
                             (primaryImage === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
                                 <Image source={require('../../../assets/icons/19.png')}
                                     style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
@@ -144,16 +146,9 @@ function SearchListDetailScreen({ navigation, route }) {
                                     uri: `${primaryImage}`
                                 }}
                                     style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}/>
-                        } */}
-                            <Image source={require('../../../assets/icons/19.png')}
-                                style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
-                            />
-                            <Image source={require('../../../assets/icons/19.png')}
-                                style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
-                            />
-                            <Image source={require('../../../assets/icons/19.png')}
-                                style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
-                            />
+                        } 
+                            
+                           
                         </ScrollView>
 
                     </View>
