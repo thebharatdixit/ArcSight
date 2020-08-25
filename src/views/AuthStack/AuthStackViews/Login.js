@@ -156,7 +156,7 @@ function Login({ navigation, changeAuthState }) {
                 }, 300);
             }
             else {
-                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                //Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 alert("" + response.message);
             }
 
