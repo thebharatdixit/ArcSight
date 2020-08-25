@@ -54,10 +54,10 @@ function SearchScreen({ navigation }) {
     const [bedRoom, setBedroom] = React.useState();
     const [bathRoom, setBathroom] = React.useState(0);
     const [location, setLocation] = React.useState('');
-    const [selectedValue, setSelectedValue] = React.useState(0);
+    const [selectedValue, setSelectedValue] = React.useState();
     const [homeType, setHomeType] = React.useState('');
-    const [sqFeetMin, setSqFeetMin] = React.useState(0);
-    const [sqFeetMax, setSqFeetMax] = React.useState(0);
+    const [sqFeetMin, setSqFeetMin] = React.useState();
+    const [sqFeetMax, setSqFeetMax] = React.useState();
     const [accessToken, setAccessToken] = React.useState('')
     const [listing, setListing] = React.useState('')
     const [searchList, setSearchList] = React.useState([])
@@ -185,29 +185,29 @@ function SearchScreen({ navigation }) {
                 Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify({
-                // "listing": "my",
+                "listing": "my",
+                "location": location,
+                "home_type": "",
+                "listing_type": [
+                    forSaleText,
+                    forRentText
+                ],
+                "bedrooms": bedRoom,
+                "bathrooms": bathRoom,
+                "price": selectedValue,
+                "sq_feet_min": sqFeetMin,
+                "sq_feet_max": sqFeetMax
+                //  "listing": "my",
                 // "location": "Ludhiana",
                 // "home_type": "",
                 // "listing_type": [
-                //     forSaleText,
-                //     forRentText
+                //     "For Sale"
                 // ],
-                // "bedrooms": bedRoom,
-                // "bathrooms": bathRoom,
-                // "price": selectedValue,
-                // "sq_feet_min": sqFeetMin,
-                // "sq_feet_max": sqFeetMax
-                 "listing": "my",
-                "location": "Ludhiana",
-                "home_type": "",
-                "listing_type": [
-                    "For Sale"
-                ],
-                "bedrooms": 5,
-                "bathrooms": 2,
-                "price": 2500,
-                "sq_feet_min": 4000,
-                "sq_feet_max": 4600
+                // "bedrooms": 5,
+                // "bathrooms": 2,
+                // "price": 2500,
+                // "sq_feet_min": 4000,
+                // "sq_feet_max": 4600
             })
         }).then(res => res.json())
             .then(res => {
