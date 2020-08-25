@@ -150,6 +150,7 @@ function MainScreen({ navigation }) {
     const [homeList, setHomeList] = React.useState([])
     const [webUrl, setWerUrl] = React.useState('')
     const [userId, setUserId] = React.useState('')
+    const [createdDate, setCreatedDate] = React.useState('')
 
     React.useEffect(() => {
         console.log('Search screen');
@@ -165,7 +166,7 @@ function MainScreen({ navigation }) {
             if (accessToken) {
                 console.log('Prachi123')
                 homeListingApiIntegration();
-                daysFunction();
+                
             }
         })
     }, [accessToken])
@@ -207,12 +208,16 @@ function MainScreen({ navigation }) {
             })
         }).then(res => res.json())
             .then(res => {
+                daysFunction();
                 if (res.status) {
                     console.log('Home Listing Data', JSON.stringify(res.data));
+                    console.log('Creted Date0000', JSON.stringify(res.data.created_at));
                     setHomeList(res.data)
                     setWerUrl(homeList && homeList.data && homeList.data.web_share_url)
+                    
                     console.log('homeList', homeList && homeList.data)
                     console.log('WebUrl', webUrl)
+                   
                     console.log('Home List User Id', homeList && homeList.data && homeList.data.user_id)
                     // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
@@ -226,7 +231,7 @@ function MainScreen({ navigation }) {
     }
 
     const daysFunction = () => {
-        var msDiff = new Date("August 10, 2020").getTime() - new Date().getTime();    //Future date - current date
+        var msDiff = new Date().getTime() - createdDate;    //Future date - current date
         var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
         console.log('Days***!!!:',daysTill30June2035);
     }
@@ -269,17 +274,8 @@ function MainScreen({ navigation }) {
                         <FlatList
                             data={homeList.data}
                             renderItem={({ renderItem, index, item }) => (
-                                <TouchableWithoutFeedback
-                                    onPress={() => {
-                                        (userId === item.user_id) ?
-                                            navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
-                                            :
-                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))
-
-                                    }
-                                    }
-                                 >
                                 <View style={{ flex: 1 }}>
+                                    {setCreatedDate(item.created_at), console.log('Created Date2222:', createdDate) }
                                     <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
                                         <TouchableOpacity onPress={() => 
                                         {
@@ -322,12 +318,15 @@ function MainScreen({ navigation }) {
                                                         {(item && item.userinfo) ? item.userinfo.name : ''}
                                                     </Text>
                                                     <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01) }}>
-                                                        Listed 2 Days Ago
+                                                        {/* Listed 2 Days Ago */}
+                                                        {
+                                                            item.created_at
+                                                        }
                                                         
                                                      </Text>
                                                 </TouchableOpacity>
                                             </View>
-
+                                                        
                                             <View style={{ backgroundColor: 'white', width: '35%', alignContent: 'flex-end', alignItems: 'flex-end' }}>
 
                                                 <Text style={{ color: 'gray', paddingRight: 7 }}>
@@ -365,8 +364,8 @@ function MainScreen({ navigation }) {
                                         </View>
                                     </View>
 
-                                    <View style={styles.item}>
-
+                                    <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id }))} style={styles.item}>
+                                        {/* <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id }))} > */}
                                         {
                                             (item.main_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
                                                 <Image source={require('../../../assets/icons/19.png')}
@@ -378,7 +377,7 @@ function MainScreen({ navigation }) {
                                                     style={{ height: '100%', width: '100%' }} />
                                         }
 
-
+                                        {/* </TouchableOpacity> */}
                                         {/* <View style={{ width: '100%', alignItems: 'flex-end', flexDirection: 'column', backgroundColor: 'orange' }}>
                 
                 <View style={{  justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
@@ -409,9 +408,8 @@ function MainScreen({ navigation }) {
 
 
                                         </View>
-                                    </View>
+                                    </TouchableOpacity>
                                 </View>
-                                </TouchableWithoutFeedback>
                             )}
 
                             keyExtractor={item => '' + item.id}

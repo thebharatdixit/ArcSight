@@ -51,7 +51,7 @@ function SearchScreen({ navigation }) {
     const [checked3, setChecked3] = useState(false);
     const [checkedForSale, setCheckedForSale] = useState(false);
     const [checkedForRent, setCheckedForRent] = useState(false);
-    const [bedRoom, setBedroom] = React.useState(0);
+    const [bedRoom, setBedroom] = React.useState();
     const [bathRoom, setBathroom] = React.useState(0);
     const [location, setLocation] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState(0);
@@ -113,7 +113,7 @@ function SearchScreen({ navigation }) {
         setSelectedValue()
         setSqFeetMax()
         setSqFeetMin()
-        setBedroom()
+        setBedroom('')
         setBathroom()
         setCheckedForSale(false)
         setCheckedForRent(false)
@@ -213,7 +213,7 @@ function SearchScreen({ navigation }) {
             .then(res => {
                 setShowLoader('hide')
                 if (res.status) {
-                    console.log(listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
+                    console.log('List Details value',listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
                     console.log('Search Listing', res.message);
                     console.log('Search Data', JSON.stringify(res.data));
                     setSearchList(res.data)
@@ -420,11 +420,12 @@ function SearchScreen({ navigation }) {
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Bedrooms</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
-                            <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0  }}>
-                                <Input placeholder='00'
-                                    style={{ fontSize: getDimen(0.038), }}
-                                    onChangeText={(val) => setBedroom(val)}
-                                />
+                            <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0  }}>                                    
+                                    <Input placeholder='00'
+                                        style={{ fontSize: getDimen(0.038), }}
+                                        onChangeText={(val) => setBedroom(val)}
+                                    />
+                                                                    
                             </Item>
                         </View>
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
@@ -563,34 +564,34 @@ function SearchScreen({ navigation }) {
                                         Alert.alert('', 'Please Select Rent/Sale..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                                         return;
                                     }
-                                    if (selectedValue === 0) {
-                                        Alert.alert('', 'Please Enter Price..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
+                                    // if (selectedValue === 0) {
+                                    //     Alert.alert('', 'Please Enter Price..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
 
-                                    if (bedRoom === 0) {
-                                        Alert.alert('', 'Please Enter Bedroom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
+                                    // if (bedRoom === 0) {
+                                    //     Alert.alert('', 'Please Enter Bedroom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
 
-                                    if (bathRoom === 0) {
-                                        Alert.alert('', 'Please Enter BathRoom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
+                                    // if (bathRoom === 0) {
+                                    //     Alert.alert('', 'Please Enter BathRoom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
 
-                                    if (homeType === '') {
-                                        Alert.alert('', 'Please Select Home Type..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
+                                    // if (homeType === '') {
+                                    //     Alert.alert('', 'Please Select Home Type..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
 
-                                    if (sqFeetMax === 0) {
-                                        Alert.alert('', 'Please Enter Max. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
-                                    if (sqFeetMin === 0) {
-                                        Alert.alert('', 'Please Enter Min. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
+                                    // if (sqFeetMax === 0) {
+                                    //     Alert.alert('', 'Please Enter Max. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
+                                    // if (sqFeetMin === 0) {
+                                    //     Alert.alert('', 'Please Enter Min. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                    //     return;
+                                    // }
                                     // Alert.alert('', alertMessage, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                                     navigation.navigate('Search List', ({ "SearchList": searchList }))
                                     
