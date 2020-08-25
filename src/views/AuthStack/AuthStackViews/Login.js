@@ -14,6 +14,7 @@ import {
     Alert,
     Platform
 } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
@@ -42,14 +43,42 @@ function Login({ navigation, changeAuthState }) {
     const [username, setUsername] = React.useState('');
     const [filePath, setFilePath] = React.useState([])
     const [showLoader, setShowLoader] = React.useState('hide');
+    const isFocused = useIsFocused();
 
     const rememberMeCheck = () => {
+        console.log('checked : ' + checked);
         if (checked == true) {
+            storeData('rememberMe', 'false');
             setChecked(false)
         } else {
+            storeData('rememberMe', 'true');
             setChecked(true)
         }
     }
+
+    React.useEffect(() => {
+        
+        getData('rememberMe').then((rememberMe) => {
+            console.log('again login: ' + rememberMe);
+            if (rememberMe === 'true') {
+                getData('savePassword').then((savePassword) => {
+                    getData('saveUsername').then((saveUsername) => {
+                        setUsername(saveUsername);
+                        setPassword(savePassword);
+                        setChecked(true);
+                    })
+                })
+            }
+            else if (rememberMe === 'false') {
+
+            }
+            else {
+
+            }
+
+        })
+
+    }, [isFocused])
 
 
     chooseFile = () => {
@@ -136,9 +165,11 @@ function Login({ navigation, changeAuthState }) {
         login(data).then((response) => {
             setShowLoader('hide')
             if (response.status) {
+                storeData('saveUsername', userName);
+                storeData('savePassword', password);
                 storeData('isLogin', 'true');
                 storeData('userData', JSON.stringify(response.data));
-                
+
                 // navigation.navigate('Main Stack');
                 // Alert.alert('' + response.message, [{
                 //     text: 'OK', onPress: () => {
@@ -156,7 +187,7 @@ function Login({ navigation, changeAuthState }) {
                 }, 300);
             }
             else {
-                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                // Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 alert("" + response.message);
             }
 
