@@ -56,7 +56,7 @@ function ColleaguageListScreen({ route, navigation }) {
     const [userProfileData, setUserProfileData] = React.useState([]);
     const [profileListing, setProfileListing] = React.useState([]);
     const isFocused = useIsFocused();
-    const [isFrnd, setFrnd] = React.useState('');
+    const [isFrnd, setIsFrnd] = React.useState('');
 
 
 
@@ -67,8 +67,13 @@ function ColleaguageListScreen({ route, navigation }) {
     const { isFriend } = route.params ? route.params : ""
     const { userId } = route.params ? route.params : ""
 
-
+    let ab = isFriend;
     
+    console.log('ab isFrnd :',ab)
+    
+
+
+
 
 
     const dummyData = [
@@ -80,7 +85,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
     useEffect(() => {
         tokens ? getColleagueProfileData() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
-    }, [tokens, isFocused,isFrnd])
+    }, [tokens, isFocused])
 
 
     global.id = '';
@@ -98,6 +103,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
 
     const addColleagues = (id) => {
+        
 
         setShowLoader('');
 
