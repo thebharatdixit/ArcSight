@@ -73,8 +73,9 @@ function SearchListDetailScreen({ navigation, route }) {
             })
         }).then(res => res.json())
             .then(res => {
+                setShowLoader('hide')
                 if (res.status) {
-                    setShowLoader('hide')
+                    
                     console.log('Search Listing Details', res.data);
                     setSearchListDetail(res.data)
                     setUserId(res.data.listing.user_id)
@@ -147,7 +148,7 @@ function SearchListDetailScreen({ navigation, route }) {
                                 <Image source={{
                                     uri: `${primaryImage}`
                                 }}
-                                    style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}/>
+                                    style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'cover', margin: getDimen(0.3) }}/>
                         } 
                             
                            
