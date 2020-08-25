@@ -254,11 +254,11 @@ function ProfileScreen({ navigation, route }) {
                     <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop: getDimen(0.005) }}>{companyName}</Text>
                     <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.04), }}>
                         <View style={{ justifyContent: 'flex-start', alignContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'white', marginRight: getDimen(0.02) }}>
-                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData ? userProfileData.total_colleagues + " Listings" : "Listing"}</Text>
+                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData ? userProfileData.total_listings + " Listings" : "Listing"}</Text>
                         </View>
                         <View style={{ width: 1, height: '100%', backgroundColor: 'gray', marginLeft: getDimen(0.02) }}></View>
                         <View style={{ justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', backgroundColor: 'white', marginLeft: getDimen(0.03) }}>
-                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> {userProfileData ? userProfileData.total_listings + " Colleagues" : "Colleagues"}</Text>
+                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> {userProfileData ? userProfileData.total_colleagues + " Colleagues" : "Colleagues"}</Text>
                         </View>
                     </View>
                     {/* <TouchableOpacity
