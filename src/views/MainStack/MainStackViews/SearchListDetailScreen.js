@@ -118,8 +118,8 @@ function SearchListDetailScreen({ navigation, route }) {
             {/* </View> */}
             <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
                 <ScrollView style={styles.container}>
-                    <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center' }}>
-                        <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
+                    <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', }}>
+                        <View style={{ flex: 0.2, flexDirection: 'row', width: '100%',}}>
                             <View style={{ backgroundColor: '#d2d6d5', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
                                 <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                                     {
@@ -133,12 +133,13 @@ function SearchListDetailScreen({ navigation, route }) {
                                 </View>
                             </View>
                             <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                               <TouchableOpacity>
                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                        <ScrollView
-                            horizontal={true}
-                        >
+                        
+                        <View style={{ flex: 0.2, width: '100%', backgroundColor:'blue', justifyContent:'center', alignContent:'center', textAlign: 'center'}}>
                          {
                             (primaryImage === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
                                 <Image source={require('../../../assets/icons/19.png')}
@@ -148,12 +149,10 @@ function SearchListDetailScreen({ navigation, route }) {
                                 <Image source={{
                                     uri: `${primaryImage}`
                                 }}
-                                    style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'cover', margin: getDimen(0.3) }}/>
+                                        style={{ height: '100%', width: '100%', resizeMode: 'cover', margin: getDimen(0.3) }}/>
                         } 
-                            
+                        </View>    
                            
-                        </ScrollView>
-
                     </View>
                     <View style={{ justifyContent: 'flex-end', flexDirection: 'row', marginTop: getDimen(-0.12), marginRight: getDimen(0.1) }}>
                         <TouchableOpacity
