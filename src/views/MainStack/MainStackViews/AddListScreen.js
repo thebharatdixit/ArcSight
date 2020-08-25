@@ -17,6 +17,7 @@ import {
     Share,
     SafeAreaView
 } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen'
 import { getData } from '../../../utils/asyncStore';
@@ -61,6 +62,7 @@ function AddListScreen({ navigation }) {
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [showLoader, setShowLoader] = React.useState('');
+    const isFocused = useIsFocused();
 
     const searchUpdated = (term) => {
         setSearchTerm(term);
@@ -99,7 +101,7 @@ function AddListScreen({ navigation }) {
 
         })
 
-    }, [])
+    }, [isFocused])
 
     const chatListApiIntegration = () => {
 
@@ -221,7 +223,7 @@ function AddListScreen({ navigation }) {
                                         {item.unread_message || item.unread_message > 0 ?
                                             <View style={{ marginLeft: getDimen(0.05), height: '100%', alignItems: 'center', justifyContent: 'center' }}>
                                                 <View style={{ height: getDimen(0.045), width: getDimen(0.045), borderRadius: getDimen(0.045) / 2, backgroundColor: '#f1ac35', alignItems: 'center', justifyContent: 'center' }}>
-                                                    <Text style={{ fontSize: getDimen(0.030), fontWeight: 'bold', color: 'white' }}>{item.unread_count ? item.unread_count : ""}</Text>
+                                                    <Text style={{ fontSize: getDimen(0.030), fontWeight: 'bold', color: 'white' }}>{item.unread_message ? item.unread_message : ""}</Text>
                                                 </View>
                                             </View>
                                             : null}

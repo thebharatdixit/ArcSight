@@ -139,7 +139,7 @@ function ChatScreen({ route, navigation }) {
 
     }
 
-    
+
 
     const getColleaguesList = (value) => {
 
@@ -306,6 +306,12 @@ function ChatScreen({ route, navigation }) {
                         ) : <Image source={require('../../../assets/icons/uncheck.png')}
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
 
+                        {showAll ? (
+                            <Image source={require('../../../assets/icons/check.png')}
+                                style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
+                        ) : <Image source={require('../../../assets/icons/uncheck.png')}
+                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
+
                     </TouchableOpacity>
                     <Text style={{ marginLeft: getDimen(0.05) }}>All Colleague</Text>
 
@@ -320,6 +326,13 @@ function ChatScreen({ route, navigation }) {
                         ) : <Image source={require('../../../assets/icons/uncheck.png')}
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
 
+                        {showMy ? (
+                            <Image source={require('../../../assets/icons/check.png')}
+                                style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
+                        ) : <Image source={require('../../../assets/icons/uncheck.png')}
+                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
+
+
                     </TouchableOpacity>
                     <Text style={{ marginLeft: getDimen(0.05) }}>My Colleague</Text>
 
@@ -331,8 +344,8 @@ function ChatScreen({ route, navigation }) {
             {/* search colleague start */}
 
             <View style={{
-                flexDirection: 'row',  
-                height: getDimen(0.3/2), width: '100%',alignItems:'center'
+                flexDirection: 'row',
+                height: getDimen(0.3 / 2), width: '100%', alignItems: 'center'
             }}>
 
                 <TextInput
@@ -342,7 +355,7 @@ function ChatScreen({ route, navigation }) {
                     autoCapitalize="none"
                     placeholder="Search colleagues..."
                     keyboardType='email-address'
-                    style={{ width: '90%', marginLeft: getDimen(0.05), marginRight: getDimen(0.05), height: getDimen(0.3/2),borderColor: '#ebebe0',borderWidth: 1,paddingLeft:getDimen(0.02) }}
+                    style={{ width: '90%', marginLeft: getDimen(0.05), marginRight: getDimen(0.05), height: getDimen(0.3 / 2), borderColor: '#ebebe0', borderWidth: 1, paddingLeft: getDimen(0.02) }}
                     // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                     onChangeText={(val) => searchUpdated(val)}
                 />
@@ -385,10 +398,11 @@ function ChatScreen({ route, navigation }) {
                                                     source={{
                                                         uri: `${item.profile_image_url}`,
                                                     }}
+                                                    defaultSource={require('../../../assets/icons/2.png')}
                                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
                                                 /> :
                                                     <Image source={require('../../../assets/icons/2.png')}
-                                                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                                                        style={{ height: getDimen(0.18), width: getDimen(0.18) }} />
                                             }
 
                                         </View>
@@ -413,7 +427,7 @@ function ChatScreen({ route, navigation }) {
                                                         ) : (<Image source={require('../../../assets/icons/cross.png')}
                                                             style={{ height: getDimen(0.030), width: getDimen(0.030), marginRight: getDimen(0.03) }} />)}
                                                     </TouchableOpacity>
-                                                    <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": item.name, "companyName": item.company_name,"fetch_chat_user_id": item.id,"profile_image_url": item.profile_image_url }))}>
+                                                    <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": item.name, "companyName": item.company_name, "fetch_chat_user_id": item.id, "profile_image_url": item.profile_image_url }))}>
                                                         <Image source={require('../../../assets/icons/25.png')}
                                                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                                     </TouchableOpacity>
