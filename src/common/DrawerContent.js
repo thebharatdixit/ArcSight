@@ -12,7 +12,7 @@ import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navi
 import { Button, Item, Input, CheckBox, ListItem, Body, Drawer } from 'native-base';
 import { getData } from '../utils/asyncStore';
 import BaseScreen from '../views/MainStack/MainStackViews/BaseScreen';
-import { storeData,clearData } from '../utils/asyncStore'
+import { storeData, clearData } from '../utils/asyncStore'
 import { connect } from 'react-redux';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { changeAuthState } from '../actions/authAction';
@@ -41,7 +41,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
         );
     }
 
-    
+
 
     React.useEffect(() => {
         getData('userData').then((data) => {
@@ -68,12 +68,14 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                 console.log('TokenResponse', res, accessToken)
                 if (res.status) {
                     console.log('logged out123456', res.message);
-                   // AsyncStorage.clear();
-                    navigation.dispatch(DrawerActions.toggleDrawer())
-                    clearData()
+                    // AsyncStorage.clear();
+                    navigation.dispatch(DrawerActions.toggleDrawer());
+                    storeData('isLogin', 'false');
+                    storeData('userData', '');
+                    // clearData()
                     changeAuthState(false)
                     // navigation.navigate("Login Screen");
-                    
+
                     //Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('No logged Out');
@@ -88,7 +90,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
         <View style={{ flex: 1 }}>
             <View style={{ flex: 1 }}>
                 <View style={{ paddingLeft: 10, marginTop: 20 }}>
-                    <View style={{ flexDirection: 'row', marginTop: 10 , width: '100%'}}>
+                    <View style={{ flexDirection: 'row', marginTop: 10, width: '100%' }}>
                         <TouchableOpacity>
                             {
                                 (userImage === 'http://arc.softwaresolutions.website/images/UserImages/') ?
@@ -101,11 +103,11 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                                         style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1) }} />
                             }
                         </TouchableOpacity>
-                        <View style={{width: '50%', alignItems: 'flex-start', justifyContent: 'flex-end', paddingRight: 0, paddingLeft: getDimen(0.02), flexDirection: 'row'}}>
-                        <TouchableOpacity onPress={() => navigation.closeDrawer()}>
-                            <Image source={require('../assets/icons/crossWhite.png')}
-                                style={{ height: 20, width: 20, marginTop: getDimen(0.03) }} />
-                        </TouchableOpacity>
+                        <View style={{ width: '50%', alignItems: 'flex-start', justifyContent: 'flex-end', paddingRight: 0, paddingLeft: getDimen(0.02), flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() => navigation.closeDrawer()}>
+                                <Image source={require('../assets/icons/crossWhite.png')}
+                                    style={{ height: 20, width: 20, marginTop: getDimen(0.03) }} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
