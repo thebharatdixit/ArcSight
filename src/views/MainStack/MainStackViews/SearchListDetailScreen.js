@@ -26,6 +26,7 @@ function SearchListDetailScreen({ navigation, route }) {
 
     const { user_idSearchDetail } = route.params ? route.params : ""
     const { ProfileImage } = route.params ? route.params : ""
+    const { listing_id } = route.params ? route.params : ""
     const [accessToken, setAccessToken] = React.useState('')
     const [searchListDetail, setSearchListDetail] = React.useState([])
     const [userImage, setUserImage] = React.useState('')
@@ -36,6 +37,7 @@ function SearchListDetailScreen({ navigation, route }) {
     const [primaryImage, setPrimaryImage] = React.useState('')
     const [loginUserId, setLoginUserId] = React.useState('')
     const [showLoader, setShowLoader] = React.useState('');
+    const [arrAminitiesName, setArrAminitiesName] = React.useState([]);
 
     const { userId } = route.params ? route.params : ""
 
@@ -69,13 +71,13 @@ function SearchListDetailScreen({ navigation, route }) {
                 Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify({
-                "listing_id": 5
+                "listing_id": listing_id
             })
         }).then(res => res.json())
             .then(res => {
                 setShowLoader('hide')
                 if (res.status) {
-                    
+
                     console.log('Search Listing Details', res.data);
                     setSearchListDetail(res.data)
                     setUserId(res.data.listing.user_id)
@@ -85,6 +87,7 @@ function SearchListDetailScreen({ navigation, route }) {
                     setIsFeatured(res.data.listing.is_featured)
                     setPrimaryImage(res.data.listing.main_image_url)
                     console.log('Primary Image', primaryImage);
+                    makeAminitiesArray(res.data.listing.listing_ammenities);
                     // console.log('listing/detail', searchListDetail);
                     // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
@@ -95,6 +98,19 @@ function SearchListDetailScreen({ navigation, route }) {
             .catch(err => {
                 console.error("error: ", err);
             });
+    }
+
+    const makeAminitiesArray = (data) => {
+        console.log('aminities..: ' + JSON.stringify(data));
+        var arrAminities = [];
+        for (let i = 0; i < data.length; i++) {
+            let item = data[i];
+            arrAminities.push(item.amenity.name);
+
+        }
+        console.log("arrAminitiesName : "+ JSON.stringify(arrAminities));
+        setArrAminitiesName(arrAminities);
+
     }
 
     return (
@@ -119,7 +135,7 @@ function SearchListDetailScreen({ navigation, route }) {
             <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
                 <ScrollView style={styles.container}>
                     <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', }}>
-                        <View style={{ flex: 0.2, flexDirection: 'row', width: '100%',}}>
+                        <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
                             <View style={{ backgroundColor: '#d2d6d5', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
                                 <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                                     {
@@ -133,26 +149,29 @@ function SearchListDetailScreen({ navigation, route }) {
                                 </View>
                             </View>
                             <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                               <TouchableOpacity>
-                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                <TouchableOpacity>
+                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
-                        
-                        <View style={{ flex: 0.2, width: '100%', backgroundColor:'blue', justifyContent:'center', alignContent:'center', textAlign: 'center'}}>
-                         {
-                            (primaryImage === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
-                                <Image source={require('../../../assets/icons/19.png')}
-                                    style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
-                                />
-                                :
-                                <Image source={{
-                                    uri: `${primaryImage}`
-                                }}
-                                        style={{ height: '100%', width: '100%', resizeMode: 'cover', margin: getDimen(0.3) }}/>
-                        } 
-                        </View>    
-                           
+
+                        <View style={{ flex: 0.2, width: '100%', justifyContent: 'center', alignContent: 'center', textAlign: 'center' }}>
+                            {
+                                (primaryImage === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
+                                    <Image source={require('../../../assets/icons/19.png')}
+                                        style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
+                                    />
+                                    :
+                                    <View style={{ height: '100%', width: '100%' }}>
+                                        <Image source={{
+                                            uri: `${primaryImage}`
+                                        }}
+                                            defaultSource={require('../../../assets/icons/19.png')}
+                                            style={{ height: getDimen(0.70), width: '100%', resizeMode: 'cover', }} />
+                                    </View>
+                            }
+                        </View>
+
                     </View>
                     <View style={{ justifyContent: 'flex-end', flexDirection: 'row', marginTop: getDimen(-0.12), marginRight: getDimen(0.1) }}>
                         <TouchableOpacity
@@ -174,9 +193,8 @@ function SearchListDetailScreen({ navigation, route }) {
                     {/* <ScrollView style={styles.container}> */}
                     <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05), flexDirection: 'row' }}>
                         {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
-                        <Text
-                            style={{ fontSize: getDimen(0.045), width: '55%', fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
-                        <View style={{ flexDirection: 'column', marginLeft: getDimen(0.07), justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ fontSize: getDimen(0.045), width: '55%', fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
+                        <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
                             <TouchableOpacity
                                 onPress={() => {
                                     (loginUserId === userIdd) ?
@@ -186,14 +204,14 @@ function SearchListDetailScreen({ navigation, route }) {
 
                                 }
                                 }
-                                
+
                             >
                                 {/* <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left' }}>Broker Name Here</Text> */}
-                                <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.userinfo.name) ? searchListDetail.listing.userinfo.name : ''}</Text>
+                                <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left', marginRight: 10 }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.userinfo.name) ? searchListDetail.listing.userinfo.name : ''}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                            // onPress={() => Alert.alert('Real Estate Company')}
-
+                                // onPress={() => Alert.alert('Real Estate Company')}
+                                style={{ alignContent: 'center', alignItems: 'center', alignSelf: 'center', }}
                             >
                                 {/* <Text style={{ fontSize: getDimen(0.038), marginTop: getDimen(0.005), color: 'gray' }}>Real Estate Company</Text> */}
                                 <Text style={{ fontSize: getDimen(0.038), marginTop: getDimen(0.005), color: 'gray' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.userinfo.company_name) ? searchListDetail.listing.userinfo.company_name : ''}</Text>
@@ -212,7 +230,7 @@ function SearchListDetailScreen({ navigation, route }) {
                             <Text style={{ fontSize: getDimen(0.035) }}>Bathrooms</Text>
                         </View>
                         <View style={{ flex: 0.21, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                            <Text style={{ fontSize: getDimen(0.06) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.terrace) ? searchListDetail.listing.terrace : ''}</Text>
+                            <Text style={{ fontSize: getDimen(0.06) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.terrace) ? searchListDetail.listing.terrace : 0}</Text>
                             <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
                         </View>
                         <View style={{ backgroundColor: '#a43d3e', flex: 0.395, height: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
@@ -221,22 +239,23 @@ function SearchListDetailScreen({ navigation, route }) {
                     </View>
 
                     <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.08) }}>
-                        <View style={{ flex: 0.95, flexDirection: 'column', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                            <Text style={{ fontSize: getDimen(0.045) }}>• Detail to Go Here</Text>
-                            <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text>
-                            <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text>
+                        <View style={{ flex: 0.5,  justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                            <Text style={{ fontSize: getDimen(0.040) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.home_type) ? "• Home Type: " + searchListDetail.listing.home_type : "• Home Type: "}</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text> */}
                         </View>
-                        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                            <Text style={{ fontSize: getDimen(0.045) }}>• Detail to Go Here</Text>
-                            <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text>
-                            <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text>
+                        <View style={{ flex: 0.5,  justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                            <Text style={{ fontSize: getDimen(0.040) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.home_type) ? "• Listing Type: " + searchListDetail.listing.home_type : "• Listing Type: "}</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text>
+                            <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text> */}
                         </View>
                     </View>
+                    <Text style={{ fontSize: getDimen(0.04), marginTop: getDimen(0.02), marginLeft: getDimen(0.050) }}> {"• Aminities Name: " + arrAminitiesName.toString()}</Text>
+
 
                     <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.08), marginLeft: getDimen(0.05), marginRight: getDimen(0.02), marginBottom: getDimen(0.05) }}>
-                       <Text style={{ fontSize: getDimen(0.04), color: '#808080' }}>
+                        <Text style={{ fontSize: getDimen(0.04), color: '#808080' }}>
                             {(searchListDetail && searchListDetail.listing && searchListDetail.listing.description) ? searchListDetail.listing.description : ''}
-                    </Text>
+                        </Text>
                         {/* <Text style={{ fontSize: getDimen(0.04), color: '#808080' }}>
                             This is the descriptive paragraph on the lsiting that the broker has uploaded.
                     </Text> */}

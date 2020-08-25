@@ -378,7 +378,7 @@ function MainScreen({ navigation }) {
                                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
                                             </View>
                                         </View>
-                                                    <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url}))} style={styles.item}>
+                                                    <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
                                     
                                                     {
                                             (item.main_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
