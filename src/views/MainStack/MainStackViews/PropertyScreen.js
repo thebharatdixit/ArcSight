@@ -54,6 +54,8 @@ function PropertyScreen({ navigation }) {
     const [selected, setSelected] = React.useState('');
     const [selected2, setSelected2] = React.useState('');
     const [arrSelectedAminities, setArrSelectedAminities] = React.useState([]);
+    const [arrSelectedAminitiesForApi, setArrSelectedAminitiesForApi] = React.useState([]);
+
     const [imgSourceArr, setImgSourceArr] = React.useState([]);
     const [arrImages, setArrImages] = React.useState([]);
 
@@ -102,7 +104,7 @@ function PropertyScreen({ navigation }) {
         formData.append('price_per_sq_feet', 25);
         formData.append('price', 2500);
         formData.append('taxes', 25);
-        formData.append('amenities[]', arrSelectedAminities);
+        formData.append('amenities[]', 9);
         formData.append('amenities[]', 2);
         formData.append('description', 'Success');
         formData.append('is_featured', 'yes');
@@ -124,6 +126,7 @@ function PropertyScreen({ navigation }) {
                 console.log('listLog', res.message);
                 setArrImages([]);
                 setArrSelectedAminities([]);
+                setArrSelectedAminitiesForApi([]);
                 setFilePath('');
 
             })
@@ -145,19 +148,24 @@ function PropertyScreen({ navigation }) {
                 console.log('USER reson id : ' + JSON.stringify(selectedAminitiesData));
                 const selectedAminitiesDataArr = JSON.parse(selectedAminitiesData);
                 var strArr = [];
+                var strArrApi = [];
                 for (let i = 0; i < selectedAminitiesDataArr.length; i++) {
                     let item = selectedAminitiesDataArr[i];
-                    // let data = {
-                    //     "name": item.name,
-                    // }
-                    strArr.push(item.name)
+                    let data = {
+                        "id":item.id,
+                        
+                    }
+                    strArr.push(item.name);
+                    strArrApi.push(item.id);
                 }
                 setArrSelectedAminities(strArr);
+                setArrSelectedAminitiesForApi(strArrApi);
                 // this.setState({ arrSelectedAminities: strArr });
             }
             else {
                 console.log('elsecase');
                 setArrSelectedAminities([]);
+                setArrSelectedAminitiesForApi([]);
                 // this.setState({ arrSelectedAminities: [] });
             }
         })
