@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import ChatLayout from './ChatLayout';
 import MainScreen from './Home';
 import ColleagueListScreen from './ColleagueListScreen'
+import ProfileScreen from './ProfileScreen'
 
 
 
@@ -25,6 +26,9 @@ const HomeStack = function authNavigator({ }) {
             />
             
             <Stack.Screen name="Chat Layout" component={ChatLayout}
+            />
+
+            <Stack.Screen name="Profile Screen" component={ProfileScreen}
             />
 
         </Stack.Navigator>

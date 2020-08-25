@@ -33,7 +33,7 @@ function SearchListDetailScreen({ navigation, route }) {
     const [userIdd, setUserId] = React.useState('')
     const [IsFeatured, setIsFeatured] = React.useState('')
     const [primaryImage, setPrimaryImage] = React.useState('')
-
+    const [loginUserId, setLoginUserId] = React.useState('')
 
     const { userId } = route.params ? route.params : ""
 
@@ -42,6 +42,7 @@ function SearchListDetailScreen({ navigation, route }) {
             const userData = JSON.parse(data);
             const listTokens = userData.token;
             console.log('USER id : ' + userData.user.id);
+            setLoginUserId(userData.user.id)
             setAccessToken(listTokens);
 
             console.log('Search Detail Screen Token', listTokens)
@@ -80,10 +81,10 @@ function SearchListDetailScreen({ navigation, route }) {
                     setPrimaryImage(res.data.listing.main_image_url)
                     console.log('Primary Image', primaryImage);
                     // console.log('listing/detail', searchListDetail);
-                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('Search Listing Details Error', res.message);
-                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 }
             })
             .catch(err => {
@@ -180,7 +181,15 @@ function SearchListDetailScreen({ navigation, route }) {
                             style={{ fontSize: getDimen(0.045), width: '55%', fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
                         <View style={{ flexDirection: 'column', marginLeft: getDimen(0.07), justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('Colleague List', ({ "name": userName, "companyName": companyName, "profile_image_url": userImage, "isFriend": '', "userId": userIdd }))}
+                                onPress={() => {
+                                    (loginUserId === userIdd) ?
+                                        navigation.navigate('Profile Screen', ({ "profile": "my", "userId": userIdd }))
+                                        :
+                                        navigation.navigate('Colleague List', ({ "name": userName, "companyName": companyName, "profile_image_url": userImage, "isFriend": '', "userId": userIdd }))
+
+                                }
+                                }
+                                
                             >
                                 {/* <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left' }}>Broker Name Here</Text> */}
                                 <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.userinfo.name) ? searchListDetail.listing.userinfo.name : ''}</Text>
@@ -227,10 +236,13 @@ function SearchListDetailScreen({ navigation, route }) {
                         </View>
                     </View>
 
-                    <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.08), marginLeft: getDimen(0.02), marginRight: getDimen(0.02), marginBottom: getDimen(0.04) }}>
-                        <Text style={{ fontSize: getDimen(0.04), color: '#808080' }}>
-                            This is the descriptive paragraph on the lsiting that the broker has uploaded.
+                    <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.08), marginLeft: getDimen(0.05), marginRight: getDimen(0.02), marginBottom: getDimen(0.05) }}>
+                       <Text style={{ fontSize: getDimen(0.04), color: '#808080' }}>
+                            {(searchListDetail && searchListDetail.listing && searchListDetail.listing.description) ? searchListDetail.listing.description : ''}
                     </Text>
+                        {/* <Text style={{ fontSize: getDimen(0.04), color: '#808080' }}>
+                            This is the descriptive paragraph on the lsiting that the broker has uploaded.
+                    </Text> */}
                     </View>
 
 
