@@ -17,6 +17,7 @@ import {
     Share,
     SafeAreaView
 } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen'
 import { getData } from '../../../utils/asyncStore';
@@ -61,6 +62,7 @@ function AddListScreen({ navigation }) {
     const [password, setPassword] = React.useState('');
     const [username, setUsername] = React.useState('');
     const [showLoader, setShowLoader] = React.useState('');
+    const isFocused = useIsFocused();
 
     const searchUpdated = (term) => {
         setSearchTerm(term);
@@ -99,7 +101,7 @@ function AddListScreen({ navigation }) {
 
         })
 
-    }, [])
+    }, [isFocused])
 
     const chatListApiIntegration = () => {
 

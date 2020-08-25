@@ -385,10 +385,11 @@ function ChatScreen({ route, navigation }) {
                                                     source={{
                                                         uri: `${item.profile_image_url}`,
                                                     }}
+                                                    defaultSource={require('../../../assets/icons/2.png')}
                                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
                                                 /> :
                                                     <Image source={require('../../../assets/icons/2.png')}
-                                                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                                                        style={{ height: getDimen(0.18), width: getDimen(0.18) }} />
                                             }
 
                                         </View>
