@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "G:\\KtGitProject\\New folder\\ArcSight\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ja\\values-ja.xml",
+            "outputFile": "H:\\gitProject\\ArcSight\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ja\\values-ja.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Nura\\.gradle\\caches\\transforms-2\\files-2.1\\3f3ca3c3b7115bfe09d8c123b4f22b4c\\ucrop-2.2.5-native\\res\\values-ja\\values-ja.xml",

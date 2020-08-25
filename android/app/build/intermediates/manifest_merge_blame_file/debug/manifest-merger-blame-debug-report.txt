@@ -9,158 +9,158 @@
 9        android:targetSdkVersion="29" />
 10
 11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-11-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:6:5-78
-11-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:6:22-75
+11-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:6:5-78
+11-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:6:22-75
 12    <uses-permission android:name="android.permission.INTERNET" />
-12-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:4:5-67
-12-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:4:22-64
+12-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:4:5-67
+12-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:4:22-64
 13
 14    <uses-feature
-14-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:7:5-85
+14-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:7:5-85
 15        android:name="android.hardware.camera"
-15-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:7:19-57
+15-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:7:19-57
 16        android:required="false" />
-16-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:7:58-82
+16-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:7:58-82
 17    <uses-feature
-17-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:8:5-91
+17-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:8:5-91
 18        android:name="android.hardware.camera.front"
-18-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:8:19-63
+18-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:8:19-63
 19        android:required="false" />
-19-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:8:64-88
+19-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:8:64-88
 20
 21    <uses-permission android:name="android.permission.CAMERA" />
-21-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:10:5-65
-21-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:10:22-62
+21-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:10:5-65
+21-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:10:22-62
 22    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-22-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:11:5-81
-22-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:11:22-78
+22-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:11:5-81
+22-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:11:22-78
 23    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Required to access Google Play Licensing -->
 23-->[com.facebook.flipper:flipper:0.37.0] C:\Users\Nura\.gradle\caches\transforms-2\files-2.1\623174cd4892d9fb924ac44b102b25c0\flipper-0.37.0\AndroidManifest.xml:16:5-76
 23-->[com.facebook.flipper:flipper:0.37.0] C:\Users\Nura\.gradle\caches\transforms-2\files-2.1\623174cd4892d9fb924ac44b102b25c0\flipper-0.37.0\AndroidManifest.xml:16:22-73
 24    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
-24-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-73
-24-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:22-70
+24-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:5-73
+24-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:22-70
 25    <!--
 26         Required to keep CPU alive while downloading files
 27        (NOT to keep screen awake)
 28    -->
 29    <uses-permission android:name="android.permission.WAKE_LOCK" />
-29-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:5-68
-29-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:22-65
+29-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:5-68
+29-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:22-65
 30    <!--
 31         Required to poll the state of the network connection
 32        and respond to changes
 33    -->
 34    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-34-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:27:5-79
-34-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:27:22-76
+34-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:27:5-79
+34-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:27:22-76
 35
 36    <application
-36-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:13:5-34:19
+36-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:13:5-34:19
 37        android:name="com.arcsight.MainApplication"
-37-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:14:9-40
+37-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:14:9-40
 38        android:allowBackup="false"
-38-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:15:9-36
+38-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:15:9-36
 39        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 39-->[androidx.core:core:1.1.0] C:\Users\Nura\.gradle\caches\transforms-2\files-2.1\639e914bfc1efa21e36199d3ff2c5eef\core-1.1.0\AndroidManifest.xml:24:18-86
 40        android:debuggable="true"
 41        android:icon="@mipmap/appicon"
-41-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:16:9-39
+41-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:16:9-39
 42        android:label="@string/app_name"
-42-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:17:9-41
+42-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:17:9-41
 43        android:networkSecurityConfig="@xml/network_security_config"
-43-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:20:9-69
+43-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:20:9-69
 44        android:roundIcon="@mipmap/appicon"
-44-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:18:9-44
+44-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:18:9-44
 45        android:theme="@style/AppTheme"
-45-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:19:9-40
+45-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:19:9-40
 46        android:usesCleartextTraffic="true" >
-46-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:21:9-44
+46-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:21:9-44
 47        <activity
-47-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:22:9-32:20
+47-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:22:9-32:20
 48            android:name="com.arcsight.MainActivity"
-48-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:23:13-41
+48-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:23:13-41
 49            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
-49-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:24:13-90
+49-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:24:13-90
 50            android:label="@string/app_name"
-50-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:25:13-45
+50-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:25:13-45
 51            android:launchMode="singleTask"
-51-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:26:13-44
+51-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:26:13-44
 52            android:windowSoftInputMode="adjustPan" >
-52-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:27:13-52
+52-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:27:13-52
 53            <intent-filter>
-53-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:28:13-31:29
+53-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:28:13-31:29
 54                <action android:name="android.intent.action.MAIN" />
-54-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:29:17-69
-54-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:29:25-66
+54-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:29:17-69
+54-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:29:25-66
 55
 56                <category android:name="android.intent.category.LAUNCHER" />
-56-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:30:17-77
-56-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:30:27-74
+56-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:30:17-77
+56-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:30:27-74
 57            </intent-filter>
 58        </activity>
 59        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-59-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:33:9-86
-59-->G:\KtGitProject\New folder\ArcSight\android\app\src\main\AndroidManifest.xml:33:19-83
+59-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:33:9-86
+59-->H:\gitProject\ArcSight\android\app\src\main\AndroidManifest.xml:33:19-83
 60
 61        <provider
-61-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:9-21:20
+61-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:9-21:20
 62            android:name="androidx.core.content.FileProvider"
-62-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-62
+62-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-62
 63            android:authorities="com.arcsight.provider"
-63-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-60
+63-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-60
 64            android:exported="false"
-64-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-37
+64-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:16:13-37
 65            android:grantUriPermissions="true" >
-65-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:17:13-47
+65-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:17:13-47
 66            <meta-data
-66-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-20:58
+66-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-20:58
 67                android:name="android.support.FILE_PROVIDER_PATHS"
-67-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:17-67
+67-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:17-67
 68                android:resource="@xml/provider_paths" />
-68-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:17-55
+68-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:17-55
 69        </provider>
 70
 71        <activity
-71-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:9-25:72
+71-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:9-25:72
 72            android:name="com.yalantis.ucrop.UCropActivity"
-72-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:13-60
+72-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:13-60
 73            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-73-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:13-69
+73-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:13-69
 74
 75        <provider
-75-->[:react-native-image-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:10:9-18:20
+75-->[:react-native-image-picker] H:\gitProject\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:10:9-18:20
 76            android:name="com.imagepicker.FileProvider"
-76-->[:react-native-image-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-56
+76-->[:react-native-image-picker] H:\gitProject\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-56
 77            android:authorities="com.arcsight.provider"
-77-->[:react-native-image-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-60
+77-->[:react-native-image-picker] H:\gitProject\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-60
 78            android:exported="false"
-78-->[:react-native-image-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-37
+78-->[:react-native-image-picker] H:\gitProject\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-37
 79            android:grantUriPermissions="true" >
-79-->[:react-native-image-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-47
+79-->[:react-native-image-picker] H:\gitProject\ArcSight\node_modules\react-native-image-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-47
 80            <meta-data
-80-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-20:58
+80-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-20:58
 81                android:name="android.support.FILE_PROVIDER_PATHS"
-81-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:17-67
+81-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:17-67
 82                android:resource="@xml/provider_paths" />
-82-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:17-55
+82-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:17-55
 83        </provider>
 84        <provider
-84-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:9-44:20
+84-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:36:9-44:20
 85            android:name="com.RNFetchBlob.Utils.FileProvider"
-85-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:13-62
+85-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:37:13-62
 86            android:authorities="com.arcsight.provider"
-86-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:13-60
+86-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:38:13-60
 87            android:exported="false"
-87-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:39:13-37
+87-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:39:13-37
 88            android:grantUriPermissions="true" >
-88-->[:rn-fetch-blob] G:\KtGitProject\New folder\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:13-47
+88-->[:rn-fetch-blob] H:\gitProject\ArcSight\node_modules\rn-fetch-blob\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:40:13-47
 89            <meta-data
-89-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-20:58
+89-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-20:58
 90                android:name="android.support.FILE_PROVIDER_PATHS"
-90-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:17-67
+90-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:17-67
 91                android:resource="@xml/provider_paths" />
-91-->[:react-native-image-crop-picker] G:\KtGitProject\New folder\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:17-55
+91-->[:react-native-image-crop-picker] H:\gitProject\ArcSight\node_modules\react-native-image-crop-picker\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:17-55
 92        </provider>
 93    </application>
 94
