@@ -14,6 +14,7 @@ import { getData } from '../utils/asyncStore';
 import BaseScreen from '../views/MainStack/MainStackViews/BaseScreen';
 import { storeData,clearData } from '../utils/asyncStore'
 import { connect } from 'react-redux';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { changeAuthState } from '../actions/authAction';
 import { Fontisto } from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -68,6 +69,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                 if (res.status) {
                     console.log('logged out123456', res.message);
                    // AsyncStorage.clear();
+                    navigation.dispatch(DrawerActions.toggleDrawer())
                     clearData()
                     changeAuthState(false)
                     // navigation.navigate("Login Screen");
