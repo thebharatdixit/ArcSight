@@ -157,6 +157,7 @@ function Login({ navigation, changeAuthState }) {
             }
             else {
                 Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                alert("" + response.message);
             }
 
         })
