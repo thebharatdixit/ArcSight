@@ -394,7 +394,7 @@ function ColleaguageListScreen({ route, navigation }) {
                     source={require('../../../assets/icons/19.png')}
                     style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
                 /> */}
-                                                    <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId }))}>
+                                                    <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}>
 
                                                         <Image
                                                             source={{
