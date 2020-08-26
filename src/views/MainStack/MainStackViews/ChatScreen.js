@@ -306,11 +306,11 @@ function ChatScreen({ route, navigation }) {
                         ) : <Image source={require('../../../assets/icons/uncheck.png')}
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
 
-                        {/* {showAll ? (
+                        {showAll ? (
                             <Image source={require('../../../assets/icons/check.png')}
                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
                         ) : <Image source={require('../../../assets/icons/uncheck.png')}
-                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
+                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
                     </TouchableOpacity>
                     <Text style={{ marginLeft: getDimen(0.05) }}>All Colleague</Text>
@@ -326,11 +326,11 @@ function ChatScreen({ route, navigation }) {
                         ) : <Image source={require('../../../assets/icons/circle.png')}
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
 
-                        {/* {showMy ? (
+                        {showMy ? (
                             <Image source={require('../../../assets/icons/check.png')}
                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
                         ) : <Image source={require('../../../assets/icons/uncheck.png')}
-                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
+                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
 
                     </TouchableOpacity>
