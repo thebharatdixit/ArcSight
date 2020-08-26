@@ -51,19 +51,19 @@ function SearchScreen({ navigation }) {
     const [checked3, setChecked3] = useState(false);
     const [checkedForSale, setCheckedForSale] = useState(false);
     const [checkedForRent, setCheckedForRent] = useState(false);
-    const [bedRoom, setBedroom] = React.useState();
+    const [bedRoom, setBedroom] = React.useState(0);
     const [bathRoom, setBathroom] = React.useState(0);
     const [location, setLocation] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState();
     const [homeType, setHomeType] = React.useState('');
-    const [sqFeetMin, setSqFeetMin] = React.useState();
-    const [sqFeetMax, setSqFeetMax] = React.useState();
+    const [sqFeetMin, setSqFeetMin] = React.useState(0);
+    const [sqFeetMax, setSqFeetMax] = React.useState(0);
     const [accessToken, setAccessToken] = React.useState('')
     const [listing, setListing] = React.useState('')
     const [searchList, setSearchList] = React.useState([])
     const [alertMessage, setAlertMessage] = React.useState('')
-    const [forSaleText, setForSaleText] = React.useState('For Sale')
-    const [forRentText, setForRentText] = React.useState('For Rent')
+    const [forSaleText, setForSaleText] = React.useState('')
+    const [forRentText, setForRentText] = React.useState('')
     const [showGoogleView, setGoogleView] = React.useState(false)
     const [showLoader, setShowLoader] = React.useState('hide');
     const [aminitiesList, setAminitiesList] = React.useState([]);
@@ -110,10 +110,10 @@ function SearchScreen({ navigation }) {
 
     const resetAction = () =>{
         setLocation('')
-        setSelectedValue('')
+        setSelectedValue()
         setSqFeetMax()
         setSqFeetMin()
-        setBedroom('')
+        setBedroom()
         setBathroom()
         setCheckedForSale(false)
         setCheckedForRent(false)
@@ -121,7 +121,9 @@ function SearchScreen({ navigation }) {
         setChecked2(false)
         setChecked1(false)
         setListing('')
+        setHomeType('')
 
+        console.log('Reset values:', selectedValue, sqFeetMax, sqFeetMin, homeType, bedRoom, bathRoom)
     }
 
     const getAminities = () => {
@@ -225,7 +227,10 @@ function SearchScreen({ navigation }) {
                 console.error("error: ", err);
             });
     }
-
+    const onValueChange = (value) => {
+        // console.log(JSON.stringify(aminitiesList[value]));
+        setHomeType(value);
+    }
     return (
         <View style={{ flex: 1 }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
@@ -385,11 +390,14 @@ function SearchScreen({ navigation }) {
 
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Price</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
-                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.02), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
-                            <Input placeholder='$000,000'
+                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>                                
+                            <Input
+                                placeholder='$000,000'
                                 style={{ fontSize: getDimen(0.038), borderBottomWidth: 0 }}
                                 onChangeText={(selectedValue) => setSelectedValue(selectedValue)}
-                        />
+                                value={selectedValue}
+                            />
+                            
                         {/* <Icon active name='arrow' /> */}
                             {/* <Picker
                                 note
@@ -419,7 +427,8 @@ function SearchScreen({ navigation }) {
                             <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0  }}>                                    
                                     <Input placeholder='00'
                                         style={{ fontSize: getDimen(0.038), }}
-                                        onChangeText={(val) => setBedroom(val)}
+                                        onChangeText={(bedRoom) => setBedroom(bedRoom)}
+                                        value={bedRoom}
                                     />
                                                                     
                             </Item>
@@ -430,7 +439,8 @@ function SearchScreen({ navigation }) {
                             <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
                                 <Input placeholder='00'
                                     style={{ fontSize: getDimen(0.038), }}
-                                    onChangeText={(val) => setBathroom(val)}
+                                    onChangeText={(bathRoom) => setBathroom(bathRoom)}
+                                    value={bathRoom}
                                 />
                             </Item>
                         </View>
@@ -440,27 +450,33 @@ function SearchScreen({ navigation }) {
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Home Type</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
-                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#000000', textAlign: 'justify', marginTop: getDimen(0), borderBottomWidth: 0 }}>
-                            {/* <Input placeholder='Co-op / Condo'
-                            style={{ fontSize: getDimen(0.038), }}
+                        <View style={styles.inputContainer}>
+                            <View style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%' }}>
+                                <View style={{ flex: 0.8, justifyContent: 'center' }}>
 
-                        />
-                        <Icon active name='arrow' /> */}
+                                </View>
+                                <View style={{ flex: 0.2, width: '100%', height: '100%', justifyContent: 'center' }}>
+                                    <Image
+                                        source={require('../../../assets/images/down-arrow.png')}
+                                        style={{ marginRight: 1, alignSelf: 'center', width: '30%', height: '30%' }}
+                                    />
+                                </View>
+                            </View>
+                            {/* <Image
+                                    source={require('../assets/images/nationality.png')}
+                                    style={styles.ImageStyle}
+                                /> */}
                             <Picker
-                                note
                                 mode="dialog"
                                 iosIcon={<Icon />}
-                                style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+                                style={{ marginLeft: getDimen(0.001), width: '80%', height: '100%', backgroundColor: 'transparent', color: 'black', fontSize: getDimen(0.03), marginBottom: getDimen(-0.015) }}
                                 placeholder="Select Home Type"
-                                placeholderStyle={{ color: "#000000", fontSize: 14 }}
+
+                                placeholderStyle={{ color: "gray", fontSize: getDimen(0.04) }}
                                 placeholderIconColor="#000000"
                                 selectedValue={homeType}
-                                onValueChange={(itemValue, itemIndex) => setHomeType(itemValue, itemIndex)}
+                                onValueChange={(value) => onValueChange(value)}
                             >
-                                {/* {aminitiesList.map((item, index) => {
-                                    console.log('PickerValue:', item)
-                                    return (< Picker.Item label={item} value={index} key={index} />);
-                                })}   */}
                                 <Picker.Item label="House" value="key0" />
                                 <Picker.Item label="Co-op" value="key1" />
                                 <Picker.Item label="Condo" value="key2" />
@@ -469,7 +485,7 @@ function SearchScreen({ navigation }) {
                                 <Picker.Item label="Land" value="key5" />
                                 <Picker.Item label="Other" value="key6" />
                             </Picker>
-                        </Item>
+                        </View>
                     </View>
                     <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0) }}></View>
 
@@ -478,10 +494,11 @@ function SearchScreen({ navigation }) {
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Square Feet</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Minimum</Text> */}
                             <Item style={{ marginLeft: getDimen(0.04), color: 'black', textAlign: 'justify', marginTop: getDimen(0), color: 'black', borderBottomWidth: 0 }}>
-                             <Input placeholder='$00'
-                                style={{ fontSize: getDimen(0.038), }}
-                                    onChangeText={(val) => setSqFeetMax(val)}
-                            />
+                                <Input placeholder='00'
+                                    style={{ fontSize: getDimen(0.038), }}
+                                    onChangeText={(sqFeetMax) => setSqFeetMax(sqFeetMax)}
+                                    value={sqFeetMax}
+                                />
                             {/* <Icon active name='arrow' /> */} 
                                 {/* <Picker
                                     note
@@ -505,9 +522,10 @@ function SearchScreen({ navigation }) {
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>To</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Maximum</Text> */}
                             <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', marginTop: getDimen(0), borderBottomWidth: 0 }}>
-                                <Input placeholder='$00'
-                                style={{ fontSize: getDimen(0.038), }}
-                                    onChangeText={(val) => setSqFeetMin(val)}
+                                <Input placeholder='00'
+                                    style={{ fontSize: getDimen(0.038), }}
+                                    onChangeText={(sqFeetMin) => setSqFeetMin(sqFeetMin)}
+                                    value={sqFeetMin}
                             />
                             {/* <Icon active name='arrow' /> */}
                                 {/* <Picker

@@ -729,7 +729,7 @@ const styles = StyleSheet.create({
         marginLeft: -10,
         borderBottomColor: 'transparent',
         borderColor: 'transparent',
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     forgotContainer: {
         paddingTop: 10,
