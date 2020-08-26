@@ -104,8 +104,8 @@ function PropertyScreen({ navigation }) {
         formData.append('price_per_sq_feet', 25);
         formData.append('price', 2500);
         formData.append('taxes', 25);
-        formData.append('amenities[]', 9);
-        formData.append('amenities[]', 2);
+        formData.append('amenities[]', arrSelectedAminitiesForApi);
+        // formData.append('amenities[]', 2);
         formData.append('description', 'Success');
         formData.append('is_featured', 'yes');
         formData.append('main_image', '');
