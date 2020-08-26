@@ -311,7 +311,7 @@ function MainScreen({ navigation }) {
                                                         (userId === item.user_id) ?
                                                             navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
                                                             :
-                                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))
+                                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": '', "userId": item.user_id }))
 
                                                     }
                                                     }>
@@ -336,7 +336,7 @@ function MainScreen({ navigation }) {
                                                                 (userId === item.user_id) ?
                                                                     navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
                                                                     :
-                                                                    navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))
+                                                                    navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": '', "userId": item.user_id }))
 
                                                             }
 
@@ -447,8 +447,6 @@ function MainScreen({ navigation }) {
                                             :
 
 
-
-
                                             <View>
                                                 {setCreatedDate(item.created_at), console.log('Created Date2222:', createdDate)}
                                                 <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
@@ -456,7 +454,7 @@ function MainScreen({ navigation }) {
                                                         (userId === item.user_id) ?
                                                             navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
                                                             :
-                                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))
+                                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": '', "userId": item.user_id }))
 
                                                     }
                                                     }>
@@ -481,7 +479,7 @@ function MainScreen({ navigation }) {
                                                                 (userId === item.user_id) ?
                                                                     navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
                                                                     :
-                                                                    navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": item.is_friend, "userId": item.user_id }))
+                                                                    navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": '', "userId": item.user_id }))
 
                                                             }
 
