@@ -311,7 +311,8 @@ function ProfileScreen({ navigation, route }) {
                                 <View>
                                     <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
                                         {item.is_featured ?
-                                            <View style={{ backgroundColor: '#F2F2F2', flexDirection: 'row', width: '100%', marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
+                                            <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}
+                                            style={{ backgroundColor: '#F2F2F2', flexDirection: 'row', width: '100%', marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
                                                 <View style={styles.container}>
                                                     <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', }}>
                                                         <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
@@ -353,9 +354,9 @@ function ProfileScreen({ navigation, route }) {
 
                                                     </View>
                                                     
-                                                    <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.02), flexDirection: 'row' }}>
-                                                        <Text style={{ fontSize: getDimen(0.045), width: '55%', fontWeight: '500' }}>{item.location ? item.location : ''}</Text>
-                                                        <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
+                                                    <View style={{ flex: 0.15, marginLeft: getDimen(0.01), marginTop: getDimen(0.02), flexDirection: 'row' }}>
+                                                        <Text style={{ fontSize: getDimen(0.045), width: '80%', fontWeight: '500' }}>{item.location ? item.location : ''}</Text>
+                                                        {/* <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
                                                             <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left', marginRight: 10 }}>{item.userinfo.name ? item.userinfo.name : ''}</Text>
                                                             <TouchableOpacity
                                                                 // onPress={() => Alert.alert('Real Estate Company')}
@@ -364,7 +365,7 @@ function ProfileScreen({ navigation, route }) {
                                                                 <Text style={{ fontSize: getDimen(0.038), marginTop: getDimen(0.005), color: 'gray' }}>{item.userinfo.company_name ? item.userinfo.company_name : ''}</Text>
                                                             </TouchableOpacity>
 
-                                                        </View>
+                                                        </View> */}
                                                     </View>
 
                                                     <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
@@ -406,7 +407,7 @@ function ProfileScreen({ navigation, route }) {
 
 
                                                 </View>
-                                            </View>
+                                            </TouchableOpacity>
 
                                             :
                                             <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
