@@ -63,6 +63,7 @@ function AddListScreen({ navigation }) {
     const [username, setUsername] = React.useState('');
     const [showLoader, setShowLoader] = React.useState('');
     const isFocused = useIsFocused();
+    const [length, setLength] = React.useState()
 
     const searchUpdated = (term) => {
         setSearchTerm(term);
@@ -120,7 +121,7 @@ function AddListScreen({ navigation }) {
                 if (res.status) {
                     setChatData(res.data);
                     setFilteredData(res.data);
-
+                    setLength((res && res.data) ? res.data.length : '')
                     // AsyncStorage.clear();
                     // navigation.navigate('Login Screen');
                     // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
@@ -172,7 +173,18 @@ function AddListScreen({ navigation }) {
                 placeholder="Enter to search.."
             />
             <View style={{ height: 1, width: '100%', backgroundColor: '#8A8A8A' }}></View>
+            
             <SafeAreaView style={{ flex: 1 }}>
+                
+                {
+                    (length === 0 || length === '') ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.4) }}>
+                            <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+                        </View>
+                        :
+                        null
+                }
+                
                 <FlatList
                     ///// Search List Screen
 

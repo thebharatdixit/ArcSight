@@ -227,9 +227,9 @@ function SearchScreen({ navigation }) {
                 console.error("error: ", err);
             });
     }
-    const onValueChange = (value) => {
-        // console.log(JSON.stringify(aminitiesList[value]));
-        setHomeType(value);
+    const onValueChange = (label) => {
+        console.log('label::###', label);
+        setHomeType(label);
     }
     return (
         <View style={{ flex: 1 }}>
@@ -475,7 +475,7 @@ function SearchScreen({ navigation }) {
                                 placeholderStyle={{ color: "gray", fontSize: getDimen(0.04) }}
                                 placeholderIconColor="#000000"
                                 selectedValue={homeType}
-                                onValueChange={(value) => onValueChange(value)}
+                                onValueChange={(label) => onValueChange(label)}
                             >
                                 <Picker.Item label="House" value="key0" />
                                 <Picker.Item label="Co-op" value="key1" />
@@ -610,7 +610,7 @@ function SearchScreen({ navigation }) {
                                     navigation.navigate('Search List', ({ "SearchList": searchList }))
                                     
                                     // searchListingApiIntegration()
-                                    
+                                    console.log('Search Details on seach tap', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax, forSaleText, forRentText)
                                     
                                 }
                                 }

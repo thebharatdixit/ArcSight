@@ -47,6 +47,7 @@ function ProfileScreen({ navigation, route }) {
     const [photoName, setPhotoName] = React.useState('');
     const [bannerUrlImage, setBannerUrl] = React.useState('');
     const isFocused = useIsFocused();
+    const [length, setLength] = React.useState()
 
     const { user_Id } = route.params ? route.params : ""
 
@@ -123,9 +124,10 @@ function ProfileScreen({ navigation, route }) {
             if (response.status) {
                 setUserProfileData(response.data)
                 setProfileListing(response.data.listing.data)
+                setLength((response.data && response.data.listing.data) ? response.data.listing.data.length : '')
                 setUserProfileData(response.data);
                 setFilePath(response.data.profile.profile_image_url);
-                console.log('filepath : ', filePath)
+                console.log('filepath : ', length)
                 setName(response.data.profile.name);
                 setCompanyName(response.data.profile.company_name);
                 setShowLoader('hide');
@@ -295,7 +297,14 @@ function ProfileScreen({ navigation, route }) {
                 </TouchableOpacity> */}
 
                 </View>
-
+                {
+                    (length === 0 || length === '') ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.3) }}>
+                            <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+                        </View>
+                        :
+                        null
+                }
                 <ScrollView style={styles.container}>
 
 
@@ -310,6 +319,7 @@ function ProfileScreen({ navigation, route }) {
                             renderItem={({ item, separators, index }) => (
                                 <View>
                                     <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
+                                        
                                         {item.is_featured ?
                                             <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}
                                             style={{ backgroundColor: '#F2F2F2', flexDirection: 'row', width: '100%', marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>

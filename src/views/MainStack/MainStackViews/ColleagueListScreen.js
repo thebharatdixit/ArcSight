@@ -57,6 +57,7 @@ function ColleaguageListScreen({ route, navigation }) {
     const [profileListing, setProfileListing] = useState([]);
     const isFocused = useIsFocused();
     const [isFrnd, setIsFrnd] = useState(true);
+    const [length, setLength] = React.useState()
 
     //const { colleagues } = route.params 
     const { name } = route.params ? route.params : ""
@@ -126,7 +127,7 @@ function ColleaguageListScreen({ route, navigation }) {
         }).then(res => res.json())
             .then(res => {
 
-                // console.log("status : ", res.status)
+                console.log("status Colleguage : ", res.status)
                 if (res.status === true) {
                     alert(res.message);
                     setIsFrnd(true)
@@ -208,7 +209,9 @@ function ColleaguageListScreen({ route, navigation }) {
             if (response.status) {
                 setUserProfileData(response.data)
                 setProfileListing(response.data.listing.data)
+                setLength((response && response.data && response.data.listing && response.data.listing.data) ? response.data.listing.data.length : '')
                 console.log('IsFriend:', response.data.is_friend)
+                console.log('setLengt22:', length)
                 if (response.data.is_friend) {
                     response.data.is_friend === 'yes' ? setIsFrnd(true) : setIsFrnd(false)
                 } else {
@@ -252,6 +255,7 @@ function ColleaguageListScreen({ route, navigation }) {
             </View>
 
             <View style={{ backgroundColor: 'white', height: getDimen(0.55), width: '100%', justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
+                
                 <TouchableOpacity onPress={() => Alert.alert('Show Gallery')}>
 
                     {/* <Image source={{
@@ -308,7 +312,14 @@ function ColleaguageListScreen({ route, navigation }) {
                 </View>
 
             </View>
-
+            {
+                (length === 0 || length === '' || length === undefined) ?
+                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.15) }}>
+                        <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+                    </View>
+                    :
+                    null
+            }
             <ScrollView style={styles.container}>
                 {/* <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0.05) }}>
                     <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>

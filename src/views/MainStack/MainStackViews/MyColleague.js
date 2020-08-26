@@ -61,7 +61,7 @@ function MyColleagueScreen({ navigation }) {
     const [showLoader, setShowLoader] = useState('hide');
     const [userProfileData, setUserProfileData] = useState([]);
     const [profileListing, setProfileListing] = useState([]);
-
+    const [length, setLength] = React.useState()
 
     useEffect(() => {
         tokens ? getMyListing() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
@@ -83,7 +83,7 @@ function MyColleagueScreen({ navigation }) {
                 setUserProfileData(response.data)
                 setProfileListing(response.data.listing.data)
                 console.log('my profile data : ', profileListing)
-
+                setLength(profileListing ? profileListing.length : '')
                 setShowLoader('hide');
 
 
@@ -117,7 +117,14 @@ function MyColleagueScreen({ navigation }) {
             </View>
 
             <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
-
+                {
+                    (length === 0 || length === '') ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.5) }}>
+                            <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+                        </View>
+                        :
+                        null
+                }
                 {/* <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0.0) }}>
                     <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
                         <View style={{ backgroundColor: '#d2d6d5', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>

@@ -155,6 +155,7 @@ function MainScreen({ navigation }) {
     const [createdDate, setCreatedDate] = React.useState('')
     const [showLoader, setShowLoader] = React.useState('');
     const [bannerUrl, setBannerUrl] = React.useState('');
+    const [length, setLength] = React.useState()
 
     const isFocused = useIsFocused();
 
@@ -172,9 +173,10 @@ function MainScreen({ navigation }) {
             if (accessToken) {
                 console.log('Prachi123')
                 homeListingApiIntegration();
-                
-
             }
+
+
+
         })
     }, [accessToken, isFocused])
     const onShare = async () => {
@@ -223,7 +225,7 @@ function MainScreen({ navigation }) {
                     console.log('Creted Date0000', JSON.stringify(res.data.created_at));
                     setHomeList(res.data)
                     setWerUrl(homeList && homeList.data && homeList.data.web_share_url)
-
+                    setLength((res && res.data) ? res.data.length : '')
                     console.log('homeList', homeList && homeList.data)
                     console.log('WebUrl', webUrl)
 
@@ -294,7 +296,14 @@ function MainScreen({ navigation }) {
                         </View>
                     </View>
                 </View>
-
+                {
+                    (length === 0 || length === '') ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.3) }}>
+                            <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+                        </View>
+                        :
+                        null
+                }
                 <ScrollView>
 
                     <SafeAreaView >
@@ -313,7 +322,7 @@ function MainScreen({ navigation }) {
                                                             :
                                                             navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
 
-                                                    }
+                                                             }
                                                     }>
                                                         {
                                                             (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
@@ -393,7 +402,16 @@ function MainScreen({ navigation }) {
                                                     </View>
                                                 </View>
                                                 <View style={{ flex: 0.1, backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0) }}>
-                                                    
+                                                    <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
+                                                        <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                                                            <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
+                                                            </View>
+                                                        </View>
+                                                        <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                                        </View>
+                                                    </View>
                                                     <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
 
                                                         {
@@ -409,16 +427,6 @@ function MainScreen({ navigation }) {
                                                         }
 
                                                     </TouchableOpacity>
-                                                    <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
-                                                        <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
-                                                            <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                                                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
-                                                            </View>
-                                                        </View>
-                                                        <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
-                                                        </View>
-                                                    </View>
                                                     <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
                                                         <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3), }}>
                                                             <Text style={{

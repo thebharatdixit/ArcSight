@@ -73,7 +73,8 @@ function ChatScreen({ route, navigation }) {
     const [isFriend, setIsFriend] = React.useState('');
     const [bannerUrlImage, setBannerUrl] = React.useState('');
     const isFocused = useIsFocused();
-
+    const [length, setLength] = React.useState()
+    
     global.listData = [{}];
 
     const searchUpdated = (term) => {
@@ -188,6 +189,8 @@ function ChatScreen({ route, navigation }) {
 
                 setAllColleagues(res.data);
                 setFilteredData(res.data);
+                setLength((res && res.data) ? res.data.length : '')
+                console.log('Colleguage Data Lengthhhhh:', length)
                 setShowLoader('hide');
             })
             .catch(err => {
@@ -296,7 +299,14 @@ function ChatScreen({ route, navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-
+            {
+                (length === 0 || length === '') ?
+                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.3) }}>
+                        <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+                    </View>
+                    :
+                    null
+            }
             {/* header close */}
 
             {/* all colleagues mu colleagues title  start*/}
