@@ -244,7 +244,7 @@ function SearchListDetailScreen({ navigation, route }) {
                             {/* <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text> */}
                         </View>
                         <View style={{ flex: 0.5,  justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                            <Text style={{ fontSize: getDimen(0.040) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.home_type) ? "• Listing Type: " + searchListDetail.listing.home_type : "• Listing Type: "}</Text>
+                            <Text style={{ fontSize: getDimen(0.040) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type) ? "• Listing Type: " + searchListDetail.listing.home_type : "• Listing Type: "}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text>
                             <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text> */}
                         </View>
