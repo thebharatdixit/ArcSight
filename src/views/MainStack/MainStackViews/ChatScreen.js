@@ -71,6 +71,7 @@ function ChatScreen({ route, navigation }) {
     const [showMy, setShowMy] = React.useState(false);
     const [name, setName] = React.useState('All Colleagues');
     const [isFriend, setIsFriend] = React.useState('');
+    const [bannerUrlImage, setBannerUrl] = React.useState('');
     const isFocused = useIsFocused();
 
     global.listData = [{}];
@@ -90,6 +91,30 @@ function ChatScreen({ route, navigation }) {
     useEffect(() => {
         tokens ? getDropValue() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
     }, [tokens, isFocused, name])
+
+    React.useEffect(() => {
+        getData('bannerUrl').then((bannerUrl) => {
+            getData('userData').then((userData) => {
+
+                const userdataMain = JSON.parse(userData);
+                console.log('USER reson id in Collegue screen : ' + JSON.stringify(userdataMain) + "bannerUrl:: " + bannerUrl);
+                var isProUser = userdataMain.user.pro_user;
+                if (isProUser === "no") {
+                    setBannerUrl(bannerUrl);
+                }
+                else {
+                    setBannerUrl("");
+                }
+
+
+            })
+        })
+
+        console.log('On Collegue screen');
+
+
+
+    }, [isFocused])
 
 
 
@@ -447,6 +472,19 @@ function ChatScreen({ route, navigation }) {
                     keyExtractor={item => "" + item.id}
                 />
 
+                {bannerUrlImage ?
+                    <View style={{ height: getDimen(0.2), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
+                        <View style={{ backgroundColor: 'white', width: '100%', height: '100%', alignItems: 'center', }}>
+                            <Image source={{ uri: bannerUrlImage }}
+                                defaultSource={require('../../../assets/icons/2.png')}
+                                style={{ height: '100%', width: '100%', resizeMode: 'cover' }} />
+
+                        </View>
+                    </View>
+                    :
+                    null
+                }
+
 
                 {
                     (showLoader === '') ?
@@ -463,6 +501,7 @@ function ChatScreen({ route, navigation }) {
 
                 </View>
             </View>
+
 
             {/* search colleague close */}
 
