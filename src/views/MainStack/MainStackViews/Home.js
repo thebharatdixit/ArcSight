@@ -29,6 +29,8 @@ import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
 import { getData, storeData } from '../../../utils/asyncStore';
 import { fetchBannerUrl } from '../../../actions/homeAction';
+import { WebView } from "react-native-webview";
+
 
 const DATA = [
     {
@@ -154,12 +156,15 @@ function MainScreen({ navigation }) {
     const [userId, setUserId] = React.useState('')
     const [createdDate, setCreatedDate] = React.useState('')
     const [showLoader, setShowLoader] = React.useState('');
+    const [showWebview, setShowWebview] = React.useState('');
     const [bannerUrl, setBannerUrl] = React.useState('');
     const [length, setLength] = React.useState()
+    const [webviewUrl, setWebviewUrl] = React.useState('');
 
     const isFocused = useIsFocused();
 
     React.useEffect(() => {
+        setShowWebview('hide');
         console.log('Search screen');
         getData('userData').then((data) => {
             const userData = JSON.parse(data);
@@ -173,6 +178,8 @@ function MainScreen({ navigation }) {
             if (accessToken) {
                 console.log('Prachi123')
                 homeListingApiIntegration();
+
+
             }
 
 
@@ -268,6 +275,15 @@ function MainScreen({ navigation }) {
     const renderItem = ({ item }) => (
         <Item title={item} />
     );
+
+    const hideWebview = () => {
+        setShowWebview('hide');
+    }
+
+    const shoWebview = (url) => {
+        setWebviewUrl(url);
+        setShowWebview('');
+    }
 
     return (
 
@@ -412,6 +428,7 @@ function MainScreen({ navigation }) {
                                                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
                                                         </View>
                                                     </View>
+
                                                     <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
 
                                                         {
@@ -427,6 +444,20 @@ function MainScreen({ navigation }) {
                                                         }
 
                                                     </TouchableOpacity>
+                                                    <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
+                                                        <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                                                            <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
+                                                            </View>
+                                                        </View>
+                                                        <TouchableOpacity onPress={() =>
+                                                            // console.log("userId1234:", userId, item.user_id)
+                                                            shoWebview(item.video_url)
+                                                        }
+                                                            style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                                        </TouchableOpacity>
+                                                    </View>
                                                     <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
                                                         <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3), }}>
                                                             <Text style={{
@@ -625,6 +656,23 @@ function MainScreen({ navigation }) {
                     :
                     null
             }
+
+            {showWebview === '' ?
+                <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                    <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
+                        <WebView
+                            style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
+                            javaScriptEnabled={true}
+                            source={{ uri: webviewUrl }}
+                        />
+                    </View>
+                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                </View>
+                : null
+            }
+
+
         </View>
     );
 

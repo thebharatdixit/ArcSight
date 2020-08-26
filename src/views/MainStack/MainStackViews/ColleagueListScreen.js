@@ -361,16 +361,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
                                 {item.is_featured === 'yes' ?
                                     <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))} style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0.05) }}>
-                                        <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
-                                            <View style={{ backgroundColor: '#d2d6d5', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
-                                                <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
-                                                </View>
-                                            </View>
-                                            <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
-                                            </View>
-                                        </View>
+
 
                                         {
                                             (item.main_image_url === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
@@ -386,7 +377,16 @@ function ColleaguageListScreen({ route, navigation }) {
                                                         style={{ height: getDimen(0.70), width: '100%', resizeMode: 'cover', }} />
                                                 </View>
                                         }
-
+                                        <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
+                                            <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                                                <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
+                                                </View>
+                                            </View>
+                                            <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                            </View>
+                                        </View>
                                         <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
                                             <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3) }}>
                                                 <Text style={{ fontSize: getDimen(0.045), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$0,000,000</Text>

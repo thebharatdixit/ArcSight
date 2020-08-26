@@ -5,14 +5,15 @@ import ChatLayout from './ChatLayout';
 import MainScreen from './Home';
 import ColleagueListScreen from './ColleagueListScreen'
 import ProfileScreen from './ProfileScreen'
-import SearchListDetailScreen from './SearchListDetailScreen'
+import SearchListDetailScreen from './SearchListDetailScreen';
+import ThreeSixtyView from './ThreeSixtyView';
 
 
 const Stack = createStackNavigator();
 const HomeStack = function authNavigator({ }) {
 
     return (
-       
+
         <Stack.Navigator
             screenOptions={{
                 headerShown: false
@@ -20,10 +21,10 @@ const HomeStack = function authNavigator({ }) {
         >
             <Stack.Screen name="MainScreen" component={MainScreen}
             />
-            
+
             <Stack.Screen name="Colleague List" component={ColleagueListScreen}
             />
-            
+
             <Stack.Screen name="Chat Layout" component={ChatLayout}
             />
 
@@ -31,6 +32,9 @@ const HomeStack = function authNavigator({ }) {
             />
 
             <Stack.Screen name="Search List Detail" component={SearchListDetailScreen}
+            />
+
+            <Stack.Screen name="ThreeSixtyView" component={ThreeSixtyView}
             />
 
         </Stack.Navigator>
