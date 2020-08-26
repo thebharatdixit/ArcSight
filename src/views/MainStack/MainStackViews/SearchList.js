@@ -32,7 +32,21 @@ function SearchListScreen({ navigation, route }) {
 
     React.useEffect(() => {
         getData('bannerUrl').then((bannerUrl) => {
-            setBannerUrl(bannerUrl);
+            getData('userData').then((userData) => {
+                
+                const userdataMain = JSON.parse(userData);
+                console.log('USER reson id : ' + JSON.stringify(userdataMain));
+                var isProUser = userdataMain.user.pro_user;
+                if(isProUser === "no"){
+                    setBannerUrl(bannerUrl);
+                }
+                else
+                {
+                    setBannerUrl("");
+                }
+
+                
+            })
         })
         console.log('json data in useEffect:', SearchList.data);
         setLength(SearchList.data.length)

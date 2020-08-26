@@ -218,7 +218,22 @@ function MainScreen({ navigation }) {
                 daysFunction();
                 if (res.status) {
                     setShowLoader('hide')
-                    getBannerUrl();
+                    getData('userData').then((userData) => {
+                
+                        const userdataMain = JSON.parse(userData);
+                        console.log('USER reson id : ' + JSON.stringify(userdataMain));
+                        var isProUser = userdataMain.user.pro_user;
+                        if(isProUser === "no"){
+                            getBannerUrl();
+                        }
+                        else
+                        {
+                            setBannerUrl("");
+                        }
+        
+                        
+                    })
+                    
                     console.log('Home Listing Data', JSON.stringify(res.data));
                     console.log('Creted Date0000', JSON.stringify(res.data.created_at));
                     setHomeList(res.data)
