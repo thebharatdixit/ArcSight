@@ -300,11 +300,11 @@ function ChatScreen({ route, navigation }) {
                 <View style={{ marginRight: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => showHideAll()}>
 
-                        {/* {showAll ? (
+                        {showAll ? (
                             <Image source={require('../../../assets/icons/check.png')}
                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
                         ) : <Image source={require('../../../assets/icons/uncheck.png')}
-                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
+                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
                         {/* {showAll ? (
                             <Image source={require('../../../assets/icons/check.png')}
@@ -320,18 +320,18 @@ function ChatScreen({ route, navigation }) {
 
                     <TouchableOpacity onPress={() => showHideMy()}>
 
-                        {/* {showMy ? (
-                            <Image source={require('../../../assets/icons/tick.png')}
-                                style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
-                        ) : <Image source={require('../../../assets/icons/circle.png')}
-                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
-
-                        {/* {showMy ? (
+                        {showMy ? (
                             <Image source={require('../../../assets/icons/check.png')}
                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
                         ) : <Image source={require('../../../assets/icons/uncheck.png')}
-                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
+                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} /> }
 
+                     {/* {showMy ? (
+                            <Image source={require('../../../assets/icons/check.png')}
+                                style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
+                        ) : <Image source={require('../../../assets/icons/uncheck.png')}
+                            style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
+                     } */}
 
                     </TouchableOpacity>
                     <Text style={{ marginLeft: getDimen(0.05) }}>My Colleague</Text>

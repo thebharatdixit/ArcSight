@@ -110,7 +110,7 @@ function SearchScreen({ navigation }) {
 
     const resetAction = () =>{
         setLocation('')
-        setSelectedValue()
+        setSelectedValue('')
         setSqFeetMax()
         setSqFeetMin()
         setBedroom('')
