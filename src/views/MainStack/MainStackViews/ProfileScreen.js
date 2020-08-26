@@ -45,6 +45,7 @@ function ProfileScreen({ navigation, route }) {
     const [photoData, setPhotoData] = React.useState();
     const [photoPath, setPhotoPath] = React.useState('');
     const [photoName, setPhotoName] = React.useState('');
+    const [bannerUrlImage, setBannerUrl] = React.useState('');
     const isFocused = useIsFocused();
 
     const { user_Id } = route.params ? route.params : ""
@@ -69,6 +70,22 @@ function ProfileScreen({ navigation, route }) {
 
 
     React.useEffect(() => {
+        getData('bannerUrl').then((bannerUrl) => {
+            getData('userData').then((userData) => {
+
+                const userdataMain = JSON.parse(userData);
+                console.log('USER reson id in profile screen : ' + JSON.stringify(userdataMain));
+                var isProUser = userdataMain.user.pro_user;
+                if (isProUser === "no") {
+                    setBannerUrl(bannerUrl);
+                }
+                else {
+                    setBannerUrl("");
+                }
+
+
+            })
+        })
 
         console.log('On Profile screen');
 
@@ -445,6 +462,18 @@ function ProfileScreen({ navigation, route }) {
                         />
                     </SafeAreaView>
                 </ScrollView>
+                {bannerUrlImage ?
+                    <View style={{ height: getDimen(0.2), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
+                        <View style={{ backgroundColor: 'white', width: '100%', height: '100%', alignItems: 'center', }}>
+                            <Image source={{ uri: bannerUrlImage }}
+                                defaultSource={require('../../../assets/icons/2.png')}
+                                style={{ height: '100%', width: '100%', resizeMode: 'cover' }} />
+
+                        </View>
+                    </View>
+                    :
+                    null
+                }
 
                 {
                     (showLoader === '') ?

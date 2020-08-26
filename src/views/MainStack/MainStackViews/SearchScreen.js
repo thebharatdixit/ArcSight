@@ -170,10 +170,6 @@ function SearchScreen({ navigation }) {
 
     }, [accessToken])
 
-
-    const validation = () => {
-    }
-
     const searchListingApiIntegration = (navigation) => {        
         console.log('Search Details', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax, forSaleText, forRentText)
         setShowLoader('')

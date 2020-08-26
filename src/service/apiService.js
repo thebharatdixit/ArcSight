@@ -96,6 +96,15 @@ export function getHomePageData(dispatch, data, option = {}) {
     option.payload = data;
     return requestAPI(URL, option, dispatch)
 }
+
+export function getFetchBannerUrl( option = {}) {
+    let { url, method } = API.ENDPOINT.AUTH.BANNER;
+    let URL = `${API_BASE + url}`;
+    option.method = method;
+    return requestAPI(URL, option)
+}
+
+
 export function getSearchData(dispatch, data, option = {}) {
     let { url, method } = API.ENDPOINT.CUISINE.SEARCH_OUTLET_ITEMS;
     let URL = `${API_BASE + url}`;

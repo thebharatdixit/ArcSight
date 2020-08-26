@@ -14,6 +14,7 @@ let API = {
             VERIFY_OTP: { url: 'Traveller/verifyOTP', method: 'POST' },
             RESET_PASSWORD: { url: 'Traveller/resetTravellerPassword', method: 'POST' },
             LOGOUT: { url: 'api/v1/logout', method: 'GET' },
+            BANNER: { url: 'api/v1/display-add', method: 'GET' }
         },
         PASSWORD: {
             CHANGE_PASSWORD: { url: 'Traveller/changePassword', method: 'POST' },
