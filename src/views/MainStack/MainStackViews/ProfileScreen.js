@@ -419,7 +419,7 @@ function ProfileScreen({ navigation, route }) {
                                                     // source={require('../../../assets/icons/2.png')}
                                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
                                                 /> */}
-                                                        <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId }))}>
+                                                        <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}>
 
 
                                                             <Image
@@ -447,7 +447,7 @@ function ProfileScreen({ navigation, route }) {
                                                 <View style={{ flex: 1, height: '100%', }}>
 
                                                     <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                                        <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId }))}>
+                                                        <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}>
                                                             <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
                                                         </TouchableOpacity>
                                                     </View>
