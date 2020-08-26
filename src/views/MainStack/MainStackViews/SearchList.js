@@ -48,17 +48,10 @@ function SearchListScreen({ navigation, route }) {
                 
             })
         })
-        // console.log('json data in useEffect:', SearchList.data);
-        // setLength(SearchList.data.length)
-        // {
-        //     (length === 0) ?
-        //         Alert.alert('No Data Found')
-        //         :
-        //         null
-        // }
-        // const searchListData = SearchList.data[0].location
-        // const listDetail = searchListData.location
-        // console.log('location', JSON.stringify(searchListData))
+        
+        console.log('json data in useEffect:', SearchList.data);
+        setLength((SearchList && SearchList.data) ? SearchList.data.length : '')
+        console.log('json data in length:', length);        
     })
 
     const onShare = async () => {
@@ -109,6 +102,14 @@ function SearchListScreen({ navigation, route }) {
                 </View>
             </View>
             <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
+                {
+                    (length === 0 || length === '') ?
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.5)}}>
+                            <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+                        </View>
+                        :
+                        null
+                }
                 <ScrollView style={styles.container}>
                     <FlatList
                         horizontal={false}
@@ -259,9 +260,9 @@ function SearchListScreen({ navigation, route }) {
                     :
                     null
                 }
-
+                
             </View>
-
+            
         </View>
     )
 }
