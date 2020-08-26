@@ -48,14 +48,14 @@ function SearchListScreen({ navigation, route }) {
                 
             })
         })
-        console.log('json data in useEffect:', SearchList.data);
-        setLength(SearchList.data.length)
-        {
-            (length === 0) ?
-                Alert.alert('No Data Found')
-                :
-                null
-        }
+        // console.log('json data in useEffect:', SearchList.data);
+        // setLength(SearchList.data.length)
+        // {
+        //     (length === 0) ?
+        //         Alert.alert('No Data Found')
+        //         :
+        //         null
+        // }
         // const searchListData = SearchList.data[0].location
         // const listDetail = searchListData.location
         // console.log('location', JSON.stringify(searchListData))

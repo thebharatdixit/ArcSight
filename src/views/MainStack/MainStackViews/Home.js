@@ -215,26 +215,10 @@ function MainScreen({ navigation }) {
             })
         }).then(res => res.json())
             .then(res => {
-                // daysFunction();
+                daysFunction();
                 if (res.status) {
                     setShowLoader('hide')
-                    daysFunction('2020-08-23 17:15:23');
-                    getData('userData').then((userData) => {
-                
-                        const userdataMain = JSON.parse(userData);
-                        console.log('USER reson id : ' + JSON.stringify(userdataMain));
-                        var isProUser = userdataMain.user.pro_user;
-                        if(isProUser === "no"){
-                            getBannerUrl();
-                        }
-                        else
-                        {
-                            setBannerUrl("");
-                        }
-        
-                        
-                    })
-                    
+                    getBannerUrl();
                     console.log('Home Listing Data', JSON.stringify(res.data));
                     console.log('Creted Date0000', JSON.stringify(res.data.created_at));
                     setHomeList(res.data)
@@ -273,9 +257,7 @@ function MainScreen({ navigation }) {
 
     }
 
-    const daysFunction = (createdDate) => {
-        var Crdate = new Date(createdDate);
-        console.log('current date :' + new Date() + "Crdate : " + Crdate);
+    const daysFunction = () => {
         var msDiff = new Date().getTime() - createdDate;    //Future date - current date
         var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
         console.log('Days***!!!:', daysTill30June2035);
@@ -329,7 +311,7 @@ function MainScreen({ navigation }) {
                                                         (userId === item.user_id) ?
                                                             navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
                                                             :
-                                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": '', "userId": item.user_id }))
+                                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
 
                                                     }
                                                     }>
@@ -354,7 +336,7 @@ function MainScreen({ navigation }) {
                                                                 (userId === item.user_id) ?
                                                                     navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
                                                                     :
-                                                                    navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": '', "userId": item.user_id }))
+                                                                    navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
 
                                                             }
 
@@ -472,7 +454,7 @@ function MainScreen({ navigation }) {
                                                         (userId === item.user_id) ?
                                                             navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
                                                             :
-                                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": '', "userId": item.user_id }))
+                                                            navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
 
                                                     }
                                                     }>
@@ -497,7 +479,7 @@ function MainScreen({ navigation }) {
                                                                 (userId === item.user_id) ?
                                                                     navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
                                                                     :
-                                                                    navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "isFriend": '', "userId": item.user_id }))
+                                                                    navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
 
                                                             }
 

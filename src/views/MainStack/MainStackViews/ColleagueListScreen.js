@@ -211,6 +211,8 @@ function ColleaguageListScreen({ route, navigation }) {
             if (response.status) {
                 setUserProfileData(response.data)
                 setProfileListing(response.data.listing.data)
+                console.log('IsFriend:', response.data.is_friend)
+                // isFriend = response.data.listing.data
                 console.log('colleagues profile : ', profileListing)
 
                 setShowLoader('hide');
