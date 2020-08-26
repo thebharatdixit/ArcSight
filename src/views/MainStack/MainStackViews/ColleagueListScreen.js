@@ -58,15 +58,12 @@ function ColleaguageListScreen({ route, navigation }) {
     const isFocused = useIsFocused();
     const [isFrnd, setIsFrnd] = useState(true);
 
-
-
     //const { colleagues } = route.params 
     const { name } = route.params ? route.params : ""
     const { companyName } = route.params ? route.params : ""
     const { profile_image_url } = route.params ? route.params : ""
     const { isFriend } = route.params ? route.params : ""
     const { userId } = route.params ? route.params : ""
-
     let ab = isFriend;
 
 
@@ -212,7 +209,12 @@ function ColleaguageListScreen({ route, navigation }) {
                 setUserProfileData(response.data)
                 setProfileListing(response.data.listing.data)
                 console.log('IsFriend:', response.data.is_friend)
-                // isFriend = response.data.listing.data
+                if (response.data.is_friend) {
+                    response.data.is_friend === 'yes' ? setIsFrnd(true) : setIsFrnd(false)
+                } else {
+                    setIsFrnd(false)
+                }
+                console.log('isFrnd:', isFrnd)
                 console.log('colleagues profile : ', profileListing)
 
                 setShowLoader('hide');
