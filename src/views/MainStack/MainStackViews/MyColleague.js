@@ -13,7 +13,8 @@ import {
     ToastAndroid,
     FlatList,
     Alert,
-    Share
+    Share,
+    SafeAreaView
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
@@ -117,40 +118,17 @@ function MyColleagueScreen({ navigation }) {
             </View>
 
             <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
-                {
+                {/* {
                     (length === 0 || length === '') ?
                         <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.5) }}>
                             <Text style={{ textAlign: 'center' }}>No Data Found</Text>
                         </View>
                         :
                         null
-                }
-                {/* <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0.0) }}>
-                    <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
-                        <View style={{ backgroundColor: '#d2d6d5', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
-                            <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
-                            </View>
-                        </View>
-                        <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
-                        </View>
-                    </View>
+                } */}
+               <ScrollView>
 
-                    <Image source={require('../../../assets/icons/19.png')}
-                        style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
-                    />
-
-                    <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
-                        <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3) }}>
-                            <Text style={{ fontSize: getDimen(0.045), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$0,000,000</Text>
-                        </View>
-                        <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.3) }}>
-                            <Text style={{ fontSize: getDimen(0.045), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text>
-                        </View>
-                    </View>
-
-                </View> */}
+                    <SafeAreaView >
 
                 <FlatList
                     ///// Search List Screen
@@ -159,43 +137,47 @@ function MyColleagueScreen({ navigation }) {
                     style={{ marginTop: 0, }}
                     data={profileListing}
                     renderItem={({ item, separators, index }) => (
-                        <View>
+                        <View style = {{flex: 1}}>
 
+                            {item.is_featured === 'yes' ? 
+                            
+                                <View style={{ flex: 0.1, backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0) }}>
 
-                            {item.is_featured === 'yes' ? <View style={{ backgroundColor: 'white', alignItems: 'center', }}>
+                                    <TouchableOpacity onPress={() => navigation.navigate('My Listing Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
 
-                                <View style={{ flexDirection: 'row', width: '100%', alignItems: 'flex-start', top: 0 }}>
+                                        {
+                                            (item.main_image_url && (item.main_image_url.includes('.jpg') || item.main_image_url.includes('.png'))) ?
+                                                <Image
+                                                    source={{
+                                                        uri: `${item.main_image_url}`,
+                                                    }}
+                                                    // defaultSource={require('../../../assets/icons/2.png')}
+                                                    style={{ height: getDimen(0.75), width: getDimen(1) }}
+                                                />
 
-                                    <View style={{ width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                                                :
+                                                
+                                                <Image source={require('../../../assets/icons/19.png')}
+                                                    style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
+                                                />
+                                        }
 
+                                    </TouchableOpacity>
 
-                                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
+                                    <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
+                                        <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                                            <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
+                                            </View>
                                         </View>
-
+                                        <TouchableOpacity onPress={() =>
+                                            // console.log("userId1234:", userId, item.user_id)
+                                            shoWebview(item.video_url)
+                                        }
+                                            style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                        </TouchableOpacity>
                                     </View>
-
-                                    <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
-                                    </View>
-
-                                </View>
-
-
-
-                                {
-                                    (item.main_image_url && (item.main_image_url.includes('.jpg') || item.main_image_url.includes('.png'))) ? <Image
-                                        source={{
-                                            uri: `${item.main_image_url}`,
-                                        }}
-                                        defaultSource={require('../../../assets/icons/2.png')}
-                                        style={{ height: getDimen(1), width: getDimen(1) }}
-                                    /> :
-                                        <Image source={require('../../../assets/icons/2.png')}
-                                            style={{ height: getDimen(1), width: getDimen(0.18) }} />
-                                }
-
-
 
                                 <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
                                     <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3) }}>
@@ -206,98 +188,140 @@ function MyColleagueScreen({ navigation }) {
                                     </View>
                                 </View>
 
-                            </View> :
-                                <View style={{ backgroundColor: '#F2F2F2', height: getDimen(0.6), width: '100%', justifyContent: 'center', alignContent: 'center', marginTop: getDimen(0.05) }}>
-                                    <View style={{ flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
-                                        {
-                                            (item.main_image_url && (item.main_image_url.includes('.jpg') || item.main_image_url.includes('.png'))) ? <Image
-                                                source={{
-                                                    uri: `${item.main_image_url}`,
-                                                }}
-                                                defaultSource={require('../../../assets/icons/2.png')}
-                                                style={{ height: getDimen(0.52), width: getDimen(0.4), }}
-                                            /> :
-                                                <Image source={require('../../../assets/icons/2.png')}
-                                                    style={{ height: getDimen(0.6), width: getDimen(0.4) }} />
-                                        }
+                            </View>
+                            
+                             :
 
+                                <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 15 ,}}>
+                                    <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.52), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
+                                        <View style={{ flex: 0.6, height: '100%', width:'100%', }}>
+                                            <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6',  }}>
+                                            <TouchableOpacity onPress={() => {
+                                                    navigation.navigate('My Listing Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
+                                            }
+                                            }>
+                                         
+                                                {
+                                                    (item.main_image_url && (item.main_image_url.includes('.jpg') || item.main_image_url.includes('.png'))) ? 
+                                                    <Image source={{
+                                                                    uri: `${item.main_image_url}`
+                                                                }}
+                                                                    style={{ resizeMode: 'cover', height: getDimen(.42), width: getDimen(.35) }} />
+                                                    
+                                                    :
+                                                        <Image
+                                                                    source={require('../../../assets/icons/19.png')}
+                                                                    style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
+                                                                />
+                                                }
+                                            </TouchableOpacity>
+                                      
+                                        </View>
+                                       
+                                       
+                                        <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
+                                            <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
+                                                {/* <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text> */}
+                                                <Text style={{ fontSize: getDimen(0.035), fontWeight: '600', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
+                                            </View>
+                                            <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
+                                                    <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>${item.price_per_sq_feet}/feet</Text>
+                                            </View>
+                                        </View>
+
+                                        </View>
 
 
                                         <View style={{ flex: 1, height: '100%', }}>
-                                            <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                                <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
-                                            </View>
-
-                                            <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
-                                                </View>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.bathrooms}</Text>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
-                                                </View>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
-                                                </View>
-                                            </View>
-
-                                            <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05), marginLeft: getDimen(0) }}>
-
-                                                <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    <Image source={require('../../../assets/icons/pin.png')}
-                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                                                </View>
-                                                <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
-                                                </View>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    {/* <Image source={require('../../../assets/icons/dummyLine.png')}
-                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                    <TouchableOpacity onPress={() => Alert.alert('Clicked!')}>
-                                                        <Image source={require('../../../assets/icons/dummyLine.png')}
-                                                            style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                            <View style={{ flex: 0.3, marginLeft: getDimen(0.05), marginRight: getDimen(0.01),marginTop: getDimen(0.05) }}>
+                                                    <TouchableOpacity onPress={() => {
+                                                        navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
+                                                    }
+                                                    }>
+                                                        {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
+                                                        <Text
+                                                            numberOfLines={2}
+                                                            style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
                                                     </TouchableOpacity>
                                                 </View>
 
-                                            </View>
-
-                                            <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0) }}>
-
-                                                <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    <Image source={require('../../../assets/icons/map.png')}
-                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.03), marginLeft:getDimen(0.04) }}>
+                                                    <View style={{ flex: 0.45, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                        <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
+                                                        <Text style={{ fontSize: getDimen(0.03) }}>Bedrooms</Text>
+                                                    </View>
+                                                    <View style={{ flex: 0.45, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                        <Text style={{ fontSize: getDimen(0.06), textAlign: 'center' }}>{item.bathrooms}</Text>
+                                                        <Text style={{ fontSize: getDimen(0.03), textAlign: 'center'}}>Bathrooms</Text>
+                                                    </View>
+                                                    <View style={{ flex: 0.4, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                        <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
+                                                        <Text style={{ fontSize: getDimen(0.03) }}>Terrace</Text>
+                                                    </View>
                                                 </View>
-                                                <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
-                                                </View>
-                                                <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                    {/* <Image source={require('../../../assets/icons/20.png')}
-                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                    <TouchableOpacity onPress={() => onShare()}>
-                                                        <Image source={require('../../../assets/icons/20.png')}
+
+                                                <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.03), marginLeft: getDimen(0) }}>
+
+                                                    <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                        <Image source={require('../../../assets/icons/pin.png')}
                                                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                                                    </TouchableOpacity>
+                                                    </View>
+                                                    <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                        {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                        <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                    </View>
+                                                    <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' , }}>
+                                                        {/* <Image source={require('../../../assets/icons/dummyLine.png')}
+                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
+                                                        <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
+                                                            <Image source={require('../../../assets/icons/dummyLine.png')}
+                                                                style={{ height: getDimen(0.08), width: getDimen(0.08) }} />
+                                                        </TouchableOpacity>
+                                                    </View>
+
+                                                </View>
+
+                                                <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0), marginBottom: getDimen(0.03) }}>
+
+                                                    <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                        <Image source={require('../../../assets/icons/map.png')}
+                                                            style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                    </View>
+                                                <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04)}}>
+                                                        <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
+                                                    </View>
+                                                    <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+
+                                                        <TouchableOpacity onPress={() => onShare()}>
+                                                            {
+                                                                (item && item.web_share_url === !'') ?
+                                                                    <Image source={require('../../../assets/icons/20.png')}
+                                                                        style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
+                                                                    :
+                                                                    null
+                                                            }
+                                                            {/* <Image source={require('../../../assets/icons/20.png')}
+                                                        style={{ height: getDimen(0.07), width: getDimen(0.07) }} /> */}
+                                                        </TouchableOpacity>
+                                                    </View>
+
                                                 </View>
 
                                             </View>
-
-                                        </View>
 
 
 
 
 
                                     </View>
-                                    <View style={{ width: '40%', height: getDimen(0.08), flexDirection: 'row', backgroundColor: 'orange' }}>
+                                    {/* <View style={{ width: '40%', height: getDimen(0.08), flexDirection: 'row', backgroundColor: 'orange' }}>
                                         <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
                                             <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text>
                                         </View>
                                         <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
                                             <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
                                         </View>
-                                    </View>
+                                    </View> */}
 
                                 </View>
                             }
@@ -308,7 +332,8 @@ function MyColleagueScreen({ navigation }) {
                     )}
                     keyExtractor={item => item.id}
                 />
-
+                    </SafeAreaView>
+                </ScrollView>
                 {
                     (showLoader === '') ?
                         <View

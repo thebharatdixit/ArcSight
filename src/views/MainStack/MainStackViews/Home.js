@@ -266,7 +266,6 @@ function MainScreen({ navigation }) {
     }
 
     const daysFunction = (createdDatee) => {
-
         // var createdDt = moment(createdDatee).format('MMM DD, YYYY hh:mm a')
         var createdDt = moment(createdDatee).format('MMM DD, YYYY')
         console.log('DateFormatecreatedDateMMMDDYYY', createdDt);
@@ -275,7 +274,6 @@ function MainScreen({ navigation }) {
         console.log('Days***!!!:', daysTill30June2035, new Date()); //current date: Thu Aug 27 2020 12:10:44 GMT+0530 (IST)
         var createdDiffDate = daysTill30June2035 + " "
         setCreatedDate(createdDiffDate)
-        
         console.log('Created Date00002', createdDate); //2020-08-25 17:15:23
     }
 
@@ -382,7 +380,7 @@ function MainScreen({ navigation }) {
                                                                 <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
                                                                     {(item && item.userinfo) ? item.userinfo.name : ''}
                                                                 </Text>
-                                                                <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.01) }}>
+                                                                <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.012) }}>
                                                                     {/* Listed 2 Days Ago */}
                                                                     {
                                                                         createdDate
@@ -475,7 +473,9 @@ function MainScreen({ navigation }) {
                                                                 textAlign: 'center', color: 'white',
                                                                 textAlignVertical: 'center', fontWeight: '700', fontSize: getDimen(0.04)
                                                             }}>
-                                                                $0,000,000
+                                                                     $
+                                                                {item.price_per_sq_feet}
+                                                                 /feet
                                                               </Text>
                                                         </View>
 
@@ -540,7 +540,7 @@ function MainScreen({ navigation }) {
                                                                 <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
                                                                     {(item && item.userinfo) ? item.userinfo.name : ''}
                                                                 </Text>
-                                                                <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01) }}>
+                                                                <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.011) }}>
                                                                     {/* Listed 2 Days Ago */}
                                                                     {
                                                                         createdDate
@@ -617,7 +617,9 @@ function MainScreen({ navigation }) {
                                                                 textAlign: 'center', color: 'white',
                                                                 textAlignVertical: 'center', fontWeight: '700', fontSize: getDimen(0.04)
                                                             }}>
-                                                                $0,000,000
+                                                                $
+                                                                {item.price_per_sq_feet}
+                                                                /feet
                 </Text>
                                                         </View>
 
