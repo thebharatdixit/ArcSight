@@ -41,6 +41,7 @@ import ProfileStack from './ProfileStack'
 import DrawerNavigator from '../../../common/DrawerNavigator'
 import PropertyStack from './PropertyStack';
 import changePassword from './ChangePassword'
+import MyColleagueStack from './MyColleagueStack'
 
 
 
@@ -150,7 +151,7 @@ function BaseScreen({ navigation }) {
                             )
                         }}
                     />
-                    <Tab.Screen name="MyColleague Screen" component={MyColleagueScreen}
+                    <Tab.Screen name="MyColleagueStack" component={MyColleagueStack}
                         options={{
                             tabBarLabel: '',
                             tabBarIcon: ({ focused, horizontal, tintColor }) => (
