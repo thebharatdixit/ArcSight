@@ -20,6 +20,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import { WebView } from "react-native-webview";
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
@@ -61,6 +62,8 @@ function MyColleagueScreen({ navigation }) {
     const [showLoader, setShowLoader] = useState('hide');
     const [userProfileData, setUserProfileData] = useState([]);
     const [profileListing, setProfileListing] = useState([]);
+    const [showWebview, setShowWebview] = React.useState('hide');
+    const [webviewUrl, setWebviewUrl] = React.useState('');
     const [length, setLength] = React.useState()
 
     useEffect(() => {
@@ -94,6 +97,15 @@ function MyColleagueScreen({ navigation }) {
             }
 
         })
+    }
+
+    const hideWebview = () => {
+        setShowWebview('hide');
+    }
+
+    const shoWebview = (url) => {
+        setWebviewUrl(url);
+        setShowWebview('');
     }
 
 
@@ -175,9 +187,17 @@ function MyColleagueScreen({ navigation }) {
 
                                     </View>
 
-                                    <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
-                                    </View>
+                                    {item.video_url ?
+                                                <TouchableOpacity onPress={() =>
+                                                    // console.log("userId1234:", userId, item.user_id)
+                                                    shoWebview(item.video_url)
+                                                }
+                                                    style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                                </TouchableOpacity>
+                                                :
+                                                null
+                                            }
 
                                 </View>
 
@@ -318,6 +338,22 @@ function MyColleagueScreen({ navigation }) {
                         </View>
                         :
                         null
+                }
+
+
+                {showWebview === '' ?
+                    <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                        <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
+                            <WebView
+                                style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
+                                javaScriptEnabled={true}
+                                source={{ uri: webviewUrl }}
+                            />
+                        </View>
+                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                    </View>
+                    : null
                 }
 
 

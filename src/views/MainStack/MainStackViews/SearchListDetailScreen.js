@@ -15,6 +15,7 @@ import {
     Share,
     Alert
 } from 'react-native';
+import { WebView } from "react-native-webview";
 
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
@@ -38,6 +39,8 @@ function SearchListDetailScreen({ navigation, route }) {
     const [loginUserId, setLoginUserId] = React.useState('')
     const [showLoader, setShowLoader] = React.useState('');
     const [arrAminitiesName, setArrAminitiesName] = React.useState([]);
+    const [showWebview, setShowWebview] = React.useState('hide');
+    const [webviewUrl, setWebviewUrl] = React.useState('');
 
     const { userId } = route.params ? route.params : ""
 
@@ -113,6 +116,16 @@ function SearchListDetailScreen({ navigation, route }) {
 
     }
 
+    const hideWebview = () => {
+        setShowWebview('hide');
+    }
+
+    const shoWebview = (url) => {
+        setWebviewUrl(url);
+        setShowWebview('');
+    }
+
+
     return (
         <View style={{ flex: 1 }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
@@ -168,11 +181,17 @@ function SearchListDetailScreen({ navigation, route }) {
 
                             </View>
                         </View>
-                        <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                            <TouchableOpacity>
+                        {item.video_url ?
+                            <TouchableOpacity onPress={() =>
+                                // console.log("userId1234:", userId, item.user_id)
+                                shoWebview(item.video_url)
+                            }
+                                style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
                             </TouchableOpacity>
-                        </View>
+                            :
+                            null
+                        }
                     </View>
                     <View style={{ justifyContent: 'flex-end', flexDirection: 'row', marginTop: getDimen(-0.12), marginRight: getDimen(0.1) }}>
                         <TouchableOpacity
@@ -274,6 +293,21 @@ function SearchListDetailScreen({ navigation, route }) {
                     </View>
                     :
                     null
+            }
+
+            {showWebview === '' ?
+                <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                    <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
+                        <WebView
+                            style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
+                            javaScriptEnabled={true}
+                            source={{ uri: webviewUrl }}
+                        />
+                    </View>
+                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                </View>
+                : null
             }
         </View >
     );

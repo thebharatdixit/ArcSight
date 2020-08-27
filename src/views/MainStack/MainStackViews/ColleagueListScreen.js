@@ -59,7 +59,7 @@ function ColleaguageListScreen({ route, navigation }) {
     const isFocused = useIsFocused();
     const [isFrnd, setIsFrnd] = useState(true);
     const [length, setLength] = React.useState();
-    const [showWebview, setShowWebview] = React.useState('');
+    const [showWebview, setShowWebview] = React.useState('hide');
     const [webviewUrl, setWebviewUrl] = React.useState('');
 
     //const { colleagues } = route.params 
