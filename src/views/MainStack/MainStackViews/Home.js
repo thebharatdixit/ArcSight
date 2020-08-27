@@ -30,7 +30,7 @@ import MyColleagueScreen from '../MainStackViews/MyColleague';
 import { getData, storeData } from '../../../utils/asyncStore';
 import { fetchBannerUrl } from '../../../actions/homeAction';
 import { WebView } from "react-native-webview";
-
+import moment from 'moment';
 
 const DATA = [
     {
@@ -224,12 +224,11 @@ function MainScreen({ navigation }) {
             })
         }).then(res => res.json())
             .then(res => {
-                daysFunction();
                 if (res.status) {
                     setShowLoader('hide')
                     getBannerUrl();
                     console.log('Home Listing Data', JSON.stringify(res.data));
-                    console.log('Creted Date0000', JSON.stringify(res.data.created_at));
+                    // daysFunction();
                     setHomeList(res.data)
                     setWerUrl(homeList && homeList.data && homeList.data.web_share_url)
                     setLength((res && res.data) ? res.data.length : '')
@@ -266,10 +265,18 @@ function MainScreen({ navigation }) {
 
     }
 
-    const daysFunction = () => {
-        var msDiff = new Date().getTime() - createdDate;    //Future date - current date
+    const daysFunction = (createdDatee) => {
+
+        // var createdDt = moment(createdDatee).format('MMM DD, YYYY hh:mm a')
+        var createdDt = moment(createdDatee).format('MMM DD, YYYY')
+        console.log('DateFormatecreatedDateMMMDDYYY', createdDt);
+        var msDiff = new Date().getTime() - new Date(createdDt).getTime()  ;  //Aug 25, 2020
         var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
-        console.log('Days***!!!:', daysTill30June2035);
+        console.log('Days***!!!:', daysTill30June2035, new Date()); //current date: Thu Aug 27 2020 12:10:44 GMT+0530 (IST)
+        var createdDiffDate = daysTill30June2035 + " "
+        setCreatedDate(createdDiffDate)
+        
+        console.log('Created Date00002', createdDate); //2020-08-25 17:15:23
     }
 
     const renderItem = ({ item }) => (
@@ -329,6 +336,10 @@ function MainScreen({ navigation }) {
                                 <View style={{ flex: 1 }}>
 
                                     {
+                                        daysFunction(item.created_at)
+                                    }
+
+                                    {
                                         (item.is_featured === 'yes') ?
                                             <View>
                                                 <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
@@ -371,12 +382,12 @@ function MainScreen({ navigation }) {
                                                                 <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
                                                                     {(item && item.userinfo) ? item.userinfo.name : ''}
                                                                 </Text>
-                                                                <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01) }}>
+                                                                <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.01) }}>
                                                                     {/* Listed 2 Days Ago */}
                                                                     {
-                                                                        item.created_at
+                                                                        createdDate
                                                                     }
-
+                                                                        Days Ago
                                                                 </Text>
                                                             </TouchableOpacity>
                                                         </View>
@@ -488,7 +499,7 @@ function MainScreen({ navigation }) {
 
 
                                             <View>
-                                                {setCreatedDate(item.created_at), console.log('Created Date2222:', createdDate)}
+                                                
                                                 <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
                                                     <TouchableOpacity onPress={() => {
                                                         (userId === item.user_id) ?
@@ -532,8 +543,9 @@ function MainScreen({ navigation }) {
                                                                 <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01) }}>
                                                                     {/* Listed 2 Days Ago */}
                                                                     {
-                                                                        item.created_at
+                                                                        createdDate
                                                                     }
+                                                                        Days Ago
 
                                                                 </Text>
                                                             </TouchableOpacity>
