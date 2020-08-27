@@ -74,6 +74,14 @@ export function doSignout(token, option = {}) {
     return requestAPI(token, URL, option)
 }
 
+export function getSearchApi(token, data, option = {}) {
+    let { url, method } = API.ENDPOINT.SEARCH.SEARCH_DATA;
+    let URL = `${API_BASE + url}`;
+    option.method = method;
+    option.payload = data;
+    return requestAPI(token, URL, option)
+}
+
 
 
 

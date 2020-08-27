@@ -23,6 +23,7 @@ import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { fetchProfile } from '../../../actions/ProfileAction';
+import { WebView } from "react-native-webview";
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
 import { getDimen } from '../../../dimensions/dimen';
@@ -57,7 +58,9 @@ function ColleaguageListScreen({ route, navigation }) {
     const [profileListing, setProfileListing] = useState([]);
     const isFocused = useIsFocused();
     const [isFrnd, setIsFrnd] = useState(true);
-    const [length, setLength] = React.useState()
+    const [length, setLength] = React.useState();
+    const [showWebview, setShowWebview] = React.useState('');
+    const [webviewUrl, setWebviewUrl] = React.useState('');
 
     //const { colleagues } = route.params 
     const { name } = route.params ? route.params : ""
@@ -232,6 +235,15 @@ function ColleaguageListScreen({ route, navigation }) {
     }
 
 
+    const hideWebview = () => {
+        setShowWebview('hide');
+    }
+
+    const shoWebview = (url) => {
+        setWebviewUrl(url);
+        setShowWebview('');
+    }
+
     return (
         <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
 
@@ -255,7 +267,7 @@ function ColleaguageListScreen({ route, navigation }) {
             </View>
 
             <View style={{ backgroundColor: 'white', height: getDimen(0.55), width: '100%', justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
-                
+
                 <TouchableOpacity onPress={() => Alert.alert('Show Gallery')}>
 
                     {/* <Image source={{
@@ -383,9 +395,18 @@ function ColleaguageListScreen({ route, navigation }) {
                                                     <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
                                                 </View>
                                             </View>
-                                            <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
-                                            </View>
+                                            {item.video_url ?
+                                                <TouchableOpacity onPress={() =>
+                                                    // console.log("userId1234:", userId, item.user_id)
+                                                    shoWebview(item.video_url)
+                                                }
+                                                    style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                                </TouchableOpacity>
+                                                :
+                                                null
+                                            }
+
                                         </View>
                                         <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
                                             <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3) }}>
@@ -522,6 +543,21 @@ function ColleaguageListScreen({ route, navigation }) {
                     </View>
                     :
                     null
+            }
+
+            {showWebview === '' ?
+                <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                    <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
+                        <WebView
+                            style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
+                            javaScriptEnabled={true}
+                            source={{ uri: webviewUrl }}
+                        />
+                    </View>
+                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                </View>
+                : null
             }
         </View>
     );
