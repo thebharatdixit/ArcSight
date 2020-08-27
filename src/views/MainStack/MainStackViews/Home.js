@@ -418,7 +418,7 @@ function MainScreen({ navigation }) {
                                                     </View>
                                                 </View>
                                                 <View style={{ flex: 0.1, backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0) }}>
-                                                    <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
+                                                    {/* <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', }}>
                                                         <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
                                                             <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                                                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
@@ -427,7 +427,7 @@ function MainScreen({ navigation }) {
                                                         <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
                                                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
                                                         </View>
-                                                    </View>
+                                                    </View> */}
 
                                                     <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
 
@@ -465,7 +465,7 @@ function MainScreen({ navigation }) {
                                                                 textAlignVertical: 'center', fontWeight: '700', fontSize: getDimen(0.04)
                                                             }}>
                                                                 $0,000,000
-                </Text>
+                                                              </Text>
                                                         </View>
 
                                                         <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.3), }}>
