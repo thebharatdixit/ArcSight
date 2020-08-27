@@ -299,14 +299,7 @@ function ChatScreen({ route, navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            {
-                (length === 0 || length === '') ?
-                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.3) }}>
-                        <Text style={{ textAlign: 'center' }}>No Data Found</Text>
-                    </View>
-                    :
-                    null
-            }
+            
             {/* header close */}
 
             {/* all colleagues mu colleagues title  start*/}
@@ -404,7 +397,14 @@ function ChatScreen({ route, navigation }) {
 
                 {/* <View style={{ height: 1, width: getDimen(0.95), marginLeft: getDimen(0.08), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.004), }}></View> */}
             </View>
-
+            {
+                (length === 0 || length === '') ?
+                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.3) }}>
+                        <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+                    </View>
+                    :
+                    null
+            }
             {/* search colleague close */}
 
 
