@@ -27,6 +27,7 @@ import MyColleagueScreen from '../MainStackViews/MyColleague';
 import { getData } from '../../../utils/asyncStore';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { fetchAminities } from '../../../actions/addListingActions';
+import { searchApi } from '../../../actions/searchAction';
 
 const homePlace = {
     description: 'Home',
@@ -54,7 +55,7 @@ function SearchScreen({ navigation }) {
     const [bedRoom, setBedroom] = React.useState(0);
     const [bathRoom, setBathroom] = React.useState(0);
     const [location, setLocation] = React.useState('');
-    const [selectedValue, setSelectedValue] = React.useState();
+    const [selectedValue, setSelectedValue] = React.useState('');
     const [homeType, setHomeType] = React.useState('');
     const [sqFeetMin, setSqFeetMin] = React.useState(0);
     const [sqFeetMax, setSqFeetMax] = React.useState(0);
@@ -99,16 +100,16 @@ function SearchScreen({ navigation }) {
     }
 
     const forRent = () => {
-        if (checkedForRent == true){
+        if (checkedForRent == true) {
             setCheckedForRent(false)
             setForRentText('')
-        }else{
+        } else {
             setCheckedForRent(true)
             setForRentText('For Rent')
         }
     }
 
-    const resetAction = () =>{
+    const resetAction = () => {
         setLocation('')
         setSelectedValue()
         setSqFeetMax()
@@ -172,8 +173,8 @@ function SearchScreen({ navigation }) {
 
     }, [accessToken])
 
-    const searchListingApiIntegration = (navigation) => {        
-        console.log('Search Details', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax, forSaleText, forRentText)
+    const searchListingApiIntegration = (navigation) => {
+        console.log('Search Details :: ', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax, forSaleText, forRentText)
         setShowLoader('')
         fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
             method: "POST",
@@ -211,7 +212,7 @@ function SearchScreen({ navigation }) {
             .then(res => {
                 setShowLoader('hide')
                 if (res.status) {
-                    console.log('List Details value',listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
+                    console.log('List Details value', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
                     console.log('Search Listing', res.message);
                     console.log('Search Data', JSON.stringify(res.data));
                     setSearchList(res.data)
@@ -231,6 +232,66 @@ function SearchScreen({ navigation }) {
         console.log('label::###', label);
         setHomeType(label);
     }
+
+    const callSearchApi = () => {
+        console.log('searchListJsonOnPress', JSON.stringify(searchList))
+
+        if (checked1 === false && setChecked2 === false && checked3 === false) {
+            Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
+        if (listing === '') {
+            Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
+        if (location === '') {
+            Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
+        if (checkedForSale === false && checkedForRent === false) {
+            Alert.alert('', 'Please Select Rent/Sale..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            return;
+        }
+
+        console.log('Search Details on seach tap :: ' + "listing: " + listing + "location: " + location + "homeType: " + homeType + "bedRoom: " + bedRoom + "bathRoom: " + bathRoom + "selectedValue: " + selectedValue + "sqFeetMin: " + sqFeetMin + "sqFeetMax: " + sqFeetMax + forSaleText + forRentText)
+        setShowLoader('')
+
+        let data = {
+            "listing": listing,
+            "location": location,
+            "home_type": homeType,
+            "listing_type": [
+                forSaleText,
+                forRentText
+            ],
+            "bedrooms": bedRoom,
+            "bathrooms": bathRoom,
+            "price": selectedValue,
+            "sq_feet_min": sqFeetMin,
+            "sq_feet_max": sqFeetMax
+        }
+        let token = accessToken;
+        searchApi(token, data).then((response) => {
+            if (response.status) {
+                console.log('List Details value', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
+                console.log('Search Listing', res.message);
+                console.log('Search Data', JSON.stringify(res.data));
+                setSearchList(res.data)
+                setAlertMessage(res.message)
+                navigation.navigate('Search List', ({ "SearchList": res.data }))
+            }
+            else {
+                console.log('Search Listing Error', res.message);
+                setAlertMessage(res.message)
+            }
+
+        })
+
+    }
+
     return (
         <View style={{ flex: 1 }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
@@ -321,19 +382,19 @@ function SearchScreen({ navigation }) {
                         </TouchableOpacity>
                     </View>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                        
+
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Location</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop:getDimen(0.025), color:'gray',}}>Current Location / City,State / Zip Code</Text> */}
 
                         <View>
-                        <TouchableOpacity onPress={()=> setGoogleView(true)}>
+                            <TouchableOpacity onPress={() => setGoogleView(true)}>
                                 {
                                     (location === '') ?
-                                        <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>Current Location / City,State / Zip Code</Text> 
+                                        <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>Current Location / City,State / Zip Code</Text>
                                         :
                                         <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>{location}</Text>
-                                }  
-                            
+                                }
+
                             </TouchableOpacity>
                         </View>
 
@@ -390,15 +451,15 @@ function SearchScreen({ navigation }) {
 
                         <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Price</Text>
                         {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
-                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>                                
+                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
                             <Input
                                 placeholder='$000,000'
                                 style={{ fontSize: getDimen(0.038), borderBottomWidth: 0 }}
                                 onChangeText={(selectedValue) => setSelectedValue(selectedValue)}
                                 value={selectedValue}
                             />
-                            
-                        {/* <Icon active name='arrow' /> */}
+
+                            {/* <Icon active name='arrow' /> */}
                             {/* <Picker
                                 note
                                 mode="dropdown"
@@ -424,13 +485,13 @@ function SearchScreen({ navigation }) {
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Bedrooms</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
-                            <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0  }}>                                    
-                                    <Input placeholder='00'
-                                        style={{ fontSize: getDimen(0.038), }}
-                                        onChangeText={(bedRoom) => setBedroom(bedRoom)}
-                                        value={bedRoom}
-                                    />
-                                                                    
+                            <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
+                                <Input placeholder='00'
+                                    style={{ fontSize: getDimen(0.038), }}
+                                    onChangeText={(bedRoom) => setBedroom(bedRoom)}
+                                    value={bedRoom}
+                                />
+
                             </Item>
                         </View>
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
@@ -499,7 +560,7 @@ function SearchScreen({ navigation }) {
                                     onChangeText={(sqFeetMax) => setSqFeetMax(sqFeetMax)}
                                     value={sqFeetMax}
                                 />
-                            {/* <Icon active name='arrow' /> */} 
+                                {/* <Icon active name='arrow' /> */}
                                 {/* <Picker
                                     note
                                     mode="dropdown"
@@ -526,8 +587,8 @@ function SearchScreen({ navigation }) {
                                     style={{ fontSize: getDimen(0.038), }}
                                     onChangeText={(sqFeetMin) => setSqFeetMin(sqFeetMin)}
                                     value={sqFeetMin}
-                            />
-                            {/* <Icon active name='arrow' /> */}
+                                />
+                                {/* <Icon active name='arrow' /> */}
                                 {/* <Picker
                                     note
                                     mode="dropdown"
@@ -557,61 +618,7 @@ function SearchScreen({ navigation }) {
                         <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                             <TouchableOpacity
                                 onPress={() => {
-                                    console.log('searchListJsonOnPress', JSON.stringify(searchList))
-                                    
-                                    if (checked1 === false && setChecked2 === false && checked3 === false) {
-                                        Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
-
-                                    if (listing === '') {
-                                        Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
-
-                                    if (location === '') {
-                                        Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
-                                    
-                                    if (checkedForSale === false && checkedForRent === false) {
-                                        Alert.alert('', 'Please Select Rent/Sale..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                        return;
-                                    }
-                                    // if (selectedValue === 0) {
-                                    //     Alert.alert('', 'Please Enter Price..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
-
-                                    // if (bedRoom === 0) {
-                                    //     Alert.alert('', 'Please Enter Bedroom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
-
-                                    // if (bathRoom === 0) {
-                                    //     Alert.alert('', 'Please Enter BathRoom..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
-
-                                    // if (homeType === '') {
-                                    //     Alert.alert('', 'Please Select Home Type..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
-
-                                    // if (sqFeetMax === 0) {
-                                    //     Alert.alert('', 'Please Enter Max. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
-                                    // if (sqFeetMin === 0) {
-                                    //     Alert.alert('', 'Please Enter Min. Sq_feet..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    //     return;
-                                    // }
-                                    // Alert.alert('', alertMessage, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                                    navigation.navigate('Search List', ({ "SearchList": searchList }))
-                                    
-                                    // searchListingApiIntegration()
-                                    console.log('Search Details on seach tap', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax, forSaleText, forRentText)
-                                    
+                                    callSearchApi()
                                 }
                                 }
                             >
@@ -637,10 +644,10 @@ function SearchScreen({ navigation }) {
                         style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'flex-start', position: 'absolute', width: '100%', height: '100%' }}
                     >
                         <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                            <TouchableOpacity onPress={() =>
-                                {setGoogleView(false)
+                            <TouchableOpacity onPress={() => {
+                                setGoogleView(false)
                                 console.log('location', location)
-                                }
+                            }
                             }>
                                 <Image source={require('../../../assets/icons/cross.png')}
                                     style={{ height: 20, width: 20 }} />
@@ -667,7 +674,7 @@ function SearchScreen({ navigation }) {
                             styles={{
                                 textInputContainer: {
                                     width: '100%',
-                                    marginTop:0
+                                    marginTop: 0
                                 },
                                 textInput: {
                                     // marginLeft: 0,
@@ -690,18 +697,18 @@ function SearchScreen({ navigation }) {
                         />
 
                         {/* <View style={{}}> */}
-                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' , marginBottom: getDimen(0.01)}}>
+                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center', marginBottom: getDimen(0.01) }}>
                             <TouchableOpacity
                                 onPress={() => {
-                                    if (location === ''){
+                                    if (location === '') {
                                         // Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                                         return;
-                                    }else{
+                                    } else {
                                         setGoogleView(false)
                                     }
                                     console.log('location', location)
                                 }
-                                } 
+                                }
                             >
                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>SAVE</Text>
                             </TouchableOpacity>

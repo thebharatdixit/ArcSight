@@ -29,7 +29,9 @@ let API = {
         ADD_LISTINGS: {
             FETCH_AMINITIES: { url: 'api/v1/amenities', method: 'GET' },
         },
-        
+        SEARCH: {
+            SEARCH_DATA: { url: 'api/v1/search/listing', method: 'POST' },
+        },
 
         SITES_DETAIL: {
             SITE: { url: '/api/sites/', method: 'GET' }
