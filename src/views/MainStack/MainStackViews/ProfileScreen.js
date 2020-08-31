@@ -29,6 +29,8 @@ import { doLogout } from '../../../actions/ProfileAction'
 import AsyncStorage from '@react-native-community/async-storage';
 import { fetchProfile } from '../../../actions/ProfileAction';
 import { updateProfile } from '../../../service/apiService';
+import { WebView } from "react-native-webview";
+
 
 function ProfileScreen({ navigation, route }) {
 
@@ -48,6 +50,8 @@ function ProfileScreen({ navigation, route }) {
     const [bannerUrlImage, setBannerUrl] = React.useState('');
     const isFocused = useIsFocused();
     const [length, setLength] = React.useState()
+    const [showWebview, setShowWebview] = React.useState('hide');
+    const [webviewUrl, setWebviewUrl] = React.useState('');
 
     const { user_Id } = route.params ? route.params : ""
 
@@ -208,6 +212,15 @@ function ProfileScreen({ navigation, route }) {
 
     }
 
+    const hideWebview = () => {
+        setShowWebview('hide');
+    }
+
+    const shoWebview = (url) => {
+        setWebviewUrl(url);
+        setShowWebview('');
+    }
+
     return (
 
         <View style={{ flex: 1 }}>
@@ -319,7 +332,7 @@ function ProfileScreen({ navigation, route }) {
                             renderItem={({ item, separators, index }) => (
                                 <View>
                                     <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
-                                        
+
                                         {item.is_featured ?
                                             <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}
                                                 style={{ backgroundColor: '#F2F2F2', flexDirection: 'row', width: '100%', marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
@@ -356,11 +369,17 @@ function ProfileScreen({ navigation, route }) {
 
                                                                 </View>
                                                             </View>
-                                                            <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                                                <TouchableOpacity>
+                                                            {item.video_url ?
+                                                                <TouchableOpacity onPress={() =>
+                                                                    // console.log("userId1234:", userId, item.user_id)
+                                                                    shoWebview(item.video_url)
+                                                                }
+                                                                    style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
                                                                     <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
                                                                 </TouchableOpacity>
-                                                            </View>
+                                                                :
+                                                                null
+                                                            }
                                                         </View>
 
                                                     </View>
@@ -555,6 +574,21 @@ function ProfileScreen({ navigation, route }) {
                         </View>
                         :
                         null
+                }
+
+                {showWebview === '' ?
+                    <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                        <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
+                            <WebView
+                                style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
+                                javaScriptEnabled={true}
+                                source={{ uri: webviewUrl }}
+                            />
+                        </View>
+                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                    </View>
+                    : null
                 }
             </View>
         </View >

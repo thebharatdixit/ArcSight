@@ -156,7 +156,7 @@ function MainScreen({ navigation }) {
     const [userId, setUserId] = React.useState('')
     const [createdDate, setCreatedDate] = React.useState('')
     const [showLoader, setShowLoader] = React.useState('');
-    const [showWebview, setShowWebview] = React.useState('');
+    const [showWebview, setShowWebview] = React.useState('hide');
     const [bannerUrl, setBannerUrl] = React.useState('');
     const [length, setLength] = React.useState()
     const [webviewUrl, setWebviewUrl] = React.useState('');

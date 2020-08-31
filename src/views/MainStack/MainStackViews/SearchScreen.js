@@ -258,15 +258,20 @@ function SearchScreen({ navigation }) {
 
         console.log('Search Details on seach tap :: ' + "listing: " + listing + "location: " + location + "homeType: " + homeType + "bedRoom: " + bedRoom + "bathRoom: " + bathRoom + "selectedValue: " + selectedValue + "sqFeetMin: " + sqFeetMin + "sqFeetMax: " + sqFeetMax + forSaleText + forRentText)
         setShowLoader('')
+        var listingTyp = [];
+        if (!(forSaleText === "")){
+            listingTyp.push(forSaleText);
+        }
+
+        if (!(forRentText === "")){
+            listingTyp.push(forRentText);
+        }
 
         let data = {
             "listing": listing,
             "location": location,
             "home_type": homeType,
-            "listing_type": [
-                forSaleText,
-                forRentText
-            ],
+            "listing_type": listingTyp,
             "bedrooms": bedRoom,
             "bathrooms": bathRoom,
             "price": selectedValue,
@@ -277,15 +282,15 @@ function SearchScreen({ navigation }) {
         searchApi(token, data).then((response) => {
             if (response.status) {
                 console.log('List Details value', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
-                console.log('Search Listing', res.message);
-                console.log('Search Data', JSON.stringify(res.data));
-                setSearchList(res.data)
-                setAlertMessage(res.message)
-                navigation.navigate('Search List', ({ "SearchList": res.data }))
+                console.log('Search Listing', response.message);
+                console.log('Search Data', JSON.stringify(response.data));
+                setSearchList(response.data)
+                setAlertMessage(response.message)
+                navigation.navigate('Search List', ({ "SearchList": response.data }))
             }
             else {
-                console.log('Search Listing Error', res.message);
-                setAlertMessage(res.message)
+                console.log('Search Listing Error', response.message);
+                setAlertMessage(response.message)
             }
 
         })
