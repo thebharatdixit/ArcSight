@@ -12,8 +12,9 @@ import {
     FlatList,
     Alert,
     Share,
-    SafeAreaView
+    SafeAreaView,
 } from 'react-native';
+import { WebView } from "react-native-webview";
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
@@ -27,9 +28,9 @@ function SettingScreen({ navigation }) {
         <View style={{ flex: 1 }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() =>
-                    navigation.dispatch(DrawerActions.toggleDrawer())
+                    navigation.goBack()
                 }>
-                    <Image source={require('../../../assets/icons/3.png')}
+                    <Image source={require('../../../assets/icons/back.png')}
                         style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>
 
@@ -41,9 +42,14 @@ function SettingScreen({ navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            <View style={{ backgroundColor: 'blue', flex: 0.90 }}>
+            <View style={{ backgroundColor: 'white', flex: 0.90 ,}}>
 
-                <Text>Privacy policy</Text>
+                <WebView
+                    style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', }}
+                    // source={{ html: '<h1>Hello world</h1>' }}    
+                    source={{ uri: 'https://gahp.net/wp-content/uploads/2017/09/sample.pdf' }}
+
+                />
 
             </View>
 

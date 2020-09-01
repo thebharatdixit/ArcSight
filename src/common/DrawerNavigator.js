@@ -38,7 +38,7 @@ function DrawerNavigator({ navigation }) {
                 name="UPGRADE TO PRO" component={nineScreen} />
             <Drawer.Screen
                 drawerStyle={{ backgroundColor: 'red' }}
-                name="SETTINGS" component={SettingScreen} />
+                name="SETTINGS" component={settingStack} />
             <Drawer.Screen
                 drawerStyle={{ backgroundColor: 'red' }}
                 name="LOG OUT" component={nineScreen} />

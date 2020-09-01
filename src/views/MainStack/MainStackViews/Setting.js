@@ -215,7 +215,7 @@ function SettingScreen({ navigation, changeAuthState}){
 
                         <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: 'transparent', textAlign: 'center', justifyContent: 'center', marginTop: getDimen(-0.0), borderBottomWidth: 0, width: getDimen(0.92), height: '50%' }}>
                             <TouchableOpacity
-                                onPress={() => Alert.alert('Privacy Policy')}
+                                onPress={() => navigation.navigate('Privacy Policy Screen')}
                             >
                             <Text style={{ fontSize: getDimen(0.05), marginLeft: getDimen(0.02), color: 'gray', textAlign: 'left', marginTop: getDimen(0), borderBottomWidth: 0 }}>Privacy Policy</Text>
                             </TouchableOpacity>
