@@ -160,7 +160,6 @@ function MainScreen({ navigation }) {
     const [bannerUrl, setBannerUrl] = React.useState('');
     const [length, setLength] = React.useState()
     const [webviewUrl, setWebviewUrl] = React.useState('');
-
     const isFocused = useIsFocused();
 
     React.useEffect(() => {
@@ -178,12 +177,7 @@ function MainScreen({ navigation }) {
             if (accessToken) {
                 console.log('Prachi123')
                 homeListingApiIntegration();
-
-
             }
-
-
-
         })
     }, [accessToken, isFocused])
     const onShare = async () => {
@@ -272,9 +266,56 @@ function MainScreen({ navigation }) {
         var msDiff = new Date().getTime() - new Date(createdDt).getTime()  ;  //Aug 25, 2020
         var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
         console.log('Days***!!!:', daysTill30June2035, new Date()); //current date: Thu Aug 27 2020 12:10:44 GMT+0530 (IST)
-        var createdDiffDate = daysTill30June2035 + " "
-        setCreatedDate(createdDiffDate)
-        console.log('Created Date00002', createdDate); //2020-08-25 17:15:23
+        // var createdDiffDate = daysTill30June2035 + " "
+        // setCreatedDate(createdDiffDate)
+        console.log('Created Date00002', createdDate); 
+
+        var diffInSeconds = Math.abs(msDiff) / 1000;
+        var days = Math.floor(diffInSeconds / 60 / 60 / 24);
+        var hours = Math.floor(diffInSeconds / 60 / 60 % 24);
+        var minutes = Math.floor(diffInSeconds / 60 % 60);
+        var seconds = Math.floor(diffInSeconds % 60);
+        var milliseconds = Math.round((diffInSeconds - Math.floor(diffInSeconds)) * 1000);
+        var months = Math.floor(diffInSeconds / 31);
+        var years = Math.floor(diffInSeconds / 12);
+
+        console.log('days', days);
+        console.log('hours', ('0' + hours).slice(-2));
+        console.log('minutes', ('0' + minutes).slice(-2));
+        console.log('seconds', ('0' + seconds).slice(-2));
+        console.log('months', ('0' + months));
+        console.log('years', ('0' + years));
+
+        // if (years === 0){
+            if (days === 0) {
+                if (hours > 0) {
+                    if (hours < 24) {
+                        var createdDiffDate = ('0' + hours).slice(-2) + " " + "hrs ago"
+                        setCreatedDate(createdDiffDate)
+                    } else {
+                        var createdDiffDate = daysTill30June2035 + " " + "days ago"
+                        setCreatedDate(createdDiffDate)
+                    }
+                } else {
+                    if (minutes > 0) {
+                        var createdDiffDate = ('0' + minutes).slice(-2) + " " + "min ago"
+                        setCreatedDate(createdDiffDate)
+                    } else {
+                        var createdDiffDate = "Just now"
+                        setCreatedDate(createdDiffDate)
+                    }
+                }
+            } else {
+                var createdDiffDate = daysTill30June2035 + " " + "days ago"
+                setCreatedDate(createdDiffDate)
+            }
+        // } else {
+
+        //     var createdDiffDate = daysTill30June2035 + " " + "days ago"
+        //     setCreatedDate(createdDiffDate)
+        // }
+        
+
     }
 
     const renderItem = ({ item }) => (
@@ -385,7 +426,7 @@ function MainScreen({ navigation }) {
                                                                     {
                                                                         createdDate
                                                                     }
-                                                                        Days Ago
+                                                                        
                                                                 </Text>
                                                             </TouchableOpacity>
                                                         </View>
@@ -545,8 +586,6 @@ function MainScreen({ navigation }) {
                                                                     {
                                                                         createdDate
                                                                     }
-                                                                        Days Ago
-
                                                                 </Text>
                                                             </TouchableOpacity>
                                                         </View>

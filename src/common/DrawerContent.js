@@ -76,7 +76,6 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                     // clearData()
                     changeAuthState(false)
                     // navigation.navigate("Login Screen");
-
                     //Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('No logged Out');
@@ -167,7 +166,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                             )}
                             label="SETTINGS"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
-                            onPress={() => {settingScreen()}}
+                            onPress={() => navigation.navigate('SETTINGS')}
                         />
                         <DrawerItem
                             icon={({ focused, color, size }) => (

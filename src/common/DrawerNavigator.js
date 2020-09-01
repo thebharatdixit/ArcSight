@@ -24,7 +24,7 @@ function DrawerNavigator({ navigation }) {
                 inactiveTintColor: 'white',
                 labelStyle: { fontSize: getDimen(0.05)}
             }}
-            // drawerContent={(route) => <DrawerContent {...route} />}
+            drawerContent={(route) => <DrawerContent {...route} />}
         >
             <Drawer.Screen name="HOME" component={BaseScreen} />
             <Drawer.Screen name="PROFILE" component={ProfileScreen} />

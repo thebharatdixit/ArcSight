@@ -20,7 +20,7 @@ import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { getDimen } from '../../../dimensions/dimen';
 import { storeData, getData } from '../../../utils/asyncStore';
 import email from 'react-native-email'
-import { changeAuthState } from '../actions/authAction';
+import {changeAuthState} from '../../../actions/authAction'
 
 function SettingScreen({ navigation, changeAuthState}){
     const [checked1, setChecked1] = useState(false);
@@ -56,7 +56,7 @@ function SettingScreen({ navigation, changeAuthState}){
             // Optional additional arguments
             // cc: ['bharat.dixit@klientotech.com',], // string or array of email addresses
             // bcc: 'abc@gmail.com', // string or array of email addresses
-            subject: 'ArcSight',
+            subject: 'ArcSight Support',
             // body: 'Some body right here'
         }).catch(console.error)
     }
@@ -338,6 +338,9 @@ const styles = StyleSheet.create({
         marginLeft: getDimen(.085),
         marginRight: getDimen(.085)
     },
+});
+const mapStateToProps = (state) => ({
+    // isLoggedIn: state.auth.isLoggedIn,
 });
 const mapDispatchToProps = {
     changeAuthState
