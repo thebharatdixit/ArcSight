@@ -87,12 +87,22 @@ function BaseScreen({ navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View> */}
-            <View style={{ flex: 1, flexDirection: 'column', }}>
+            <View style={{ flex: 1, flexDirection: 'column',  }}>
                 {/* <DrawerNavigator /> */}
-                <Tab.Navigator initialRouteName="HomeStack"
+                <Tab.Navigator initialRouteName="HomeStack" 
                     tabBarOptions={{
                         activeTintColor: '#0088DD',
                         inactiveTintColor: 'black',
+                        safeAreaInset: { bottom: "never", top: "never" },
+                        style: {
+                            backgroundColor: '#DFE4E2',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            alignContent: 'center',
+                            alignSelf: 'center',
+                            height: getDimen(0.15)
+                            
+                        }
                     }} >
 
 
@@ -105,9 +115,11 @@ function BaseScreen({ navigation }) {
                                         require('../../../assets/icons/5.png')
                                     }
                                     style={{
-                                        width: 30,
-                                        height: 30,
-                                        margin: 10,
+                                        width: getDimen(0.065),
+                                        height: getDimen(0.065),
+                                        marginTop: getDimen(0.043),
+                                        // marginBottom: getDimen(0.043),
+                                        // textAlignVertical: 'center',
                                         // color: setFocus(focused),
                                         tintColor: setFocus(focused),
                                     }}
@@ -124,9 +136,9 @@ function BaseScreen({ navigation }) {
                                         require('../../../assets/icons/6.png')
                                     }
                                     style={{
-                                        width: 30,
-                                        height: 30,
-                                        margin: 10,
+                                        width: getDimen(0.065),
+                                        height: getDimen(0.065),
+                                        marginTop: getDimen(0.043),
                                         tintColor: setFocus(focused),
                                     }}
                                 />
@@ -142,9 +154,9 @@ function BaseScreen({ navigation }) {
                                         require('../../../assets/icons/7.png')
                                     }
                                     style={{
-                                        width: 30,
-                                        height: 30,
-                                        margin: 10,
+                                        width: getDimen(0.065),
+                                        height: getDimen(0.065),
+                                        marginTop: getDimen(0.043),
                                         tintColor: setFocus(focused),
                                     }}
                                 />
@@ -160,9 +172,9 @@ function BaseScreen({ navigation }) {
                                         require('../../../assets/icons/8.png')
                                     }
                                     style={{
-                                        width: 30,
-                                        height: 30,
-                                        margin: 10,
+                                        width: getDimen(0.065),
+                                        height: getDimen(0.065),
+                                        marginTop: getDimen(0.043),
                                         tintColor: setFocus(focused),
                                     }}
                                 />
@@ -178,9 +190,9 @@ function BaseScreen({ navigation }) {
                                         require('../../../assets/icons/9.png')
                                     }
                                     style={{
-                                        width: 30,
-                                        height: 30,
-                                        margin: 10,
+                                        width: getDimen(0.065),
+                                        height: getDimen(0.065),
+                                        marginTop: getDimen(0.043),
                                         tintColor: setFocus(focused),
                                     }}
                                 />
@@ -196,9 +208,11 @@ function BaseScreen({ navigation }) {
                                         require('../../../assets/icons/10.png')
                                     }
                                     style={{
-                                        width: 30,
-                                        height: 30,
-                                        margin: 10,
+                                        width: getDimen(0.065),
+                                        height: getDimen(0.065),
+                                        marginTop: getDimen(0.043),
+                                        // marginTop: getDimen(0.085),
+                                        // marginBottom: getDimen(0.085),
                                         tintColor: setFocus(focused),
                                     }}
                                 />
@@ -214,9 +228,9 @@ function BaseScreen({ navigation }) {
                                         require('../../../assets/icons/plus.png')
                                     }
                                     style={{
-                                        width: 25,
-                                        height: 25,
-                                        margin: 10,
+                                        width: getDimen(0.055),
+                                        height: getDimen(0.055),
+                                        marginTop: getDimen(0.043),
                                         tintColor: setFocus(focused),
                                     }}
                                 />

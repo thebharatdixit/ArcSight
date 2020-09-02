@@ -628,7 +628,6 @@ function MainScreen({ navigation }) {
                                                 </View>
 
                                                 <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))} style={styles.item}>
-                                                    {/* <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id }))} > */}
                                                     {
                                                         (item.main_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
                                                             <Image source={require('../../../assets/icons/19.png')}

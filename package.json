@@ -35,6 +35,7 @@
     "react-native-multiple-select-list": "^1.0.4",
     "react-native-pages": "^0.9.0",
     "react-native-paper": "^4.0.1",
+    "react-native-popup-menu": "^0.15.9",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.1.1",
     "react-native-screens": "^2.9.0",

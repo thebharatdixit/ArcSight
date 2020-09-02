@@ -67,6 +67,22 @@ export function getFetchProfile(token, data, option = {}) {
     return requestAPI(token, URL, option)
 }
 
+export function getDeleteListing(token, data, option = {}) {
+    let { url, method } = API.ENDPOINT.ADD_LISTINGS.DELETE_LISTING;
+    let URL = `${API_BASE + url}`;
+    option.method = method;
+    option.payload = data;
+    return requestAPI(token, URL, option)
+}
+
+export function getSoldOutRentOut(token, data, option = {}) {
+    let { url, method } = API.ENDPOINT.ADD_LISTINGS.SOLD_RENT;
+    let URL = `${API_BASE + url}`;
+    option.method = method;
+    option.payload = data;
+    return requestAPI(token, URL, option)
+}
+
 export function doSignout(token, option = {}) {
     let { url, method, } = API.ENDPOINT.AUTH.LOGOUT;
     let URL = `${API_BASE + url}`;

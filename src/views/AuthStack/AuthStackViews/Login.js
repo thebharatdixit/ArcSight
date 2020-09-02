@@ -169,6 +169,7 @@ function Login({ navigation, changeAuthState }) {
                 storeData('savePassword', password);
                 storeData('isLogin', 'true');
                 storeData('userData', JSON.stringify(response.data));
+                storeData('profileImage', response.data.user.profile_image_url);
 
                 // navigation.navigate('Main Stack');
                 // Alert.alert('' + response.message, [{

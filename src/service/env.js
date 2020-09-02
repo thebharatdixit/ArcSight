@@ -28,6 +28,8 @@ let API = {
         },
         ADD_LISTINGS: {
             FETCH_AMINITIES: { url: 'api/v1/amenities', method: 'GET' },
+            DELETE_LISTING: { url: 'api/v1/listing/delete', method: 'POST' },
+            SOLD_RENT: { url: 'api/v1/listing/soldout', method: 'POST' },
         },
         SEARCH: {
             SEARCH_DATA: { url: 'api/v1/search/listing', method: 'POST' },
