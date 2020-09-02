@@ -13,6 +13,7 @@ import {
     Alert,
     Share,
     SafeAreaView, 
+    Switch
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
@@ -27,27 +28,36 @@ function SettingScreen({ navigation, changeAuthState}){
     const [checked2, setChecked2] = useState(false);
     const [checked3, setChecked3] = useState(false);
     const [accessToken, setAccessToken] = React.useState('')
-    const [listing, setListing] = React.useState('')
+    const [firstName, setFirstName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [companyName, setCompanyName] = React.useState('');
+    const [showLoader, setShowLoader] = React.useState('hide');
+    const [notificationType, setNotificationType] = React.useState('')
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     
     const pushButton = () => {
+        setNotificationType('push')
         setChecked1(true)
         setChecked2(false)
         setChecked3(false)
-        setListing('push')
+        profileUpdate()
     }
 
     const emailButton = () => {
+        setNotificationType('email')
         setChecked1(false)
         setChecked2(true)
         setChecked3(false)
-        setListing('email')
+        profileUpdate()
     }
 
     const textButton = () => {
         setChecked1(false)
         setChecked2(false)
         setChecked3(true)
-        setListing('text')
+        setNotificationType('text')
     }
 
      handleEmail = () => {
@@ -78,9 +88,10 @@ function SettingScreen({ navigation, changeAuthState}){
             const userData = JSON.parse(data);
             const listTokens = userData.token;
             setAccessToken(listTokens);
+            setFirstName(userData.user.first_name)
+            setLastName(userData.user.last_name)
+            setCompanyName(userData.user.company_name)
             // console.log('token1', listTokens)
-            setUserImage(userData.user.profile_image_url)
-            console.log('UserImage', userData.user.profile_image_url)
         })
     }, [])
 
@@ -117,6 +128,40 @@ function SettingScreen({ navigation, changeAuthState}){
             });
     }
 
+    const profileUpdate = () => {
+        setShowLoader('');
+        let data = {
+            "first_name": firstName,
+            "last_name": lastName,
+            "company_name": companyName,
+            "notification_type": notificationType
+
+        }
+        console.log('Setting data:', data)
+
+        fetch("http://arc.softwaresolutions.website/api/v1/user/update-profile", {
+            method: "post",
+            headers: {
+                Accept: "application/json",
+                'Content-Type': "application/json",
+                Authorization: `Bearer ${accessToken}`,
+            },
+            body: JSON.stringify(data),
+        }).then(res => res.json())
+            .then(res => {
+
+                if (res.status == true) {
+                    // alert(res.message)
+                    setShowLoader('hide');
+                    // navigation.goBack();
+                }
+            })
+            .catch(err => {
+                console.error("error uploading images: ", err);
+            });
+        return undefined;
+    }
+
     return(
     <View style={{ flex: 1 }}>
         <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
@@ -144,7 +189,7 @@ function SettingScreen({ navigation, changeAuthState}){
                 <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
                   
                     <TouchableOpacity
-                            onPress={() => pushButton()}
+                            onPress={() => {pushButton()}}
                     >
                             <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%',marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.04) }}>
 
@@ -162,7 +207,8 @@ function SettingScreen({ navigation, changeAuthState}){
                     <TouchableOpacity
                         style={{ marginLeft: getDimen(-0.006) }}
                         onPress={() =>
-                            emailButton()
+                           { emailButton()
+                           }
                         }
                     >
                         <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.1) }}>
@@ -181,7 +227,7 @@ function SettingScreen({ navigation, changeAuthState}){
 
                     </TouchableOpacity>
 
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={{ marginLeft: getDimen(-0.006) }}
                         onPress={() =>
                             textButton()
@@ -198,22 +244,22 @@ function SettingScreen({ navigation, changeAuthState}){
 
                             <Text style={{ fontSize: getDimen(0.04), marginLeft: getDimen(0.03) }}>Text</Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 
                     <Text style={{ fontSize: getDimen(0.045), marginLeft: getDimen(0.04), textAlign: 'justify', color: 'gray', marginTop: getDimen(0.1) }}>About</Text>
 
-                    <View style={{ height: getDimen(0.3), width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#F2F2F2',marginTop: getDimen(0.02)}}>
+                    <View style={{ height: getDimen(0.43), width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#F2F2F2',marginTop: getDimen(0.02)}}>
                       
-                        {/* <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: '#7F7F93', textAlign: 'center', justifyContent:'center', marginTop: getDimen(0.05), color: 'gray', borderBottomWidth: 0, width: getDimen(0.92), height: '30%'  }}>
+                        <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: 'transparent', textAlign: 'center', justifyContent: 'center', marginTop: getDimen(-0.0), borderBottomWidth: 0, width: getDimen(0.92), height: '32%' }}>
                             <TouchableOpacity
-                             onPress={()=> Alert.alert('Terms of Use')}
+                                onPress={() => navigation.navigate('Privacy Policy Screen')}
                             >
-                                <Text style={{ fontSize: getDimen(0.05), marginLeft: getDimen(0.02), color: 'white', textAlign: 'left', marginTop: getDimen(0), borderBottomWidth: 0 }}>Terms of Use</Text>
+                                <Text style={{ fontSize: getDimen(0.05), marginLeft: getDimen(0.02), color: 'gray', textAlign: 'left', marginTop: getDimen(0), borderBottomWidth: 0 }}>Terms of Use</Text>
                             </TouchableOpacity>
-                        </View> */}
-
-                        <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: 'transparent', textAlign: 'center', justifyContent: 'center', marginTop: getDimen(-0.0), borderBottomWidth: 0, width: getDimen(0.92), height: '50%' }}>
+                        </View> 
+                        <View style={{ height: 1, width: getDimen(0.9), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0) }}></View>
+                        <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: 'transparent', textAlign: 'center', justifyContent: 'center', marginTop: getDimen(-0.0), borderBottomWidth: 0, width: getDimen(0.92), height: '32%' }}>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('Privacy Policy Screen')}
                             >
@@ -222,7 +268,7 @@ function SettingScreen({ navigation, changeAuthState}){
                         </View>              
                         <View style={{ height: 1, width: getDimen(0.9), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0) }}></View>
                         
-                        <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: 'transparent', textAlign: 'center', justifyContent: 'center', marginTop: getDimen(0.0), borderBottomWidth: 0, width: getDimen(0.92), height: '50%' }}>
+                        <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: 'transparent', textAlign: 'center', justifyContent: 'center', marginTop: getDimen(0.0), borderBottomWidth: 0, width: getDimen(0.92), height: '32%' }}>
                            <TouchableOpacity
                                 onPress={() => handleEmail()}
                             >
@@ -232,13 +278,27 @@ function SettingScreen({ navigation, changeAuthState}){
                         {/* <View style={{ height: 1, width: getDimen(0.9), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
                         
                     </View>
+
+                    <Text style={{ fontSize: getDimen(0.045), marginLeft: getDimen(0.04), textAlign: 'justify', color: 'gray', marginTop: getDimen(0.1) }}>Map</Text>
+
+                    <View style={{ flexDirection: 'row', height: getDimen(0.135), width: getDimen(0.92), justifyContent: 'space-between', alignSelf: 'center', alignItems: 'center', alignContent: 'space-between', backgroundColor: '#F2F2F2', marginTop: getDimen(0.02) }}>
+                        <Text style={{ fontSize: getDimen(0.05), marginLeft: getDimen(0.02), color: 'gray', textAlign: 'left', marginTop: getDimen(0), borderBottomWidth: 0 }}>Google Map</Text>
+                        <Switch
+                            trackColor={{ false: "#767577", true: "#52556E" }}
+                            thumbColor={isEnabled ? "#FAAE00" : "#f4f3f4"}
+                            ios_backgroundColor="#C0C0C0"
+                            onValueChange={toggleSwitch}
+                            value={isEnabled}
+                        />
+                    </View>
+
                     <TouchableOpacity
                         style={{ marginLeft: getDimen(-0.006) }}
                     // onPress={() =>
 
                     // }
                     >
-                        <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'flex-start', marginLeft: getDimen(0.05), marginBottom: getDimen(-0.5) }}>
+                        <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'flex-start', marginLeft: getDimen(0.05), marginBottom: getDimen(-0.9) }}>
                             <TouchableOpacity
                                 onPress={() => openTwoButtonAlert()}
                             >
@@ -255,6 +315,16 @@ function SettingScreen({ navigation, changeAuthState}){
             </ScrollView>
             
         </View>
+            {
+                (showLoader === '') ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
 
     </View>
     );

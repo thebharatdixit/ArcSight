@@ -543,13 +543,14 @@ function SearchScreen({ navigation }) {
                                 selectedValue={homeType}
                                 onValueChange={(label) => onValueChange(label)}
                             >
-                                <Picker.Item label="House" value="key0" />
-                                <Picker.Item label="Co-op" value="key1" />
-                                <Picker.Item label="Condo" value="key2" />
-                                <Picker.Item label="Town House" value="key3" />
-                                <Picker.Item label="Multi Family" value="key4" />
-                                <Picker.Item label="Land" value="key5" />
-                                <Picker.Item label="Other" value="key6" />
+                                <Picker.Item label="House" value="House" />
+                                <Picker.Item label="Co-op" value="Co-op" />
+                                <Picker.Item label="Condo" value="Condo" />
+                                <Picker.Item label="Town House" value="Town House" />
+                                <Picker.Item label="Multi Family" value="Multi Family" />
+                                <Picker.Item label="Land" value="Land" />
+                                <Picker.Item label="Other" value="Other" />
+                                <Picker.Item label="Green Home" value="Green Home" />
                             </Picker>
                         </View>
                     </View>
