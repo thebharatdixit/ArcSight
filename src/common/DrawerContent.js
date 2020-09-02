@@ -21,6 +21,7 @@ import { changeAuthState } from '../actions/authAction';
 import { Fontisto } from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
+import settingScreen from '../views/MainStack/MainStackViews/Setting'
 
 // import { NavigationActions, StackActions } from 'react-navigation';
 // import { AsyncStorage } from '@react-native-community/async-storage';
@@ -85,7 +86,6 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                     // clearData()
                     changeAuthState(false)
                     // navigation.navigate("Login Screen");
-
                     //Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
                     console.log('No logged Out');
@@ -176,7 +176,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                             )}
                             label="SETTINGS"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(-0.04) }}
-                        // onPress={() => alert('')}
+                            onPress={() => navigation.navigate('SETTINGS')}
                         />
                         <DrawerItem
                             icon={({ focused, color, size }) => (

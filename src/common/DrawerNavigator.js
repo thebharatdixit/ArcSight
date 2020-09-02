@@ -6,7 +6,10 @@ import { getDimen } from '../dimensions/dimen';
 import nineScreen from '../views/MainStack/MainStackViews/NineScreen'
 import ChangePassword from '../views/MainStack/MainStackViews/ChangePassword'
 import ProfileScreen from '../views/MainStack/MainStackViews/ProfileScreen'
+import settingStack from '../views/MainStack/MainStackViews/SettingStack'
+import settingScreen from '../views/MainStack/MainStackViews/Setting'
 import DrawerContent from './DrawerContent';
+import SettingScreen from '../views/MainStack/MainStackViews/Setting';
 
 const Drawer = createDrawerNavigator();
 
@@ -35,7 +38,7 @@ function DrawerNavigator({ navigation }) {
                 name="UPGRADE TO PRO" component={nineScreen} />
             <Drawer.Screen
                 drawerStyle={{ backgroundColor: 'red' }}
-                name="SETTINGS" component={nineScreen} />
+                name="SETTINGS" component={settingStack} />
             <Drawer.Screen
                 drawerStyle={{ backgroundColor: 'red' }}
                 name="LOG OUT" component={nineScreen} />
