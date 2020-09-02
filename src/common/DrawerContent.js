@@ -8,6 +8,8 @@ import {
     Alert,
 } from 'react-native';
 import { getDimen } from '../dimensions/dimen';
+import { useIsFocused } from '@react-navigation/native';
+
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Button, Item, Input, CheckBox, ListItem, Body, Drawer } from 'native-base';
 import { getData } from '../utils/asyncStore';
@@ -27,6 +29,12 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
     console.log('route', route, navigation)
     const [accessToken, setAccessToken] = React.useState('')
     const [userImage, setUserImage] = React.useState('')
+    // const isFocused = useIsFocused();
+    getData('profileImage').then((profileImage) => {
+        // console.log('token1', listTokens)
+        setUserImage(profileImage)
+        console.log('UserImage', profileImage)
+    })
 
     const openTwoButtonAlert = () => {
         Alert.alert(
@@ -48,9 +56,11 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
             const userData = JSON.parse(data);
             const listTokens = userData.token;
             setAccessToken(listTokens);
-            // console.log('token1', listTokens)
-            setUserImage(userData.user.profile_image_url)
-            console.log('UserImage', userData.user.profile_image_url)
+            getData('profileImage').then((profileImage) => {
+                // console.log('token1', listTokens)
+                setUserImage(profileImage)
+                console.log('UserImage', profileImage)
+            })
         })
     }, [])
 

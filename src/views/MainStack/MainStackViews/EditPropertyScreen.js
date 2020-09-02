@@ -24,16 +24,16 @@ import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Picker } from 'native-base';
 //import CustomMultiPicker from "react-native-multiple-select-list";
 import { getDimen } from '../../../dimensions/dimen';
-// import ImagePicker from 'react-native-image-crop-picker';
-import ImagePicker from 'react-native-image-picker';
-
+import ImagePicker from 'react-native-image-crop-picker';
 // import ImagePicker from 'react-native-image-picker';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { createList } from '../../../actions/createListAction';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { fetchAminities } from '../../../actions/addListingActions';
 
-function PropertyScreen({ navigation }) {
+function EditPropertyScreen({ navigation }) {
+
+    const { listingData } = route.params ? route.params : ""
 
     const [filePath, setFilePath] = React.useState('')
     const [picture, setPicture] = React.useState('');
@@ -63,18 +63,12 @@ function PropertyScreen({ navigation }) {
     const [selectdItems, setSelectedItems] = React.useState([]);
     const [aminitiesList, setAminitiesList] = React.useState([]);
     const [selected, setSelected] = React.useState('');
-    const [homeTypes, setHomeTypes] = React.useState('');
     const [selected2, setSelected2] = React.useState('');
-    const [listingType, setListingType] = React.useState('');
     const [arrSelectedAminities, setArrSelectedAminities] = React.useState([]);
     const [arrSelectedAminitiesForApi, setArrSelectedAminitiesForApi] = React.useState([]);
-    const [counter, setCounter] = React.useState(0);
 
     const [imgSourceArr, setImgSourceArr] = React.useState([]);
     const [arrImages, setArrImages] = React.useState([]);
-    const [dupArrImages, setDupArrImages] = React.useState([]);
-    const [mainImage, setMainImage] = React.useState('');
-    const [mainImageData, setMainImageData] = React.useState('');
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -90,10 +84,6 @@ function PropertyScreen({ navigation }) {
         "imgUrl": ''
     }
 
-    useEffect(() => {
-        console.log(" Rerendering ")
-    })
-
     getData('userData').then((data) => {
         const userData = JSON.parse(data);
         const listTokens = userData.token;
@@ -105,7 +95,7 @@ function PropertyScreen({ navigation }) {
         // console.log('UserAccessToken67777Prachi:', 'Bearer ' + accessToken )
     })
     //const tokens = datas.token;
-    const createProperty = () => {
+    const updateProperty = () => {
 
 
         //console.log('token',tokens);
@@ -129,7 +119,7 @@ function PropertyScreen({ navigation }) {
         // formData.append('amenities[]', 2);
         formData.append('description', description);
         formData.append('is_featured', 'yes');
-        formData.append('main_image', mainImage, );
+        formData.append('main_image', mainImage);
         formData.append('listing_images[]', arrImages);
 
         console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
@@ -146,15 +136,11 @@ function PropertyScreen({ navigation }) {
             .then(res => {
 
                 console.log('listLog', res.message);
-                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 setArrImages([]);
                 setDupArrImages([]);
                 setArrSelectedAminities([]);
                 setArrSelectedAminitiesForApi([]);
                 setFilePath('');
-                setMainImage('');
-                setHomeType('');
-                setListingType('');
 
             })
             .catch(err => {
@@ -169,10 +155,6 @@ function PropertyScreen({ navigation }) {
         getAminities();
     }, [])
 
-    // React.useEffect(() => {
-    //     console.log('image added');
-    // }, [arrImages])
-
     React.useEffect(() => {
         getData('selectedAminitiesData').then((selectedAminitiesData) => {
             if (selectedAminitiesData && selectedAminitiesData.length > 0) {
@@ -183,11 +165,11 @@ function PropertyScreen({ navigation }) {
                 for (let i = 0; i < selectedAminitiesDataArr.length; i++) {
                     let item = selectedAminitiesDataArr[i];
                     let data = {
-                        "id": item.id,
-
+                        "id":item.id,
+                        
                     }
                     strArr.push(item.name);
-                    strArrApi.push(data);
+                    strArrApi.push(item.id);
                 }
                 setArrSelectedAminities(strArr);
                 setArrSelectedAminitiesForApi(strArrApi);
@@ -222,45 +204,11 @@ function PropertyScreen({ navigation }) {
     const onValueChange = (value) => {
         // console.log(JSON.stringify(aminitiesList[value]));
         setSelected(value);
-        if(value === 'key0'){
-            setHomeType("House");
-        }
-        else if(value === 'key1')
-        {
-            setHomeType("Co-op");
-        }
-        else if(value === 'key2')
-        {
-            setHomeType("Condo");
-        }
-        else if(value === 'key3')
-        {
-            setHomeType("Town House");
-        }
-        else if(value === 'key4')
-        {
-            setHomeType("Multi Family");
-        }
-        else if(value === 'key5')
-        {
-            setHomeType("Land");
-        }
-        else
-        {
-            setHomeType("Other");
-        }
     }
 
     const onValueChange2 = (value) => {
         // console.log(JSON.stringify(aminitiesList[value]));
         setSelected2(value);
-        if(value === 'key0'){
-            setListingType("For Sale");
-        }
-        else
-        {
-            setListingType("For Rent");
-        }
     }
 
     const getAminitiesItems = () => {
@@ -278,116 +226,54 @@ function PropertyScreen({ navigation }) {
         console.log('next to prev success');
     }
 
-    const chooseFile = () => {
+    const takePics = () => {
+        ImagePicker.openPicker({
+            width: 200,
+            height: 200, compressImageMaxHeight: 400,
+            compressImageMaxWidth: 400, cropping: true, multiple: true
+        })
+            .then(response => {
+                let tempArray = []
+                console.log("responseimage-------" + response)
+                setImgSourceArr(response)
+                // this.setState({ ImageSource: response })
+                console.log("responseimagearray" + JSON.stringify(response));
+                response.forEach((item) => {
 
-        ImagePicker.showImagePicker({ noData: true, mediaType: "photo" }, (response) => {
-            console.log('Response = ', response);
+                    let image = {
+                        uri: item.path,
+                        // width: item.width,
+                        // height: item.height,
+                    }
+                    console.log("imagpath==========" + JSON.stringify(item))
+                    tempArray.push(image)
+                    //   this.setState({ ImageSourceviewarray: tempArray })
+                    console.log('savedimageuri=====' + item.path);
 
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else {
-                console.log('image picker picked image path' + JSON.stringify(response));
-                setMainImage(response.uri)
-                setMainImageData(response);
-            }
-        });
-    };
+                    console.log("imagpath==========" + JSON.stringify(image))
+                })
+                setArrImages(tempArray);
+                setFilePath(tempArray[0].uri)
+                console.log("finalImageArray==========" + JSON.stringify(tempArray))
 
-    const chooseFileForMultipleImages = () => {
+            }).catch(e => {
+                console.log("e.message :   "+e.message)
+            })
 
-        ImagePicker.showImagePicker({ noData: true, mediaType: "photo" }, (response) => {
-            console.log('Response = ', response);
+    }
 
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else {
-                console.log('image picker picked image path' + JSON.stringify(response));
-                // setMainImage(response.uri)
-                // setMainImageData(response);
-                let imageItem = {
-                    uri: response.uri,
-                    name: response.fileName,
-                    type: response.type
-                }
-                var imageArray = [];
-                // console.log('dupArrImages::: ' + JSON.stringify(dupArrImages) + 'length::: ' + dupArrImages.length);
-
-                imageArray = dupArrImages;
-                imageArray.splice(imageArray.length - 1, imageArray.length - 1);
-                // console.log('imagearray:: ' + JSON.stringify(imageArray) + 'length::: ' + imageArray.length);
-                imageArray.push(imageItem);
-                // console.log('imagearray::: ' + JSON.stringify(imageArray) + 'length::: ' + imageArray.length);
-                setDupArrImages(imageArray);
-                let image2 = {
-                    name: "Add",
-                }
-
-                // setTimeout(function () {
-                imageArray.push(image2);
-                setArrImages(imageArray);
-                setCounter(counter+1)
-                console.log('imagearray:::2 ' + JSON.stringify(imageArray) + 'length::: ' + imageArray.length);
-                // }, 300);
-
-            }
-        });
-    };
-
-    // const takePics = () => {
-    //     ImagePicker.openPicker({
-    //         width: 200,
-    //         height: 200, compressImageMaxHeight: 400,
-    //         compressImageMaxWidth: 400, cropping: true, multiple: true
-    //     })
-    //         .then(response => {
-    //             let tempArray = []
-    //             console.log("responseimage-------" + response)
-    //             setImgSourceArr(response)
-    //             // this.setState({ ImageSource: response })
-    //             console.log("responseimagearray" + JSON.stringify(response));
-    //             response.forEach((item) => {
-
-    //                 let image = {
-    //                     uri: "file://" + item.path,
-    //                     name: item.filename,
-    //                     type: item.mime
-    //                 }
-    //                 console.log("imagpath==========" + JSON.stringify(item))
-    //                 tempArray.push(image)
-    //                 //   this.setState({ ImageSourceviewarray: tempArray })
-    //                 console.log('savedimageuri=====' + item.path);
-
-    //                 console.log("imagpath==========" + JSON.stringify(image))
-    //             })
-    //             let image2 = {
-
-    //                 name: "Add",
-
-    //             }
-    //             tempArray.push(image2);
-    //             setArrImages(tempArray);
-    //             setFilePath(tempArray[0].uri)
-    //             console.log("finalImageArray==========" + JSON.stringify(tempArray))
-
-    //         }).catch(e => {
-    //             console.log("e.message :   " + e.message)
-    //         })
-
-    // }
-
-    // const seeImageInZoom = (item) => {
-    //     setFilePath(item.uri)
-    // }
+    const seeImageInZoom = (item) => {
+        setFilePath(item.uri)
+    }
 
     return (
         <View style={{ flex: 1 }}>
-            {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
             {console.log("rendering the screen...")}
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() =>
-                    navigation.dispatch(DrawerActions.toggleDrawer())
+                    navigation.goBack()
                 }>
-                    <Image source={require('../../../assets/icons/3.png')}
+                    <Image source={require('../../../assets/icons/back.png')}
                         style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>
 
@@ -402,7 +288,7 @@ function PropertyScreen({ navigation }) {
             <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
                 <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>ADD LISTING</Text>
+                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>EDIT LISTING</Text>
                     </View>
                     {/* <TouchableOpacity onPress={chooseFile.bind(this)}>
                     <View style={{ backgroundColor: '#f1ac35', height: getDimen(0.125), width: getDimen(0.5), justifyContent: 'center', alignContent: 'center', marginLeft: getDimen(0.01) }}>
@@ -416,74 +302,60 @@ function PropertyScreen({ navigation }) {
 
                             <View style={{ backgroundColor: '#E6E6E6', flex: 1, width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center' }}>
 
-
-                                {console.log('uriiii:' + mainImage)}
-                                {mainImage === '' ?
-                                    <TouchableOpacity style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center', alignContent: 'center', alignSelf: 'center' }}
-                                        // onPress={() => Alert.alert('Plus icon clicked!')}
-                                        onPress={chooseFile}
-                                    >
-                                        <Text style={{ flex: 1, fontSize: getDimen(0.15), color: 'gray', textAlign: 'center', marginTop: getDimen(0.17) }}>+</Text>
-                                    </TouchableOpacity>
-                                    :
-                                    <TouchableOpacity style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center', alignContent: 'center', }}
-                                        // onPress={() => Alert.alert('Plus icon clicked!')}
-                                        onPress={chooseFile}
-                                    >
+                                <TouchableOpacity
+                                    // onPress={() => Alert.alert('Plus icon clicked!')}
+                                    onPress={takePics}
+                                >
+                                    {console.log('uriiii:' + filePath)}
+                                    {filePath === '' ?
+                                        <Image
+                                            style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.32) / 2 }}
+                                            source={require('../../../assets/icons/plus.png')}
+                                            defaultSource={require('../../../assets/icons/plus.png')}
+                                        /> :
                                         <Image
                                             style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.55), width: getDimen(0.90), borderRadius: 10 }}
-                                            source={{ uri: mainImage }}
+                                            source={{ uri: filePath }}
                                             defaultSource={require('../../../assets/icons/plus.png')}
                                         />
+                                    }
 
-                                    </TouchableOpacity>
-                                }
+
+                                    {/* <Image source={require('../../../assets/icons/plus.png')}
+                                    style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
+
+                                <Image source={{ picture }}  /> */}
+
+
+                                    {/* <Image source={require({filePath})}
+                                    style={{ height: getDimen(0.07), width: getDimen(0.07) }} /> */}
+                                </TouchableOpacity>
 
                             </View>
                         </View>
-                        <Text style={{ fontSize: getDimen(0.035), color: 'gray', marginLeft: getDimen(0.06), marginTop: getDimen(0.025) }}>Additional Listing Images</Text>
-                        {arrImages && arrImages.length > 0 ?
-                            <FlatList
-                                horizontal={false}
-                                numColumns={2}
-                                showsVerticalScrollIndicator={false}
-                                style={{ marginLeft: getDimen(.065), marginRight: getDimen(.065), marginTop: getDimen(0.025), }}
-                                data={arrImages}
-                                keyExtractor={(item, index) => "images" + index}
-                                renderItem={({ item, separators, index }) => (
-                                    <View>
-                                        {arrImages && index == arrImages.length - 1 ?
-                                            <View style={{ backgroundColor: '#E6E6E6', width: getDimen(1 / 2) - getDimen(0.12), height: getDimen(.35), marginTop: 10, marginRight: 0, marginLeft: 10, borderRadius: 5, justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center' }}>
-                                                <TouchableOpacity onPress={chooseFileForMultipleImages}>
-                                                    <Text style={{ fontSize: getDimen(0.15), alignSelf: 'center', height: getDimen(.35), width: '100%', color: 'gray', marginTop: getDimen(0.12) }}>+</Text>
+                        <FlatList
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            style={{ marginRight: 10, marginTop: getDimen(0.025) }}
+                            data={arrImages}
+                            keyExtractor={(item, index) => "images" + index}
+                            renderItem={({ item, separators, index }) => (
+                                <TouchableWithoutFeedback onPress={() => seeImageInZoom(item)}>
 
-                                                </TouchableOpacity>
-                                            </View>
-                                            :
-                                            <View style={{ flexDirection: "column", width: getDimen(1 / 2) - getDimen(0.090), height: getDimen(.35), borderRadius: 10, marginTop: 10, marginLeft: 5, }}>
+                                    <View style={{ flexDirection: "column", width: getDimen(1) / 3, height: getDimen(1) / 3, borderRadius: 10 }}>
+                                        <View style={{ flexDirection: "column", flex: 1, borderRadius: 2, borderColor: '#EAEAEA', borderWidth: 1, marginLeft: 10, alignItems: 'center', justifyContent: 'center' }}>
 
-                                                <Image
-                                                    source={{ uri: item.uri }}
-                                                    style={{ width: '100%', height: getDimen(.35), resizeMode: 'cover', alignSelf: 'center', borderRadius: 10 }}
-                                                    defaultSource={require('../../../assets/icons/plus.png')}
-                                                />
-
-                                            </View>
-                                        }
-
+                                            <Image
+                                                source={{ uri: item.uri }}
+                                                style={{ width: '100%', height: '100%', resizeMode: 'cover', alignSelf: 'center', borderRadius: 10 }}
+                                                defaultSource={require('../../../assets/icons/plus.png')}
+                                            />
+                                        </View>
 
                                     </View>
-                                )}
-                            />
-                            :
-                            <View style={{ backgroundColor: '#E6E6E6', flex: 1, width: getDimen(1) / 3, marginLeft: getDimen(0.06), height: getDimen(1) / 3, marginTop: getDimen(0.025), marginRight: 0, borderRadius: 5, justifyContent: 'center', alignSelf: 'flex-start', alignItems: 'center', alignContent: 'center' }}>
-                                <TouchableOpacity onPress={chooseFileForMultipleImages}>
-                                    <Text style={{ fontSize: getDimen(0.15), alignSelf: 'center', height: getDimen(1) / 3, width: getDimen(1) / 3, color: 'gray', textAlign: 'center', marginTop: getDimen(0.1) }}>+</Text>
-
-                                </TouchableOpacity>
-                            </View>
-                        }
-
+                                </TouchableWithoutFeedback>
+                            )}
+                        />
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Address</Text>
@@ -907,7 +779,7 @@ const styles = StyleSheet.create({
         marginTop: getDimen(0.02),
         width: getDimen(1)
     },
-
+    
     ImageStyle: {
         padding: 10,
         margin: 5,
@@ -1000,4 +872,4 @@ const styles = StyleSheet.create({
         marginRight: getDimen(.085)
     },
 });
-export default PropertyScreen;
+export default EditPropertyScreen;

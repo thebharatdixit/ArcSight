@@ -41,6 +41,7 @@ function SearchListDetailScreen({ navigation, route }) {
     const [arrAminitiesName, setArrAminitiesName] = React.useState([]);
     const [showWebview, setShowWebview] = React.useState('hide');
     const [webviewUrl, setWebviewUrl] = React.useState('');
+    const [videoUrl, setVideoUrl] = React.useState('');
 
     const { userId } = route.params ? route.params : ""
 
@@ -91,6 +92,7 @@ function SearchListDetailScreen({ navigation, route }) {
                     setPrimaryImage(res.data.listing.main_image_url)
                     console.log('Primary Image', primaryImage);
                     makeAminitiesArray(res.data.listing.listing_ammenities);
+                    setVideoUrl(res.data.listing.video_url)
                     // console.log('listing/detail', searchListDetail);
                     // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
@@ -181,10 +183,10 @@ function SearchListDetailScreen({ navigation, route }) {
 
                             </View>
                         </View>
-                        {item.video_url ?
+                        {videoUrl ?
                             <TouchableOpacity onPress={() =>
                                 // console.log("userId1234:", userId, item.user_id)
-                                shoWebview(item.video_url)
+                                shoWebview(videoUrl)
                             }
                                 style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>

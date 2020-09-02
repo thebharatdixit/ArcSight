@@ -24,7 +24,7 @@ import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base
 import { getDimen } from '../../../dimensions/dimen';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import ImagePicker from 'react-native-image-picker';
-import { getData } from '../../../utils/asyncStore';
+import { getData, storeData } from '../../../utils/asyncStore';
 import { doLogout } from '../../../actions/ProfileAction'
 import AsyncStorage from '@react-native-community/async-storage';
 import { fetchProfile } from '../../../actions/ProfileAction';
@@ -52,6 +52,7 @@ function ProfileScreen({ navigation, route }) {
     const [length, setLength] = React.useState()
     const [showWebview, setShowWebview] = React.useState('hide');
     const [webviewUrl, setWebviewUrl] = React.useState('');
+    const [imageResponse, setImageResponse] = React.useState('');
 
     const { user_Id } = route.params ? route.params : ""
 
@@ -131,7 +132,8 @@ function ProfileScreen({ navigation, route }) {
                 setLength((response.data && response.data.listing.data) ? response.data.listing.data.length : '')
                 setUserProfileData(response.data);
                 setFilePath(response.data.profile.profile_image_url);
-                console.log('filepath : ', length)
+                storeData('profileImage', response.data.profile.profile_image_url);
+                console.log('filepath ::: ', response.data.profile.profile_image_url)
                 setName(response.data.profile.name);
                 setCompanyName(response.data.profile.company_name);
                 setShowLoader('hide');
@@ -154,13 +156,14 @@ function ProfileScreen({ navigation, route }) {
                 console.log('User cancelled image picker');
             } else {
 
-
+                console.log('image picker picked image path' + JSON.stringify(response));
                 setPhotoData(response);
                 setPhotoPath(response.path);
                 setFilePath(response.uri)
+                setImageResponse(response);
                 //setPhotoName(photoData.fileName);
 
-                uploadPhoto();
+                uploadPhoto(response.uri);
 
 
 
@@ -170,20 +173,27 @@ function ProfileScreen({ navigation, route }) {
 
 
 
-    const uploadPhoto = () => {
+    const uploadPhoto = (uri) => {
         setShowLoader('');
 
         const formData = new FormData();
+        console.log('original path: ' + uri + "token ::" + accessToken);
 
-        formData.append('profile_image', filePath);
+        formData.append('profile_image',
+            {
+                uri: uri,
+                name: imageResponse.fileName,
+                type: imageResponse.type
+            });
 
-        //console.log('filePath : ',filePath)
+        console.log('formData : ', JSON.stringify(formData));
 
 
         fetch("http://arc.softwaresolutions.website/api/v1/user/upload-profile-image", {
             method: "post",
             headers: {
                 Accept: "application/json",
+                // 'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${accessToken}`,
             },
             body: formData,
@@ -192,6 +202,7 @@ function ProfileScreen({ navigation, route }) {
 
                 console.log('uploadImage : ', res.data);
                 setShowLoader('hide');
+                getUserProfileData();
                 alert(res.message)
                 // if (res.status == true) {
 
