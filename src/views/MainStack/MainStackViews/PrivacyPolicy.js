@@ -46,7 +46,6 @@ function SettingScreen({ navigation }) {
 
                 <WebView
                     style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', }}
-                    // source={{ html: '<h1>Hello world</h1>' }}    
                     source={{ uri: 'https://gahp.net/wp-content/uploads/2017/09/sample.pdf' }}
 
                 />
