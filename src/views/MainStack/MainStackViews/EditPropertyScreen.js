@@ -24,14 +24,16 @@ import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Picker } from 'native-base';
 //import CustomMultiPicker from "react-native-multiple-select-list";
 import { getDimen } from '../../../dimensions/dimen';
-import ImagePicker from 'react-native-image-crop-picker';
+// import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-picker';
+
 // import ImagePicker from 'react-native-image-picker';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { createList } from '../../../actions/createListAction';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { fetchAminities } from '../../../actions/addListingActions';
 
-function EditPropertyScreen({ navigation }) {
+function EditPropertyScreen({ navigation, route }) {
 
     const { listingData } = route.params ? route.params : ""
 
@@ -63,12 +65,18 @@ function EditPropertyScreen({ navigation }) {
     const [selectdItems, setSelectedItems] = React.useState([]);
     const [aminitiesList, setAminitiesList] = React.useState([]);
     const [selected, setSelected] = React.useState('');
+    const [homeTypes, setHomeTypes] = React.useState('');
     const [selected2, setSelected2] = React.useState('');
+    const [listingType, setListingType] = React.useState('');
     const [arrSelectedAminities, setArrSelectedAminities] = React.useState([]);
     const [arrSelectedAminitiesForApi, setArrSelectedAminitiesForApi] = React.useState([]);
+    const [counter, setCounter] = React.useState(0);
 
     const [imgSourceArr, setImgSourceArr] = React.useState([]);
     const [arrImages, setArrImages] = React.useState([]);
+    const [dupArrImages, setDupArrImages] = React.useState([]);
+    const [mainImage, setMainImage] = React.useState('');
+    const [mainImageData, setMainImageData] = React.useState('');
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -98,7 +106,12 @@ function EditPropertyScreen({ navigation }) {
     const updateProperty = () => {
 
 
-        //console.log('token',tokens);
+        var fileName = "";
+        if (!(mainImage === "")) {
+            fileName = GetFilename(mainImage);
+        }
+
+        console.log('fileName:::: ' + fileName);
         const formData = new FormData();
 
         formData.append('home_type', homeType);
@@ -119,7 +132,7 @@ function EditPropertyScreen({ navigation }) {
         // formData.append('amenities[]', 2);
         formData.append('description', description);
         formData.append('is_featured', 'yes');
-        formData.append('main_image', mainImage);
+        formData.append('main_image', mainImage, fileName);
         formData.append('listing_images[]', arrImages);
 
         console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
@@ -136,11 +149,8 @@ function EditPropertyScreen({ navigation }) {
             .then(res => {
 
                 console.log('listLog', res.message);
-                setArrImages([]);
-                setDupArrImages([]);
-                setArrSelectedAminities([]);
-                setArrSelectedAminitiesForApi([]);
-                setFilePath('');
+                Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                navigation.goBack();
 
             })
             .catch(err => {
@@ -152,6 +162,26 @@ function EditPropertyScreen({ navigation }) {
     }
 
     React.useEffect(() => {
+        console.log('listingData::: ' + JSON.stringify(listingData));
+        setAddress(listingData.location);
+        setStateName(listingData.state);
+        setCity(listingData.city);
+        setZipcode(listingData.zipcode);
+        setLocation(listingData.location);
+        setPrice(listingData.price_per_sq_feet);
+        setPricePerSqureFeet(listingData.price_per_sq_feet);
+        setBedroom(listingData.bedrooms);
+        setBath(listingData.bathrooms);
+
+        setHomeType(listingData.home_type);
+
+        setSqureFeet(listingData.sq_feet);
+        setTerrace(listingData.terrace);
+        setListingType(listingData.listing_type);
+        setArrSelectedAminities([]);
+        setYearBuilt(listingData.year_built);
+        setMainImage(listingData.main_image_url);
+
         getAminities();
     }, [])
 
@@ -165,8 +195,8 @@ function EditPropertyScreen({ navigation }) {
                 for (let i = 0; i < selectedAminitiesDataArr.length; i++) {
                     let item = selectedAminitiesDataArr[i];
                     let data = {
-                        "id":item.id,
-                        
+                        "id": item.id,
+
                     }
                     strArr.push(item.name);
                     strArrApi.push(item.id);
@@ -184,6 +214,20 @@ function EditPropertyScreen({ navigation }) {
         })
 
     }, [isFocused])
+
+    const GetFilename = (url) => {
+
+        var myArray = url.split('/');
+        var imgName = myArray[myArray.length - 1];
+        return imgName;
+        // if (url) {
+        //     var m = url.toString().match(/.*\/(.+?)\./);
+        //     if (m && m.length > 1) {
+        //         return m[1];
+        //     }
+        // }
+        // return "";
+    }
 
     const getAminities = () => {
         console.log('fetchingaminities');
@@ -204,11 +248,38 @@ function EditPropertyScreen({ navigation }) {
     const onValueChange = (value) => {
         // console.log(JSON.stringify(aminitiesList[value]));
         setSelected(value);
+        if (value === 'key0') {
+            setHomeType("House");
+        }
+        else if (value === 'key1') {
+            setHomeType("Co-op");
+        }
+        else if (value === 'key2') {
+            setHomeType("Condo");
+        }
+        else if (value === 'key3') {
+            setHomeType("Town House");
+        }
+        else if (value === 'key4') {
+            setHomeType("Multi Family");
+        }
+        else if (value === 'key5') {
+            setHomeType("Land");
+        }
+        else {
+            setHomeType("Other");
+        }
     }
 
     const onValueChange2 = (value) => {
         // console.log(JSON.stringify(aminitiesList[value]));
         setSelected2(value);
+        if (value === 'key0') {
+            setListingType("For Sale");
+        }
+        else {
+            setListingType("For Rent");
+        }
     }
 
     const getAminitiesItems = () => {
@@ -257,7 +328,7 @@ function EditPropertyScreen({ navigation }) {
                 console.log("finalImageArray==========" + JSON.stringify(tempArray))
 
             }).catch(e => {
-                console.log("e.message :   "+e.message)
+                console.log("e.message :   " + e.message)
             })
 
     }
@@ -266,8 +337,64 @@ function EditPropertyScreen({ navigation }) {
         setFilePath(item.uri)
     }
 
+    const chooseFile = () => {
+
+        ImagePicker.showImagePicker({ noData: true, mediaType: "photo" }, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else {
+                console.log('image picker picked image path' + JSON.stringify(response));
+                setMainImage(response.uri)
+                setMainImageData(response);
+            }
+        });
+    };
+
+    const chooseFileForMultipleImages = () => {
+
+        ImagePicker.showImagePicker({ noData: true, mediaType: "photo" }, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else {
+                console.log('image picker picked image path' + JSON.stringify(response));
+                // setMainImage(response.uri)
+                // setMainImageData(response);
+                let imageItem = {
+                    uri: response.uri,
+                    name: response.fileName,
+                    type: response.type
+                }
+                var imageArray = [];
+                // console.log('dupArrImages::: ' + JSON.stringify(dupArrImages) + 'length::: ' + dupArrImages.length);
+
+                imageArray = dupArrImages;
+                imageArray.splice(imageArray.length - 1, imageArray.length - 1);
+                // console.log('imagearray:: ' + JSON.stringify(imageArray) + 'length::: ' + imageArray.length);
+                imageArray.push(imageItem);
+                // console.log('imagearray::: ' + JSON.stringify(imageArray) + 'length::: ' + imageArray.length);
+                setDupArrImages(imageArray);
+                let image2 = {
+                    name: "Add",
+                }
+
+                // setTimeout(function () {
+                imageArray.push(image2);
+                setArrImages(imageArray);
+                setCounter(counter + 1)
+                console.log('imagearray:::2 ' + JSON.stringify(imageArray) + 'length::: ' + imageArray.length);
+                // }, 300);
+
+            }
+        });
+    };
+
     return (
         <View style={{ flex: 1 }}>
+            {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
             {console.log("rendering the screen...")}
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() =>
@@ -302,60 +429,74 @@ function EditPropertyScreen({ navigation }) {
 
                             <View style={{ backgroundColor: '#E6E6E6', flex: 1, width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center' }}>
 
-                                <TouchableOpacity
-                                    // onPress={() => Alert.alert('Plus icon clicked!')}
-                                    onPress={takePics}
-                                >
-                                    {console.log('uriiii:' + filePath)}
-                                    {filePath === '' ?
-                                        <Image
-                                            style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.32) / 2 }}
-                                            source={require('../../../assets/icons/plus.png')}
-                                            defaultSource={require('../../../assets/icons/plus.png')}
-                                        /> :
+
+                                {console.log('uriiii:' + mainImage)}
+                                {mainImage === '' ?
+                                    <TouchableOpacity style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center', alignContent: 'center', alignSelf: 'center' }}
+                                        // onPress={() => Alert.alert('Plus icon clicked!')}
+                                        onPress={chooseFile}
+                                    >
+                                        <Text style={{ flex: 1, fontSize: getDimen(0.15), color: 'gray', textAlign: 'center', marginTop: getDimen(0.17) }}>+</Text>
+                                    </TouchableOpacity>
+                                    :
+                                    <TouchableOpacity style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center', alignContent: 'center', }}
+                                        // onPress={() => Alert.alert('Plus icon clicked!')}
+                                        onPress={chooseFile}
+                                    >
                                         <Image
                                             style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.55), width: getDimen(0.90), borderRadius: 10 }}
-                                            source={{ uri: filePath }}
+                                            source={{ uri: mainImage }}
                                             defaultSource={require('../../../assets/icons/plus.png')}
                                         />
-                                    }
 
-
-                                    {/* <Image source={require('../../../assets/icons/plus.png')}
-                                    style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
-
-                                <Image source={{ picture }}  /> */}
-
-
-                                    {/* <Image source={require({filePath})}
-                                    style={{ height: getDimen(0.07), width: getDimen(0.07) }} /> */}
-                                </TouchableOpacity>
+                                    </TouchableOpacity>
+                                }
 
                             </View>
                         </View>
-                        <FlatList
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            style={{ marginRight: 10, marginTop: getDimen(0.025) }}
-                            data={arrImages}
-                            keyExtractor={(item, index) => "images" + index}
-                            renderItem={({ item, separators, index }) => (
-                                <TouchableWithoutFeedback onPress={() => seeImageInZoom(item)}>
+                        <Text style={{ fontSize: getDimen(0.035), color: 'gray', marginLeft: getDimen(0.06), marginTop: getDimen(0.025) }}>Additional Listing Images</Text>
+                        {arrImages && arrImages.length > 0 ?
+                            <FlatList
+                                horizontal={false}
+                                numColumns={2}
+                                showsVerticalScrollIndicator={false}
+                                style={{ marginLeft: getDimen(.065), marginRight: getDimen(.065), marginTop: getDimen(0.025), }}
+                                data={arrImages}
+                                keyExtractor={(item, index) => "images" + index}
+                                renderItem={({ item, separators, index }) => (
+                                    <View>
+                                        {arrImages && index == arrImages.length - 1 ?
+                                            <View style={{ backgroundColor: '#E6E6E6', width: getDimen(1 / 2) - getDimen(0.12), height: getDimen(.35), marginTop: 10, marginRight: 0, marginLeft: 10, borderRadius: 5, justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center' }}>
+                                                <TouchableOpacity onPress={chooseFileForMultipleImages}>
+                                                    <Text style={{ fontSize: getDimen(0.15), alignSelf: 'center', height: getDimen(.35), width: '100%', color: 'gray', marginTop: getDimen(0.12) }}>+</Text>
 
-                                    <View style={{ flexDirection: "column", width: getDimen(1) / 3, height: getDimen(1) / 3, borderRadius: 10 }}>
-                                        <View style={{ flexDirection: "column", flex: 1, borderRadius: 2, borderColor: '#EAEAEA', borderWidth: 1, marginLeft: 10, alignItems: 'center', justifyContent: 'center' }}>
+                                                </TouchableOpacity>
+                                            </View>
+                                            :
+                                            <View style={{ flexDirection: "column", width: getDimen(1 / 2) - getDimen(0.090), height: getDimen(.35), borderRadius: 10, marginTop: 10, marginLeft: 5, }}>
 
-                                            <Image
-                                                source={{ uri: item.uri }}
-                                                style={{ width: '100%', height: '100%', resizeMode: 'cover', alignSelf: 'center', borderRadius: 10 }}
-                                                defaultSource={require('../../../assets/icons/plus.png')}
-                                            />
-                                        </View>
+                                                <Image
+                                                    source={{ uri: item.uri }}
+                                                    style={{ width: '100%', height: getDimen(.35), resizeMode: 'cover', alignSelf: 'center', borderRadius: 10 }}
+                                                    defaultSource={require('../../../assets/icons/plus.png')}
+                                                />
+
+                                            </View>
+                                        }
+
 
                                     </View>
-                                </TouchableWithoutFeedback>
-                            )}
-                        />
+                                )}
+                            />
+                            :
+                            <View style={{ backgroundColor: '#E6E6E6', flex: 1, width: getDimen(1) / 3, marginLeft: getDimen(0.06), height: getDimen(1) / 3, marginTop: getDimen(0.025), marginRight: 0, borderRadius: 5, justifyContent: 'center', alignSelf: 'flex-start', alignItems: 'center', alignContent: 'center' }}>
+                                <TouchableOpacity onPress={chooseFileForMultipleImages}>
+                                    <Text style={{ fontSize: getDimen(0.15), alignSelf: 'center', height: getDimen(1) / 3, width: getDimen(1) / 3, color: 'gray', textAlign: 'center', marginTop: getDimen(0.1) }}>+</Text>
+
+                                </TouchableOpacity>
+                            </View>
+                        }
+
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Address</Text>
@@ -757,9 +898,9 @@ function EditPropertyScreen({ navigation }) {
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), alignItems: 'center', }}>
                         <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
                             <TouchableOpacity
-                                onPress={() => createProperty()}
+                                onPress={() => updateProperty()}
                             >
-                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SUBMIT</Text>
+                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>UPDATE</Text>
                             </TouchableOpacity>
 
                         </View>
@@ -779,7 +920,7 @@ const styles = StyleSheet.create({
         marginTop: getDimen(0.02),
         width: getDimen(1)
     },
-    
+
     ImageStyle: {
         padding: 10,
         margin: 5,

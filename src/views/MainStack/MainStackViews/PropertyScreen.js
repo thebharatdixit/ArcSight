@@ -56,6 +56,7 @@ function PropertyScreen({ navigation }) {
     const [amenities, setAmenities] = React.useState('');
     const [yearBuilt, setYearBuilt] = React.useState('');
     const [imageUrl, setImageUrl] = React.useState('');
+    const [videoUrl, setVideoUrl] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState("House");
     const [tokens, setTokens] = React.useState('');
     const [imgs, setImgs] = React.useState('');
@@ -107,8 +108,12 @@ function PropertyScreen({ navigation }) {
     //const tokens = datas.token;
     const createProperty = () => {
 
+        var fileName = "";
+        if(!(mainImage === "")){
+            fileName = GetFilename(mainImage);
+        }
 
-        //console.log('token',tokens);
+        console.log('fileName:::: ' + fileName);
         const formData = new FormData();
 
         formData.append('home_type', homeType);
@@ -129,7 +134,7 @@ function PropertyScreen({ navigation }) {
         // formData.append('amenities[]', 2);
         formData.append('description', description);
         formData.append('is_featured', 'yes');
-        formData.append('main_image', mainImage, );
+        formData.append('main_image', mainImage, fileName);
         formData.append('listing_images[]', arrImages);
 
         console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
@@ -146,7 +151,7 @@ function PropertyScreen({ navigation }) {
             .then(res => {
 
                 console.log('listLog', res.message);
-                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 setArrImages([]);
                 setDupArrImages([]);
                 setArrSelectedAminities([]);
@@ -203,6 +208,20 @@ function PropertyScreen({ navigation }) {
 
     }, [isFocused])
 
+    const GetFilename = (url) => {
+
+        var myArray = url.split('/');
+        var imgName = myArray[myArray.length - 1];
+        return imgName;
+        // if (url) {
+        //     var m = url.toString().match(/.*\/(.+?)\./);
+        //     if (m && m.length > 1) {
+        //         return m[1];
+        //     }
+        // }
+        // return "";
+    }
+
     const getAminities = () => {
         console.log('fetchingaminities');
         fetchAminities().then((response) => {
@@ -222,31 +241,25 @@ function PropertyScreen({ navigation }) {
     const onValueChange = (value) => {
         // console.log(JSON.stringify(aminitiesList[value]));
         setSelected(value);
-        if(value === 'key0'){
+        if (value === 'key0') {
             setHomeType("House");
         }
-        else if(value === 'key1')
-        {
+        else if (value === 'key1') {
             setHomeType("Co-op");
         }
-        else if(value === 'key2')
-        {
+        else if (value === 'key2') {
             setHomeType("Condo");
         }
-        else if(value === 'key3')
-        {
+        else if (value === 'key3') {
             setHomeType("Town House");
         }
-        else if(value === 'key4')
-        {
+        else if (value === 'key4') {
             setHomeType("Multi Family");
         }
-        else if(value === 'key5')
-        {
+        else if (value === 'key5') {
             setHomeType("Land");
         }
-        else
-        {
+        else {
             setHomeType("Other");
         }
     }
@@ -254,11 +267,10 @@ function PropertyScreen({ navigation }) {
     const onValueChange2 = (value) => {
         // console.log(JSON.stringify(aminitiesList[value]));
         setSelected2(value);
-        if(value === 'key0'){
+        if (value === 'key0') {
             setListingType("For Sale");
         }
-        else
-        {
+        else {
             setListingType("For Rent");
         }
     }
@@ -325,7 +337,7 @@ function PropertyScreen({ navigation }) {
                 // setTimeout(function () {
                 imageArray.push(image2);
                 setArrImages(imageArray);
-                setCounter(counter+1)
+                setCounter(counter + 1)
                 console.log('imagearray:::2 ' + JSON.stringify(imageArray) + 'length::: ' + imageArray.length);
                 // }, 300);
 
@@ -836,8 +848,8 @@ function PropertyScreen({ navigation }) {
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
-                                    onChangeText={(imageUrl) => setImageUrl(imageUrl)}
-                                    value={imageUrl} />
+                                    onChangeText={(imageUrl) => setVideoUrl(imageUrl)}
+                                    value={videoUrl} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
