@@ -134,6 +134,12 @@ function PropertyScreen({ navigation }) {
         // formData.append('amenities[]', 2);
         formData.append('description', description);
         formData.append('is_featured', 'yes');
+        formData.append('main_image',
+            {
+                uri: mainImage,
+                name: mainImageData.fileName,
+                type: mainImageData.type
+            });
         formData.append('main_image', mainImage, fileName);
         formData.append('listing_images[]', arrImages);
 

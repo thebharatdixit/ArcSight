@@ -44,6 +44,7 @@ function MyListingDetail({ navigation, route }) {
     const [userIdd, setUserId] = React.useState('')
     const [IsFeatured, setIsFeatured] = React.useState('')
     const [primaryImage, setPrimaryImage] = React.useState('')
+    const [isSold, setIsSold] = React.useState('')
     const [loginUserId, setLoginUserId] = React.useState('')
     const [showLoader, setShowLoader] = React.useState('');
     const [arrAminitiesName, setArrAminitiesName] = React.useState([]);
@@ -98,6 +99,7 @@ function MyListingDetail({ navigation, route }) {
                     setUserImage(res.data.listing.userinfo.profile_image_url)
                     setIsFeatured(res.data.listing.is_featured)
                     setPrimaryImage(res.data.listing.main_image_url)
+                    setIsSold(res.data.listing.is_sold);
                     console.log('Primary Image', primaryImage);
                     makeAminitiesArray(res.data.listing.listing_ammenities);
                     setVideoUrl(res.data.listing.video_url)
@@ -226,7 +228,7 @@ function MyListingDetail({ navigation, route }) {
                         </View>
 
                         <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
-                            <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                            <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.7), justifyContent: 'center', alignContent: 'center' }}>
                                 <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                                     {
                                         (IsFeatured === '' && IsFeatured === 'no') ?
@@ -238,17 +240,36 @@ function MyListingDetail({ navigation, route }) {
 
                                 </View>
                             </View>
-                            {videoUrl ?
-                                <TouchableOpacity onPress={() =>
-                                    // console.log("userId1234:", userId, item.user_id)
-                                    shoWebview(videoUrl)
-                                }
-                                    style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
-                                </TouchableOpacity>
-                                :
-                                null
-                            }
+                            {/* {videoUrl ? */}
+                            <View style={{ flexDirection: 'column', width: getDimen(0.3) }}>
+                                {videoUrl ?
+                                    <TouchableOpacity onPress={() =>
+                                        // console.log("userId1234:", userId, item.user_id)
+                                        shoWebview(videoUrl)
+                                    }
+                                        style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.3), justifyContent: 'center', alignContent: 'center' }}>
+                                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                    </TouchableOpacity>
+                                    :
+                                    null}
+                                <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.3) }}>
+                                    <Text style={{ fontSize: getDimen(0.050), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(isSold && isSold === "no") ? searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type : searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
+                                </View>
+                            </View>
+                            {/* :
+                                <View style={{ flexDirection: 'column', width: getDimen(0.2) }}>
+                                    <TouchableOpacity onPress={() =>
+                                        // console.log("userId1234:", userId, item.user_id)
+                                        shoWebview(videoUrl)
+                                    }
+                                        style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                    </TouchableOpacity>
+                                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.2) }}>
+                                        <Text style={{ fontSize: getDimen(0.050), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(isSold && isSold === "no") ? searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type : searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
+                                    </View>
+                                </View>
+                            } */}
 
                         </View>
 
@@ -283,7 +304,7 @@ function MyListingDetail({ navigation, route }) {
                                         {/* <MenuOption onSelect={() => alert(`DELETE`)} >
                                                                 <Text style={{ color: 'red' }}>Delete</Text>
                                                             </MenuOption> */}
-                                        { searchListDetail && searchListDetail.listing && searchListDetail.listing.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(searchListDetail.listing.id)} text='MARK AS SOLD' /> : null}
+                                        {searchListDetail && searchListDetail.listing && searchListDetail.listing.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(searchListDetail.listing.id)} text='MARK AS SOLD' /> : null}
                                         {/* <MenuOption onSelect={() => alert(`MARK AS SOLD`)} text='MARK AS SOLD' /> */}
                                         {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
                                     </MenuOptions>
