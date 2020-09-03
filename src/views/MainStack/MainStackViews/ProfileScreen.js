@@ -193,7 +193,7 @@ function ProfileScreen({ navigation, route }) {
             method: "post",
             headers: {
                 Accept: "application/json",
-                // 'Content-Type': 'multipart/form-data',
+                'Content-Type': 'multipart/form-data',
                 Authorization: `Bearer ${accessToken}`,
             },
             body: formData,
@@ -276,7 +276,7 @@ function ProfileScreen({ navigation, route }) {
                         } */}
 
                         {
-                            (filePath && (filePath.includes('.jpg') || filePath.includes('.png'))) ? <Image
+                            (filePath) ? <Image
                                 source={{
                                     uri: `${filePath}`,
                                 }}
