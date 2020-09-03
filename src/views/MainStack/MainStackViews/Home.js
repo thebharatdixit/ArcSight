@@ -259,10 +259,11 @@ function MainScreen({ navigation }) {
 
     }
 
-    const daysFunction = (createdDatee) => {
+    const daysFunction = (createdDatee, index) => {
         // var createdDt = moment(createdDatee).format('MMM DD, YYYY hh:mm a')
         var createdDt = moment(createdDatee).format('MMM DD, YYYY')
         console.log('DateFormatecreatedDateMMMDDYYY', createdDt);
+        console.log('index::', index)
         var msDiff = new Date().getTime() - new Date(createdDt).getTime()  ;  //Aug 25, 2020
         var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
         console.log('Days***!!!:', daysTill30June2035, new Date()); //current date: Thu Aug 27 2020 12:10:44 GMT+0530 (IST)
@@ -321,6 +322,7 @@ function MainScreen({ navigation }) {
     }
 
     const renderItem = ({ item }) => (
+        
         <Item title={item} />
     );
 
@@ -377,7 +379,7 @@ function MainScreen({ navigation }) {
                                 <View style={{ flex: 1 }}>
 
                                     {
-                                        daysFunction(item.created_at)
+                                        daysFunction(item.created_at, index)
                                     }
 
                                     {
@@ -425,6 +427,7 @@ function MainScreen({ navigation }) {
                                                                 </Text>
                                                                 <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.012) }}>
                                                                     {/* Listed 2 Days Ago */}
+                                                                    
                                                                     {
                                                                         createdDate
                                                                     }
