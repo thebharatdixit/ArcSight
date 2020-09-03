@@ -32,6 +32,8 @@ import { storeData, getData } from '../../../utils/asyncStore';
 import { createList } from '../../../actions/createListAction';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { fetchAminities } from '../../../actions/addListingActions';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 
 function EditPropertyScreen({ navigation, route }) {
 
@@ -43,7 +45,7 @@ function EditPropertyScreen({ navigation, route }) {
     const [city, setCity] = React.useState('');
     const [stateName, setStateName] = React.useState('');
     const [zipcode, setZipcode] = React.useState('');
-    const [location, setLocation] = React.useState('');
+    const [location2, setLocation2] = React.useState('');
     const [price, setPrice] = React.useState('');
     const [bedroom, setBedroom] = React.useState('');
     const [bath, setBath] = React.useState('');
@@ -77,6 +79,9 @@ function EditPropertyScreen({ navigation, route }) {
     const [dupArrImages, setDupArrImages] = React.useState([]);
     const [mainImage, setMainImage] = React.useState('');
     const [mainImageData, setMainImageData] = React.useState('');
+    const [showGoogleView, setGoogleView] = React.useState(false)
+    const [showLoader, setShowLoader] = React.useState('hide');
+    const [location, setLocation] = React.useState('');
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -123,7 +128,7 @@ function EditPropertyScreen({ navigation, route }) {
         formData.append('state', stateName);
         formData.append('city', city);
         formData.append('zipcode', zipcode);
-        formData.append('location', location);
+        formData.append('location', address);
         formData.append('year_built', yearBuilt);
         formData.append('price_per_sq_feet', pricePerSqureFeet);
         formData.append('price', price);
@@ -145,12 +150,12 @@ function EditPropertyScreen({ navigation, route }) {
         arrImages.forEach((element, i) => {
             const newFile = element
             formData.append('listing_images[]', newFile)
-          });
+        });
         // formData.append('listing_images[]', arrImages);
 
 
         console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
-
+        setShowLoader('')
         fetch("http://arc.softwaresolutions.website/api/v1/create-listing", {
             method: "post",
             headers: {
@@ -161,8 +166,8 @@ function EditPropertyScreen({ navigation, route }) {
             body: formData,
         }).then(res => res.json())
             .then(res => {
-
-                console.log('listLog', res.message);
+                setShowLoader('hide')
+                console.log('listLog edit', res.message);
                 Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 navigation.goBack();
 
@@ -177,27 +182,36 @@ function EditPropertyScreen({ navigation, route }) {
 
     React.useEffect(() => {
         console.log('listingData::: ' + JSON.stringify(listingData));
-        setAddress(listingData.location);
-        setStateName(listingData.state);
-        setCity(listingData.city);
-        setZipcode(listingData.zipcode);
-        setLocation(listingData.location);
-        setPrice(listingData.price_per_sq_feet);
-        setPricePerSqureFeet(listingData.price_per_sq_feet);
-        setBedroom(listingData.bedrooms);
-        setBath(listingData.bathrooms);
+        if (listingData && listingData.location) {
+            setAddress(listingData.location);
+            setStateName(listingData.state);
+            setCity(listingData.city);
+            setZipcode(listingData.zipcode);
+            setLocation(listingData.location);
+            setPrice(listingData.price_per_sq_feet);
+            setPricePerSqureFeet(listingData.price_per_sq_feet);
+            setBedroom(listingData.bedrooms);
+            setBath(listingData.bathrooms);
 
-        setHomeType(listingData.home_type);
+            setHomeType(listingData.home_type);
 
-        setSqureFeet(listingData.sq_feet);
-        setTerrace(listingData.terrace);
-        setListingType(listingData.listing_type);
-        setArrSelectedAminities([]);
-        setYearBuilt(listingData.year_built);
-        setMainImage(listingData.main_image_url);
+            setSqureFeet(listingData.sq_feet);
+            setTerrace(listingData.terrace);
+            setListingType(listingData.listing_type);
 
+            if (listingData.listing_type === 'For Sale') {
+                setSelected2("key0");
+                // setListingType("For Sale");
+            }
+            else {
+                setSelected2("key1");
+            }
+            setArrSelectedAminities([]);
+            setYearBuilt(listingData.year_built);
+            setMainImage(listingData.main_image_url);
+        }
         getAminities();
-    }, [])
+    }, [listingData])
 
     React.useEffect(() => {
         getData('selectedAminitiesData').then((selectedAminitiesData) => {
@@ -460,7 +474,7 @@ function EditPropertyScreen({ navigation, route }) {
                                         <Image
                                             style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.55), width: getDimen(0.90), borderRadius: 10 }}
                                             source={{ uri: mainImage }}
-                                            defaultSource={require('../../../assets/icons/plus.png')}
+                                            defaultSource={require('../../../assets/icons/2.png')}
                                         />
 
                                     </TouchableOpacity>
@@ -521,15 +535,41 @@ function EditPropertyScreen({ navigation, route }) {
                                     onChangeText={(val) => setLocation(val)}
                                 />
                             </Item> */}
-                            <View style={styles.inputContainer}>
-                                <TextInput
+                            {/* <View style={styles.inputContainer}> */}
+                            {/* <TextInput
                                     style={styles.input}
                                     placeholder="Address"
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
                                     onChangeText={(address) => setAddress(address)}
-                                    value={address} />
+                                    value={address} /> */}
+
+                            <TouchableOpacity onPress={() => setGoogleView(true)}>
+                                {
+                                    (location === '') ?
+                                        <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.085), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>Current Location / City,State / Zip Code</Text>
+                                        :
+                                        <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.085), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>{location}</Text>
+                                }
+
+                            </TouchableOpacity>
+                            {/* </View> */}
+                        </View>
+                        <View style={{ height: 1, width: getDimen(0.9), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#CCC', marginTop: getDimen(0.0136) }}></View>
+
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>City</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="City"
+                                    placeholderTextColor="#8A8A8A"
+                                    // secureTextEntry={true}
+                                    underlineColorAndroid='transparent'
+                                    onChangeText={(city) => setCity(city)}
+                                    value={city} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
@@ -546,23 +586,6 @@ function EditPropertyScreen({ navigation, route }) {
                                     underlineColorAndroid='transparent'
                                     onChangeText={(stateName) => setStateName(stateName)}
                                     value={stateName} />
-                            </View>
-                        </View>
-                        {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
-
-
-                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>City</Text>
-                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
-                            <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="City"
-                                    placeholderTextColor="#8A8A8A"
-                                    // secureTextEntry={true}
-                                    underlineColorAndroid='transparent'
-                                    onChangeText={(city) => setCity(city)}
-                                    value={city} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
@@ -594,8 +617,8 @@ function EditPropertyScreen({ navigation, route }) {
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
-                                    onChangeText={(location) => setLocation(location)}
-                                    value={location} />
+                                    onChangeText={(location2) => setLocation2(location2)}
+                                    value={location2} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
@@ -922,6 +945,99 @@ function EditPropertyScreen({ navigation, route }) {
                     </View>
                 </View>
             </View >
+            {
+                (showGoogleView === true) ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'flex-start', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() => {
+                                setGoogleView(false)
+                                console.log('location', location)
+                            }
+                            }>
+                                <Image source={require('../../../assets/icons/cross.png')}
+                                    style={{ height: 20, width: 20 }} />
+                            </TouchableOpacity>
+
+                            <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                                <Image source={require('../../../assets/icons/2.png')}
+                                    style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                                <Image source={require('../../../assets/images/logo.png')}
+                                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                            </View>
+
+                        </View>
+
+                        <GooglePlacesAutocomplete
+                            placeholder='Current Location / City,State / Zip Code'
+                            autoFocus={false}
+                            returnKeyType={'default'}
+                            fetchDetails={true}
+                            listViewDisplayed={false}
+                            currentLocation={true}
+                            keyboardShouldPersistTaps={'handled'}
+                            styles={{
+                                textInputContainer: {
+                                    width: '100%',
+                                    marginTop: 0
+                                },
+                                textInput: {
+                                    // marginLeft: 0,
+                                    // marginRight: 0,
+                                    // marginTop: 0,
+                                    // marginBottom: 0,
+                                    // height: '98%'
+                                }
+                            }}
+                            onPress={(data, details = null) => {
+                                // 'details' is provided when fetchDetails = true
+                                console.log('Google Details => ', data.description);
+                                setLocation(data.description)
+                            }}
+                            query={{
+                                key: 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k',
+                                language: 'en',
+                            }}
+                        //  predefinedPlaces={[homePlace, workPlace]}
+                        />
+
+                        {/* <View style={{}}> */}
+                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center', marginBottom: getDimen(0.01) }}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (location === '') {
+                                        // Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    } else {
+                                        setGoogleView(false)
+                                    }
+                                    console.log('location', location)
+                                }
+                                }
+                            >
+                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>SAVE</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                        {/* </View> */}
+
+                    </View>
+                    :
+                    null
+            }
+
+            {
+                (showLoader === true) ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                    </View>
+                    :
+                    null
+            }
         </View>
 
     )

@@ -27,6 +27,7 @@ import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { getDimen } from '../../../dimensions/dimen';
+import Slideshow from 'react-native-image-slider-show';
 import { getData } from '../../../utils/asyncStore';
 import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
 
@@ -51,6 +52,10 @@ function MyListingDetail({ navigation, route }) {
     const [showWebview, setShowWebview] = React.useState('hide');
     const [webviewUrl, setWebviewUrl] = React.useState('');
     const [videoUrl, setVideoUrl] = React.useState('');
+
+    const [position, setPosition] = React.useState('');
+    const [intervalTime, setIntervalTime] = React.useState('');
+    const [dataofimages, setdataofimages] = React.useState([]);
 
     const { userId } = route.params ? route.params : ""
 
@@ -103,6 +108,19 @@ function MyListingDetail({ navigation, route }) {
                     console.log('Primary Image', primaryImage);
                     makeAminitiesArray(res.data.listing.listing_ammenities);
                     setVideoUrl(res.data.listing.video_url)
+                    var multiImages = res.data.listing.listing_images;
+                    var useArray = [];
+                    for (let i = 0; i < multiImages.length; i++) {
+                        let item = multiImages[i];
+                        let imageItem = {
+                            url: item.image_url,
+                            // name: response.fileName,
+                            // type: response.type
+                        }
+                        useArray.push(imageItem);
+
+                    }
+                    setdataofimages(useArray);
                     // console.log('listing/detail', searchListDetail);
                     // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
                 } else {
@@ -214,12 +232,12 @@ function MyListingDetail({ navigation, route }) {
                                             style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
                                         />
                                         :
-                                        <View style={{ height: '100%', width: '100%' }}>
-                                            <Image source={{
-                                                uri: `${primaryImage}`
-                                            }}
-                                                defaultSource={require('../../../assets/icons/19.png')}
-                                                style={{ height: getDimen(0.70), width: '100%', resizeMode: 'cover', }} />
+                                        <View style={{ height: getDimen(0.70), width: '100%' }}>
+                                            <Slideshow style={{ height: getDimen(1), width: '100%' }}
+                                                dataSource={dataofimages && dataofimages.length > 0 ? dataofimages : []}
+                                                // position={this.state.position}
+                                                // onPositionChanged={position => this.setState({ position })}
+                                            />
                                         </View>
                                 }
                             </View>
@@ -253,7 +271,7 @@ function MyListingDetail({ navigation, route }) {
                                     :
                                     null}
                                 <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.3) }}>
-                                    <Text style={{ fontSize: getDimen(0.050), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(isSold && isSold === "no") ? searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type : searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
+                                    <Text style={{ fontSize: getDimen(0.050), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(isSold && isSold === "no") ? searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type : searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type === "For Sale" ? "Sold Out" : searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type === "For Rent" ? "Rent Out" : ""}</Text>
                                 </View>
                             </View>
                             {/* :
@@ -299,7 +317,7 @@ function MyListingDetail({ navigation, route }) {
 
 
                                     <MenuOptions>
-                                        <MenuOption onSelect={() => navigation.navigate('Edit Property Screen')} text='EDIT' />
+                                        <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": searchListDetail.listing }))} text='EDIT' />
                                         <MenuOption onSelect={() => deleteListingApiIntegration(searchListDetail.listing.id)} text='DELETE' />
                                         {/* <MenuOption onSelect={() => alert(`DELETE`)} >
                                                                 <Text style={{ color: 'red' }}>Delete</Text>
