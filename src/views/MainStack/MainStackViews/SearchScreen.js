@@ -68,7 +68,8 @@ function SearchScreen({ navigation }) {
     const [showGoogleView, setGoogleView] = React.useState(false)
     const [showLoader, setShowLoader] = React.useState('hide');
     const [aminitiesList, setAminitiesList] = React.useState([]);
-
+    const [selected, setSelected] = React.useState('');
+    
     const allButton = () => {
         setChecked1(true)
         setChecked2(false)
@@ -152,6 +153,30 @@ function SearchScreen({ navigation }) {
                 console.error("error: ", err);
             });
     }
+    const onValueChange = (value) => {
+        setSelected(value);
+        if (value === 'key0') {
+            setHomeType("House");
+        }
+        else if (value === 'key1') {
+            setHomeType("Co-op");
+        }
+        else if (value === 'key2') {
+            setHomeType("Condo");
+        }
+        else if (value === 'key3') {
+            setHomeType("Town House");
+        }
+        else if (value === 'key4') {
+            setHomeType("Multi Family");
+        }
+        else if (value === 'key5') {
+            setHomeType("Land");
+        }
+        else {
+            setHomeType("Other");
+        }
+    }
 
     React.useEffect(() => {
 
@@ -233,30 +258,6 @@ function SearchScreen({ navigation }) {
     //     setHomeType(label);
     // }
 
-    const onValueChange = (value) => {
-        setSelected(value);
-        if (value === 'key0') {
-            setHomeType("House");
-        }
-        else if (value === 'key1') {
-            setHomeType("Co-op");
-        }
-        else if (value === 'key2') {
-            setHomeType("Condo");
-        }
-        else if (value === 'key3') {
-            setHomeType("Town House");
-        }
-        else if (value === 'key4') {
-            setHomeType("Multi Family");
-        }
-        else if (value === 'key5') {
-            setHomeType("Land");
-        }
-        else {
-            setHomeType("Other");
-        }
-    }
     const callSearchApi = () => {
         console.log('searchListJsonOnPress', JSON.stringify(searchList))
 
@@ -313,6 +314,7 @@ function SearchScreen({ navigation }) {
                 navigation.navigate('Search List', ({ "SearchList": response.data }))
             }
             else {
+                Alert.alert(response.message)
                 console.log('Search Listing Error', response.message);
                 setAlertMessage(response.message)
             }
@@ -487,6 +489,25 @@ function SearchScreen({ navigation }) {
                                 onChangeText={(selectedValue) => setSelectedValue(selectedValue)}
                                 value={selectedValue}
                             />
+
+                            {/* <Icon active name='arrow' /> */}
+                            {/* <Picker
+                                note
+                                mode="dropdown"
+                                iosIcon={<Icon />}
+                                style={{ width: getDimen(0.95), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+                                placeholder="$00,0000"
+                                placeholderStyle={{ color: "black", fontSize: 14 }}
+                                placeholderIconColor="#a43d3e"
+                                selectedValue={selectedValue}
+                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+                            >
+                                <Picker.Item label="20000" value="20000" />
+                                <Picker.Item label="40000" value="40000" />
+                                <Picker.Item label="100000" value="100000" />
+                                <Picker.Item label="100000" value="2500" />
+
+                            </Picker> */}
                         </Item>
                     </View>
                     <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
@@ -545,8 +566,8 @@ function SearchScreen({ navigation }) {
 
                                 placeholderStyle={{ color: "gray", fontSize: getDimen(0.04) }}
                                 placeholderIconColor="#000000"
-                                selectedValue={homeType}
-                                onValueChange={(value) => onValueChange(value)}
+                                selectedValue={selected}
+                                onValueChange={(label) => onValueChange(label)}
                             >
                                 <Picker.Item label="House" value="key0" />
                                 <Picker.Item label="Co-op" value="key1" />
@@ -570,7 +591,23 @@ function SearchScreen({ navigation }) {
                                     onChangeText={(sqFeetMax) => setSqFeetMax(sqFeetMax)}
                                     value={sqFeetMax}
                                 />
-                                
+                                {/* <Icon active name='arrow' /> */}
+                                {/* <Picker
+                                    note
+                                    mode="dropdown"
+                                    iosIcon={<Icon />}
+                                    style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+                                    placeholder="$00,00"
+                                    placeholderStyle={{ color: "black", fontSize: 14 }}
+                                    placeholderIconColor="#a43d3e"
+                                    selectedValue={sqFeetMax}
+                                    onValueChange={(itemValue, itemIndex) => setSqFeetMax(itemValue, itemIndex)}
+                                >
+                                    <Picker.Item label="0,000" value="0000" />
+                                    <Picker.Item label="600" value="600" />
+                                    <Picker.Item label="5,000" value="5000" />
+                                    <Picker.Item label="4000" value="4000" />
+                                </Picker> */}
                             </Item>
                         </View>
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
@@ -582,7 +619,23 @@ function SearchScreen({ navigation }) {
                                     onChangeText={(sqFeetMin) => setSqFeetMin(sqFeetMin)}
                                     value={sqFeetMin}
                                 />
-                               
+                                {/* <Icon active name='arrow' /> */}
+                                {/* <Picker
+                                    note
+                                    mode="dropdown"
+                                    iosIcon={<Icon />}
+                                    style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+                                    placeholder="$00"
+                                    placeholderStyle={{ color: "black", fontSize: 14 }}
+                                    placeholderIconColor="#a43d3e"
+                                    selectedValue={sqFeetMin}
+                                    onValueChange={(itemValue, itemIndex) => setSqFeetMin(itemValue, itemIndex)}
+                                >
+                                    <Picker.Item label="0,000" value="0000" />
+                                    <Picker.Item label="600" value="600" />
+                                    <Picker.Item label="5,000" value="5000" />
+                                    <Picker.Item label="4600" value="4600" />
+                                </Picker> */}
                             </Item>
                         </View>
                     </View>
