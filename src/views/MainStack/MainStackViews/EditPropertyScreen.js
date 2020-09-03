@@ -132,8 +132,22 @@ function EditPropertyScreen({ navigation, route }) {
         // formData.append('amenities[]', 2);
         formData.append('description', description);
         formData.append('is_featured', 'yes');
-        formData.append('main_image', mainImage, fileName);
-        formData.append('listing_images[]', arrImages);
+        formData.append('main_image',
+            {
+                uri: mainImage,
+                name: mainImageData.fileName,
+                type: mainImageData.type
+            });
+        // formData.append('main_image', mainImage, fileName);
+        var selImgArray = arrImages;
+        selImgArray.splice(selImgArray.length - 1, selImgArray.length - 1);
+        console.log("selImgArray::: " + JSON.stringify(selImgArray));
+        arrImages.forEach((element, i) => {
+            const newFile = element
+            formData.append('listing_images[]', newFile)
+          });
+        // formData.append('listing_images[]', arrImages);
+
 
         console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
 

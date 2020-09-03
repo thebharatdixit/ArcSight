@@ -288,6 +288,7 @@ function MainScreen({ navigation }) {
 
         // if (years === 0){
             if (days === 0) {
+                console.log('insidethis:::');
                 if (hours > 0) {
                     if (hours < 24) {
                         var createdDiffDate = ('0' + hours).slice(-2) + " " + "hrs ago"
@@ -306,6 +307,7 @@ function MainScreen({ navigation }) {
                     }
                 }
             } else {
+                console.log('insidethis::::');
                 var createdDiffDate = daysTill30June2035 + " " + "days ago"
                 setCreatedDate(createdDiffDate)
             }

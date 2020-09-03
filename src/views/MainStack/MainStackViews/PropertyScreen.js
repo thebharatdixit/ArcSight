@@ -140,8 +140,15 @@ function PropertyScreen({ navigation }) {
                 name: mainImageData.fileName,
                 type: mainImageData.type
             });
-        formData.append('main_image', mainImage, fileName);
-        formData.append('listing_images[]', arrImages);
+        // formData.append('main_image', mainImage, fileName);
+        var selImgArray = arrImages;
+        selImgArray.splice(selImgArray.length - 1, selImgArray.length - 1);
+        console.log("selImgArray::: " + JSON.stringify(selImgArray));
+        arrImages.forEach((element, i) => {
+            const newFile = element
+            formData.append('listing_images[]', newFile)
+          });
+        // formData.append('listing_images[]', arrImages);
 
         console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
 
