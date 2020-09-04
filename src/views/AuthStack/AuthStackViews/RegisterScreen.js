@@ -12,7 +12,8 @@ import {
     TextInput,
     ToastAndroid,
     Alert,
-    Platform
+    Platform,
+    KeyboardAvoidingView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
@@ -252,128 +253,129 @@ function RegisterScreen({ navigation }) {
                 style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
         </TouchableOpacity>
     </View> */}
+                <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+                    <ScrollView>
+                        {/* <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}> */}
+                        <View style={{ width: '90%', height: checkViewHeight(), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}>
+                            <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.22), marginTop: 0, marginRight: 0, borderRadius: 12, }}>
+                                <View style={{ marginTop: getDimen(-0.1), alignItems: 'center', }}>
+                                    <TouchableOpacity
+                                        //  onPress = {()=> Alert.alert('Show gallery!!')}
+                                        onPress={chooseFile.bind(this)}
+                                    >
 
-                <ScrollView>
-                    {/* <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}> */}
-                    <View style={{ width: '90%', height: checkViewHeight(), backgroundColor: 'white', marginLeft: getDimen(0.05), marginTop: getDimen(0.2), borderRadius: 12, shadowColor: 'black' }}>
-                        <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.22), marginTop: 0, marginRight: 0, borderRadius: 12, }}>
-                            <View style={{ marginTop: getDimen(-0.1), alignItems: 'center', }}>
-                                <TouchableOpacity
-                                    //  onPress = {()=> Alert.alert('Show gallery!!')}
-                                    onPress={chooseFile.bind(this)}
-                                >
-
-                                    {filePath === '' ?
-                                        <Image
-                                            style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.32) / 2 }}
-                                            source={require('../../../assets/icons/29.png')}
-                                        // defaultSource={require('../../../assets/icons/29.png')}
-                                        /> :
-                                        <Image
-                                            style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.32) / 2 }}
-                                            source={filePath}
-                                        />
-                                    }
-
-
-                                </TouchableOpacity>
-                            </View>
-
-
-                            <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Email"
-                                    placeholderTextColor="#8A8A8A"
-                                    // secureTextEntry={true}
-                                    underlineColorAndroid='transparent'
-                                    onChangeText={(email) => setEmail(email)}
-                                    value={email} />
-                            </View>
-
-                            <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="First Name"
-                                    placeholderTextColor="#8A8A8A"
-                                    // secureTextEntry={true}
-                                    underlineColorAndroid='transparent'
-                                    onChangeText={(firstName) => setFirstName(firstName)}
-                                    value={firstName} />
-                            </View>
-
-                            <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Last Name"
-                                    placeholderTextColor="#8A8A8A"
-                                    // secureTextEntry={true}
-                                    underlineColorAndroid='transparent'
-                                    onChangeText={(lastName) => setLastName(lastName)}
-                                    value={lastName} />
-                            </View>
-
-                            <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Real Estate Company"
-                                    placeholderTextColor="#8A8A8A"
-                                    // secureTextEntry={true}
-                                    underlineColorAndroid='transparent'
-                                    onChangeText={(companyName) => setCompanyName(companyName)}
-                                    value={companyName} />
-                            </View>
-
-
-                            <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Password"
-                                    placeholderTextColor="#8A8A8A"
-                                    secureTextEntry={true}
-                                    underlineColorAndroid='transparent'
-                                    onChangeText={(password) => setPassword(password)}
-                                    value={password} />
-                                    <Text style={{color:'gray', marginTop:getDimen(0.01), alignSelf: 'flex-end', fontSize:getDimen(0.025)}}>6-8 Letters, 1 Capital, 1 Special Character</Text>
-
-                            </View>
-
-
-                            <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
-
-                                <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center', }}>
-
-                                    <TouchableOpacity onPress={() => signUpAlert()}>
-                                        {
-                                            checked ? (
-                                                <Image source={require('../../../assets/icons/tick.png')}
-                                                    style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                            ) :
-                                                <Image source={require('../../../assets/icons/circle.png')}
-                                                    style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        {filePath === '' ?
+                                            <Image
+                                                style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.32) / 2 }}
+                                                source={require('../../../assets/icons/29.png')}
+                                            // defaultSource={require('../../../assets/icons/29.png')}
+                                            /> :
+                                            <Image
+                                                style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.32) / 2 }}
+                                                source={filePath}
+                                            />
                                         }
 
-                                    </TouchableOpacity>
 
-                                    {/* <CheckBox
+                                    </TouchableOpacity>
+                                </View>
+
+
+                                <View style={styles.inputContainer}>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Email"
+                                        placeholderTextColor="#8A8A8A"
+                                        // secureTextEntry={true}
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={(email) => setEmail(email)}
+                                        value={email} />
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="First Name"
+                                        placeholderTextColor="#8A8A8A"
+                                        // secureTextEntry={true}
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={(firstName) => setFirstName(firstName)}
+                                        value={firstName} />
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Last Name"
+                                        placeholderTextColor="#8A8A8A"
+                                        // secureTextEntry={true}
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={(lastName) => setLastName(lastName)}
+                                        value={lastName} />
+                                </View>
+
+                                <View style={styles.inputContainer}>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Real Estate Company"
+                                        placeholderTextColor="#8A8A8A"
+                                        // secureTextEntry={true}
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={(companyName) => setCompanyName(companyName)}
+                                        value={companyName} />
+                                </View>
+
+
+                                <View style={styles.inputContainer}>
+                                    <TextInput
+                                        style={styles.input}
+                                        placeholder="Password"
+                                        placeholderTextColor="#8A8A8A"
+                                        secureTextEntry={true}
+                                        underlineColorAndroid='transparent'
+                                        onChangeText={(password) => setPassword(password)}
+                                        value={password} />
+                                    <Text style={{ color: 'gray', marginTop: getDimen(0.01), alignSelf: 'flex-end', fontSize: getDimen(0.025) }}>6-8 Letters, 1 Capital, 1 Special Character</Text>
+
+                                </View>
+
+
+                                <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
+
+                                    <View style={{ alignSelf: 'center', marginBottom: getDimen(0.05), flexDirection: 'row', alignItems: 'center', }}>
+
+                                        <TouchableOpacity onPress={() => signUpAlert()}>
+                                            {
+                                                checked ? (
+                                                    <Image source={require('../../../assets/icons/tick.png')}
+                                                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                                ) :
+                                                    <Image source={require('../../../assets/icons/circle.png')}
+                                                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                            }
+
+                                        </TouchableOpacity>
+
+                                        {/* <CheckBox
                                         onPress={() => setChecked(!checked)
                                         }
                                         checked={checked} color="#8d8865" /> */}
-                                    <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
-                                        Sign up for ArcSight alerts
+                                        <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
+                                            Sign up for ArcSight alerts
                                     </Text>
 
-                                </View>
-                                <TouchableOpacity onPress={() => signupApiIntegration()}>
-                                    <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
-                                        JOIN NOW
+                                    </View>
+                                    <TouchableOpacity onPress={() => signupApiIntegration()}>
+                                        <Text style={{ backgroundColor: '#121735', color: 'white', paddingLeft: getDimen(0.2), paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03) }}>
+                                            JOIN NOW
                     </Text>
-                                </TouchableOpacity>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
-                    </View>
 
-                </ScrollView>
+                    </ScrollView>
+                </KeyboardAvoidingView>
             </ImageBackground >
             {
                 (showLoader === '') ?

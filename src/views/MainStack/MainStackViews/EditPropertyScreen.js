@@ -82,6 +82,8 @@ function EditPropertyScreen({ navigation, route }) {
     const [showGoogleView, setGoogleView] = React.useState(false)
     const [showLoader, setShowLoader] = React.useState('hide');
     const [location, setLocation] = React.useState('');
+    const [latitude, setLatitude] = React.useState('');
+    const [longnitude, setLongnitude] = React.useState('');
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -133,6 +135,8 @@ function EditPropertyScreen({ navigation, route }) {
         formData.append('price_per_sq_feet', pricePerSqureFeet);
         formData.append('price', price);
         formData.append('taxes', taxes);
+        formData.append('latitude', latitude);
+        formData.append('longitude', longnitude);
         formData.append('amenities', JSON.stringify(arrSelectedAminitiesForApi));
         // formData.append('amenities[]', 2);
         formData.append('description', description);
@@ -419,6 +423,17 @@ function EditPropertyScreen({ navigation, route }) {
             }
         });
     };
+
+    const getMapDetails = async (data) => {
+        const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${data.place_id}&key=AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k`);
+        console.log("Google map all Details1" + JSON.stringify(response) );
+        const userInfo = await response.json();
+        console.log("Google map all Details" + JSON.stringify(userInfo) + " ::SS:: " + JSON.stringify(userInfo.result.geometry.location) + " :: " + userInfo.result.geometry.location.lat);
+        var lat = userInfo.result.geometry.location.lat;
+        var long = userInfo.result.geometry.location.lng;
+        setLatitude(lat);
+        setLongnitude(long);
+    }
 
     return (
         <View style={{ flex: 1 }}>
@@ -995,6 +1010,9 @@ function EditPropertyScreen({ navigation, route }) {
                                 // 'details' is provided when fetchDetails = true
                                 console.log('Google Details => ', data.description);
                                 setLocation(data.description)
+                                // https://maps.googleapis.com/maps/api/place/details/json?placeid={placeid}&key={key}
+                                // const response = await fetch(`https://graph.facebook.com/me?access_token=${accessData.accessToken}&fields=id,name,email,picture.type(large)`);
+                                getMapDetails(data);
                             }}
                             query={{
                                 key: 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k',
