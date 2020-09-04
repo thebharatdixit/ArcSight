@@ -6,6 +6,7 @@ import SearchList from './SearchList'
 import SearchListDetailScreen  from './SearchListDetailScreen'
 import colleagueScreen from './ColleagueListScreen'
 import ProfileScreen from './ProfileScreen'
+import MapScreen from './MapScreen'
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,8 @@ const SearchStack = function authNavigator({ navigation }) {
             <Stack.Screen name="Colleague List" component={colleagueScreen}
             />
             <Stack.Screen name="Profile Screen" component={ProfileScreen}
+            />
+            <Stack.Screen name="Map Screen" component={MapScreen}
             />
         </Stack.Navigator>
     );

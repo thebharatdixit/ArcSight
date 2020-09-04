@@ -30,7 +30,7 @@ function SettingScreen({ navigation, changeAuthState}){
     const [accessToken, setAccessToken] = React.useState('')
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
-    const [email, setEmail] = React.useState('');
+    // const [email, setEmail] = React.useState('');
     const [companyName, setCompanyName] = React.useState('');
     const [showLoader, setShowLoader] = React.useState('hide');
     const [notificationType, setNotificationType] = React.useState('')
@@ -60,14 +60,14 @@ function SettingScreen({ navigation, changeAuthState}){
         setNotificationType('text')
     }
 
-     handleEmail = () => {
-        const to = ['prachi.pandey@klientotech.com',] // string or array of email addresses
+    const handleEmail = () => {
+        const to = ['prachi.pandey@klientotech.com'] // string or array of email addresses
         email(to, {
             // Optional additional arguments
-            // cc: ['bharat.dixit@klientotech.com',], // string or array of email addresses
-            // bcc: 'abc@gmail.com', // string or array of email addresses
+            cc: ['bharat.dixit@klientotech.com',], // string or array of email addresses
+            bcc: 'abc@gmail.com', // string or array of email addresses
             subject: 'ArcSight Support',
-            // body: 'Some body right here'
+            body: 'Some body right here'
         }).catch(console.error)
     }
     
