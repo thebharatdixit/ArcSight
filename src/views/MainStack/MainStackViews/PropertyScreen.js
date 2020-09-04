@@ -81,7 +81,9 @@ function PropertyScreen({ navigation }) {
     const [showGoogleView, setGoogleView] = React.useState(false)
     const [showLoader, setShowLoader] = React.useState('hide');
     const [location, setLocation] = React.useState('');
-
+    const [latitude, setLatitude] = React.useState('');
+    const [longnitude, setLongnitude] = React.useState('');
+    
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -136,6 +138,8 @@ function PropertyScreen({ navigation }) {
         formData.append('price_per_sq_feet', pricePerSqureFeet);
         formData.append('price', price);
         formData.append('taxes', taxes);
+        formData.append('latitude', latitude);
+        formData.append('longitude', longnitude);
         formData.append('amenities', JSON.stringify(arrSelectedAminitiesForApi));
         // formData.append('amenities[]', 2);
         formData.append('description', description);
@@ -429,6 +433,17 @@ function PropertyScreen({ navigation }) {
     //     setFilePath(item.uri)
     // }
 
+    const getMapDetails = async (data) => {
+        const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${data.place_id}&key=AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k`);
+        console.log("Google map all Details1" + JSON.stringify(response) );
+        const userInfo = await response.json();
+        console.log("Google map all Details" + JSON.stringify(userInfo) + " ::SS:: " + JSON.stringify(userInfo.result.geometry.location) + " :: " + userInfo.result.geometry.location.lat);
+        var lat = userInfo.result.geometry.location.lat;
+        var long = userInfo.result.geometry.location.lng;
+        setLatitude(lat);
+        setLongnitude(long);
+    }
+
     return (
         <View style={{ flex: 1 }}>
             {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
@@ -545,7 +560,7 @@ function PropertyScreen({ navigation }) {
                                 />
                             </Item> */}
                             {/* <View style={styles.inputContainer}> */}
-                                {/* <TextInput
+                            {/* <TextInput
                                     style={styles.input}
                                     placeholder="Address"
                                     placeholderTextColor="#8A8A8A"
@@ -554,15 +569,15 @@ function PropertyScreen({ navigation }) {
                                     onChangeText={(address) => setAddress(address)}
                                     value={address} /> */}
 
-                                <TouchableOpacity onPress={() => setGoogleView(true)}>
-                                    {
-                                        (location === '') ?
-                                            <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.085), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>Current Location / City,State / Zip Code</Text>
-                                            :
-                                            <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.085), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>{location}</Text>
-                                    }
+                            <TouchableOpacity onPress={() => setGoogleView(true)}>
+                                {
+                                    (location === '') ?
+                                        <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.085), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>Current Location / City,State / Zip Code</Text>
+                                        :
+                                        <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.085), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>{location}</Text>
+                                }
 
-                                </TouchableOpacity>
+                            </TouchableOpacity>
                             {/* </View> */}
                         </View>
                         <View style={{ height: 1, width: getDimen(0.9), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#CCC', marginTop: getDimen(0.0136) }}></View>
@@ -1005,8 +1020,11 @@ function PropertyScreen({ navigation }) {
                             }}
                             onPress={(data, details = null) => {
                                 // 'details' is provided when fetchDetails = true
-                                console.log('Google Details => ', data.description);
+                                console.log('Google Details => ', JSON.stringify(data));
                                 setLocation(data.description)
+                                // https://maps.googleapis.com/maps/api/place/details/json?placeid={placeid}&key={key}
+                                // const response = await fetch(`https://graph.facebook.com/me?access_token=${accessData.accessToken}&fields=id,name,email,picture.type(large)`);
+                                getMapDetails(data);
                             }}
                             query={{
                                 key: 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k',

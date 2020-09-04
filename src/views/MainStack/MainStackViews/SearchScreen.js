@@ -12,6 +12,7 @@ import {
     TextInput,
     ToastAndroid,
     Alert,
+    KeyboardAvoidingView
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
@@ -341,7 +342,7 @@ function SearchScreen({ navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            <View style={{ backgroundColor: 'blue', flex: 0.90 }}>
+            <KeyboardAvoidingView style={{ backgroundColor: 'blue', flex: 0.90 }} behavior="padding">
 
                 <View style={{ height: getDimen(0.12), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(0), marginRight: 10, alignItems: 'center', }}>
@@ -667,7 +668,7 @@ function SearchScreen({ navigation }) {
                         </View>
                     </View>
                 </View>
-            </View>
+            </KeyboardAvoidingView>
 
             {
                 (showGoogleView === true) ?
