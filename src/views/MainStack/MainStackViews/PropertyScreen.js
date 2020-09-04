@@ -83,7 +83,7 @@ function PropertyScreen({ navigation }) {
     const [location, setLocation] = React.useState('');
     const [latitude, setLatitude] = React.useState('');
     const [longnitude, setLongnitude] = React.useState('');
-    
+
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -121,92 +121,100 @@ function PropertyScreen({ navigation }) {
             fileName = GetFilename(mainImage);
         }
 
-        console.log('fileName:::: ' + fileName);
-        const formData = new FormData();
+        if (!(mainImage === "")) {
 
-        formData.append('home_type', homeType);
-        formData.append('sq_feet', squreFeet);
-        formData.append('bedrooms', bedroom);
-        formData.append('bathrooms', bath);
-        formData.append('terrace', terrace);
-        formData.append('listing_type', listingType);
-        formData.append('state', stateName);
-        formData.append('city', city);
-        formData.append('zipcode', zipcode);
-        formData.append('location', address);
-        formData.append('year_built', yearBuilt);
-        formData.append('price_per_sq_feet', pricePerSqureFeet);
-        formData.append('price', price);
-        formData.append('taxes', taxes);
-        formData.append('latitude', latitude);
-        formData.append('longitude', longnitude);
-        formData.append('amenities', JSON.stringify(arrSelectedAminitiesForApi));
-        // formData.append('amenities[]', 2);
-        formData.append('description', description);
-        formData.append('is_featured', 'yes');
-        formData.append('main_image',
-            {
-                uri: mainImage,
-                name: mainImageData.fileName,
-                type: mainImageData.type
+            console.log('fileName:::: ' + fileName);
+            const formData = new FormData();
+
+            formData.append('home_type', homeType);
+            formData.append('sq_feet', squreFeet);
+            formData.append('bedrooms', bedroom);
+            formData.append('bathrooms', bath);
+            formData.append('terrace', terrace);
+            formData.append('listing_type', listingType);
+            formData.append('state', stateName);
+            formData.append('city', city);
+            formData.append('zipcode', zipcode);
+            formData.append('location', address);
+            formData.append('year_built', yearBuilt);
+            formData.append('price_per_sq_feet', pricePerSqureFeet);
+            formData.append('price', price);
+            formData.append('taxes', taxes);
+            formData.append('latitude', latitude);
+            formData.append('longitude', longnitude);
+            formData.append('amenities', JSON.stringify(arrSelectedAminitiesForApi));
+            // formData.append('amenities[]', 2);
+            formData.append('description', description);
+            formData.append('is_featured', 'yes');
+            formData.append('main_image',
+                {
+                    uri: mainImage,
+                    name: mainImageData.fileName,
+                    type: mainImageData.type
+                });
+            // formData.append('main_image', mainImage, fileName);
+            var selImgArray = arrImages;
+            selImgArray.splice(selImgArray.length - 1, selImgArray.length - 1);
+            console.log("selImgArray::: " + JSON.stringify(selImgArray));
+            arrImages.forEach((element, i) => {
+                const newFile = element
+                formData.append('listing_images[]', newFile)
             });
-        // formData.append('main_image', mainImage, fileName);
-        var selImgArray = arrImages;
-        selImgArray.splice(selImgArray.length - 1, selImgArray.length - 1);
-        console.log("selImgArray::: " + JSON.stringify(selImgArray));
-        arrImages.forEach((element, i) => {
-            const newFile = element
-            formData.append('listing_images[]', newFile)
-        });
-        // formData.append('listing_images[]', arrImages);
+            // formData.append('listing_images[]', arrImages);
 
-        console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
-        setShowLoader('')
-        fetch("http://arc.softwaresolutions.website/api/v1/create-listing", {
-            method: "post",
-            headers: {
-                Accept: "application/json",
-                // 'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${tokens}`,
-            },
-            body: formData,
-        }).then(res => res.json())
-            .then(res => {
-                setShowLoader('hide')
-                console.log('listLog', res.message);
-                Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                setArrImages([]);
-                setDupArrImages([]);
-                setArrSelectedAminities([]);
-                setArrSelectedAminitiesForApi([]);
-                setFilePath('');
-                setMainImage('');
-                setHomeType('');
-                setListingType('');
+            console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
+            setShowLoader('')
+            fetch("http://arc.softwaresolutions.website/api/v1/create-listing", {
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    // 'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${tokens}`,
+                },
+                body: formData,
+            }).then(res => res.json())
+                .then(res => {
+                    setShowLoader('hide')
+                    console.log('listLog', res.message);
+                    Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    setArrImages([]);
+                    setDupArrImages([]);
+                    setArrSelectedAminities([]);
+                    setArrSelectedAminitiesForApi([]);
+                    setFilePath('');
+                    setMainImage('');
+                    setHomeType('');
+                    setListingType('');
 
-                setAddress('');
-                setStateName('');
-                setCity('');
-                setZipcode('');
-                setLocation('');
-                setPrice('');
-                setPricePerSqureFeet('');
-                setBedroom('');
-                setBath('');
+                    setAddress('');
+                    setStateName('');
+                    setCity('');
+                    setZipcode('');
+                    setLocation('');
+                    setPrice('');
+                    setPricePerSqureFeet('');
+                    setBedroom('');
+                    setBath('');
 
 
-                setSqureFeet('');
-                setTerrace('');
-                setArrSelectedAminities([]);
-                setYearBuilt('');
-                setDescription('');
-                setVideoUrl('');
-                setImageUrl('');
+                    setSqureFeet('');
+                    setTerrace('');
+                    setArrSelectedAminities([]);
+                    setYearBuilt('');
+                    setDescription('');
+                    setVideoUrl('');
+                    setImageUrl('');
 
-            })
-            .catch(err => {
-                console.error("error uploading images: ", err);
-            });
+                })
+                .catch(err => {
+                    console.error("error uploading images: ", err);
+                });
+
+        }
+        else {
+            alert('Please select image')
+            return
+        }
 
 
 
@@ -332,6 +340,18 @@ function PropertyScreen({ navigation }) {
         console.log('next to prev success');
     }
 
+    const mainImageClicked = () => {
+        setMainImage('');
+    }
+
+    const additionalImageClicked = (index) => {
+        console.log('indexx:: ' + index);
+        var arrImg = arrImages;
+        arrImg.splice(index, 1);
+        setArrImages(arrImg);
+        setCounter(counter + 1);
+    }
+
     const chooseFile = () => {
 
         ImagePicker.showImagePicker({ noData: true, mediaType: "photo" }, (response) => {
@@ -435,7 +455,7 @@ function PropertyScreen({ navigation }) {
 
     const getMapDetails = async (data) => {
         const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${data.place_id}&key=AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k`);
-        console.log("Google map all Details1" + JSON.stringify(response) );
+        console.log("Google map all Details1" + JSON.stringify(response));
         const userInfo = await response.json();
         console.log("Google map all Details" + JSON.stringify(userInfo) + " ::SS:: " + JSON.stringify(userInfo.result.geometry.location) + " :: " + userInfo.result.geometry.location.lat);
         var lat = userInfo.result.geometry.location.lat;
@@ -491,7 +511,7 @@ function PropertyScreen({ navigation }) {
                                         <Text style={{ flex: 1, fontSize: getDimen(0.15), color: 'gray', textAlign: 'center', marginTop: getDimen(0.17) }}>+</Text>
                                     </TouchableOpacity>
                                     :
-                                    <TouchableOpacity style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center', alignContent: 'center', }}
+                                    <TouchableOpacity style={{ height: '100%', width: '100%', alignItems: 'center', alignContent: 'center', }}
                                         // onPress={() => Alert.alert('Plus icon clicked!')}
                                         onPress={chooseFile}
                                     >
@@ -500,6 +520,13 @@ function PropertyScreen({ navigation }) {
                                             source={{ uri: mainImage }}
                                             defaultSource={require('../../../assets/icons/plus.png')}
                                         />
+                                        <TouchableOpacity onPress={mainImageClicked} style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
+                                            <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
+                                                <Image style={{ width: '80%', height: '80%', borderRadius: 15 }}
+                                                    source={require('../../../assets/icons/iconClose.png')}
+                                                />
+                                            </View>
+                                        </TouchableOpacity>
 
                                     </TouchableOpacity>
                                 }
@@ -532,6 +559,14 @@ function PropertyScreen({ navigation }) {
                                                     style={{ width: '100%', height: getDimen(.35), resizeMode: 'cover', alignSelf: 'center', borderRadius: 10 }}
                                                     defaultSource={require('../../../assets/icons/plus.png')}
                                                 />
+                                                <TouchableOpacity onPress={() => additionalImageClicked(index)}
+                                                    style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
+                                                    <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
+                                                        <Image style={{ width: '80%', height: '80%', borderRadius: 15 }}
+                                                            source={require('../../../assets/icons/iconClose.png')}
+                                                        />
+                                                    </View>
+                                                </TouchableOpacity>
 
                                             </View>
                                         }

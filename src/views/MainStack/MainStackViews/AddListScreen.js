@@ -151,15 +151,15 @@ function AddListScreen({ navigation }) {
 
 
             </View> */}
-            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() =>
+            <View style={{ width: '100%', flex: 0.11, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity style={{ height: '100%', justifyContent: 'center' }} onPress={() =>
                     navigation.dispatch(DrawerActions.toggleDrawer())
                 }>
                     <Image source={require('../../../assets/icons/3.png')}
                         style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>
 
-                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <View style={{ width: '95%', height: '100%', backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                     <Text style={{ fontSize: getDimen(0.055), marginLeft: getDimen(0.035) }}>Chat List </Text>
 
                     <Image source={require('../../../assets/images/logo.png')}

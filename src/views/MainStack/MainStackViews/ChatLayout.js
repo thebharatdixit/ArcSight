@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
 import { GiftedChat } from 'react-native-gifted-chat'
 
-import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, SafeAreaView, TextInput, FlatList, Alert, ActivityIndicator, KeyboardAvoidingView, Keyboard, KeyboardEvent, Animated, Platform } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, SafeAreaView, TextInput, FlatList, Alert, ActivityIndicator, KeyboardAvoidingView, Keyboard, EmitterSubscription, KeyboardEvent, Animated, Platform } from 'react-native'
 
 import { getData } from '../../../utils/asyncStore';
 
@@ -29,26 +29,21 @@ function ChatLayout({ route, navigation }) {
     const [profileImage, setProfileImage] = React.useState('');
     const [keyboardHeight, setKeyboardHeight] = React.useState(0);
     const [inputHeight, setinputHeight] = React.useState(40);
-    const [chatContainerHeight, setchatContainerHeight] = React.useState(getDimen(1.32));
+    const [chatContainerHeight, setchatContainerHeight] = React.useState(2);
     const [inputBoxHeight, setinputBoxHeight] = React.useState(getDimen(.10));
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const [accessToken, setAccessToken] = React.useState('')
     const [userId, setUserId] = React.useState('')
     // const [flatRef, setFlatRef] = useRef(null);
     const scrollViewRef = useRef();
+    // const ref = useRef<{
+    //     keyboardShowListener?: EmitterSubscription,
+    //     keyboardHideListener?: EmitterSubscription
+    // }>({})
     // const [ref, setRef] = React.i = useRef('flatlist');
     // const [keyboardHeight, setKeyboardHeight] = useState(0);
 
-    function onKeyboardDidShow(e) {
-        const chatHeight = (getDimen(1.32) - e.endCoordinates.height) + getDimen(.12);
-        setchatContainerHeight(chatHeight);
-        setKeyboardHeight(e.endCoordinates.height);
-    }
 
-    function onKeyboardDidHide() {
-        setchatContainerHeight(getDimen(1.32));
-        setKeyboardHeight(0);
-    }
 
     const searchUpdated = (term) => {
         setSearchTerm(term);
@@ -89,41 +84,47 @@ function ChatLayout({ route, navigation }) {
         setUsername(name);
         setCmpanyName(companyName);
         setProfileImage(profile_image_url);
-        Keyboard.addListener('keyboardDidShow', onKeyboardDidShow);
-        Keyboard.addListener('keyboardDidHide', onKeyboardDidHide);
+        // ref.current.keyboardShowListener = Keyboard.addListener('keyboardDidShow', () => console.log('didshowkeyboard'));
+        // ref.current.keyboardHideListener = Keyboard.addListener('keyboardWillHide', () => console.log('didhidekeyboard'));
+        // return () => {
+        //     Keyboard.removeListener('keyboardDidShow', onKeyboardDidShow);
+        //     Keyboard.removeListener('keyboardDidHide', onKeyboardDidHide);
+        // };
+    }, []);
+
+    useEffect(() => {
+        Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+        Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+        // cleanup function
         return () => {
-            Keyboard.removeListener('keyboardDidShow', onKeyboardDidShow);
-            Keyboard.removeListener('keyboardDidHide', onKeyboardDidHide);
+            Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+            Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
         };
     }, []);
 
     const _keyboardDidShow = (e) => {
-        console.log('Keyboard is showing');
-
-
         if (Platform.OS === 'ios') {
-            const chatHeight = (getDimen(1.32) - e.endCoordinates.height) + getDimen(.12);
+            const chatHeight = (e.endCoordinates.height - getDimen(.8));
+            console.log('chatheight:: ' + chatHeight + " :: " + getDimen(1.32) + " :: " + getDimen(.12) + " :: " + e.endCoordinates.height);
             setchatContainerHeight(chatHeight);
 
         } else {
             setchatContainerHeight(getDimen(1.32));
 
         }
-
-
-    }
+    };
 
     const _keyboardDidHide = () => {
-        console.log('Keyboard is hiding');
-        setchatContainerHeight(getDimen(1.32));
+        console.log("Keyboard Hidden");
+        setchatContainerHeight(10);
+    };
 
-        // this.setState({ keyboardHeight: 0 });
-    }
 
 
 
     const changeBoxSize = () => {
-        setchatContainerHeight(getDimen(1.32));
+        setchatContainerHeight(10);
     }
 
     const onSend = useCallback((messages = []) => {
@@ -253,18 +254,10 @@ function ChatLayout({ route, navigation }) {
     );
 
 
-
-    return (
-        // <GiftedChat
-        //             messages={messages}
-        //             onSend={messages => onSend(messages)}
-        //             user={{
-        //                 _id: 1,
-        //             }}
-        // />
-
-        <SafeAreaView style={{ height: '100%', width: '100%', flexDirection: 'column', flex: 1 }}>
-            {/* <View style={styles.headerIconView}>
+    getRenderView = () => {
+        return (
+            <SafeAreaView style={{ height: '100%', width: '100%', flexDirection: 'column', flex: 1 }}>
+                {/* <View style={styles.headerIconView}>
 
                 <TouchableOpacity onPress={() => navigation.goBack()} style={{ flex: 0.80, flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'flex-start', alignSelf: 'center', marginLeft: 15 }}>
                     <Image style={styles.backButtonIcon} source={require('../../../assets/images/back.png')} />
@@ -276,119 +269,135 @@ function ChatLayout({ route, navigation }) {
             </View>
             <View style={{ height: 1, width: '100%', backgroundColor: '#EAEAEA' }}></View> */}
 
-            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity style={{ height: 25, width: 25 }} onPress={() => navigation.goBack()}>
-                    <Image source={require('../../../assets/icons/back.png')}
-                        style={{ height: 25, width: 25 }} />
-                </TouchableOpacity>
-                {/* <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}> */}
-                {/* <Image
+                <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    <TouchableOpacity style={{ height: 25, width: 25 }} onPress={() => navigation.goBack()}>
+                        <Image source={require('../../../assets/icons/back.png')}
+                            style={{ height: 25, width: 25 }} />
+                    </TouchableOpacity>
+                    {/* <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}> */}
+                    {/* <Image
                     source={{ uri: profile_image_url }}
                     defaultSource={require('../../../assets/icons/2.png')}
                     // source={require('../../../assets/icons/2.png')}
                     style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }} /> */}
 
-                {
-                    (profile_image_url && (profile_image_url.includes('.jpg') || profile_image_url.includes('.png'))) ? <Image
-                        source={{
-                            uri: `${profile_image_url}`,
-                        }}
-                        style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }}
-                    /> :
-                        <Image source={require('../../../assets/icons/2.png')}
-                            style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }} />
-                }
+                    {
+                        (profile_image_url && (profile_image_url.includes('.jpg') || profile_image_url.includes('.png'))) ? <Image
+                            source={{
+                                uri: `${profile_image_url}`,
+                            }}
+                            style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }}
+                        /> :
+                            <Image source={require('../../../assets/icons/2.png')}
+                                style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }} />
+                    }
 
-                <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.015) }}>{username} </Text>
-                <Text style={{ fontSize: getDimen(0.025) }}>{"(" + cmpanyName + ")"} </Text>
+                    <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.015) }}>{username} </Text>
+                    <Text style={{ fontSize: getDimen(0.025) }}>{"(" + cmpanyName + ")"} </Text>
 
-                {/* <Image source={require('../../../assets/images/logo.png')}
+                    {/* <Image source={require('../../../assets/images/logo.png')}
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} /> */}
-                {/* </View> */}
+                    {/* </View> */}
 
 
-            </View>
-            <View style={{ width: '100%', flex: 0.90, }} >
-                {(!chatList || chatList.length === 0) ?
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                        <Image source={require('../../../assets/images/logo.png')} style={{ height: '20%', width: 180, resizeMode: 'contain' }} />
-                        {/* <Text style={{ justifyContent: 'center', width: '100%', alignSelf: 'center', textAlign: 'center' }}>Please start chat to interact</Text> */}
+                </View>
+                <View style={{ width: '100%', flex: 0.90,  }} >
+                    {(!chatList || chatList.length === 0) ?
+                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                            <Image source={require('../../../assets/images/logo.png')} style={{ height: '20%', width: 180, resizeMode: 'contain' }} />
+                            {/* <Text style={{ justifyContent: 'center', width: '100%', alignSelf: 'center', textAlign: 'center' }}>Please start chat to interact</Text> */}
 
 
-                    </View>
-                    :
-
-                    <FlatList
-                        inverted={false}
-                        horizontal={false}
-                        showsHorizontalScrollIndicator={false}
-                        style={{ paddingLeft: 10, marginTop: 10 }}
-                        data={chatList}
-                        // ref={React.useRef("flatlist")}
-                        // onContentSizeChange={() => useRef('flatlist').scrollToEnd({ animated: false })}
-                        ref={scrollViewRef}
-                        onContentSizeChange={(contentWidth, contentHeight) => { scrollViewRef.current.scrollToEnd({ animated: false }) }}
-                        // onContentSizeChange={() => flatRef.current.scrollToEnd({ animated: false })}
-                        renderItem={({ item, separators, index }) => {
-
-                            if (item.right_side_message === 'yes') {
-                                return renderItem1({ item });
-                            }
-                            return renderItem2({ item });
-                        }}
-
-                        keyExtractor={item => item.key}
-                    />
-                }
-
-                {
-                    (showChat === '') ?
-                        <View
-                            style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
-                        >
-                            <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
                         </View>
                         :
-                        null
-                }
-                {/* {this.state.showChat === '' ? <View style={{ width: '100%', height: '100%', marginTop: 5, position: 'absolute', backgroundColor: 'white' }} >
+
+                        <FlatList
+                            inverted={false}
+                            horizontal={false}
+                            showsHorizontalScrollIndicator={false}
+                            style={{ paddingLeft: 10, marginTop: 10 }}
+                            data={chatList}
+                            // ref={React.useRef("flatlist")}
+                            // onContentSizeChange={() => useRef('flatlist').scrollToEnd({ animated: false })}
+                            ref={scrollViewRef}
+                            onContentSizeChange={(contentWidth, contentHeight) => { scrollViewRef.current.scrollToEnd({ animated: false }) }}
+                            // onContentSizeChange={() => flatRef.current.scrollToEnd({ animated: false })}
+                            renderItem={({ item, separators, index }) => {
+
+                                if (item.right_side_message === 'yes') {
+                                    return renderItem1({ item });
+                                }
+                                return renderItem2({ item });
+                            }}
+
+                            keyExtractor={item => item.key}
+                        />
+                    }
+
+                    {
+                        (showChat === '') ?
+                            <View
+                                style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                            >
+                                <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                            </View>
+                            :
+                            null
+                    }
+                    {/* {this.state.showChat === '' ? <View style={{ width: '100%', height: '100%', marginTop: 5, position: 'absolute', backgroundColor: 'white' }} >
                 <ActivityIndicator animating={true} style={{ width: '100%', height: '100%', position: 'absolute', alignSelf: 'center', alignItems: 'center', justifyContent: "center" }}></ActivityIndicator>
             </View> : null} */}
-            </View>
+
+                    <View style={{ backgroundColor: '#DADADA', width: '100%', height: 1, alignSelf: 'center', justifyContent: 'center', alignItems: 'center' }}></View>
+                    <View style={{ marginBottom: 10 }}>
+                        {/* <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled> */}
+                        <View style={{
+                            flexDirection: 'row', justifyContent: 'flex-end',
+                            borderWidth: 0, borderColor: '#2B5F9C', justifyContent: 'flex-end', height: 50,
+
+                        }}>
+                            <TextInput autoCapitalize={'none'}
+                                style={{ flex: 6, paddingLeft: 15 }}
+                                placeholder="Type a message here..."
+                                placeholderTextColor='gray'
+                                //onChangeText={(comment) => this.setState({ comment: comment })}
+                                value={comment}
+                                onSubmitEditing={() => changeBoxSize()}
+                                onChangeText={(comment) => setcomment(comment)}
+
+                                underlineColorAndroid='transparent' />
+
+                            <TouchableOpacity style={{ flex: 1, marginLeft: 5, alignSelf: 'center', }} onPress={() => { sendComment() }}>
+                                <Image source={require('../../../assets/images/right-arrow.png')} style={{ height: 25, width: 25, tintColor: '#f1ac35' }} />
 
 
-
-
-
-            <View style={{ backgroundColor: '#DADADA', width: '100%', height: 1, alignSelf: 'center', justifyContent: 'center', alignItems: 'center' }}></View>
-            <View style={{ marginBottom: 10 }}>
-                {/* <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled> */}
-                <View style={{
-                    flexDirection: 'row', justifyContent: 'flex-end',
-                    borderWidth: 0, borderColor: '#2B5F9C', justifyContent: 'flex-end', height: 50,
-
-                }}>
-                    <TextInput autoCapitalize={'none'}
-                        style={{ flex: 6, paddingLeft: 15 }}
-                        placeholder="Type a message here..."
-                        placeholderTextColor='gray'
-                        //onChangeText={(comment) => this.setState({ comment: comment })}
-                        value={comment}
-                        onSubmitEditing={() => changeBoxSize()}
-                        onChangeText={(comment) => setcomment(comment)}
-
-                        underlineColorAndroid='transparent' />
-
-                    <TouchableOpacity style={{ flex: 1, marginLeft: 5, alignSelf: 'center', }} onPress={() => { sendComment() }}>
-                        <Image source={require('../../../assets/images/right-arrow.png')} style={{ height: 25, width: 25, tintColor: '#f1ac35' }} />
-
-
-                    </TouchableOpacity>
+                            </TouchableOpacity>
+                        </View>
+                        {/* </KeyboardAvoidingView> */}
+                    </View>
                 </View>
-                {/* </KeyboardAvoidingView> */}
-            </View>
 
-        </SafeAreaView >
+
+
+
+
+
+
+            </SafeAreaView >
+        )
+    }
+
+
+
+    return (
+        Platform.OS === 'ios' ?
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
+                {this.getRenderView()}
+            </KeyboardAvoidingView>
+            :
+            this.getRenderView()
+
+
     );
 }
 
