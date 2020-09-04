@@ -21,7 +21,7 @@ import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { getDimen } from '../../../dimensions/dimen';
 import { storeData, getData } from '../../../utils/asyncStore';
 
-function PrivacyPolicy({ navigation }) {
+function Terms({ navigation }) {
 
 
     return (
@@ -37,7 +37,7 @@ function PrivacyPolicy({ navigation }) {
                 <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                     {/* <Image source={require('../../../assets/icons/2.png')}
                         style={{ height: getDimen(0.1), width: getDimen(0.1) }} /> */}
-                    <Text style={{ fontSize: getDimen(0.055), marginLeft: getDimen(0.035) }}>Privacy Policy </Text>
+                    <Text style={{ fontSize: getDimen(0.055), marginLeft: getDimen(0.035) }}>Terms Of Use</Text>
                     <Image source={require('../../../assets/images/logo.png')}
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
@@ -46,7 +46,7 @@ function PrivacyPolicy({ navigation }) {
 
                 <WebView
                     style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', }}
-                    source={{ uri: 'http://arc.softwaresolutions.website/privacy' }}
+                    source={{ uri: 'http://arc.softwaresolutions.website/terms' }}
 
                 />
 
@@ -135,4 +135,4 @@ const styles = StyleSheet.create({
         marginRight: getDimen(.085)
     },
 });
-export default PrivacyPolicy;
+export default Terms;

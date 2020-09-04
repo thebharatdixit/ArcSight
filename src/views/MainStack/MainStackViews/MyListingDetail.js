@@ -13,7 +13,8 @@ import {
     ToastAndroid,
     FlatList,
     Share,
-    Alert
+    Alert,
+    Linking
 } from 'react-native';
 import { WebView } from "react-native-webview";
 import { MenuProvider } from 'react-native-popup-menu';
@@ -56,6 +57,9 @@ function MyListingDetail({ navigation, route }) {
     const [position, setPosition] = React.useState('');
     const [intervalTime, setIntervalTime] = React.useState('');
     const [dataofimages, setdataofimages] = React.useState([]);
+    const [latitude, setLatitude] = React.useState('');
+    const [longnitude, setLongnitude] = React.useState('');
+    const [locationName, setLocationName] = React.useState('');
 
     const { userId } = route.params ? route.params : ""
 
@@ -102,6 +106,9 @@ function MyListingDetail({ navigation, route }) {
                     setUserName(res.data.listing.userinfo.name)
                     setCompanyName(res.data.listing.userinfo.company_name)
                     setUserImage(res.data.listing.userinfo.profile_image_url)
+                    setLatitude(res.data.listing.latitude);
+                    setLongnitude(res.data.listing.longitude);
+                    setLocationName(res.data.listing.location);
                     setIsFeatured(res.data.listing.is_featured)
                     setPrimaryImage(res.data.listing.main_image_url)
                     setIsSold(res.data.listing.is_sold);
@@ -153,6 +160,19 @@ function MyListingDetail({ navigation, route }) {
     const shoWebview = (url) => {
         setWebviewUrl(url);
         setShowWebview('');
+    }
+
+    const openMapurl = (lati, longi, placeName) => {
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+        const latLng = `${lati},${longi}`;
+        const label = locationName;
+        const url = Platform.select({
+            ios: `${scheme}${label}@${latLng}`,
+            android: `${scheme}${latLng}(${label})`
+        });
+
+
+        Linking.openURL(url);
     }
 
     const deleteListingApiIntegration = (listing_id) => {
@@ -235,8 +255,8 @@ function MyListingDetail({ navigation, route }) {
                                         <View style={{ height: getDimen(0.70), width: '100%' }}>
                                             <Slideshow style={{ height: getDimen(1), width: '100%' }}
                                                 dataSource={dataofimages && dataofimages.length > 0 ? dataofimages : []}
-                                                // position={this.state.position}
-                                                // onPositionChanged={position => this.setState({ position })}
+                                            // position={this.state.position}
+                                            // onPositionChanged={position => this.setState({ position })}
                                             />
                                         </View>
                                 }
@@ -335,8 +355,10 @@ function MyListingDetail({ navigation, route }) {
                         {/* <ScrollView style={styles.container}> */}
                         <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05), flexDirection: 'row' }}>
                             {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
-                            <Text style={{ fontSize: getDimen(0.045), width: '55%', fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
-                            <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
+                            <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
+                                <Text style={{ fontSize: getDimen(0.045), fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
+                            </TouchableOpacity>
+                            <View style={{ flex: 0.5, flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
                                 <TouchableOpacity
                                     onPress={() => {
                                         (loginUserId === userIdd) ?

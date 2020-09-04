@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import {
     View, Text, TouchableOpacity, StyleSheet,
     Image, Dimensions
- 
+
 } from 'react-native';
 
 import { getDimen } from '../../../dimensions/dimen';
@@ -12,35 +12,40 @@ import MapViewDirections from 'react-native-maps-directions';
 // import Geolocation from 'react-native-geolocation-service';
 import Geolocation from '@react-native-community/geolocation'
 
-const { width, height } = Dimensions.get('window');
+// const { width, height } = Dimensions.get('window');
 
 const origin = { latitude: 37.3318456, longitude: -122.0296002 };
 const destination = { latitude: 37.771707, longitude: -122.4053769 };
 const GOOGLE_MAPS_APIKEY = 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k';
-
+const { width, height } = Dimensions.get('window');
+const ASPECT_RATIO = width / height;
+const LATITUDE = 37.771707;
+const LONGITUDE = -122.4053769;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 function MapScreen({ navigation }) {
 
     // React.useEffect(() => {
-        
+
     //     // Geolocation.requestAuthorization();
-        // Geolocation.getCurrentPosition(
-        //     (position) => {
-        //         console.log('Geolocation:', position);
-        //     },
-        //     (error) => {
-        //         console.log("map error: ", error);
-        //         console.log('GeolocationError', error.code, error.message);
-        //     },
-        //     { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 }
-        // );
+    // Geolocation.getCurrentPosition(
+    //     (position) => {
+    //         console.log('Geolocation:', position);
+    //     },
+    //     (error) => {
+    //         console.log("map error: ", error);
+    //         console.log('GeolocationError', error.code, error.message);
+    //     },
+    //     { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 }
+    // );
 
     // }, [])
-    
-    Geolocation.getCurrentPosition(data=>console.log('Geolocation',data))
-    console.log(data.coords.latitude)
-    console.log(data.coords.longitude)
-    
+
+    // Geolocation.getCurrentPosition(data => console.log('Geolocation', data))
+    // console.log(data.coords.latitude)
+    // console.log(data.coords.longitude)
+
     return (
 
         <View style={{ flex: 1 }}>
@@ -62,12 +67,19 @@ function MapScreen({ navigation }) {
             </View>
 
             <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
-                <MapView>
+                <MapView initialRegion={{
+                    latitude: LATITUDE,
+                    longitude: LONGITUDE,
+                    latitudeDelta: LATITUDE_DELTA,
+                    longitudeDelta: LONGITUDE_DELTA,
+                }}>
                     <MapViewDirections
-                    origin={origin}
-                    destination={destination}
-                    apikey={GOOGLE_MAPS_APIKEY}
-                />
+                        origin={origin}
+                        destination={destination}
+                        apikey={GOOGLE_MAPS_APIKEY}
+                        strokeWidth={3}
+                        strokeColor="hotpink"
+                    />
                 </MapView>
             </View>
 

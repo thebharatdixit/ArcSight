@@ -14,7 +14,8 @@ import {
     FlatList,
     Share,
     Alert,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    KeyboardAvoidingView
 } from 'react-native';
 import SelectMultiple from 'react-native-select-multiple';
 import { useIsFocused } from '@react-navigation/native';
@@ -176,7 +177,8 @@ function PropertyScreen({ navigation }) {
                 .then(res => {
                     setShowLoader('hide')
                     console.log('listLog', res.message);
-                    Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    alert(res.message);
                     setArrImages([]);
                     setDupArrImages([]);
                     setArrSelectedAminities([]);
@@ -484,7 +486,7 @@ function PropertyScreen({ navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
+            <KeyboardAvoidingView  behavior="padding" enabled style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
                 <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>ADD LISTING</Text>
@@ -805,6 +807,7 @@ function PropertyScreen({ navigation }) {
                                     style={styles.input}
                                     placeholder="Square Feet"
                                     placeholderTextColor="#8A8A8A"
+                                    keyboardType="numeric"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
                                     onChangeText={(squreFeet) => setSqureFeet(squreFeet)}
@@ -962,6 +965,7 @@ function PropertyScreen({ navigation }) {
                                     style={styles.input}
                                     placeholder="Description"
                                     placeholderTextColor="#8A8A8A"
+                                    maxLength={650}
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
                                     onChangeText={(description) => setDescription(description)}
@@ -1006,7 +1010,7 @@ function PropertyScreen({ navigation }) {
 
                     </View>
                 </View>
-            </View >
+            </KeyboardAvoidingView >
             {
                 (showGoogleView === true) ?
                     <View
@@ -1056,7 +1060,8 @@ function PropertyScreen({ navigation }) {
                             onPress={(data, details = null) => {
                                 // 'details' is provided when fetchDetails = true
                                 console.log('Google Details => ', JSON.stringify(data));
-                                setLocation(data.description)
+                                setLocation(data.description);
+                                setAddress(data.description);
                                 // https://maps.googleapis.com/maps/api/place/details/json?placeid={placeid}&key={key}
                                 // const response = await fetch(`https://graph.facebook.com/me?access_token=${accessData.accessToken}&fields=id,name,email,picture.type(large)`);
                                 getMapDetails(data);

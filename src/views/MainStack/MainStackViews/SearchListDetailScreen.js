@@ -13,7 +13,8 @@ import {
     ToastAndroid,
     FlatList,
     Share,
-    Alert
+    Alert,
+    Linking
 } from 'react-native';
 import { WebView } from "react-native-webview";
 
@@ -45,6 +46,9 @@ function SearchListDetailScreen({ navigation, route }) {
     const [webviewUrl, setWebviewUrl] = React.useState('');
     const [videoUrl, setVideoUrl] = React.useState('');
     const [dataofimages, setdataofimages] = React.useState([]);
+    const [latitude, setLatitude] = React.useState('');
+    const [longnitude, setLongnitude] = React.useState('');
+    const [locationName, setLocationName] = React.useState('');
 
     const { userId } = route.params ? route.params : ""
 
@@ -91,6 +95,9 @@ function SearchListDetailScreen({ navigation, route }) {
                     setUserName(res.data.listing.userinfo.name)
                     setCompanyName(res.data.listing.userinfo.company_name)
                     setUserImage(res.data.listing.userinfo.profile_image_url)
+                    setLatitude(res.data.listing.latitude);
+                    setLongnitude(res.data.listing.longitude);
+                    setLocationName(res.data.listing.location);
                     setIsFeatured(res.data.listing.is_featured)
                     setPrimaryImage(res.data.listing.main_image_url)
                     console.log('Primary Image', primaryImage);
@@ -141,6 +148,19 @@ function SearchListDetailScreen({ navigation, route }) {
     const shoWebview = (url) => {
         setWebviewUrl(url);
         setShowWebview('');
+    }
+
+    const openMapurl = (lati, longi, placeName) => {
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+        const latLng = `${lati},${longi}`;
+        const label = locationName;
+        const url = Platform.select({
+            ios: `${scheme}${label}@${latLng}`,
+            android: `${scheme}${latLng}(${label})`
+        });
+
+
+        Linking.openURL(url);
     }
 
 
@@ -231,10 +251,10 @@ function SearchListDetailScreen({ navigation, route }) {
                     {/* <ScrollView style={styles.container}> */}
                     <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05), flexDirection: 'row' }}>
                         {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
-                        <TouchableOpacity onPress={() => navigation.navigate('Map Screen')}>
-                        <Text style={{ fontSize: getDimen(0.045), width: '55%', fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
+                        <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
+                            <Text style={{ fontSize: getDimen(0.045), fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
                         </TouchableOpacity>
-                        <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
+                        <View style={{ flex: 0.5, flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
                             <TouchableOpacity
                                 onPress={() => {
                                     (loginUserId === userIdd) ?
