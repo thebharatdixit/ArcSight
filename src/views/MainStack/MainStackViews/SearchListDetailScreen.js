@@ -231,7 +231,9 @@ function SearchListDetailScreen({ navigation, route }) {
                     {/* <ScrollView style={styles.container}> */}
                     <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05), flexDirection: 'row' }}>
                         {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
+                        <TouchableOpacity onPress={() => navigation.navigate('Map Screen')}>
                         <Text style={{ fontSize: getDimen(0.045), width: '55%', fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
+                        </TouchableOpacity>
                         <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
                             <TouchableOpacity
                                 onPress={() => {

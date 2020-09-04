@@ -20,6 +20,7 @@
 		B8BD5B09037B6019592E7E73 /* libPods-ArcSight-ArcSightTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB414876A4D4F35700A7E30 /* libPods-ArcSight-ArcSightTests.a */; };
 		E3DF57EF7AC47581CD8B9F2C /* libPods-ArcSight-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD686787BAC238AF115FE870 /* libPods-ArcSight-tvOS.a */; };
 		F7E7A2D40315A407A55F5A45 /* libPods-ArcSight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49412BF51C3CBF0375C65033 /* libPods-ArcSight.a */; };
+		FE02405625027A91004F7F82 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE02405525027A91004F7F82 /* NetworkExtension.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,8 @@
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		EFA84F1568464A8F87769451 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		EFECF03D9D1853B3D73A98E3 /* Pods-ArcSight-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcSight-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-ArcSight-tvOS/Pods-ArcSight-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		FE02405425027A91004F7F82 /* ArcSight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = ArcSight.entitlements; path = ArcSight/ArcSight.entitlements; sourceTree = "<group>"; };
+		FE02405525027A91004F7F82 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		FEA4D26ABFB64F9EBB92F20B /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		FEE488B399708A3C1535F43F /* Pods-ArcSight.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcSight.debug.xcconfig"; path = "Target Support Files/Pods-ArcSight/Pods-ArcSight.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,6 +102,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F7E7A2D40315A407A55F5A45 /* libPods-ArcSight.a in Frameworks */,
+				FE02405625027A91004F7F82 /* NetworkExtension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +145,7 @@
 		13B07FAE1A68108700A75B9A /* ArcSight */ = {
 			isa = PBXGroup;
 			children = (
+				FE02405425027A91004F7F82 /* ArcSight.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -155,6 +160,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE02405525027A91004F7F82 /* NetworkExtension.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				49412BF51C3CBF0375C65033 /* libPods-ArcSight.a */,
@@ -768,6 +774,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ArcSight/ArcSight.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -796,6 +803,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = ArcSight/ArcSight.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

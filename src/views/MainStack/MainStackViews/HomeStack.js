@@ -7,7 +7,7 @@ import ColleagueListScreen from './ColleagueListScreen'
 import ProfileScreen from './ProfileScreen'
 import SearchListDetailScreen from './SearchListDetailScreen';
 import ThreeSixtyView from './ThreeSixtyView';
-
+import MapScreen from './MapScreen'
 
 const Stack = createStackNavigator();
 const HomeStack = function authNavigator({ }) {
@@ -33,8 +33,11 @@ const HomeStack = function authNavigator({ }) {
 
             <Stack.Screen name="Search List Detail" component={SearchListDetailScreen}
             />
-
+            
             <Stack.Screen name="ThreeSixtyView" component={ThreeSixtyView}
+            />
+
+            <Stack.Screen name="Map Screen" component={MapScreen}
             />
 
         </Stack.Navigator>
