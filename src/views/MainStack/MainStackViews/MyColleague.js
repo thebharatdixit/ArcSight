@@ -239,9 +239,21 @@ function MyColleagueScreen({ navigation }) {
                                                         </View>
                                                     </View>
 
+                                                    {item.video_url ?
+                                                        <TouchableOpacity onPress={() =>
+                                                            // console.log("userId1234:", userId, item.user_id)
+                                                            shoWebview(item.video_url)
+                                                        }
+                                                            style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                                        </TouchableOpacity>
+                                                        :
+                                                        null
+                                                    }
+
                                                 </View>
 
-                                                {item.video_url ?
+                                                {/* {item.video_url ?
                                                     <TouchableOpacity onPress={() =>
                                                         // console.log("userId1234:", userId, item.user_id)
                                                         shoWebview(item.video_url)
@@ -251,14 +263,14 @@ function MyColleagueScreen({ navigation }) {
                                                     </TouchableOpacity>
                                                     :
                                                     null
-                                                }
+                                                } */}
 
                                                 <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
                                                     <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3) }}>
                                                         <Text style={{ fontSize: getDimen(0.045), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>${item.price_per_sq_feet}/feet</Text>
                                                     </View>
                                                     <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.3) }}>
-                                                        <Text style={{ fontSize: getDimen(0.050), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(item.is_sold === "no") ? item.listing_type  : item.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
+                                                        <Text style={{ fontSize: getDimen(0.050), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(item.is_sold === "no") ? item.listing_type : item.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
                                                     </View>
                                                 </View>
 
@@ -317,7 +329,7 @@ function MyColleagueScreen({ navigation }) {
                                                         <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
                                                             <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
                                                                 {/* <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text> */}
-                                                                <Text style={{ fontSize: getDimen(0.035), fontWeight: '600', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(item.is_sold === "no") ? item.listing_type  : item.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
+                                                                <Text style={{ fontSize: getDimen(0.035), fontWeight: '600', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(item.is_sold === "no") ? item.listing_type : item.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
                                                             </View>
                                                             <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
                                                                 <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>${item.price_per_sq_feet}/feet</Text>
@@ -340,25 +352,25 @@ function MyColleagueScreen({ navigation }) {
                                                                     style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
                                                             </TouchableOpacity>
                                                             <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', left: 5, flex: 0.1 }}>
-                                                            <Menu>
-                                                        <MenuTrigger>
-                                                            <Image source={require('../../../assets/images/more.png')}
-                                                                style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'gray' }}
-                                                            />
-                                                        </MenuTrigger>
+                                                                <Menu>
+                                                                    <MenuTrigger>
+                                                                        <Image source={require('../../../assets/images/more.png')}
+                                                                            style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'gray' }}
+                                                                        />
+                                                                    </MenuTrigger>
 
 
-                                                        <MenuOptions>
-                                                            <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
-                                                            <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
-                                                            {/* <MenuOption onSelect={() => alert(`DELETE`)} >
+                                                                    <MenuOptions>
+                                                                        <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
+                                                                        <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
+                                                                        {/* <MenuOption onSelect={() => alert(`DELETE`)} >
                                                                 <Text style={{ color: 'red' }}>Delete</Text>
                                                             </MenuOption> */}
-                                                            {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
-                                                            
-                                                            {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
-                                                        </MenuOptions>
-                                                    </Menu>
+                                                                        {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
+
+                                                                        {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
+                                                                    </MenuOptions>
+                                                                </Menu>
                                                             </TouchableOpacity>
                                                         </View>
 

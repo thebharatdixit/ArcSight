@@ -264,12 +264,12 @@ function MainScreen({ navigation }) {
         var createdDt = moment(createdDatee).format('MMM DD, YYYY')
         console.log('DateFormatecreatedDateMMMDDYYY', createdDt);
         console.log('index::', index)
-        var msDiff = new Date().getTime() - new Date(createdDt).getTime()  ;  //Aug 25, 2020
+        var msDiff = new Date().getTime() - new Date(createdDt).getTime();  //Aug 25, 2020
         var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
         console.log('Days***!!!:', daysTill30June2035, new Date()); //current date: Thu Aug 27 2020 12:10:44 GMT+0530 (IST)
         // var createdDiffDate = daysTill30June2035 + " "
         // setCreatedDate(createdDiffDate)
-        console.log('Created Date00002', createdDate); 
+        console.log('Created Date00002', createdDate);
 
         var diffInSeconds = Math.abs(msDiff) / 1000;
         var days = Math.floor(diffInSeconds / 60 / 60 / 24);
@@ -288,41 +288,41 @@ function MainScreen({ navigation }) {
         console.log('years', ('0' + years));
 
         // if (years === 0){
-            if (days < 1) {
-                console.log('insidethis:::');
-                if (hours > 0) {
-                    if (hours < 24) {
-                        var createdDiffDate = ('0' + hours).slice(-2) + " " + "hrs ago"
-                        setCreatedDate(createdDiffDate)
-                    } else {
-                        var createdDiffDate = daysTill30June2035 + " " + "days ago"
-                        setCreatedDate(createdDiffDate)
-                    }
+        if (days < 1) {
+            console.log('insidethis:::');
+            if (hours > 0) {
+                if (hours < 24) {
+                    var createdDiffDate = ('0' + hours).slice(-2) + " " + "hrs ago"
+                    setCreatedDate(createdDiffDate)
                 } else {
-                    if (minutes < 1) {
-                        var createdDiffDate = ('0' + minutes).slice(-2) + " " + "min ago"
-                        setCreatedDate(createdDiffDate)
-                    } else {
-                        var createdDiffDate = "Just now"
-                        setCreatedDate(createdDiffDate)
-                    }
+                    var createdDiffDate = daysTill30June2035 + " " + "days ago"
+                    setCreatedDate(createdDiffDate)
                 }
             } else {
-                console.log('insidethis::::');
-                var createdDiffDate = daysTill30June2035 + " " + "days ago"
-                setCreatedDate(createdDiffDate)
+                if (minutes < 1) {
+                    var createdDiffDate = ('0' + minutes).slice(-2) + " " + "min ago"
+                    setCreatedDate(createdDiffDate)
+                } else {
+                    var createdDiffDate = "Just now"
+                    setCreatedDate(createdDiffDate)
+                }
             }
+        } else {
+            console.log('insidethis::::');
+            var createdDiffDate = daysTill30June2035 + " " + "days ago"
+            setCreatedDate(createdDiffDate)
+        }
         // } else {
 
         //     var createdDiffDate = daysTill30June2035 + " " + "days ago"
         //     setCreatedDate(createdDiffDate)
         // }
-        
+
 
     }
 
     const renderItem = ({ item }) => (
-        
+
         <Item title={item} />
     );
 
@@ -392,7 +392,7 @@ function MainScreen({ navigation }) {
                                                             :
                                                             navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
 
-                                                             }
+                                                    }
                                                     }>
                                                         {
                                                             (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
@@ -427,11 +427,11 @@ function MainScreen({ navigation }) {
                                                                 </Text>
                                                                 <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.012) }}>
                                                                     {/* Listed 2 Days Ago */}
-                                                                    
+
                                                                     {
                                                                         createdDate
                                                                     }
-                                                                        
+
                                                                 </Text>
                                                             </TouchableOpacity>
                                                         </View>
@@ -505,13 +505,17 @@ function MainScreen({ navigation }) {
                                                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
                                                             </View>
                                                         </View>
-                                                        <TouchableOpacity onPress={() =>
-                                                            // console.log("userId1234:", userId, item.user_id)
-                                                            shoWebview(item.video_url)
+                                                        {item.video_url ?
+                                                            <TouchableOpacity onPress={() =>
+                                                                // console.log("userId1234:", userId, item.user_id)
+                                                                shoWebview(item.video_url)
+                                                            }
+                                                                style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                                            </TouchableOpacity>
+                                                            :
+                                                            null
                                                         }
-                                                            style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
-                                                        </TouchableOpacity>
                                                     </View>
                                                     <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
                                                         <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3), }}>
@@ -519,7 +523,7 @@ function MainScreen({ navigation }) {
                                                                 textAlign: 'center', color: 'white',
                                                                 textAlignVertical: 'center', fontWeight: '700', fontSize: getDimen(0.04)
                                                             }}>
-                                                                     $
+                                                                $
                                                                 {item.price_per_sq_feet}
                                                                  /feet
                                                               </Text>
@@ -545,7 +549,7 @@ function MainScreen({ navigation }) {
 
 
                                             <View>
-                                                
+
                                                 <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
                                                     <TouchableOpacity onPress={() => {
                                                         (userId === item.user_id) ?
