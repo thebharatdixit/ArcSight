@@ -1160,6 +1160,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginRight: 25,
         height: '100%',
+        width: '100%',
         marginLeft: -10,
         borderBottomColor: 'transparent',
         borderColor: 'transparent',
