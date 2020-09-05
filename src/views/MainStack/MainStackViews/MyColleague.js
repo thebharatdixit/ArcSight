@@ -213,7 +213,7 @@ function MyColleagueScreen({ navigation }) {
                                                 <TouchableOpacity onPress={() => navigation.navigate('My Listing Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
 
                                                     {
-                                                        (item.main_image_url && (item.main_image_url.includes('.jpg') || item.main_image_url.includes('.png'))) ?
+                                                        (item.main_image_url) ?
                                                             <Image
                                                                 source={{
                                                                     uri: `${item.main_image_url}`,
@@ -228,6 +228,7 @@ function MyColleagueScreen({ navigation }) {
                                                                 style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
                                                             />
                                                     }
+                                                    {/* <Text></Text> */}
 
                                                 </TouchableOpacity>
 

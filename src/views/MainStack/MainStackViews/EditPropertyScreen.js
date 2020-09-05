@@ -74,6 +74,7 @@ function EditPropertyScreen({ navigation, route }) {
     const [arrSelectedAminities, setArrSelectedAminities] = React.useState([]);
     const [arrSelectedAminitiesForApi, setArrSelectedAminitiesForApi] = React.useState([]);
     const [counter, setCounter] = React.useState(0);
+    const [locationNeighbourhood, setLocationNeighbourhood] = React.useState([]);
 
     const [imgSourceArr, setImgSourceArr] = React.useState([]);
     const [arrImages, setArrImages] = React.useState([]);
@@ -118,74 +119,76 @@ function EditPropertyScreen({ navigation, route }) {
         if (!(mainImage === "")) {
             fileName = GetFilename(mainImage);
         }
+        if (!(mainImage === "")) {
+            console.log('fileName:::: ' + fileName);
+            const formData = new FormData();
 
-        console.log('fileName:::: ' + fileName);
-        const formData = new FormData();
-
-        formData.append('home_type', homeType);
-        formData.append('sq_feet', squreFeet);
-        formData.append('bedrooms', bedroom);
-        formData.append('bathrooms', bath);
-        formData.append('terrace', terrace);
-        formData.append('listing_type', listingType);
-        formData.append('state', stateName);
-        formData.append('city', city);
-        formData.append('zipcode', zipcode);
-        formData.append('location', address);
-        formData.append('year_built', yearBuilt);
-        formData.append('price_per_sq_feet', pricePerSqureFeet);
-        formData.append('price', price);
-        formData.append('taxes', taxes);
-        formData.append('latitude', latitude);
-        formData.append('longitude', longnitude);
-        formData.append('amenities', JSON.stringify(arrSelectedAminitiesForApi));
-        // formData.append('amenities[]', 2);
-        formData.append('description', description);
-        formData.append('is_featured', 'yes');
-        formData.append('main_image',
-            {
-                uri: mainImage,
-                name: mainImageData.fileName,
-                type: mainImageData.type
+            formData.append('home_type', homeType);
+            formData.append('sq_feet', squreFeet);
+            formData.append('bedrooms', bedroom);
+            formData.append('bathrooms', bath);
+            formData.append('terrace', terrace);
+            formData.append('listing_type', listingType);
+            formData.append('state', stateName);
+            formData.append('city', city);
+            formData.append('zipcode', zipcode);
+            formData.append('location', address);
+            formData.append('year_built', yearBuilt);
+            formData.append('price_per_sq_feet', pricePerSqureFeet);
+            formData.append('price', price);
+            formData.append('taxes', taxes);
+            formData.append('latitude', latitude);
+            formData.append('longitude', longnitude);
+            formData.append('location_neighbourhood', locationNeighbourhood);
+            formData.append('amenities', JSON.stringify(arrSelectedAminitiesForApi));
+            // formData.append('amenities[]', 2);
+            formData.append('description', description);
+            formData.append('is_featured', 'yes');
+            formData.append('main_image',
+                {
+                    uri: mainImage,
+                    name: mainImageData.fileName,
+                    type: mainImageData.type
+                });
+            // formData.append('main_image', mainImage, fileName);
+            var selImgArray = arrImages;
+            selImgArray.splice(selImgArray.length - 1, selImgArray.length - 1);
+            console.log("selImgArray::: " + JSON.stringify(selImgArray));
+            arrImages.forEach((element, i) => {
+                const newFile = element
+                formData.append('listing_images[]', newFile)
             });
-        // formData.append('main_image', mainImage, fileName);
-        var selImgArray = arrImages;
-        selImgArray.splice(selImgArray.length - 1, selImgArray.length - 1);
-        console.log("selImgArray::: " + JSON.stringify(selImgArray));
-        arrImages.forEach((element, i) => {
-            const newFile = element
-            formData.append('listing_images[]', newFile)
-        });
-        // formData.append('listing_images[]', arrImages);
+            // formData.append('listing_images[]', arrImages);
 
 
-        console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
-        setShowLoader('')
-        fetch("http://arc.softwaresolutions.website/api/v1/create-listing", {
-            method: "post",
-            headers: {
-                Accept: "application/json",
-                // 'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${tokens}`,
-            },
-            body: formData,
-        }).then(res => res.json())
-            .then(res => {
-                setShowLoader('hide')
-                console.log('listLog edit', res.message);
-                // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                alert(res.message);
-                if (res.message === 'Listing has been added successfully') {
-                    navigation.goBack();
-                }
-                // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
+            setShowLoader('')
+            fetch("http://arc.softwaresolutions.website/api/v1/create-listing", {
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    // 'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${tokens}`,
+                },
+                body: formData,
+            }).then(res => res.json())
+                .then(res => {
+                    setShowLoader('hide')
+                    console.log('listLog edit', res.message);
+                    // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    alert(res.message);
+                    if (res.message === 'Listing has been added successfully') {
+                        navigation.goBack();
+                    }
+                    // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
 
 
 
-            })
-            .catch(err => {
-                console.error("error uploading images: ", err);
-            });
+                })
+                .catch(err => {
+                    console.error("error uploading images: ", err);
+                });
+        }
 
 
 
@@ -193,6 +196,7 @@ function EditPropertyScreen({ navigation, route }) {
 
     React.useEffect(() => {
         console.log('listingData::: ' + JSON.stringify(listingData));
+        console.log('listingDatabathrooms::: ' + listingData.bathrooms);
         if (listingData && listingData.location) {
             setAddress(listingData.location);
             setStateName(listingData.state);
@@ -209,7 +213,8 @@ function EditPropertyScreen({ navigation, route }) {
             setSqureFeet(listingData.sq_feet);
             setTerrace(listingData.terrace);
             setListingType(listingData.listing_type);
-
+            setDescription(listingData.description);
+            setCounter(counter + 1);
             if (listingData.listing_type === 'For Sale') {
                 setSelected2("key0");
                 // setListingType("For Sale");
@@ -431,6 +436,18 @@ function EditPropertyScreen({ navigation, route }) {
         });
     };
 
+    const mainImageClicked = () => {
+        setMainImage('');
+    }
+
+    const additionalImageClicked = (index) => {
+        console.log('indexx:: ' + index);
+        var arrImg = arrImages;
+        arrImg.splice(index, 1);
+        setArrImages(arrImg);
+        setCounter(counter + 1);
+    }
+
     const getMapDetails = async (data) => {
         const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${data.place_id}&key=AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k`);
         console.log("Google map all Details1" + JSON.stringify(response));
@@ -489,15 +506,22 @@ function EditPropertyScreen({ navigation, route }) {
                                         <Text style={{ flex: 1, fontSize: getDimen(0.15), color: 'gray', textAlign: 'center', marginTop: getDimen(0.17) }}>+</Text>
                                     </TouchableOpacity>
                                     :
-                                    <TouchableOpacity style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center', alignContent: 'center', }}
+                                    <TouchableOpacity style={{ height: '100%', width: '100%', alignItems: 'center', alignContent: 'center', }}
                                         // onPress={() => Alert.alert('Plus icon clicked!')}
                                         onPress={chooseFile}
                                     >
                                         <Image
                                             style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.55), width: getDimen(0.90), borderRadius: 10 }}
                                             source={{ uri: mainImage }}
-                                            defaultSource={require('../../../assets/icons/2.png')}
+                                            defaultSource={require('../../../assets/icons/plus.png')}
                                         />
+                                        <TouchableOpacity onPress={mainImageClicked} style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
+                                            <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
+                                                <Image style={{ width: '80%', height: '80%', borderRadius: 15 }}
+                                                    source={require('../../../assets/icons/iconClose.png')}
+                                                />
+                                            </View>
+                                        </TouchableOpacity>
 
                                     </TouchableOpacity>
                                 }
@@ -530,6 +554,14 @@ function EditPropertyScreen({ navigation, route }) {
                                                     style={{ width: '100%', height: getDimen(.35), resizeMode: 'cover', alignSelf: 'center', borderRadius: 10 }}
                                                     defaultSource={require('../../../assets/icons/plus.png')}
                                                 />
+                                                <TouchableOpacity onPress={() => additionalImageClicked(index)}
+                                                    style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
+                                                    <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
+                                                        <Image style={{ width: '80%', height: '80%', borderRadius: 15 }}
+                                                            source={require('../../../assets/icons/iconClose.png')}
+                                                        />
+                                                    </View>
+                                                </TouchableOpacity>
 
                                             </View>
                                         }
@@ -639,8 +671,8 @@ function EditPropertyScreen({ navigation, route }) {
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
-                                    onChangeText={(location2) => setLocation2(location2)}
-                                    value={location2} />
+                                    onChangeText={(locationNeighbourhood) => setLocation2(locationNeighbourhood)}
+                                    value={locationNeighbourhood} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
@@ -882,7 +914,7 @@ function EditPropertyScreen({ navigation, route }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Property image URL</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Property Share URL</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -1057,7 +1089,7 @@ function EditPropertyScreen({ navigation, route }) {
             {
                 (showLoader === '') ?
                     <View
-                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                        style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >
                         <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
                     </View>

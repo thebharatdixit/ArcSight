@@ -65,6 +65,7 @@ function PropertyScreen({ navigation }) {
     const [imgs, setImgs] = React.useState('');
     const [imgList, setImgList] = React.useState([]);
     const [selectdItems, setSelectedItems] = React.useState([]);
+    const [locationNeighbourhood, setLocationNeighbourhood] = React.useState([]);
     const [aminitiesList, setAminitiesList] = React.useState([]);
     const [selected, setSelected] = React.useState('');
     const [homeTypes, setHomeTypes] = React.useState('');
@@ -148,6 +149,7 @@ function PropertyScreen({ navigation }) {
             formData.append('description', description);
             formData.append('video_url', videoUrl);
             formData.append('web_share_url', imageUrl);
+            formData.append('location_neighbourhood', locationNeighbourhood);
             formData.append('is_featured', 'yes');
             formData.append('main_image',
                 {
@@ -687,8 +689,8 @@ function PropertyScreen({ navigation }) {
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
-                                    onChangeText={(location2) => setLocation2(location2)}
-                                    value={location2} />
+                                    onChangeText={(locationNeighbourhood) => setLocationNeighbourhood(locationNeighbourhood)}
+                                    value={locationNeighbourhood} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
@@ -931,7 +933,7 @@ function PropertyScreen({ navigation }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Property image URL</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Property Share URL</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
