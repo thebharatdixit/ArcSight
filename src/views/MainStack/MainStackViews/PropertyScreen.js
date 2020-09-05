@@ -177,35 +177,39 @@ function PropertyScreen({ navigation }) {
                 .then(res => {
                     setShowLoader('hide')
                     console.log('listLog', res.message);
-                    // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                     alert(res.message);
-                    setArrImages([]);
-                    setDupArrImages([]);
-                    setArrSelectedAminities([]);
-                    setArrSelectedAminitiesForApi([]);
-                    setFilePath('');
-                    setMainImage('');
-                    setHomeType('');
-                    setListingType('');
+                    if (res.message === 'Listing has been added successfully') {
+                        setArrImages([]);
+                        setDupArrImages([]);
+                        setArrSelectedAminities([]);
+                        setArrSelectedAminitiesForApi([]);
+                        setFilePath('');
+                        setMainImage('');
+                        setHomeType('');
+                        setListingType('');
 
-                    setAddress('');
-                    setStateName('');
-                    setCity('');
-                    setZipcode('');
-                    setLocation('');
-                    setPrice('');
-                    setPricePerSqureFeet('');
-                    setBedroom('');
-                    setBath('');
+                        setAddress('');
+                        setStateName('');
+                        setCity('');
+                        setZipcode('');
+                        setLocation('');
+                        setPrice('');
+                        setPricePerSqureFeet('');
+                        setBedroom('');
+                        setBath('');
 
 
-                    setSqureFeet('');
-                    setTerrace('');
-                    setArrSelectedAminities([]);
-                    setYearBuilt('');
-                    setDescription('');
-                    setVideoUrl('');
-                    setImageUrl('');
+                        setSqureFeet('');
+                        setTerrace('');
+                        setArrSelectedAminities([]);
+                        setYearBuilt('');
+                        setDescription('');
+                        setVideoUrl('');
+                        setImageUrl('');
+                    }
+                    // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+
+
 
                 })
                 .catch(err => {
@@ -486,7 +490,7 @@ function PropertyScreen({ navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            <KeyboardAvoidingView  behavior="padding" enabled style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
+            <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
                 <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>ADD LISTING</Text>
@@ -951,7 +955,7 @@ function PropertyScreen({ navigation }) {
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
-                                    onChangeText={(imageUrl) => setVideoUrl(imageUrl)}
+                                    onChangeText={(videoUrl) => setVideoUrl(videoUrl)}
                                     value={videoUrl} />
                             </View>
                         </View>
@@ -1099,7 +1103,7 @@ function PropertyScreen({ navigation }) {
             }
 
             {
-                (showLoader === true) ?
+                (showLoader === '') ?
                     <View
                         style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >
