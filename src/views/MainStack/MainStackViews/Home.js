@@ -293,23 +293,28 @@ function MainScreen({ navigation }) {
             if (hours > 0) {
                 if (hours < 24) {
                     var createdDiffDate = ('0' + hours).slice(-2) + " " + "hrs ago"
-                    setCreatedDate(createdDiffDate)
+                    return createdDiffDate
+                    // setCreatedDate(createdDiffDate)
                 } else {
                     var createdDiffDate = daysTill30June2035 + " " + "days ago"
-                    setCreatedDate(createdDiffDate)
+                    return createdDiffDate
+                    // setCreatedDate(createdDiffDate)
                 }
             } else {
                 if (minutes < 1) {
                     var createdDiffDate = ('0' + minutes).slice(-2) + " " + "min ago"
+                    return createdDiffDate
                     setCreatedDate(createdDiffDate)
                 } else {
                     var createdDiffDate = "Just now"
+                    return createdDiffDate
                     setCreatedDate(createdDiffDate)
                 }
             }
         } else {
             console.log('insidethis::::');
             var createdDiffDate = daysTill30June2035 + " " + "days ago"
+            return createdDiffDate
             setCreatedDate(createdDiffDate)
         }
         // } else {
@@ -378,9 +383,9 @@ function MainScreen({ navigation }) {
                             renderItem={({ renderItem, index, item }) => (
                                 <View style={{ flex: 1 }}>
 
-                                    {
+                                    {/* {
                                         daysFunction(item.created_at, index)
-                                    }
+                                    } */}
 
                                     {
                                         (item.is_featured === 'yes') ?
@@ -429,7 +434,7 @@ function MainScreen({ navigation }) {
                                                                     {/* Listed 2 Days Ago */}
 
                                                                     {
-                                                                        createdDate
+                                                                        daysFunction(item.created_at)
                                                                     }
 
                                                                 </Text>
