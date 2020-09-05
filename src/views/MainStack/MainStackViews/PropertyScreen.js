@@ -178,7 +178,7 @@ function PropertyScreen({ navigation }) {
                     setShowLoader('hide')
                     console.log('listLog', res.message);
                     alert(res.message);
-                    if(res.message === 'Listing has been added successfully'){
+                    if (res.message === 'Listing has been added successfully') {
                         setArrImages([]);
                         setDupArrImages([]);
                         setArrSelectedAminities([]);
@@ -187,7 +187,7 @@ function PropertyScreen({ navigation }) {
                         setMainImage('');
                         setHomeType('');
                         setListingType('');
-    
+
                         setAddress('');
                         setStateName('');
                         setCity('');
@@ -197,8 +197,8 @@ function PropertyScreen({ navigation }) {
                         setPricePerSqureFeet('');
                         setBedroom('');
                         setBath('');
-    
-    
+
+
                         setSqureFeet('');
                         setTerrace('');
                         setArrSelectedAminities([]);
@@ -208,8 +208,8 @@ function PropertyScreen({ navigation }) {
                         setImageUrl('');
                     }
                     // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                    
-                    
+
+
 
                 })
                 .catch(err => {
@@ -490,7 +490,7 @@ function PropertyScreen({ navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            <KeyboardAvoidingView  behavior="padding" enabled style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
+            <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
                 <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>ADD LISTING</Text>
@@ -1103,7 +1103,7 @@ function PropertyScreen({ navigation }) {
             }
 
             {
-                (showLoader === true) ?
+                (showLoader === '') ?
                     <View
                         style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >

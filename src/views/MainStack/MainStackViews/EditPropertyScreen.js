@@ -175,12 +175,12 @@ function EditPropertyScreen({ navigation, route }) {
                 console.log('listLog edit', res.message);
                 // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                 alert(res.message);
-                if(res.message === 'Listing has been added successfully'){
+                if (res.message === 'Listing has been added successfully') {
                     navigation.goBack();
                 }
                 // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                
-                
+
+
 
             })
             .catch(err => {
@@ -433,7 +433,7 @@ function EditPropertyScreen({ navigation, route }) {
 
     const getMapDetails = async (data) => {
         const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${data.place_id}&key=AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k`);
-        console.log("Google map all Details1" + JSON.stringify(response) );
+        console.log("Google map all Details1" + JSON.stringify(response));
         const userInfo = await response.json();
         console.log("Google map all Details" + JSON.stringify(userInfo) + " ::SS:: " + JSON.stringify(userInfo.result.geometry.location) + " :: " + userInfo.result.geometry.location.lat);
         var lat = userInfo.result.geometry.location.lat;
@@ -462,7 +462,7 @@ function EditPropertyScreen({ navigation, route }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            <KeyboardAvoidingView  behavior="padding" enabled style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
+            <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
                 <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                         <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>EDIT LISTING</Text>
@@ -1055,7 +1055,7 @@ function EditPropertyScreen({ navigation, route }) {
             }
 
             {
-                (showLoader === true) ?
+                (showLoader === '') ?
                     <View
                         style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
                     >
