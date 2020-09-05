@@ -173,8 +173,14 @@ function EditPropertyScreen({ navigation, route }) {
             .then(res => {
                 setShowLoader('hide')
                 console.log('listLog edit', res.message);
-                Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                navigation.goBack();
+                // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                alert(res.message);
+                if(res.message === 'Listing has been added successfully'){
+                    navigation.goBack();
+                }
+                // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                
+                
 
             })
             .catch(err => {

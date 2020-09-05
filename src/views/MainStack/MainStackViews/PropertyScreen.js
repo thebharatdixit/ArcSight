@@ -177,35 +177,39 @@ function PropertyScreen({ navigation }) {
                 .then(res => {
                     setShowLoader('hide')
                     console.log('listLog', res.message);
-                    // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                     alert(res.message);
-                    setArrImages([]);
-                    setDupArrImages([]);
-                    setArrSelectedAminities([]);
-                    setArrSelectedAminitiesForApi([]);
-                    setFilePath('');
-                    setMainImage('');
-                    setHomeType('');
-                    setListingType('');
-
-                    setAddress('');
-                    setStateName('');
-                    setCity('');
-                    setZipcode('');
-                    setLocation('');
-                    setPrice('');
-                    setPricePerSqureFeet('');
-                    setBedroom('');
-                    setBath('');
-
-
-                    setSqureFeet('');
-                    setTerrace('');
-                    setArrSelectedAminities([]);
-                    setYearBuilt('');
-                    setDescription('');
-                    setVideoUrl('');
-                    setImageUrl('');
+                    if(res.message === 'Listing has been added successfully'){
+                        setArrImages([]);
+                        setDupArrImages([]);
+                        setArrSelectedAminities([]);
+                        setArrSelectedAminitiesForApi([]);
+                        setFilePath('');
+                        setMainImage('');
+                        setHomeType('');
+                        setListingType('');
+    
+                        setAddress('');
+                        setStateName('');
+                        setCity('');
+                        setZipcode('');
+                        setLocation('');
+                        setPrice('');
+                        setPricePerSqureFeet('');
+                        setBedroom('');
+                        setBath('');
+    
+    
+                        setSqureFeet('');
+                        setTerrace('');
+                        setArrSelectedAminities([]);
+                        setYearBuilt('');
+                        setDescription('');
+                        setVideoUrl('');
+                        setImageUrl('');
+                    }
+                    // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    
+                    
 
                 })
                 .catch(err => {
@@ -951,7 +955,7 @@ function PropertyScreen({ navigation }) {
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
-                                    onChangeText={(imageUrl) => setVideoUrl(imageUrl)}
+                                    onChangeText={(videoUrl) => setVideoUrl(videoUrl)}
                                     value={videoUrl} />
                             </View>
                         </View>
