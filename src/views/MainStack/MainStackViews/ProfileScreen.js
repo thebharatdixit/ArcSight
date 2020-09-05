@@ -280,11 +280,14 @@ function ProfileScreen({ navigation, route }) {
                                 source={{
                                     uri: `${filePath}`,
                                 }}
+                                defaultSource={require('../../../assets/images/user.png')}
                                 style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
                             /> :
-                                <Image source={require('../../../assets/icons/2.png')}
+                                <Image source={require('../../../assets/images/user.png')}
+                                    defaultSource={require('../../../assets/images/user.png')}
                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }} />
                         }
+                        <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: -getDimen(0.055) }}></Text>
 
 
 

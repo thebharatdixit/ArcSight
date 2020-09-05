@@ -288,7 +288,7 @@ function MainScreen({ navigation }) {
         console.log('years', ('0' + years));
 
         // if (years === 0){
-            if (days === 0) {
+            if (days < 1) {
                 console.log('insidethis:::');
                 if (hours > 0) {
                     if (hours < 24) {
@@ -299,7 +299,7 @@ function MainScreen({ navigation }) {
                         setCreatedDate(createdDiffDate)
                     }
                 } else {
-                    if (minutes > 0) {
+                    if (minutes < 1) {
                         var createdDiffDate = ('0' + minutes).slice(-2) + " " + "min ago"
                         setCreatedDate(createdDiffDate)
                     } else {

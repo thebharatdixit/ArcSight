@@ -297,10 +297,10 @@ function EditPropertyScreen({ navigation, route }) {
             setHomeType("Condo");
         }
         else if (value === 'key3') {
-            setHomeType("Town House");
+            setHomeType("Townhouse");
         }
         else if (value === 'key4') {
-            setHomeType("Multi Family");
+            setHomeType("Multi-Family");
         }
         else if (value === 'key5') {
             setHomeType("Land");
@@ -630,12 +630,12 @@ function EditPropertyScreen({ navigation, route }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Location</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Location / Neighborhood</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
                                     style={styles.input}
-                                    placeholder="Location"
+                                    placeholder="Location / Neighborhood"
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
@@ -748,8 +748,8 @@ function EditPropertyScreen({ navigation, route }) {
                                     <Picker.Item label="House" value="key0" />
                                     <Picker.Item label="Co-op" value="key1" />
                                     <Picker.Item label="Condo" value="key2" />
-                                    <Picker.Item label="Town House" value="key3" />
-                                    <Picker.Item label="Multi Family" value="key4" />
+                                    <Picker.Item label="Townhouse" value="key3" />
+                                    <Picker.Item label="Multi-Family" value="key4" />
                                     <Picker.Item label="Land" value="key5" />
                                     <Picker.Item label="Other" value="key6" />
                                 </Picker>
