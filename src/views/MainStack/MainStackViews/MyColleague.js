@@ -208,7 +208,7 @@ function MyColleagueScreen({ navigation }) {
 
                                         {item.is_featured === 'yes' ?
 
-                                            <View style={{ flex: 0.1, backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0) }}>
+                                            <View style={{ flex: 0.1, backgroundColor: 'gray', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0) }}>
 
                                                 <TouchableOpacity onPress={() => navigation.navigate('My Listing Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
 
