@@ -180,12 +180,12 @@ function MainScreen({ navigation }) {
             }
         })
     }, [accessToken, isFocused])
-    const onShare = async () => {
-        if (webUrl) {
+    const onShare = async (webUrls) => {
+        if (webUrls) {
             try {
                 const result = await Share.share({
                     message:
-                        webUrl,
+                    webUrls,
                 });
                 if (result.action === Share.sharedAction) {
                     if (result.activityType) {
@@ -443,9 +443,9 @@ function MainScreen({ navigation }) {
                                                             </Text>
                                                         </View>
                                                         <View style={{ backgroundColor: 'white', width: '10%', paddingLeft: getDimen(0) }}>
-                                                            <TouchableOpacity onPress={() => onShare()}>
+                                                            <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
                                                                 {
-                                                                    (webUrl === '' || webUrl === undefined) ?
+                                                                    (item.web_share_url === '' || item.web_share_url === undefined) ?
                                                                         null
                                                                         :
                                                                         <Image source={require('../../../assets/icons/20.png')}
@@ -606,9 +606,9 @@ function MainScreen({ navigation }) {
                                                             </Text>
                                                         </View>
                                                         <View style={{ backgroundColor: 'white', width: '10%', paddingLeft: getDimen(0) }}>
-                                                            <TouchableOpacity onPress={() => onShare()}>
+                                                            <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
                                                                 {
-                                                                    (webUrl === '' || webUrl === undefined) ?
+                                                                    (item.web_share_url === '' || item.web_share_url === undefined) ?
                                                                         null
                                                                         :
                                                                         <Image source={require('../../../assets/icons/20.png')}
