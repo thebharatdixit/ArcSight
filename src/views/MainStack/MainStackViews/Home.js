@@ -185,7 +185,7 @@ function MainScreen({ navigation }) {
             try {
                 const result = await Share.share({
                     message:
-                    webUrls,
+                        webUrls,
                 });
                 if (result.action === Share.sharedAction) {
                     if (result.activityType) {
@@ -222,7 +222,6 @@ function MainScreen({ navigation }) {
                     setShowLoader('hide')
                     getBannerUrl();
                     console.log('Home Listing Data', JSON.stringify(res.data));
-                    // daysFunction();
                     setHomeList(res.data)
                     setWerUrl(homeList && homeList.data && homeList.data.web_share_url)
                     setLength((res && res.data) ? res.data.length : '')
@@ -259,11 +258,12 @@ function MainScreen({ navigation }) {
 
     }
 
-    const daysFunction = (createdDatee, index) => {
+    const daysFunction = (createdDatee, item) => {
         // var createdDt = moment(createdDatee).format('MMM DD, YYYY hh:mm a')
-        var createdDt = moment(createdDatee).format('MMM DD, YYYY')
+        var createdDt = moment(createdDatee).format('MMM DD, YYYY hh:mm A')
         console.log('DateFormatecreatedDateMMMDDYYY', createdDt);
-        console.log('index::', index)
+        console.log('DateFormatecreatedDateMMMDDYYYReal', createdDatee);
+        // console.log('index::', index)
         var msDiff = new Date().getTime() - new Date(createdDt).getTime();  //Aug 25, 2020
         var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
         console.log('Days***!!!:', daysTill30June2035, new Date()); //current date: Thu Aug 27 2020 12:10:44 GMT+0530 (IST)
@@ -271,27 +271,44 @@ function MainScreen({ navigation }) {
         // setCreatedDate(createdDiffDate)
         console.log('Created Date00002', createdDate);
 
-        var diffInSeconds = Math.abs(msDiff) / 1000;
-        var days = Math.floor(diffInSeconds / 60 / 60 / 24);
-        var hours = Math.floor(diffInSeconds / 60 / 60 % 24);
-        var minutes = Math.floor(diffInSeconds / 60 % 60);
-        var seconds = Math.floor(diffInSeconds % 60);
-        var milliseconds = Math.round((diffInSeconds - Math.floor(diffInSeconds)) * 1000);
-        var months = Math.floor(diffInSeconds / 31);
-        var years = Math.floor(diffInSeconds / 12);
+        var delta = Math.abs(msDiff) / 1000;
 
-        console.log('days', days);
-        console.log('hours', ('0' + hours).slice(-2));
-        console.log('minutes', ('0' + minutes).slice(-2));
-        console.log('seconds', ('0' + seconds).slice(-2));
-        console.log('months', ('0' + months));
-        console.log('years', ('0' + years));
+        var days = Math.floor(delta / 86400);
+        delta -= days * 86400;
+
+        // calculate (and subtract) whole hours
+        var hours = Math.floor(delta / 3600) % 24;
+        delta -= hours * 3600;
+
+        // calculate (and subtract) whole minutes
+        var minutes = Math.floor(delta / 60) % 60;
+        delta -= minutes * 60;
+
+        // what's left is seconds
+        var seconds = delta % 60;  // in theory the modulus is not required
+
+        // var diffInSeconds = Math.abs(msDiff) / 1000;
+        // var days = Math.floor(diffInSeconds / 60 / 60 / 24);
+        // var hours = Math.floor(diffInSeconds / 60 / 60 % 24);
+        // var minutes = Math.floor(diffInSeconds / 60 % 60);
+        // var seconds = Math.floor(diffInSeconds % 60);
+        // var milliseconds = Math.round((diffInSeconds - Math.floor(diffInSeconds)) * 1000);
+        // var months = Math.floor(diffInSeconds / 31);
+        // var years = Math.floor(diffInSeconds / 12);
+
+        // console.log('days', days);
+        // console.log('hours::', ('0' + hours).slice(-2));
+        // console.log('minutes', ('0' + minutes).slice(-2));
+        // console.log('seconds', ('0' + seconds).slice(-2));
+        // console.log('months', ('0' + months));
+        console.log('days:: ' + days + " : hours:: " + hours + " : minutes:: " + minutes + " : seconds:: " + seconds);
 
         // if (years === 0){
         if (days < 1) {
             console.log('insidethis:::');
             if (hours > 0) {
                 if (hours < 24) {
+                    console.log('insidethishours::: ' + hours);
                     var createdDiffDate = ('0' + hours).slice(-2) + " " + "hrs ago"
                     return createdDiffDate
                     // setCreatedDate(createdDiffDate)
@@ -383,10 +400,6 @@ function MainScreen({ navigation }) {
                             renderItem={({ renderItem, index, item }) => (
                                 <View style={{ flex: 1 }}>
 
-                                    {/* {
-                                        daysFunction(item.created_at, index)
-                                    } */}
-
                                     {
                                         (item.is_featured === 'yes') ?
                                             <View>
@@ -434,7 +447,7 @@ function MainScreen({ navigation }) {
                                                                     {/* Listed 2 Days Ago */}
 
                                                                     {
-                                                                        daysFunction(item.created_at)
+                                                                        daysFunction(item.created_at, item)
                                                                     }
 
                                                                 </Text>

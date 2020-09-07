@@ -53,6 +53,8 @@ function ProfileScreen({ navigation, route }) {
     const [showWebview, setShowWebview] = React.useState('hide');
     const [webviewUrl, setWebviewUrl] = React.useState('');
     const [imageResponse, setImageResponse] = React.useState('');
+    const [fileNameA, setFileNameA] = React.useState('');
+    const [fileTypeA, setFileTypeA] = React.useState('');
 
     const { user_Id } = route.params ? route.params : ""
 
@@ -161,9 +163,11 @@ function ProfileScreen({ navigation, route }) {
                 setPhotoPath(response.path);
                 setFilePath(response.uri)
                 setImageResponse(response);
+                setFileNameA(response.fileName);
+                setFileTypeA(response.type);
                 //setPhotoName(photoData.fileName);
 
-                uploadPhoto(response.uri);
+                uploadPhoto(response.uri, response.fileName, response.type);
 
 
 
@@ -173,17 +177,17 @@ function ProfileScreen({ navigation, route }) {
 
 
 
-    const uploadPhoto = (uri) => {
+    const uploadPhoto = (uri, fileName, fileType) => {
         setShowLoader('');
 
         const formData = new FormData();
-        console.log('original path: ' + uri + "token ::" + accessToken);
+        console.log('original path: ' + uri + "token ::" + accessToken + "filename ::" + fileName + "filetype ::" + fileType);
 
         formData.append('profile_image',
             {
                 uri: uri,
-                name: imageResponse.fileName,
-                type: imageResponse.type
+                name: fileName,
+                type: fileType
             });
 
         console.log('formData : ', JSON.stringify(formData));
@@ -204,22 +208,11 @@ function ProfileScreen({ navigation, route }) {
                 setShowLoader('hide');
                 getUserProfileData();
                 alert(res.message)
-                // if (res.status == true) {
-
-                // }
-
-                //   Alert.alert(
-                //     "Success",
-                //     "Bill of Loading Uploaded Successfully!",
-                //     [{ text: "OK", onPress: () => that.props.close() }],
-                //     { cancelable: false }
-                //   );
+               
             })
             .catch(err => {
                 console.error("error uploading images: ", err);
             });
-
-
 
     }
 
@@ -426,7 +419,7 @@ function ProfileScreen({ navigation, route }) {
                                                             <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
                                                         </View>
                                                         <View style={{ backgroundColor: '#a43d3e', flex: 0.395, height: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-                                                            <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>&0,000,000</Text>
+                                                            <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>${(item && item.price_per_sq_feet) ? item.price_per_sq_feet : ""}/feet</Text>
                                                         </View>
                                                     </View>
 
