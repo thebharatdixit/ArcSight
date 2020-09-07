@@ -210,10 +210,11 @@ function AddListScreen({ navigation }) {
                                                 /> */}
 
                                             {
-                                                (item.profile_image_url && (item.profile_image_url.includes('.jpg') || item.profile_image_url.includes('.png'))) ? <Image
+                                                (item.profile_image_url) ? <Image
                                                     source={{
                                                         uri: `${item.profile_image_url}`,
                                                     }}
+                                                    defaultSource={require('../../../assets/icons/2.png')}
                                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
                                                 /> :
                                                     <Image source={require('../../../assets/icons/2.png')}

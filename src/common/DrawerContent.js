@@ -126,7 +126,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         <DrawerItem
                             label="HOME"
                             labelStyle={{ color: 'white', fontSize: getDimen(0.041) }}
-                            onPress={() => navigation.navigate('HomeStack')}
+                            onPress={() => navigation.navigate('HOME')}
                         />
                         <DrawerItem
                             label="PROFILE"

@@ -277,7 +277,7 @@ function ColleaguageListScreen({ route, navigation }) {
                     /> */}
 
                     {
-                        (profile_image_url && (profile_image_url.includes('.jpg') || profile_image_url.includes('.png'))) ? <Image
+                        (profile_image_url) ? <Image
                             source={{
                                 uri: `${profile_image_url}`,
                             }}
