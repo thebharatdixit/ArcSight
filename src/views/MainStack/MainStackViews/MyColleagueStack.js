@@ -9,7 +9,7 @@ import ColleagueListScreen from './ColleagueListScreen'
 
 // import SearchListDetailScreen from './SearchListDetailScreen';
 import MyListingDetailScreen from './MyListingDetail'
-
+import Aminities from './Aminities'
 
 const Stack = createStackNavigator();
 const MyColleagueStack = function authNavigator({ }) {
@@ -34,6 +34,8 @@ const MyColleagueStack = function authNavigator({ }) {
             <Stack.Screen name="Colleague List" component={ColleagueListScreen}
             />
             <Stack.Screen name="Edit Property Screen" component={EditPropertyScreen}
+            />
+            <Stack.Screen name="Aminities" component={Aminities}
             />
 
         </Stack.Navigator>

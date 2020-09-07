@@ -62,6 +62,7 @@ function EditPropertyScreen({ navigation, route }) {
     const [amenities, setAmenities] = React.useState('');
     const [yearBuilt, setYearBuilt] = React.useState('');
     const [imageUrl, setImageUrl] = React.useState('');
+    const [videoUrl, setVideoUrl] = React.useState('');
     const [selectedValue, setSelectedValue] = React.useState("House");
     const [tokens, setTokens] = React.useState('');
     const [imgs, setImgs] = React.useState('');
@@ -205,13 +206,14 @@ function EditPropertyScreen({ navigation, route }) {
             setCity(listingData.city);
             setZipcode(listingData.zipcode);
             setLocation(listingData.location);
-            setPrice(listingData.price_per_sq_feet);
-            setPricePerSqureFeet(listingData.price_per_sq_feet);
-            setBedroom(listingData.bedrooms);
+            setPrice(""+listingData.price_per_sq_feet);
+            setPricePerSqureFeet(""+listingData.price_per_sq_feet);
+            setBedroom(""+listingData.bedrooms);
             console.log("setBathrooom " + listingData.bathrooms);
-            setBath(listingData.bathrooms);
-            setBathroom(listingData.bathrooms);
-
+            setBath(""+listingData.bathrooms);
+            setBathroom(""+listingData.bathrooms);
+            setImageUrl(listingData.web_share_url);
+            setVideoUrl(listingData.video_url);
             setHomeType(listingData.home_type);
             if (listingData.home_type === 'House') {
                 setSelected("key0");
@@ -237,8 +239,8 @@ function EditPropertyScreen({ navigation, route }) {
             }
             
 
-            setSqureFeet(listingData.sq_feet);
-            setTerrace(listingData.terrace);
+            setSqureFeet(""+listingData.sq_feet);
+            setTerrace(""+listingData.terrace);
             setListingType(listingData.listing_type);
             if (listingData.listing_type === 'For Sale') {
                 setSelected2("key0");
@@ -251,7 +253,7 @@ function EditPropertyScreen({ navigation, route }) {
             setCounter(counter + 1);
             
             setArrSelectedAminities([]);
-            setYearBuilt(listingData.year_built);
+            setYearBuilt(""+listingData.year_built);
             setMainImage(listingData.main_image_url);
         }
         getAminities();
@@ -969,8 +971,8 @@ function EditPropertyScreen({ navigation, route }) {
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
-                                    onChangeText={(imageUrl) => setImageUrl(imageUrl)}
-                                    value={imageUrl} />
+                                    onChangeText={(videoUrl) => setVideoUrl(videoUrl)}
+                                    value={videoUrl} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
