@@ -88,6 +88,7 @@ function EditPropertyScreen({ navigation, route }) {
     const [location, setLocation] = React.useState('');
     const [latitude, setLatitude] = React.useState('');
     const [longnitude, setLongnitude] = React.useState('');
+    const [checked, setChecked] = React.useState(false);
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -124,7 +125,7 @@ function EditPropertyScreen({ navigation, route }) {
         if (!(mainImage === "")) {
             console.log('fileName:::: ' + fileName);
             const formData = new FormData();
-            
+
             formData.append('listing_id', listingData.id);
             formData.append('home_type', homeType);
             formData.append('sq_feet', squreFeet);
@@ -147,11 +148,22 @@ function EditPropertyScreen({ navigation, route }) {
             // formData.append('amenities[]', 2);
             formData.append('description', description);
             formData.append('is_featured', 'yes');
+            var fileName = mainImageData.fileName;
+            var filetype = mainImageData.type;
+            if (fileName) {
+
+            }
+            else {
+                var filenamess = mainImage.replace(/^.*[\\\/]/, '');
+                console.log("filenamess:: " + filenamess);
+                fileName = filenamess;
+                filetype = "image/jpeg";
+            }
             formData.append('main_image',
                 {
                     uri: mainImage,
-                    name: mainImageData.fileName,
-                    type: mainImageData.type
+                    name: fileName,
+                    type: filetype
                 });
             // formData.append('main_image', mainImage, fileName);
             var selImgArray = arrImages;
@@ -180,9 +192,9 @@ function EditPropertyScreen({ navigation, route }) {
                     console.log('listLog edit', res.message);
                     // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
                     alert(res.message);
-                    if (res.message === 'Listing has been added successfully') {
-                        navigation.goBack();
-                    }
+                    // if (res.message === 'Listing has been added successfully') {
+                    navigation.goBack();
+                    // }
                     // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
 
 
@@ -206,12 +218,12 @@ function EditPropertyScreen({ navigation, route }) {
             setCity(listingData.city);
             setZipcode(listingData.zipcode);
             setLocation(listingData.location);
-            setPrice(""+listingData.price_per_sq_feet);
-            setPricePerSqureFeet(""+listingData.price_per_sq_feet);
-            setBedroom(""+listingData.bedrooms);
+            setPrice("" + listingData.price_per_sq_feet);
+            setPricePerSqureFeet("" + listingData.price_per_sq_feet);
+            setBedroom("" + listingData.bedrooms);
             console.log("setBathrooom " + listingData.bathrooms);
-            setBath(""+listingData.bathrooms);
-            setBathroom(""+listingData.bathrooms);
+            setBath("" + listingData.bathrooms);
+            setBathroom("" + listingData.bathrooms);
             setImageUrl(listingData.web_share_url);
             setVideoUrl(listingData.video_url);
             setHomeType(listingData.home_type);
@@ -219,28 +231,37 @@ function EditPropertyScreen({ navigation, route }) {
                 setSelected("key0");
                 // setListingType("For Sale");
             }
-            else if (listingData.home_type === 'Co-op'){
+            else if (listingData.home_type === 'Co-op') {
                 setSelected("key1");
             }
-            else if (listingData.home_type === 'Condo'){
+            else if (listingData.home_type === 'Condo') {
                 setSelected("key2");
             }
-            else if (listingData.home_type === 'Townhouse'){
+            else if (listingData.home_type === 'Townhouse') {
                 setSelected("key3");
             }
-            else if (listingData.home_type === 'Multi-Family'){
+            else if (listingData.home_type === 'Multi-Family') {
                 setSelected("key4");
             }
-            else if (listingData.home_type === 'Land'){
+            else if (listingData.home_type === 'Land') {
                 setSelected("key5");
             }
             else {
                 setSelected("key6");
             }
-            
 
-            setSqureFeet(""+listingData.sq_feet);
-            setTerrace(""+listingData.terrace);
+
+            setSqureFeet("" + listingData.sq_feet);
+            console.log("setIsFeaturedsetIsFeatured " + listingData.is_featured);
+            setIsFeatured(listingData.is_featured);
+            if(listingData.is_featured === 'yes'){
+                setChecked(true)
+            }
+            else
+            {
+                setChecked(false);
+            }
+            setTerrace("" + listingData.terrace);
             setListingType(listingData.listing_type);
             if (listingData.listing_type === 'For Sale') {
                 setSelected2("key0");
@@ -251,9 +272,9 @@ function EditPropertyScreen({ navigation, route }) {
             }
             setDescription(listingData.description);
             setCounter(counter + 1);
-            
+
             setArrSelectedAminities([]);
-            setYearBuilt(""+listingData.year_built);
+            setYearBuilt("" + listingData.year_built);
             setMainImage(listingData.main_image_url);
         }
         getAminities();
@@ -1000,6 +1021,26 @@ function EditPropertyScreen({ navigation, route }) {
                                     Choose File...
                             </Text>
                             </TouchableOpacity> */}
+                        </View>
+
+                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop: getDimen(-0.02) }}>
+
+                            <TouchableOpacity onPress={() => featuredAlert()}>
+                                {
+                                    checked ? (
+                                        <Image source={require('../../../assets/icons/tick.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    ) :
+                                        <Image source={require('../../../assets/icons/circle.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                }
+                                {/* <Image source={require('../../../assets/icons/tick.png')}
+                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} /> */}
+                            </TouchableOpacity>
+
+                            <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
+                                Featured Property
+                            </Text>
                         </View>
 
 
