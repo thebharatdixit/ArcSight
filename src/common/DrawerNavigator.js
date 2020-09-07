@@ -10,6 +10,7 @@ import settingStack from '../views/MainStack/MainStackViews/SettingStack'
 import settingScreen from '../views/MainStack/MainStackViews/Setting'
 import DrawerContent from './DrawerContent';
 import SettingScreen from '../views/MainStack/MainStackViews/Setting';
+import MyColleague from '../views/MainStack/MainStackViews/MyColleague'
 
 const Drawer = createDrawerNavigator();
 
@@ -28,7 +29,7 @@ function DrawerNavigator({ navigation }) {
         >
             <Drawer.Screen name="HOME" component={BaseScreen} />
             <Drawer.Screen name="PROFILE" component={ProfileScreen} />
-            <Drawer.Screen name="LISTINGS" component={nineScreen} />
+            <Drawer.Screen name="LISTINGS" component={MyColleague} />
             <Drawer.Screen name="CHANGE PASSWORD" component={ChangePassword} />
             <Drawer.Screen name="COLLEAGUES + CLIENTS" component={nineScreen} />
             <Drawer.Screen name="MESSAGES" component={nineScreen} />

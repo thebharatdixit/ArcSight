@@ -136,7 +136,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         <DrawerItem
                             label="LISTINGS"
                             labelStyle={{ color: 'white', fontSize: getDimen(0.041) }}
-                            onPress={() => navigation.navigate('MyColleague Screen')}
+                            onPress={() => navigation.navigate('My Colleague')}
                         />
                         <DrawerItem
                             label="CHANGE PASSWORD"
