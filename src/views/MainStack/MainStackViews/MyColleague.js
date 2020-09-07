@@ -309,7 +309,7 @@ function MyColleagueScreen({ navigation }) {
                                                             }>
 
                                                                 {
-                                                                    (item.main_image_url && (item.main_image_url.includes('.jpg') || item.main_image_url.includes('.png'))) ?
+                                                                    (item.main_image_url) ?
                                                                         <Image source={{
                                                                             uri: `${item.main_image_url}`
                                                                         }}

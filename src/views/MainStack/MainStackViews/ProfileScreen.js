@@ -17,7 +17,13 @@ import {
     Alert,
     SafeAreaView
 } from 'react-native';
-
+import { MenuProvider } from 'react-native-popup-menu';
+import {
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+} from 'react-native-popup-menu';
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
@@ -208,7 +214,7 @@ function ProfileScreen({ navigation, route }) {
                 setShowLoader('hide');
                 getUserProfileData();
                 alert(res.message)
-               
+
             })
             .catch(err => {
                 console.error("error uploading images: ", err);
@@ -226,37 +232,37 @@ function ProfileScreen({ navigation, route }) {
     }
 
     return (
+        <MenuProvider>
+            <View style={{ flex: 1 }}>
 
-        <View style={{ flex: 1 }}>
+                {/* {console.log("allColleagues :  " + JSON.stringify(userProfile))} */}
+                <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    <TouchableOpacity onPress={() =>
+                        navigation.dispatch(DrawerActions.toggleDrawer())
+                    }>
+                        <Image source={require('../../../assets/icons/3.png')}
+                            style={{ height: 25, width: 25 }} />
+                    </TouchableOpacity>
 
-            {/* {console.log("allColleagues :  " + JSON.stringify(userProfile))} */}
-            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() =>
-                    navigation.dispatch(DrawerActions.toggleDrawer())
-                }>
-                    <Image source={require('../../../assets/icons/3.png')}
-                        style={{ height: 25, width: 25 }} />
-                </TouchableOpacity>
-
-                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                    {/* <Image source={require('../../../assets/icons/2.png')}
+                    <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                        {/* <Image source={require('../../../assets/icons/2.png')}
                         style={{ height: getDimen(0.1), width: getDimen(0.1) }} /> */}
 
-                    <Image source={require('../../../assets/images/logo.png')}
-                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                        <Image source={require('../../../assets/images/logo.png')}
+                            style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                    </View>
                 </View>
-            </View>
 
-            <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
+                <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
 
-                <View style={{ backgroundColor: 'white', height: getDimen(0.46), width: '100%', justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
-                    <TouchableOpacity
-                        //    onPress={() => Alert.alert('Show Gallery')}
-                        onPress={chooseFile.bind(this)}
-                    >
+                    <View style={{ backgroundColor: 'white', height: getDimen(0.46), width: '100%', justifyContent: 'center', alignItems: 'center', alignContent: 'center' }}>
+                        <TouchableOpacity
+                            //    onPress={() => Alert.alert('Show Gallery')}
+                            onPress={chooseFile.bind(this)}
+                        >
 
 
-                        {/* {filePath === '' ?
+                            {/* {filePath === '' ?
                             <Image
                                 style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.3), marginTop: getDimen(0.1 / 2) }}
                                 source={require('../../../assets/icons/2.png')}
@@ -268,39 +274,39 @@ function ProfileScreen({ navigation, route }) {
 
                         } */}
 
-                        {
-                            (filePath) ? <Image
-                                source={{
-                                    uri: `${filePath}`,
-                                }}
-                                defaultSource={require('../../../assets/images/user.png')}
-                                style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
-                            /> :
-                                <Image source={require('../../../assets/images/user.png')}
+                            {
+                                (filePath) ? <Image
+                                    source={{
+                                        uri: `${filePath}`,
+                                    }}
                                     defaultSource={require('../../../assets/images/user.png')}
-                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }} />
-                        }
-                        <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: -getDimen(0.055) }}></Text>
+                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
+                                /> :
+                                    <Image source={require('../../../assets/images/user.png')}
+                                        defaultSource={require('../../../assets/images/user.png')}
+                                        style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }} />
+                            }
+                            <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: -getDimen(0.055) }}></Text>
 
 
 
-                    </TouchableOpacity>
+                        </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('Update Profile')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('Update Profile')}>
 
-                        <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>{name}</Text>
-                    </TouchableOpacity>
-                    <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop: getDimen(0.005) }}>{companyName}</Text>
-                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.04), }}>
-                        <View style={{ justifyContent: 'flex-start', alignContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'white', marginRight: getDimen(0.02) }}>
-                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData ? userProfileData.total_listings + " Listings" : "Listing"}</Text>
+                            <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>{name}</Text>
+                        </TouchableOpacity>
+                        <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop: getDimen(0.005) }}>{companyName}</Text>
+                        <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.04), }}>
+                            <View style={{ justifyContent: 'flex-start', alignContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'white', marginRight: getDimen(0.02) }}>
+                                <Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData ? userProfileData.total_listings + " Listings" : "Listing"}</Text>
+                            </View>
+                            <View style={{ width: 1, height: '100%', backgroundColor: 'gray', marginLeft: getDimen(0.02) }}></View>
+                            <View style={{ justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', backgroundColor: 'white', marginLeft: getDimen(0.03) }}>
+                                <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> {userProfileData ? userProfileData.total_colleagues + " Colleagues" : "Colleagues"}</Text>
+                            </View>
                         </View>
-                        <View style={{ width: 1, height: '100%', backgroundColor: 'gray', marginLeft: getDimen(0.02) }}></View>
-                        <View style={{ justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', backgroundColor: 'white', marginLeft: getDimen(0.03) }}>
-                            <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> {userProfileData ? userProfileData.total_colleagues + " Colleagues" : "Colleagues"}</Text>
-                        </View>
-                    </View>
-                    {/* <TouchableOpacity
+                        {/* <TouchableOpacity
                         // onPress={() => Alert.alert('Logged Out!!')
                         onPress={() => logOutApiIntegration()}
                         style={{ marginTop: getDimen(0.03) }}
@@ -308,7 +314,7 @@ function ProfileScreen({ navigation, route }) {
                         <Text style={{ fontSize: getDimen(0.04), fontWeight: 'bold', color: 'red' }}> LogOut </Text>
                     </TouchableOpacity> */}
 
-                    {/* <TouchableOpacity
+                        {/* <TouchableOpacity
                     onPress={() => navigation.navigate('Change Password Screen')}
                     // onPress={() => logOutApiIntegration()}
                     style={{ marginTop: getDimen(0.02) }}
@@ -316,84 +322,110 @@ function ProfileScreen({ navigation, route }) {
                     <Text style={{ fontSize: getDimen(0.04), fontWeight: 'bold', }}> Change Password </Text>
                 </TouchableOpacity> */}
 
-                </View>
-                {
-                    (length === 0 || length === '') ?
-                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.3) }}>
-                            <Text style={{ textAlign: 'center' }}>No Data Found</Text>
-                        </View>
-                        :
-                        null
-                }
-                <ScrollView style={styles.container}>
+                    </View>
+                    {
+                        (length === 0 || length === '') ?
+                            <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.3) }}>
+                                <Text style={{ textAlign: 'center' }}>No Data Found</Text>
+                            </View>
+                            :
+                            null
+                    }
+                    <ScrollView style={styles.container}>
 
 
-                    <SafeAreaView style={{ flex: 1 }}>
+                        <SafeAreaView style={{ flex: 1 }}>
 
-                        <FlatList
-                            ///// Search List Screen
-                            horizontal={false}
-                            showsVerticalScrollIndicator={false}
-                            style={{ marginTop: 0, }}
-                            data={profileListing}
-                            renderItem={({ item, separators, index }) => (
-                                <View>
-                                    <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
+                            <FlatList
+                                ///// Search List Screen
+                                horizontal={false}
+                                showsVerticalScrollIndicator={false}
+                                style={{ marginTop: 0, }}
+                                data={profileListing}
+                                renderItem={({ item, separators, index }) => (
+                                    <View>
+                                        <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 20 }}>
 
-                                        {item.is_featured ?
-                                            <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}
-                                                style={{ backgroundColor: '#F2F2F2', flexDirection: 'row', width: '100%', marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
-                                                <View style={styles.container}>
-                                                    <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', }}>
-
-
-                                                        <View style={{ flex: 0.2, width: '100%', justifyContent: 'center', alignContent: 'center', textAlign: 'center' }}>
-                                                            {
-                                                                (item.main_image_url === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
-                                                                    <Image source={require('../../../assets/icons/19.png')}
-                                                                        style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
-                                                                    />
-                                                                    :
-                                                                    <View style={{ height: '100%', width: '100%' }}>
-                                                                        <Image source={{
-                                                                            uri: `${item.main_image_url}`
-                                                                        }}
-                                                                            defaultSource={require('../../../assets/icons/19.png')}
-                                                                            style={{ height: getDimen(0.70), width: '100%', resizeMode: 'cover', }} />
-                                                                    </View>
-                                                            }
-                                                        </View>
-                                                        <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
-                                                            <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
-                                                                <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                                                                    {
-                                                                        (item.is_featured === '' && item.is_featured === 'no') ?
-                                                                            null
-                                                                            :
-                                                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
-                                                                    }
+                                            {item.is_featured === 'yes' ?
+                                                <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}
+                                                    style={{ backgroundColor: '#F2F2F2', flexDirection: 'row', width: '100%', marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
+                                                    <View style={styles.container}>
+                                                        <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', }}>
 
 
-                                                                </View>
-                                                            </View>
-                                                            {item.video_url ?
-                                                                <TouchableOpacity onPress={() =>
-                                                                    // console.log("userId1234:", userId, item.user_id)
-                                                                    shoWebview(item.video_url)
+                                                            <View style={{ flex: 0.2, width: '100%', justifyContent: 'center', alignContent: 'center', textAlign: 'center' }}>
+                                                                {
+                                                                    (item.main_image_url === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
+                                                                        <Image source={require('../../../assets/icons/19.png')}
+                                                                            style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
+                                                                        />
+                                                                        :
+                                                                        <View style={{ height: '100%', width: '100%' }}>
+                                                                            <Image source={{
+                                                                                uri: `${item.main_image_url}`
+                                                                            }}
+                                                                                defaultSource={require('../../../assets/icons/19.png')}
+                                                                                style={{ height: getDimen(0.70), width: '100%', resizeMode: 'cover', }} />
+                                                                        </View>
                                                                 }
-                                                                    style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                                            </View>
+                                                            <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
+                                                                <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                                                                    <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                                                        {
+                                                                            (item.is_featured === '' && item.is_featured === 'no') ?
+                                                                                null
+                                                                                :
+                                                                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
+                                                                        }
+
+
+                                                                    </View>
+                                                                </View>
+                                                                {item.video_url ?
+                                                                    <TouchableOpacity onPress={() =>
+                                                                        // console.log("userId1234:", userId, item.user_id)
+                                                                        shoWebview(item.video_url)
+                                                                    }
+                                                                        style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                                                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                                                    </TouchableOpacity>
+                                                                    :
+                                                                    null
+                                                                }
+                                                            </View>
+                                                            {userId === item.user_id ?
+                                                                <TouchableOpacity style={{ width: '100%', alignItems: 'flex-start', position: 'absolute', bottom: 15, left: 5 }}>
+                                                                    <Menu>
+                                                                        <MenuTrigger>
+                                                                            <Image source={require('../../../assets/images/more.png')}
+                                                                                style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'white' }}
+                                                                            />
+                                                                        </MenuTrigger>
+
+
+                                                                        <MenuOptions>
+                                                                            <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
+                                                                            <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
+                                                                            {/* <MenuOption onSelect={() => alert(`DELETE`)} >
+                                                            <Text style={{ color: 'red' }}>Delete</Text>
+                                                        </MenuOption> */}
+                                                                            {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
+                                                                            {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
+                                                                        </MenuOptions>
+                                                                    </Menu>
                                                                 </TouchableOpacity>
                                                                 :
                                                                 null
+
                                                             }
+
+
                                                         </View>
 
-                                                    </View>
-
-                                                    <View style={{ flex: 0.15, marginLeft: getDimen(0.01), marginTop: getDimen(0.02), flexDirection: 'row' }}>
-                                                        <Text style={{ fontSize: getDimen(0.045), width: '80%', fontWeight: '500' }}>{item.location ? item.location : ''}</Text>
-                                                        {/* <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
+                                                        <View style={{ flex: 0.15, marginLeft: getDimen(0.01), marginTop: getDimen(0.02), flexDirection: 'row' }}>
+                                                            <Text style={{ fontSize: getDimen(0.045), width: '80%', fontWeight: '500' }}>{item.location ? item.location : ''}</Text>
+                                                            {/* <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
                                                             <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left', marginRight: 10 }}>{item.userinfo.name ? item.userinfo.name : ''}</Text>
                                                             <TouchableOpacity
                                                                 // onPress={() => Alert.alert('Real Estate Company')}
@@ -403,27 +435,27 @@ function ProfileScreen({ navigation, route }) {
                                                             </TouchableOpacity>
 
                                                         </View> */}
-                                                    </View>
+                                                        </View>
 
-                                                    <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
-                                                        <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
-                                                            <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms ? item.bedrooms : ''}</Text>
-                                                            <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
+                                                        <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
+                                                            <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
+                                                                <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms ? item.bedrooms : ''}</Text>
+                                                                <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
+                                                            </View>
+                                                            <View style={{ flex: 0.22, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                                <Text style={{ fontSize: getDimen(0.06) }}>{item.bathrooms ? item.bathrooms : ''}</Text>
+                                                                <Text style={{ fontSize: getDimen(0.035) }}>Bathrooms</Text>
+                                                            </View>
+                                                            <View style={{ flex: 0.21, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                                <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace ? item.terrace : 0}</Text>
+                                                                <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
+                                                            </View>
+                                                            <View style={{ backgroundColor: '#a43d3e', flex: 0.395, height: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+                                                                <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>${(item && item.price_per_sq_feet) ? item.price_per_sq_feet : ""}/feet</Text>
+                                                            </View>
                                                         </View>
-                                                        <View style={{ flex: 0.22, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                            <Text style={{ fontSize: getDimen(0.06) }}>{item.bathrooms ? item.bathrooms : ''}</Text>
-                                                            <Text style={{ fontSize: getDimen(0.035) }}>Bathrooms</Text>
-                                                        </View>
-                                                        <View style={{ flex: 0.21, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                            <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace ? item.terrace : 0}</Text>
-                                                            <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
-                                                        </View>
-                                                        <View style={{ backgroundColor: '#a43d3e', flex: 0.395, height: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-                                                            <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>${(item && item.price_per_sq_feet) ? item.price_per_sq_feet : ""}/feet</Text>
-                                                        </View>
-                                                    </View>
 
-                                                    {/* <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.08) }}>
+                                                        {/* <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.08) }}>
                                                         <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
                                                             <Text style={{ fontSize: getDimen(0.040) }}>{item.home_type ? "• Home Type: " + item.home_type : "• Home Type: "}</Text>
                                                         </View>
@@ -443,162 +475,206 @@ function ProfileScreen({ navigation, route }) {
                                                     </View> */}
 
 
-                                                </View>
-                                            </TouchableOpacity>
-
-                                            :
-                                            <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
-                                                <View style={{ flex: 0.6, height: '100%' }}>
-
-                                                    <View style={{ flex: 0.9, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6' }}>
-                                                        {/* <Image
-                                                    source={{ uri: item.profile_image_url }}
-                                                    // source={require('../../../assets/icons/2.png')}
-                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
-                                                /> */}
-                                                        <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}>
-
-
-                                                            <Image
-                                                                // source={{
-                                                                //     uri: `${item.profile_image_url}`,
-                                                                // }}
-                                                                source={require('../../../assets/icons/2.png')}
-                                                                style={{ height: getDimen(0.4), width: getDimen(0.4), marginTop: getDimen(0), }}
-                                                            />
-                                                        </TouchableOpacity>
-
                                                     </View>
+                                                </TouchableOpacity>
 
+                                                :
+                                                <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
+                                                    <View style={{ flex: 0.6, height: '100%', width: '100%', }}>
+                                                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6', }}>
+                                                            <TouchableOpacity onPress={() => {
+                                                                navigation.navigate('My Listing Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
+                                                            }
+                                                            }>
 
-                                                    <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
-                                                        <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
-                                                            <Text style={{ fontSize: getDimen(0.04), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
-                                                        </View>
-                                                        <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
-                                                            <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
-                                                        </View>
-                                                    </View>
+                                                                {
+                                                                    (item.main_image_url) ?
+                                                                        <Image source={{
+                                                                            uri: `${item.main_image_url}`
+                                                                        }}
+                                                                            style={{ resizeMode: 'cover', height: getDimen(.43), width: getDimen(.35) }} />
 
-                                                </View>
-                                                <View style={{ flex: 1, height: '100%', }}>
-
-                                                    <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05) }}>
-                                                        <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "userId": userId, "listing_id": item.id }))}>
-                                                            <Text style={{ fontSize: getDimen(0.04) }}>{item.location}</Text>
-                                                        </TouchableOpacity>
-                                                    </View>
-
-                                                    <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05) }}>
-                                                        <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                            <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
-                                                            <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
-                                                        </View>
-                                                        <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                            <Text style={{ fontSize: getDimen(0.06) }}>{item.bathrooms}</Text>
-                                                            <Text style={{ fontSize: getDimen(0.035) }}>Bedrooms</Text>
-                                                        </View>
-                                                        <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                            <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
-                                                            <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
-                                                        </View>
-                                                    </View>
-
-                                                    <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.05), marginLeft: getDimen(0) }}>
-
-                                                        <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                            <Image source={require('../../../assets/icons/pin.png')}
-                                                                style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                                                        </View>
-                                                        <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                            <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
-                                                        </View>
-                                                        <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                            {/* <Image source={require('../../../assets/icons/dummyLine.png')}
-                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                            <TouchableOpacity onPress={() => Alert.alert('Clicked!')}>
-                                                                <Image source={require('../../../assets/icons/dummyLine.png')}
-                                                                    style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                                        :
+                                                                        <Image
+                                                                            source={require('../../../assets/icons/19.png')}
+                                                                            style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
+                                                                        />
+                                                                }
                                                             </TouchableOpacity>
+
+                                                        </View>
+
+
+                                                        <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'orange' }}>
+                                                            <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
+                                                                {/* <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text> */}
+                                                                <Text style={{ fontSize: getDimen(0.035), fontWeight: '600', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(item.is_sold === "no") ? item.listing_type : item.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
+                                                            </View>
+                                                            <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
+                                                                <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>${item.price_per_sq_feet}/feet</Text>
+                                                            </View>
                                                         </View>
 
                                                     </View>
-
-                                                    <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0) }}>
-
-                                                        <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                            <Image source={require('../../../assets/icons/map.png')}
-                                                                style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                                                        </View>
-                                                        <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                            <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
-                                                        </View>
-                                                        <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                            {/* <Image source={require('../../../assets/icons/20.png')}
-                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                            <TouchableOpacity onPress={() => onShare()}>
-                                                                <Image source={require('../../../assets/icons/20.png')}
-                                                                    style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                    <View style={{ flex: 1, height: '100%', }}>
+                                                        <View style={{ flex: 0.3, marginLeft: getDimen(0.05), marginRight: getDimen(0.01), marginTop: getDimen(0.015), flexDirection: 'row' }}>
+                                                            <TouchableOpacity style={{ marginRight: 5, flex: 0.9 }}
+                                                                onPress={() => {
+                                                                    navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
+                                                                }
+                                                                }>
+                                                                {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
+                                                                <Text
+                                                                    numberOfLines={2}
+                                                                    style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
                                                             </TouchableOpacity>
+                                                            {userId === item.user_id ?
+                                                                <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', left: 5, flex: 0.1 }}>
+                                                                    <Menu>
+                                                                        <MenuTrigger>
+                                                                            <Image source={require('../../../assets/images/more.png')}
+                                                                                style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'gray' }}
+                                                                            />
+                                                                        </MenuTrigger>
+
+
+                                                                        <MenuOptions>
+                                                                            <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
+                                                                            <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
+                                                                            {/* <MenuOption onSelect={() => alert(`DELETE`)} >
+                                                                <Text style={{ color: 'red' }}>Delete</Text>
+                                                            </MenuOption> */}
+                                                                            {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
+
+                                                                            {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
+                                                                        </MenuOptions>
+                                                                    </Menu>
+                                                                </TouchableOpacity>
+                                                                :
+                                                                null
+                                                            }
+                                                        </View>
+
+                                                        <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.03), marginLeft: getDimen(0.04) }}>
+                                                            <View style={{ flex: 0.45, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                                <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
+                                                                <Text style={{ fontSize: getDimen(0.03) }}>Bedrooms</Text>
+                                                            </View>
+                                                            <View style={{ flex: 0.45, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                                <Text style={{ fontSize: getDimen(0.06), textAlign: 'center' }}>{item.bathrooms}</Text>
+                                                                <Text style={{ fontSize: getDimen(0.03), textAlign: 'center' }}>Bathrooms</Text>
+                                                            </View>
+                                                            <View style={{ flex: 0.4, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                                <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
+                                                                <Text style={{ fontSize: getDimen(0.03) }}>Terrace</Text>
+                                                            </View>
+                                                        </View>
+
+                                                        <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.03), marginLeft: getDimen(0) }}>
+
+                                                            <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                                <Image source={require('../../../assets/icons/pin.png')}
+                                                                    style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                            </View>
+                                                            <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                                {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                                <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                            </View>
+                                                            <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
+                                                                {/* <Image source={require('../../../assets/icons/dummyLine.png')}
+                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
+                                                                <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
+                                                                    <Image source={require('../../../assets/icons/dummyLine.png')}
+                                                                        style={{ height: getDimen(0.08), width: getDimen(0.08) }} />
+                                                                </TouchableOpacity>
+                                                            </View>
+
+
+                                                        </View>
+
+
+                                                        <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0), marginBottom: getDimen(0.03) }}>
+
+                                                            <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                                <Image source={require('../../../assets/icons/map.png')}
+                                                                    style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                            </View>
+                                                            <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                                <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
+                                                            </View>
+                                                            <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+
+                                                                <TouchableOpacity onPress={() => onShare()}>
+                                                                    {
+                                                                        (item && item.web_share_url === !'') ?
+                                                                            <Image source={require('../../../assets/icons/20.png')}
+                                                                                style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
+                                                                            :
+                                                                            null
+                                                                    }
+                                                                    {/* <Image source={require('../../../assets/icons/20.png')}
+                                                        style={{ height: getDimen(0.07), width: getDimen(0.07) }} /> */}
+                                                                </TouchableOpacity>
+                                                            </View>
+
                                                         </View>
 
                                                     </View>
 
                                                 </View>
 
-                                            </View>
 
+                                            }
 
-                                        }
+                                        </View>
 
                                     </View>
+                                )}
+                                keyExtractor={item => "" + item.id}
+                            />
+                        </SafeAreaView>
+                    </ScrollView>
+                    {bannerUrlImage ?
+                        <View style={{ height: getDimen(0.2), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
+                            <View style={{ backgroundColor: 'white', width: '100%', height: '100%', alignItems: 'center', }}>
+                                <Image source={{ uri: bannerUrlImage }}
+                                    defaultSource={require('../../../assets/icons/2.png')}
+                                    style={{ height: '100%', width: '100%', resizeMode: 'cover' }} />
 
-                                </View>
-                            )}
-                            keyExtractor={item => "" + item.id}
-                        />
-                    </SafeAreaView>
-                </ScrollView>
-                {bannerUrlImage ?
-                    <View style={{ height: getDimen(0.2), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
-                        <View style={{ backgroundColor: 'white', width: '100%', height: '100%', alignItems: 'center', }}>
-                            <Image source={{ uri: bannerUrlImage }}
-                                defaultSource={require('../../../assets/icons/2.png')}
-                                style={{ height: '100%', width: '100%', resizeMode: 'cover' }} />
-
-                        </View>
-                    </View>
-                    :
-                    null
-                }
-
-                {
-                    (showLoader === '') ?
-                        <View
-                            style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
-                        >
-                            <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                            </View>
                         </View>
                         :
                         null
-                }
+                    }
 
-                {showWebview === '' ?
-                    <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
-                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
-                        <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
-                            <WebView
-                                style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
-                                javaScriptEnabled={true}
-                                source={{ uri: webviewUrl }}
-                            />
+                    {
+                        (showLoader === '') ?
+                            <View
+                                style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                            >
+                                <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                            </View>
+                            :
+                            null
+                    }
+
+                    {showWebview === '' ?
+                        <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
+                            <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                            <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
+                                <WebView
+                                    style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
+                                    javaScriptEnabled={true}
+                                    source={{ uri: webviewUrl }}
+                                />
+                            </View>
+                            <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
                         </View>
-                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
-                    </View>
-                    : null
-                }
-            </View>
-        </View >
+                        : null
+                    }
+                </View>
+            </View >
+        </MenuProvider>
     )
 }
 

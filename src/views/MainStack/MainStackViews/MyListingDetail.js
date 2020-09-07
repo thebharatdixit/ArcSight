@@ -245,9 +245,9 @@ function MyListingDetail({ navigation, route }) {
                         <View style={{ flex: 0.1, backgroundColor: '#d2d6d5', justifyContent: 'flex-start', alignItems: 'center', }}>
 
 
-                            <View style={{ flex: 0.2, width: '100%', justifyContent: 'center', alignContent: 'center', textAlign: 'center' }}>
+                            <View style={{ flex: 0.2, width: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
                                 {
-                                    (primaryImage === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
+                                    (primaryImage === 'http://arc.softwaresolutions.website/images/ListingImages/' || !dataofimages || !(dataofimages.length > 0)) ?
                                         <Image source={require('../../../assets/icons/19.png')}
                                             style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
                                         />

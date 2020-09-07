@@ -50,6 +50,7 @@ function EditPropertyScreen({ navigation, route }) {
     const [price, setPrice] = React.useState('');
     const [bedroom, setBedroom] = React.useState('');
     const [bath, setBath] = React.useState('');
+    const [bathroom, setBathroom] = React.useState('');
     const [terrace, setTerrace] = React.useState(0);
     const [homeType, setHomeType] = React.useState('');
     const [squreFeet, setSqureFeet] = React.useState('');
@@ -207,6 +208,7 @@ function EditPropertyScreen({ navigation, route }) {
             setPricePerSqureFeet(listingData.price_per_sq_feet);
             setBedroom(listingData.bedrooms);
             setBath(listingData.bathrooms);
+            setBathroom(listingData.bathrooms);
 
             setHomeType(listingData.home_type);
 
@@ -513,7 +515,7 @@ function EditPropertyScreen({ navigation, route }) {
                                         <Image
                                             style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.55), width: getDimen(0.90), borderRadius: 10 }}
                                             source={{ uri: mainImage }}
-                                            defaultSource={require('../../../assets/icons/plus.png')}
+                                            defaultSource={require('../../../assets/icons/19.png')}
                                         />
                                         <TouchableOpacity onPress={mainImageClicked} style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
                                             <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
@@ -552,7 +554,7 @@ function EditPropertyScreen({ navigation, route }) {
                                                 <Image
                                                     source={{ uri: item.uri }}
                                                     style={{ width: '100%', height: getDimen(.35), resizeMode: 'cover', alignSelf: 'center', borderRadius: 10 }}
-                                                    defaultSource={require('../../../assets/icons/plus.png')}
+                                                    defaultSource={require('../../../assets/icons/19.png')}
                                                 />
                                                 <TouchableOpacity onPress={() => additionalImageClicked(index)}
                                                     style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
@@ -741,8 +743,8 @@ function EditPropertyScreen({ navigation, route }) {
                                     keyboardType="numeric"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
-                                    onChangeText={(bath) => setBath(bath)}
-                                    value={bath} />
+                                    onChangeText={(bathroom) => setBathroom(bathroom)}
+                                    value={bathroom} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}

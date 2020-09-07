@@ -429,7 +429,7 @@ function ChatScreen({ route, navigation }) {
                                             flex: 0.25, height: '100%', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginTop: getDimen(0.05)
                                         }}>
                                             {
-                                                (item.profile_image_url && (item.profile_image_url.includes('.jpg') || item.profile_image_url.includes('.png'))) ? <Image
+                                                (item.profile_image_url) ? <Image
                                                     source={{
                                                         uri: `${item.profile_image_url}`,
                                                     }}

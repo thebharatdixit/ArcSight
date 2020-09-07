@@ -282,7 +282,7 @@ function ChatLayout({ route, navigation }) {
                     style={{ height: getDimen(0.1), width: getDimen(0.1), marginLeft: getDimen(0.025), borderRadius: getDimen(0.1) / 2 }} /> */}
 
                     {
-                        (profile_image_url && (profile_image_url.includes('.jpg') || profile_image_url.includes('.png'))) ? <Image
+                        (profile_image_url) ? <Image
                             source={{
                                 uri: `${profile_image_url}`,
                             }}

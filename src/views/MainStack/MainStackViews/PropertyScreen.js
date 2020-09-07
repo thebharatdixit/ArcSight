@@ -541,7 +541,7 @@ function PropertyScreen({ navigation }) {
                                         <Image
                                             style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.55), width: getDimen(0.90), borderRadius: 10 }}
                                             source={{ uri: mainImage }}
-                                            defaultSource={require('../../../assets/icons/plus.png')}
+                                            defaultSource={require('../../../assets/icons/19.png')}
                                         />
                                         <TouchableOpacity onPress={mainImageClicked} style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
                                             <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
@@ -580,7 +580,7 @@ function PropertyScreen({ navigation }) {
                                                 <Image
                                                     source={{ uri: item.uri }}
                                                     style={{ width: '100%', height: getDimen(.35), resizeMode: 'cover', alignSelf: 'center', borderRadius: 10 }}
-                                                    defaultSource={require('../../../assets/icons/plus.png')}
+                                                    defaultSource={require('../../../assets/icons/19.png')}
                                                 />
                                                 <TouchableOpacity onPress={() => additionalImageClicked(index)}
                                                     style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
