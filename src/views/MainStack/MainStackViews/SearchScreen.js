@@ -689,8 +689,8 @@ function SearchScreen({ navigation }) {
                                 <Image source={require('../../../assets/icons/2.png')}
                                     style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
 
-                                <Image source={require('../../../assets/images/logo.png')}
-                                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                                {/* <Image source={require('../../../assets/images/logo.png')}
+                                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} /> */}
                             </View>
 
                         </View>
