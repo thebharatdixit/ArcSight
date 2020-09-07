@@ -74,12 +74,12 @@ class Aminities extends Component {
         }
         if (isModified) {
             console.log('true..');
-            dataGetFromCache(data);
+            // this.dataGetFromCache(data);
             this.setState({ ArrData: data });
             // setArr(data);
         }
         else {
-            dataGetFromCache(filteredData);
+            // this.dataGetFromCache(filteredData);
             this.setState({ ArrData: filteredData });
             // setArr(filteredData);
         }
@@ -90,21 +90,67 @@ class Aminities extends Component {
     dataGetFromCache = (dataSelected) => {
         getData('selectedAminitiesData').then((selectedAminitiesData) => {
             if (selectedAminitiesData && selectedAminitiesData.length > 0) {
-                console.log('USER reson id : ' + JSON.stringify(selectedAminitiesData));
+                console.log('USER selectedAminitiesData : ' + JSON.stringify(selectedAminitiesData));
                 const dataArr = JSON.parse(selectedAminitiesData);
                 var strArr = [];
                 var strArrApi = [];
-                for (let i = 0; i < dataArr.length; i++) {
-                    let item = dataArr[i];
+                var filteredData = [];
+
+                for (let j = 0; j < dataArr.length; j++) {
+                    let item2 = dataArr[j];
+                    let data = {
+                        "id": item2.id,
+                        "name": item2.name,
+                        "isSelected": true,
+                    }
+                    filteredData.push(data);
+                }
+
+                for (let i = 0; i < dataSelected.length; i++) {
+                    let item = dataSelected[i];
                     let data = {
                         "id": item.id,
-
+                        "name": item.name,
+                        "isSelected": false,
                     }
-                    strArr.push(item.name);
-                    strArrApi.push(data);
+                    filteredData.push(data);
                 }
-                setArrSelectedAminities(strArr);
-                setArrSelectedAminitiesForApi(strArrApi);
+
+
+                for (let i = 0; i < dataSelected.length; i++) {
+                    let item = dataSelected[i];
+                    for (let j = 0; j < dataArr.length; j++) {
+                        let item2 = dataArr[j];
+                        if (item.id === item2.id) {
+                                let data = {
+                                    "id": item.id,
+                                    "name": item.name,
+                                    "isSelected": true,
+                                }
+                                filteredData.push(data);
+                            // else {
+                            //     let data = {
+                            //         "id": item.id,
+                            //         "name": item.name,
+                            //         "isSelected": false,
+                            //     }
+                            //     filteredData.push(data);
+                            // }
+                        }
+                        else {
+                            // let data = {
+                            //     "id": item.id,
+                            //     "name": item.name,
+                            //     "isSelected": false,
+                            // }
+                            // filteredData.push(data);
+                        }
+                    }
+                    
+                }
+                this.setState({ ArrData: filteredData });
+                // setArrSelectedAminities(filteredData);
+                // setArrSelectedAminitiesForApi(filteredData);
                 // this.setState({ arrSelectedAminities: strArr });
             }
             else {

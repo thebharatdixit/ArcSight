@@ -6,6 +6,7 @@ import ProfileScreen from './ProfileScreen'
 import ChangePasswordScreen from './ChangePassword'
 import ProfileUpdate from './ProfileUpdateScreen'
 import SearchListDetailScreen from './SearchListDetailScreen'
+import Aminities from './Aminities'
 
 
 //import { updateProfile } from '../../../service/apiService';
@@ -31,7 +32,8 @@ const ProfileStack = function authNavigator({ }) {
             <Stack.Screen name="Search List Detail" component={SearchListDetailScreen}
             />
             
-            
+            <Stack.Screen name="Aminities" component={Aminities}
+            />
 
         </Stack.Navigator>
 

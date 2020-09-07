@@ -9,6 +9,7 @@ import SearchListDetailScreen from './SearchListDetailScreen';
 import ThreeSixtyView from './ThreeSixtyView';
 import MapScreen from './MapScreen'
 import EditPropertyScreen from './EditPropertyScreen';
+import Aminities from './Aminities';
 
 const Stack = createStackNavigator();
 const HomeStack = function authNavigator({ }) {
@@ -42,6 +43,9 @@ const HomeStack = function authNavigator({ }) {
             />
 
             <Stack.Screen name="Edit Property Screen" component={EditPropertyScreen}
+            />
+
+            <Stack.Screen name="Aminities" component={Aminities}
             />
 
         </Stack.Navigator>
