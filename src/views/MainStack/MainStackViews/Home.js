@@ -226,7 +226,7 @@ function MainScreen({ navigation }) {
                     setWerUrl(homeList && homeList.data && homeList.data.web_share_url)
                     setLength((res && res.data) ? res.data.length : '')
                     console.log('homeList', homeList && homeList.data)
-                    console.log('WebUrl', webUrl)
+                    console.log('WebUrl:', webUrl)
 
                     console.log('Home List User Id', homeList && homeList.data && homeList.data.user_id)
                     // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
