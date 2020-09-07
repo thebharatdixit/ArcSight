@@ -33,9 +33,10 @@ import ImagePicker from 'react-native-image-picker';
 import { getData, storeData } from '../../../utils/asyncStore';
 import { doLogout } from '../../../actions/ProfileAction'
 import AsyncStorage from '@react-native-community/async-storage';
-import { fetchProfile } from '../../../actions/ProfileAction';
+// import { fetchProfile } from '../../../actions/ProfileAction';
 import { updateProfile } from '../../../service/apiService';
 import { WebView } from "react-native-webview";
+import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
 
 
 function ProfileScreen({ navigation, route }) {
@@ -149,6 +150,50 @@ function ProfileScreen({ navigation, route }) {
             }
             else {
                 Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+            }
+
+        })
+    }
+
+    const deleteListingApiIntegration = (listing_id) => {
+
+        setShowLoader('');
+        let data = {
+            "listing_id": listing_id
+        }
+        let token = accessToken;
+        console.log('data :' + JSON.stringify(data) + "token :" + token);
+        deleteListing(token, data).then((response) => {
+
+            setShowLoader('hide');
+            if (response.status) {
+                getUserProfileData();
+            }
+            else {
+                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                // setShowLoader('hide');
+            }
+
+        })
+    }
+
+    const soldOutRentOutApiIntegration = (listing_id) => {
+
+        setShowLoader('');
+        let data = {
+            "listing_id": listing_id
+        }
+        let token = accessToken;
+        console.log('data :' + JSON.stringify(data) + "token :" + token);
+        soldOutRentOut(token, data).then((response) => {
+
+            setShowLoader('hide');
+            if (response.status) {
+                getUserProfileData();
+            }
+            else {
+                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                // setShowLoader('hide');
             }
 
         })
