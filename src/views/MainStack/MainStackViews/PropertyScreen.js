@@ -53,7 +53,7 @@ function PropertyScreen({ navigation }) {
     const [squreFeet, setSqureFeet] = React.useState('');
     const [pricePerSqureFeet, setPricePerSqureFeet] = React.useState('');
     const [description, setDescription] = React.useState('');
-    const [isFeatured, setIsFeatured] = React.useState('');
+    const [isFeatured, setIsFeatured] = React.useState('no');
 
     const [taxes, setTaxes] = React.useState('');
     const [amenities, setAmenities] = React.useState('');
@@ -85,7 +85,7 @@ function PropertyScreen({ navigation }) {
     const [location, setLocation] = React.useState('');
     const [latitude, setLatitude] = React.useState('');
     const [longnitude, setLongnitude] = React.useState('');
-
+    const [checked, setChecked] = React.useState(false);
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -150,7 +150,7 @@ function PropertyScreen({ navigation }) {
             formData.append('video_url', videoUrl);
             formData.append('web_share_url', imageUrl);
             formData.append('location_neighbourhood', locationNeighbourhood);
-            formData.append('is_featured', 'yes');
+            formData.append('is_featured', isFeatured);
             formData.append('main_image',
                 {
                     uri: mainImage,
@@ -474,6 +474,19 @@ function PropertyScreen({ navigation }) {
         setLongnitude(long);
     }
 
+    const featuredAlert = () => {
+        if (checked == true) {
+            setIsFeatured('yes')
+            console.log('IsFeatured!!!:', isFeatured, checked)
+            setChecked(false)
+        } else {
+            setChecked(true)
+            setIsFeatured('no')
+            console.log('IsFeatured!!!:', isFeatured, checked)
+        }
+        
+    }
+
     return (
         <View style={{ flex: 1 }}>
             {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
@@ -497,7 +510,7 @@ function PropertyScreen({ navigation }) {
             <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white', alignContent: 'flex-end', flexDirection: 'column' }}>
                 <View style={{ backgroundColor: 'white', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>ADD LISTINGyyy</Text>
+                        <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>ADD LISTING</Text>
                     </View>
                     {/* <TouchableOpacity onPress={chooseFile.bind(this)}>
                     <View style={{ backgroundColor: '#f1ac35', height: getDimen(0.125), width: getDimen(0.5), justifyContent: 'center', alignContent: 'center', marginLeft: getDimen(0.01) }}>
@@ -982,7 +995,6 @@ function PropertyScreen({ navigation }) {
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
-
                         <View style={{ width: '100%', height: getDimen(0.1), alignItems: 'center', alignContent: 'center', justifyContent: 'center' }}>
 
                             {/* <TouchableOpacity onPress={selectFile.bind(this)}>
@@ -991,7 +1003,25 @@ function PropertyScreen({ navigation }) {
                             </Text>
                             </TouchableOpacity> */}
                         </View>
+                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop:getDimen(-0.02) }}>
 
+                            <TouchableOpacity onPress={() => featuredAlert()}>
+                                {
+                                    checked ? (
+                                        <Image source={require('../../../assets/icons/tick.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    ) :
+                                        <Image source={require('../../../assets/icons/circle.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                }
+                                {/* <Image source={require('../../../assets/icons/tick.png')}
+                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} /> */}
+                            </TouchableOpacity>
+
+                            <Text style={{ paddingLeft: getDimen(0.05), color: '#8d8865' }}>
+                                Featured Property
+                            </Text>
+                        </View>
 
                         <View style={{ width: '100%', height: getDimen(0.1), alignItems: 'center', alignContent: 'center', justifyContent: 'center' }}>
                             <Image
@@ -1002,9 +1032,10 @@ function PropertyScreen({ navigation }) {
                         </View>
 
                     </View>
+                    
 
                 </ScrollView>
-
+                
                 <View style={{ height: getDimen(0.16), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), alignItems: 'center', }}>
                         <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
