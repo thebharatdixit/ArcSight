@@ -29,7 +29,6 @@ const MyColleagueStack = function authNavigator({ }) {
 
             <Stack.Screen name="My Listing Detail" component={MyListingDetailScreen}
             />
-
             <Stack.Screen name="Profile Screen" component={ProfileScreen}
             />
             <Stack.Screen name="Colleague List" component={ColleagueListScreen}
