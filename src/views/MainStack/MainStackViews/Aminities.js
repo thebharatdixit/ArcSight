@@ -74,14 +74,42 @@ class Aminities extends Component {
         }
         if (isModified) {
             console.log('true..');
+            dataGetFromCache(data);
             this.setState({ ArrData: data });
             // setArr(data);
         }
         else {
+            dataGetFromCache(filteredData);
             this.setState({ ArrData: filteredData });
             // setArr(filteredData);
         }
         console.log('filtereddata :' + JSON.stringify(filteredData));
+        
+    }
+
+    dataGetFromCache = (dataSelected) => {
+        getData('selectedAminitiesData').then((selectedAminitiesData) => {
+            if (selectedAminitiesData && selectedAminitiesData.length > 0) {
+                console.log('USER reson id : ' + JSON.stringify(selectedAminitiesData));
+                const dataArr = JSON.parse(selectedAminitiesData);
+                var strArr = [];
+                var strArrApi = [];
+                for (let i = 0; i < dataArr.length; i++) {
+                    let item = dataArr[i];
+                    let data = {
+                        "id": item.id,
+
+                    }
+                    strArr.push(item.name);
+                    strArrApi.push(data);
+                }
+                setArrSelectedAminities(strArr);
+                setArrSelectedAminitiesForApi(strArrApi);
+                // this.setState({ arrSelectedAminities: strArr });
+            }
+            else {
+            }
+        })
     }
 
     tickOrUntick = (item) => {

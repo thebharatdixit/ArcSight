@@ -271,7 +271,7 @@ function MainScreen({ navigation }) {
         // var createdDt = moment(createdDatee).format('MMM DD, YYYY hh:mm a')
         var createdDt = moment(createdDatee).format('MMM DD, YYYY hh:mm A')
         console.log('DateFormatecreatedDateMMMDDYYY', createdDt);
-        console.log('DateFormatecreatedDateMMMDDYYYReal', createdDatee);
+        console.log('DateFormatecreatedDateMMMDDYYYReal', createdDatee + " namee:: " + item.userinfo.name);
         // console.log('index::', index)
         var msDiff = new Date().getTime() - new Date(createdDt).getTime();  //Aug 25, 2020
         var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
@@ -496,14 +496,7 @@ function MainScreen({ navigation }) {
                                                                     <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
                                                                         {(item && item.userinfo) ? item.userinfo.name : ''}
                                                                     </Text>
-                                                                    <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.012) }}>
-                                                                        {/* Listed 2 Days Ago */}
-
-                                                                        {
-                                                                            daysFunction(item.created_at, item)
-                                                                        }
-
-                                                                    </Text>
+                                                                    <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.012) }}>{daysFunction(item.created_at, item)}</Text>
                                                                 </TouchableOpacity>
                                                             </View>
 

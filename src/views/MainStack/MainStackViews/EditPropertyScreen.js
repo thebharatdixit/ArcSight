@@ -207,16 +207,38 @@ function EditPropertyScreen({ navigation, route }) {
             setPrice(listingData.price_per_sq_feet);
             setPricePerSqureFeet(listingData.price_per_sq_feet);
             setBedroom(listingData.bedrooms);
+            console.log("setBathrooom " + listingData.bathrooms);
             setBath(listingData.bathrooms);
             setBathroom(listingData.bathrooms);
 
             setHomeType(listingData.home_type);
+            if (listingData.home_type === 'House') {
+                setSelected("key0");
+                // setListingType("For Sale");
+            }
+            else if (listingData.home_type === 'Co-op'){
+                setSelected("key1");
+            }
+            else if (listingData.home_type === 'Condo'){
+                setSelected("key2");
+            }
+            else if (listingData.home_type === 'Townhouse'){
+                setSelected("key3");
+            }
+            else if (listingData.home_type === 'Multi-Family'){
+                setSelected("key4");
+            }
+            else if (listingData.home_type === 'Land'){
+                setSelected("key5");
+            }
+            else {
+                setSelected("key6");
+            }
+            
 
             setSqureFeet(listingData.sq_feet);
             setTerrace(listingData.terrace);
             setListingType(listingData.listing_type);
-            setDescription(listingData.description);
-            setCounter(counter + 1);
             if (listingData.listing_type === 'For Sale') {
                 setSelected2("key0");
                 // setListingType("For Sale");
@@ -224,6 +246,9 @@ function EditPropertyScreen({ navigation, route }) {
             else {
                 setSelected2("key1");
             }
+            setDescription(listingData.description);
+            setCounter(counter + 1);
+            
             setArrSelectedAminities([]);
             setYearBuilt(listingData.year_built);
             setMainImage(listingData.main_image_url);
