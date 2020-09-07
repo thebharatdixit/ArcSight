@@ -123,7 +123,8 @@ function EditPropertyScreen({ navigation, route }) {
         if (!(mainImage === "")) {
             console.log('fileName:::: ' + fileName);
             const formData = new FormData();
-
+            
+            formData.append('listing_id', listingData.id);
             formData.append('home_type', homeType);
             formData.append('sq_feet', squreFeet);
             formData.append('bedrooms', bedroom);

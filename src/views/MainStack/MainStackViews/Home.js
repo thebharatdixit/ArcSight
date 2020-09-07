@@ -680,12 +680,7 @@ function MainScreen({ navigation }) {
                                                                     <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
                                                                         {(item && item.userinfo) ? item.userinfo.name : ''}
                                                                     </Text>
-                                                                    <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.011) }}>
-                                                                        {/* Listed 2 Days Ago */}
-                                                                        {
-                                                                            createdDate
-                                                                        }
-                                                                    </Text>
+                                                                    <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.011) }}>{daysFunction(item.created_at, item)}</Text>
                                                                 </TouchableOpacity>
                                                             </View>
 
