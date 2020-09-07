@@ -35,7 +35,18 @@ function SettingScreen({ navigation, changeAuthState}){
     const [showLoader, setShowLoader] = React.useState('hide');
     const [notificationType, setNotificationType] = React.useState('')
     const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const toggleSwitch = () => 
+    {
+        if(isEnabled){
+            storeData("mapOnOff", "off");
+        }
+        else
+        {
+            storeData("mapOnOff", "on");
+        }
+        
+        setIsEnabled(!isEnabled);
+    }
     
     const pushButton = () => {
         setNotificationType('push')
@@ -287,7 +298,7 @@ function SettingScreen({ navigation, changeAuthState}){
                             trackColor={{ false: "#767577", true: "#52556E" }}
                             thumbColor={isEnabled ? "#FAAE00" : "#f4f3f4"}
                             ios_backgroundColor="#C0C0C0"
-                            onValueChange={toggleSwitch}
+                            onValueChange={() => toggleSwitch()}
                             value={isEnabled}
                         />
                     </View>

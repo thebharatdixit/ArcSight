@@ -201,8 +201,11 @@ function PropertyScreen({ navigation }) {
                         setPricePerSqureFeet('');
                         setBedroom('');
                         setBath('');
-
-
+                        setSelected('');
+                        setSelected2('');
+                        setLocationNeighbourhood('');
+                        setIsFeatured('');
+                        setChecked(false);
                         setSqureFeet('');
                         setTerrace('');
                         setArrSelectedAminities([]);
@@ -476,12 +479,12 @@ function PropertyScreen({ navigation }) {
 
     const featuredAlert = () => {
         if (checked == true) {
-            setIsFeatured('yes')
+            setIsFeatured('no')
             console.log('IsFeatured!!!:', isFeatured, checked)
             setChecked(false)
         } else {
             setChecked(true)
-            setIsFeatured('no')
+            setIsFeatured('yes')
             console.log('IsFeatured!!!:', isFeatured, checked)
         }
         

@@ -233,7 +233,17 @@ function ProfileScreen({ navigation, route }) {
 
         const formData = new FormData();
         console.log('original path: ' + uri + "token ::" + accessToken + "filename ::" + fileName + "filetype ::" + fileType);
+        // var fileName = mainImageData.fileName;
+        // var filetype = mainImageData.type;
+        if (fileName) {
 
+        }
+        else {
+            var filenamess = uri.replace(/^.*[\\\/]/, '');
+            console.log("filenamess:: " + filenamess);
+            fileName = filenamess;
+            filetype = "image/jpeg";
+        }
         formData.append('profile_image',
             {
                 uri: uri,
