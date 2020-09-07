@@ -60,10 +60,20 @@ function MyListingDetail({ navigation, route }) {
     const [latitude, setLatitude] = React.useState('');
     const [longnitude, setLongnitude] = React.useState('');
     const [locationName, setLocationName] = React.useState('');
+    const [isMap, setIsMap] = React.useState('off');
 
     const { userId } = route.params ? route.params : ""
 
     React.useEffect(() => {
+        getData('mapOnOff').then((mapOnOff) => {
+            if (mapOnOff === 'on') {
+                setIsMap("on");
+            }
+            else {
+                setIsMap("off");
+            }
+
+        })
         getData('userData').then((data) => {
             const userData = JSON.parse(data);
             const listTokens = userData.token;
@@ -355,9 +365,14 @@ function MyListingDetail({ navigation, route }) {
                         {/* <ScrollView style={styles.container}> */}
                         <View style={{ flex: 0.15, marginLeft: getDimen(0.05), marginTop: getDimen(0.05), flexDirection: 'row' }}>
                             {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
-                            <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
+                            {isMap === "on" ? <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
                                 <Text style={{ fontSize: getDimen(0.045), fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
                             </TouchableOpacity>
+                                :
+                                <View style={{ flex: 0.5 }}>
+                                    <Text style={{ fontSize: getDimen(0.045), fontWeight: '500' }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.location) ? searchListDetail.listing.location : ''}</Text>
+                                </View>
+                            }
                             <View style={{ flex: 0.5, flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
                                 <TouchableOpacity
                                     onPress={() => {
