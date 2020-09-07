@@ -61,13 +61,13 @@ function SettingScreen({ navigation, changeAuthState}){
     }
 
     const handleEmail = () => {
-        const to = ['prachi.pandey@klientotech.com'] // string or array of email addresses
+        const to = ['info@solariariverdale.com'] // string or array of email addresses
         email(to, {
             // Optional additional arguments
-            cc: ['bharat.dixit@klientotech.com',], // string or array of email addresses
-            bcc: 'abc@gmail.com', // string or array of email addresses
+            // cc: ['bharat.dixit@klientotech.com',], // string or array of email addresses
+            // bcc: 'abc@gmail.com', // string or array of email addresses
             subject: 'ArcSight Support',
-            body: 'Some body right here'
+            // body: 'Some body right here'
         }).catch(console.error)
     }
     
@@ -298,14 +298,15 @@ function SettingScreen({ navigation, changeAuthState}){
 
                     // }
                     >
-                        <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'flex-start', marginLeft: getDimen(0.05), marginBottom: getDimen(-0.9) }}>
+                        <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'flex-start', marginLeft: getDimen(0.05), marginBottom: getDimen(-0.9), }}>
                             <TouchableOpacity
                                 onPress={() => openTwoButtonAlert()}
                             >
                                 <Image source={require('../../../assets/icons/logout.png')}
                                     style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                <Text style={{ fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(0.1), color: '#f1ac35', textAlign:'center', marginTop:getDimen(-0.06) }}>Log Out</Text>
+
                             </TouchableOpacity>
-                            <Text style={{ fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(0.03), color: '#f1ac35' }}>Log Out</Text>
 
                         </View>
 

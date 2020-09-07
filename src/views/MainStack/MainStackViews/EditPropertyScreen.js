@@ -919,7 +919,7 @@ function EditPropertyScreen({ navigation, route }) {
                             <View style={styles.inputContainer}>
                                 <TextInput
                                     style={styles.input}
-                                    placeholder="Enter Your Property Image URL"
+                                    placeholder="Enter Your Property Share URL"
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
