@@ -37,6 +37,8 @@ import MyColleagueScreen from '../MainStackViews/MyColleague';
 import { getData, storeData } from '../../../utils/asyncStore';
 import { fetchBannerUrl } from '../../../actions/homeAction';
 import { WebView } from "react-native-webview";
+import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
+
 import moment from 'moment';
 
 const DATA = [
@@ -348,6 +350,50 @@ function MainScreen({ navigation }) {
         // }
 
 
+    }
+
+    const deleteListingApiIntegration = (listing_id) => {
+
+        setShowLoader('');
+        let data = {
+            "listing_id": listing_id
+        }
+        let token = accessToken;
+        console.log('data :' + JSON.stringify(data) + "token :" + token);
+        deleteListing(token, data).then((response) => {
+
+            setShowLoader('hide');
+            if (response.status) {
+                homeListingApiIntegration();
+            }
+            else {
+                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                // setShowLoader('hide');
+            }
+
+        })
+    }
+
+    const soldOutRentOutApiIntegration = (listing_id) => {
+
+        setShowLoader('');
+        let data = {
+            "listing_id": listing_id
+        }
+        let token = accessToken;
+        console.log('data :' + JSON.stringify(data) + "token :" + token);
+        soldOutRentOut(token, data).then((response) => {
+
+            setShowLoader('hide');
+            if (response.status) {
+                homeListingApiIntegration();
+            }
+            else {
+                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                // setShowLoader('hide');
+            }
+
+        })
     }
 
     const renderItem = ({ item }) => (
