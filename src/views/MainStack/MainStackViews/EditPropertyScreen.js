@@ -76,7 +76,7 @@ function EditPropertyScreen({ navigation, route }) {
     const [arrSelectedAminities, setArrSelectedAminities] = React.useState([]);
     const [arrSelectedAminitiesForApi, setArrSelectedAminitiesForApi] = React.useState([]);
     const [counter, setCounter] = React.useState(0);
-    const [locationNeighbourhood, setLocationNeighbourhood] = React.useState([]);
+    const [locationNeighbourhood, setLocationNeighbourhood] = React.useState("");
 
     const [imgSourceArr, setImgSourceArr] = React.useState([]);
     const [arrImages, setArrImages] = React.useState([]);
