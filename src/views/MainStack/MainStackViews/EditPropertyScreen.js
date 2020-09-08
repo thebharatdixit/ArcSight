@@ -143,6 +143,8 @@ function EditPropertyScreen({ navigation, route }) {
             formData.append('taxes', taxes);
             formData.append('latitude', latitude);
             formData.append('longitude', longnitude);
+            formData.append('video_url', videoUrl);
+            formData.append('web_share_url', imageUrl);
             formData.append('location_neighbourhood', locationNeighbourhood);
             formData.append('amenities', JSON.stringify(arrSelectedAminitiesForApi));
             // formData.append('amenities[]', 2);
@@ -169,9 +171,22 @@ function EditPropertyScreen({ navigation, route }) {
             var selImgArray = arrImages;
             selImgArray.splice(selImgArray.length - 1, selImgArray.length - 1);
             console.log("selImgArray::: " + JSON.stringify(selImgArray));
-            arrImages.forEach((element, i) => {
-                const newFile = element
-                formData.append('listing_images[]', newFile)
+            selImgArray.forEach((element, i) => {
+                const newFile = element;
+                if (element.name) {
+                    formData.append('listing_images[]', newFile)
+                }
+                else {
+                    var filenamess = element.uri.replace(/^.*[\\\/]/, '');
+                    console.log("elementuri:: " + filenamess);
+                    formData.append('listing_images[]',
+                        {
+                            uri: element.uri,
+                            name: filenamess,
+                            type: "image/jpeg"
+                        });
+                }
+                // formData.append('listing_images[]', newFile)
             });
             // formData.append('listing_images[]', arrImages);
 
@@ -201,6 +216,7 @@ function EditPropertyScreen({ navigation, route }) {
 
                 })
                 .catch(err => {
+                    setShowLoader('hide')
                     console.error("error uploading images: ", err);
                 });
         }
@@ -254,11 +270,10 @@ function EditPropertyScreen({ navigation, route }) {
             setSqureFeet("" + listingData.sq_feet);
             console.log("setIsFeaturedsetIsFeatured " + listingData.is_featured);
             setIsFeatured(listingData.is_featured);
-            if(listingData.is_featured === 'yes'){
+            if (listingData.is_featured === 'yes') {
                 setChecked(true)
             }
-            else
-            {
+            else {
                 setChecked(false);
             }
             setTerrace("" + listingData.terrace);
@@ -272,6 +287,8 @@ function EditPropertyScreen({ navigation, route }) {
             }
             setDescription(listingData.description);
             setCounter(counter + 1);
+            setLatitude(listingData.latitude);
+            setLongnitude(listingData.longitude);
 
             setArrSelectedAminities([]);
             setYearBuilt("" + listingData.year_built);
@@ -294,7 +311,7 @@ function EditPropertyScreen({ navigation, route }) {
 
                     }
                     strArr.push(item.name);
-                    strArrApi.push(item.id);
+                    strArrApi.push(data);
                 }
                 setArrSelectedAminities(strArr);
                 setArrSelectedAminitiesForApi(strArrApi);
@@ -458,10 +475,21 @@ function EditPropertyScreen({ navigation, route }) {
                 console.log('image picker picked image path' + JSON.stringify(response));
                 // setMainImage(response.uri)
                 // setMainImageData(response);
+                var fileName = response.fileName;
+                var filetype = response.type;
+                if (fileName || filetype) {
+
+                }
+                else {
+                    var filenamess = response.uri.replace(/^.*[\\\/]/, '');
+                    console.log("filenamess::: " + filenamess);
+                    fileName = filenamess;
+                    filetype = "image/jpeg";
+                }
                 let imageItem = {
                     uri: response.uri,
-                    name: response.fileName,
-                    type: response.type
+                    name: fileName,
+                    type: filetype
                 }
                 var imageArray = [];
                 // console.log('dupArrImages::: ' + JSON.stringify(dupArrImages) + 'length::: ' + dupArrImages.length);
@@ -760,7 +788,7 @@ function EditPropertyScreen({ navigation, route }) {
                                     underlineColorAndroid='transparent'
                                     onChangeText={(pricePerSqureFeet) => setPricePerSqureFeet(pricePerSqureFeet)}
                                     value={pricePerSqureFeet} />
-                                    
+
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}

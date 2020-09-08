@@ -106,6 +106,19 @@ function SettingScreen({ navigation, changeAuthState}){
         })
     }, [])
 
+    React.useEffect(() => {
+        getData('mapOnOff').then((mapOnOff) => {
+            if(mapOnOff === "on"){
+                setIsEnabled(true);
+            }
+            else
+            {
+                setIsEnabled(false);
+            }
+            // console.log('token1', listTokens)
+        })
+    }, [])
+
     const logOutApiIntegration = () => {
         setShowLoader('')
         fetch("http://arc.softwaresolutions.website/api/v1/logout", {
