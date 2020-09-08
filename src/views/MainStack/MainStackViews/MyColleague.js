@@ -14,7 +14,8 @@ import {
     FlatList,
     Alert,
     Share,
-    SafeAreaView
+    SafeAreaView,
+    Linking
 } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
 import {
@@ -38,24 +39,24 @@ import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/Pr
 
 
 const onShare = async (webUrl) => {
-    if (webUrl){
-    try {
-        const result = await Share.share({
-            message:
-                webUrl,
-        });
-        if (result.action === Share.sharedAction) {
-            if (result.activityType) {
-                // shared with activity type of result.activityType
-            } else {
-                // shared
+    if (webUrl) {
+        try {
+            const result = await Share.share({
+                message:
+                    webUrl,
+            });
+            if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                    // shared with activity type of result.activityType
+                } else {
+                    // shared
+                }
+            } else if (result.action === Share.dismissedAction) {
+                // dismissed
             }
-        } else if (result.action === Share.dismissedAction) {
-            // dismissed
+        } catch (error) {
+            alert(error.message);
         }
-    } catch (error) {
-        alert(error.message);
-    }
     } else {
         Alert.alert('Invalid web url')
     }
@@ -81,7 +82,6 @@ function MyColleagueScreen({ navigation }) {
     const isFocused = useIsFocused();
     const [latitude, setLatitude] = React.useState('');
     const [longnitude, setLongnitude] = React.useState('');
-    const [locationName, setLocationName] = React.useState('');
     const [isMap, setIsMap] = React.useState('off');
 
     useEffect(() => {
@@ -116,9 +116,9 @@ function MyColleagueScreen({ navigation }) {
                 setProfileListing(response.data.listing.data)
                 console.log('my profile data : ', profileListing)
                 setLength(profileListing ? profileListing.length : '')
-                setLatitude(profileListing ? profileListing.latitude : '');
-                setLongnitude(profileListing ? profileListing.longitude : '');
-                setLocationName(profileListing ? profileListing.location : '');
+                // setLatitude(profileListing ? profileListing.latitude : '');
+                // setLongnitude(profileListing ? profileListing.longitude : '');
+                // setLocationName(profileListing ? profileListing.location : '');
                 setShowLoader('hide');
 
             }
@@ -183,7 +183,8 @@ function MyColleagueScreen({ navigation }) {
         setShowWebview('');
     }
 
-    const openMapurl = (lati, longi, placeName) => {
+    const openMapurl = (lati, longi, locationName) => {
+        console.log('hnxvncb:: ' + lati + " :: " + longi);
         const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
         const latLng = `${lati},${longi}`;
         const label = locationName;
@@ -195,6 +196,7 @@ function MyColleagueScreen({ navigation }) {
 
         Linking.openURL(url);
     }
+    
     return (
         <MenuProvider>
             <View style={{ flex: 1 }}>
@@ -378,21 +380,22 @@ function MyColleagueScreen({ navigation }) {
                                                                 }
                                                                 }>
                                                                 {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
-                                                                {/* <Text
+                                                                <Text
                                                                     numberOfLines={2}
-                                                                    style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text> */}
-                                                                {isMap === "on" ? <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
+                                                                    style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
+
+                                                                {/* {isMap === "on" ? <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
                                                                     <Text
                                                                         numberOfLines={2}
-                                                                        style={{ fontSize: getDimen(0.035), fontWeight: '400' }}>{item.location}</Text>
+                                                                        style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
                                                                 </TouchableOpacity>
                                                                     :
                                                                     <View style={{ flex: 0.5 }}>
                                                                         <Text
                                                                             numberOfLines={2}
-                                                                            style={{ fontSize: getDimen(0.035), fontWeight: '400' }}>{item.location}</Text>
+                                                                            style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
                                                                     </View>
-                                                                }
+                                                                } */}
                                                             </TouchableOpacity>
                                                             <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', left: 5, flex: 0.1 }}>
                                                                 <Menu>
@@ -438,10 +441,25 @@ function MyColleagueScreen({ navigation }) {
                                                                 <Image source={require('../../../assets/icons/pin.png')}
                                                                     style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                                             </View>
-                                                            <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
-                                                                {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
-                                                                <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
-                                                            </View>
+
+                                                            {isMap === "on" ?
+
+                                                                <TouchableOpacity onPress={() => openMapurl(item.latitude, item.longitude, item.location)} style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                                    {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                                </TouchableOpacity>
+                                                                // <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
+                                                                //     <Text
+                                                                //         numberOfLines={2}
+                                                                //         style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
+                                                                // </TouchableOpacity>
+                                                                :
+                                                                <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                                    {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                                </View>
+                                                            }
+
                                                             <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
                                                                 {/* <Image source={require('../../../assets/icons/dummyLine.png')}
                                                          style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}

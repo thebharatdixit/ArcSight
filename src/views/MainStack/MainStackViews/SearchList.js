@@ -14,7 +14,8 @@ import {
     FlatList,
     TouchableWithoutFeedback,
     Share,
-    Alert
+    Alert,
+    Linking
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
@@ -28,51 +29,78 @@ function SearchListScreen({ navigation, route }) {
     const { SearchList } = route.params ? route.params : ""
     const [webUrl, setWerUrl] = React.useState('')
     const [bannerUrlImage, setBannerUrl] = React.useState('');
-    const [length, setLength] = React.useState()
+    const [length, setLength] = React.useState();
+    const [isMap, setIsMap] = React.useState('off');
+
 
     React.useEffect(() => {
         getData('bannerUrl').then((bannerUrl) => {
             getData('userData').then((userData) => {
-                
+
                 const userdataMain = JSON.parse(userData);
                 console.log('USER reson id : ' + JSON.stringify(userdataMain));
                 var isProUser = userdataMain.user.pro_user;
-                if(isProUser === "no"){
+                if (isProUser === "no") {
                     setBannerUrl(bannerUrl);
                 }
-                else
-                {
+                else {
                     setBannerUrl("");
                 }
 
-                
+
             })
         })
-        
+
         console.log('json data in useEffect:', SearchList.data);
         setLength((SearchList && SearchList.data) ? SearchList.data.length : '')
-        console.log('json data in length:', length);        
+        console.log('json data in length:', length);
     })
 
-    const onShare = async (webUrls) => {
-        if (webUrls){
-        try {
-            const result = await Share.share({
-                message:
-                    webUrls,
-            });
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    // shared with activity type of result.activityType
-                } else {
-                    // shared
-                }
-            } else if (result.action === Share.dismissedAction) {
-                // dismissed
+    useEffect(() => {
+        getData('mapOnOff').then((mapOnOff) => {
+            if (mapOnOff === 'on') {
+                setIsMap("on");
             }
-        } catch (error) {
-            alert(error.message);
-        }
+            else {
+                setIsMap("off");
+            }
+
+        })
+    }, [])
+
+    const openMapurl = (lati, longi, locationName) => {
+        console.log('hnxvncb:: ' + lati + " :: " + longi);
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+        const latLng = `${lati},${longi}`;
+        const label = locationName;
+        const url = Platform.select({
+            ios: `${scheme}${label}@${latLng}`,
+            android: `${scheme}${latLng}(${label})`
+        });
+
+
+        Linking.openURL(url);
+    }
+
+    const onShare = async (webUrls) => {
+        if (webUrls) {
+            try {
+                const result = await Share.share({
+                    message:
+                        webUrls,
+                });
+                if (result.action === Share.sharedAction) {
+                    if (result.activityType) {
+                        // shared with activity type of result.activityType
+                    } else {
+                        // shared
+                    }
+                } else if (result.action === Share.dismissedAction) {
+                    // dismissed
+                }
+            } catch (error) {
+                alert(error.message);
+            }
         } else {
             Alert.alert('Invalid web url')
         }
@@ -107,7 +135,7 @@ function SearchListScreen({ navigation, route }) {
             <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
                 {
                     (length === 0 || length === '') ?
-                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.5)}}>
+                        <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.5) }}>
                             <Text style={{ textAlign: 'center' }}>No Data Found</Text>
                         </View>
                         :
@@ -198,10 +226,26 @@ function SearchListScreen({ navigation, route }) {
                                                         <Image source={require('../../../assets/icons/pin.png')}
                                                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                                     </View>
-                                                    <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
-                                                        {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                    {/* <View style={{ flex: 0.6, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.01) }}>
                                                         <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
-                                                    </View>
+                                                    </View> */}
+                                                    {isMap === "on" ?
+
+                                                        <TouchableOpacity onPress={() => openMapurl(item.latitude, item.longitude, item.location)} style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                            {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                            <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                        </TouchableOpacity>
+                                                        // <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
+                                                        //     <Text
+                                                        //         numberOfLines={2}
+                                                        //         style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
+                                                        // </TouchableOpacity>
+                                                        :
+                                                        <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                            {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                            <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                        </View>
+                                                    }
                                                     <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
                                                         {/* <Image source={require('../../../assets/icons/dummyLine.png')}
                                                          style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
@@ -264,9 +308,9 @@ function SearchListScreen({ navigation, route }) {
                     :
                     null
                 }
-                
+
             </View>
-            
+
         </View>
     )
 }
