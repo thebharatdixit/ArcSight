@@ -304,11 +304,11 @@ function ColleaguageListScreen({ route, navigation }) {
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.01), }}>
 
 
-                    <View style={{ justifyContent: 'center', alignContent: 'center', alignSelf: 'center', alignItems: 'center',  marginRight: getDimen(0.05) }}>
+                    <View style={{ justifyContent: 'center', alignContent: 'center', alignSelf: 'center', alignItems: 'center', marginRight: getDimen(0.05) }}>
                         <TouchableOpacity onPress={() => addAndRemoveColleague(isFriend, userId)}>
                             {isFrnd ?
                                 <Image source={require('../../../assets/icons/cross.png')}
-                                    style={{ height: getDimen(0.040),  marginRight: getDimen(0.03) }} />
+                                    style={{ height: getDimen(0.040), marginRight: getDimen(0.03) }} />
                                 :
                                 <Image source={require('../../../assets/icons/dmyCollegue.png')}
                                     style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
@@ -321,7 +321,7 @@ function ColleaguageListScreen({ route, navigation }) {
                     <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02) }}></View>
 
 
-                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center',  marginLeft: getDimen(0.01) }}>
+                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.01) }}>
                         <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": name, "companyName": companyName, "fetch_chat_user_id": userId, "profile_image_url": profile_image_url }))}>
                             <Image source={require('../../../assets/icons/dymChat.png')}
                                 style={{ height: getDimen(0.080), width: getDimen(0.080), marginTop: 7 }} />
@@ -557,7 +557,15 @@ function ColleaguageListScreen({ route, navigation }) {
 
             {showWebview === '' ?
                 <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'white', opacity: 1 }}>
+                        <TouchableOpacity onPress={() => hideWebview()} style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
+                            <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
+                                <Image style={{ width: '80%', height: '80%', borderRadius: 15 }}
+                                    source={require('../../../assets/icons/iconClose.png')}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                    </TouchableOpacity>
                     <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
                         <WebView
                             style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
@@ -565,7 +573,7 @@ function ColleaguageListScreen({ route, navigation }) {
                             source={{ uri: webviewUrl }}
                         />
                     </View>
-                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                    <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'white', opacity: 1 }}></TouchableOpacity>
                 </View>
                 : null
             }
