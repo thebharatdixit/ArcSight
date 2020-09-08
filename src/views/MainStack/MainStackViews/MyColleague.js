@@ -90,6 +90,7 @@ function MyColleagueScreen({ navigation }) {
 
     useEffect(() => {
         getData('mapOnOff').then((mapOnOff) => {
+            console.log('mapOnOff:: ' + mapOnOff);
             if (mapOnOff === 'on') {
                 setIsMap("on");
             }
@@ -98,7 +99,7 @@ function MyColleagueScreen({ navigation }) {
             }
 
         })
-    }, [])
+    }, [isFocused])
 
     const getMyListing = () => {
 
@@ -196,7 +197,7 @@ function MyColleagueScreen({ navigation }) {
 
         Linking.openURL(url);
     }
-    
+
     return (
         <MenuProvider>
             <View style={{ flex: 1 }}>
