@@ -35,7 +35,6 @@ import { WebView } from "react-native-webview";
 import { getDimen } from '../../../dimensions/dimen';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
-// const [isMap, setIsMap] = React.useState('off');
 
 
 const onShare = async (webUrl) => {
@@ -80,23 +79,26 @@ function MyColleagueScreen({ navigation }) {
     const [webviewUrl, setWebviewUrl] = React.useState('');
     const [length, setLength] = React.useState();
     const isFocused = useIsFocused();
-
+    const [latitude, setLatitude] = React.useState('');
+    const [longnitude, setLongnitude] = React.useState('');
+    const [locationName, setLocationName] = React.useState('');
+    const [isMap, setIsMap] = React.useState('off');
 
     useEffect(() => {
         tokens ? getMyListing() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
     }, [tokens, isFocused])
 
-    // React.useEffect(() => {
-    //     getData('mapOnOff').then((mapOnOff) => {
-    //         if (mapOnOff === 'on') {
-    //             setIsMap("on");
-    //         }
-    //         else {
-    //             setIsMap("off");
-    //         }
+    useEffect(() => {
+        getData('mapOnOff').then((mapOnOff) => {
+            if (mapOnOff === 'on') {
+                setIsMap("on");
+            }
+            else {
+                setIsMap("off");
+            }
 
-    //     })
-    // }, [])
+        })
+    }, [])
 
     const getMyListing = () => {
 
@@ -114,8 +116,10 @@ function MyColleagueScreen({ navigation }) {
                 setProfileListing(response.data.listing.data)
                 console.log('my profile data : ', profileListing)
                 setLength(profileListing ? profileListing.length : '')
+                setLatitude(profileListing ? profileListing.latitude : '');
+                setLongnitude(profileListing ? profileListing.longitude : '');
+                setLocationName(profileListing ? profileListing.location : '');
                 setShowLoader('hide');
-
 
             }
             else {
@@ -179,7 +183,18 @@ function MyColleagueScreen({ navigation }) {
         setShowWebview('');
     }
 
+    const openMapurl = (lati, longi, placeName) => {
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+        const latLng = `${lati},${longi}`;
+        const label = locationName;
+        const url = Platform.select({
+            ios: `${scheme}${label}@${latLng}`,
+            android: `${scheme}${latLng}(${label})`
+        });
 
+
+        Linking.openURL(url);
+    }
     return (
         <MenuProvider>
             <View style={{ flex: 1 }}>
@@ -363,9 +378,21 @@ function MyColleagueScreen({ navigation }) {
                                                                 }
                                                                 }>
                                                                 {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
-                                                                <Text
+                                                                {/* <Text
                                                                     numberOfLines={2}
-                                                                    style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
+                                                                    style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text> */}
+                                                                {isMap === "on" ? <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
+                                                                    <Text
+                                                                        numberOfLines={2}
+                                                                        style={{ fontSize: getDimen(0.035), fontWeight: '400' }}>{item.location}</Text>
+                                                                </TouchableOpacity>
+                                                                    :
+                                                                    <View style={{ flex: 0.5 }}>
+                                                                        <Text
+                                                                            numberOfLines={2}
+                                                                            style={{ fontSize: getDimen(0.035), fontWeight: '400' }}>{item.location}</Text>
+                                                                    </View>
+                                                                }
                                                             </TouchableOpacity>
                                                             <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', left: 5, flex: 0.1 }}>
                                                                 <Menu>
