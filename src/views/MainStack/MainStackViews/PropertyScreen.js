@@ -174,7 +174,7 @@ function PropertyScreen({ navigation }) {
             var selImgArray = arrImages;
             selImgArray.splice(selImgArray.length - 1, selImgArray.length - 1);
             console.log("selImgArray::: " + JSON.stringify(selImgArray));
-            arrImages.forEach((element, i) => {
+            selImgArray.forEach((element, i) => {
                 const newFile = element;
                 if (element.name) {
                     formData.append('listing_images[]', newFile)
@@ -182,7 +182,7 @@ function PropertyScreen({ navigation }) {
                 else {
                     var filenamess = element.uri.replace(/^.*[\\\/]/, '');
                     console.log("elementuri:: " + filenamess);
-                    formData.append('main_image',
+                    formData.append('listing_images[]',
                         {
                             uri: element.uri,
                             name: filenamess,

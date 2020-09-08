@@ -456,7 +456,15 @@ function MyListingDetail({ navigation, route }) {
 
                 {showWebview === '' ?
                     <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
-                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'white', opacity: 1 }}>
+                            <TouchableOpacity onPress={() => hideWebview()} style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
+                                <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
+                                    <Image style={{ width: '80%', height: '80%', borderRadius: 15 }}
+                                        source={require('../../../assets/icons/iconClose.png')}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        </TouchableOpacity>
                         <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
                             <WebView
                                 style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
@@ -464,7 +472,7 @@ function MyListingDetail({ navigation, route }) {
                                 source={{ uri: webviewUrl }}
                             />
                         </View>
-                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'white', opacity: 1 }}></TouchableOpacity>
                     </View>
                     : null
                 }
