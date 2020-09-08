@@ -789,27 +789,31 @@ function MainScreen({ navigation }) {
                                                                         numberOfLines={2}
                                                                         style={{ fontSize: getDimen(0.04), fontWeight: '400' }}>{item.location}</Text>
                                                                 </TouchableOpacity>
-                                                                <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', left: 5, flex: 0.1 }}>
-                                                                    <Menu>
-                                                                        <MenuTrigger>
-                                                                            <Image source={require('../../../assets/images/more.png')}
-                                                                                style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'gray' }}
-                                                                            />
-                                                                        </MenuTrigger>
+                                                                {userId === item.user_id ?
+                                                                    <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', left: 5, flex: 0.1 }}>
+                                                                        <Menu>
+                                                                            <MenuTrigger>
+                                                                                <Image source={require('../../../assets/images/more.png')}
+                                                                                    style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'gray' }}
+                                                                                />
+                                                                            </MenuTrigger>
 
 
-                                                                        <MenuOptions>
-                                                                            <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
-                                                                            <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
-                                                                            {/* <MenuOption onSelect={() => alert(`DELETE`)} >
+                                                                            <MenuOptions>
+                                                                                <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
+                                                                                <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
+                                                                                {/* <MenuOption onSelect={() => alert(`DELETE`)} >
                                                                 <Text style={{ color: 'red' }}>Delete</Text>
                                                             </MenuOption> */}
-                                                                            {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
+                                                                                {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
 
-                                                                            {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
-                                                                        </MenuOptions>
-                                                                    </Menu>
-                                                                </TouchableOpacity>
+                                                                                {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
+                                                                            </MenuOptions>
+                                                                        </Menu>
+                                                                    </TouchableOpacity>
+                                                                    :
+                                                                    null
+                                                                }
                                                             </View>
 
                                                             <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.03), marginLeft: getDimen(0.04) }}>
