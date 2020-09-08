@@ -10,7 +10,12 @@ import settingStack from '../views/MainStack/MainStackViews/SettingStack'
 import settingScreen from '../views/MainStack/MainStackViews/Setting'
 import DrawerContent from './DrawerContent';
 import SettingScreen from '../views/MainStack/MainStackViews/Setting';
-import MyColleague from '../views/MainStack/MainStackViews/MyColleague'
+import MyColleagueStack from '../views/MainStack/MainStackViews/MyColleagueStack'
+import ProfileStack from '../views/MainStack/MainStackViews/ProfileStack'
+import ColleagueClientStack from '../views/MainStack/MainStackViews/ChatStack'
+import messagesStack from '../views/MainStack/MainStackViews/AddListingStack'
+import propertyStack from '../views/MainStack/MainStackViews/PropertyStack'
+import SearchStack from '../views/MainStack/MainStackViews/SearchStack'
 
 const Drawer = createDrawerNavigator();
 
@@ -28,12 +33,13 @@ function DrawerNavigator({ navigation }) {
             drawerContent={(route) => <DrawerContent {...route} />}
         >
             <Drawer.Screen name="HOME" component={BaseScreen} />
-            <Drawer.Screen name="PROFILE" component={ProfileScreen} />
-            <Drawer.Screen name="LISTINGS" component={MyColleague} />
+            <Drawer.Screen name="PROFILE" component={ProfileStack} />
+            <Drawer.Screen name="LISTINGS" component={MyColleagueStack} />
             <Drawer.Screen name="CHANGE PASSWORD" component={ChangePassword} />
-            <Drawer.Screen name="COLLEAGUES + CLIENTS" component={nineScreen} />
-            <Drawer.Screen name="MESSAGES" component={nineScreen} />
-            <Drawer.Screen name="ADD NEW LISTING" component={nineScreen} />
+            <Drawer.Screen name="COLLEAGUES + CLIENTS" component={ColleagueClientStack} />
+            <Drawer.Screen name="MESSAGES" component={messagesStack} />
+            <Drawer.Screen name="ADD NEW LISTING" component={propertyStack} />
+            <Drawer.Screen name="SEARCH LISTING" component={SearchStack} />
             <Drawer.Screen
                 options={{ labelStyle: { activeTintColor: 'red' } }}
                 name="UPGRADE TO PRO" component={nineScreen} />
