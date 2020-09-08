@@ -15,7 +15,8 @@ import {
     FlatList,
     Share,
     Alert,
-    SafeAreaView
+    SafeAreaView,
+    Linking
 } from 'react-native';
 import { MenuProvider } from 'react-native-popup-menu';
 import {
@@ -62,6 +63,8 @@ function ProfileScreen({ navigation, route }) {
     const [imageResponse, setImageResponse] = React.useState('');
     const [fileNameA, setFileNameA] = React.useState('');
     const [fileTypeA, setFileTypeA] = React.useState('');
+    const [isMap, setIsMap] = React.useState('off');
+
 
     const { user_Id } = route.params ? route.params : ""
 
@@ -227,6 +230,31 @@ function ProfileScreen({ navigation, route }) {
     };
 
 
+    useEffect(() => {
+        getData('mapOnOff').then((mapOnOff) => {
+            if (mapOnOff === 'on') {
+                setIsMap("on");
+            }
+            else {
+                setIsMap("off");
+            }
+
+        })
+    }, [])
+
+    const openMapurl = (lati, longi, locationName) => {
+        console.log('hnxvncb:: ' + lati + " :: " + longi);
+        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+        const latLng = `${lati},${longi}`;
+        const label = locationName;
+        const url = Platform.select({
+            ios: `${scheme}${label}@${latLng}`,
+            android: `${scheme}${latLng}(${label})`
+        });
+
+
+        Linking.openURL(url);
+    }
 
     const uploadPhoto = (uri, fileName, fileType) => {
         setShowLoader('');
@@ -479,7 +507,15 @@ function ProfileScreen({ navigation, route }) {
                                                         </View>
 
                                                         <View style={{ flex: 0.15, marginLeft: getDimen(0.01), marginTop: getDimen(0.02), flexDirection: 'row' }}>
-                                                            <Text style={{ fontSize: getDimen(0.045), width: '80%', fontWeight: '500' }}>{item.location ? item.location : ''}</Text>
+                                                            {isMap === "on" ?
+
+                                                                <TouchableOpacity onPress={() => openMapurl(item.latitude, item.longitude, item.location)} style={{ width: '80%',  }}>
+                                                                    {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                                    <Text style={{ fontSize: getDimen(0.045), width: '100%', fontWeight: '500' }}>{item.location ? item.location : ''}</Text>
+                                                                </TouchableOpacity>
+                                                                :
+                                                                <Text style={{ fontSize: getDimen(0.045), width: '80%', fontWeight: '500' }}>{item.location ? item.location : ''}</Text>
+                                                            }
                                                             {/* <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
                                                             <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left', marginRight: 10 }}>{item.userinfo.name ? item.userinfo.name : ''}</Text>
                                                             <TouchableOpacity
@@ -631,10 +667,27 @@ function ProfileScreen({ navigation, route }) {
                                                                 <Image source={require('../../../assets/icons/pin.png')}
                                                                     style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
                                                             </View>
-                                                            <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
-                                                                {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                            {/* <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
                                                                 <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
-                                                            </View>
+                                                            </View> */}
+                                                            {isMap === "on" ?
+
+                                                                <TouchableOpacity onPress={() => openMapurl(item.latitude, item.longitude, item.location)} style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                                    {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                                </TouchableOpacity>
+                                                                // <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
+                                                                //     <Text
+                                                                //         numberOfLines={2}
+                                                                //         style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
+                                                                // </TouchableOpacity>
+                                                                :
+                                                                <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                                    {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                                </View>
+                                                            }
+
                                                             <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
                                                                 {/* <Image source={require('../../../assets/icons/dummyLine.png')}
                                                          style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
