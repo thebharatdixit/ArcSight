@@ -35,13 +35,15 @@ import { WebView } from "react-native-webview";
 import { getDimen } from '../../../dimensions/dimen';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
+// const [isMap, setIsMap] = React.useState('off');
 
-const onShare = async () => {
 
+const onShare = async (webUrl) => {
+    if (webUrl){
     try {
         const result = await Share.share({
             message:
-                'React Native | A framework for building native apps using React',
+                webUrl,
         });
         if (result.action === Share.sharedAction) {
             if (result.activityType) {
@@ -54,6 +56,9 @@ const onShare = async () => {
         }
     } catch (error) {
         alert(error.message);
+    }
+    } else {
+        Alert.alert('Invalid web url')
     }
     //console.log('hello');
 }
@@ -81,6 +86,17 @@ function MyColleagueScreen({ navigation }) {
         tokens ? getMyListing() : getData('userData').then((data) => setTokens(JSON.parse(data).token))
     }, [tokens, isFocused])
 
+    // React.useEffect(() => {
+    //     getData('mapOnOff').then((mapOnOff) => {
+    //         if (mapOnOff === 'on') {
+    //             setIsMap("on");
+    //         }
+    //         else {
+    //             setIsMap("off");
+    //         }
+
+    //     })
+    // }, [])
 
     const getMyListing = () => {
 
@@ -402,10 +418,10 @@ function MyColleagueScreen({ navigation }) {
                                                             <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
                                                                 {/* <Image source={require('../../../assets/icons/dummyLine.png')}
                                                          style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                                <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
+                                                                {/* <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
                                                                     <Image source={require('../../../assets/icons/dummyLine.png')}
                                                                         style={{ height: getDimen(0.08), width: getDimen(0.08) }} />
-                                                                </TouchableOpacity>
+                                                                </TouchableOpacity> */}
                                                             </View>
 
 
@@ -423,7 +439,7 @@ function MyColleagueScreen({ navigation }) {
                                                             </View>
                                                             <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
 
-                                                                <TouchableOpacity onPress={() => onShare()}>
+                                                                <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
                                                                     {
                                                                         (item && item.web_share_url === !'') ?
                                                                             <Image source={require('../../../assets/icons/20.png')}

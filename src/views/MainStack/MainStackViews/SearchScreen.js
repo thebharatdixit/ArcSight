@@ -306,6 +306,7 @@ function SearchScreen({ navigation }) {
         }
         let token = accessToken;
         searchApi(token, data).then((response) => {
+            setShowLoader('hide')
             if (response.status) {
                 console.log('List Details value', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax)
                 console.log('Search Listing', response.message);

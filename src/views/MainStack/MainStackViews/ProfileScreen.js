@@ -638,10 +638,10 @@ function ProfileScreen({ navigation, route }) {
                                                             <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
                                                                 {/* <Image source={require('../../../assets/icons/dummyLine.png')}
                                                          style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                                <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
+                                                                {/* <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
                                                                     <Image source={require('../../../assets/icons/dummyLine.png')}
                                                                         style={{ height: getDimen(0.08), width: getDimen(0.08) }} />
-                                                                </TouchableOpacity>
+                                                                </TouchableOpacity> */}
                                                             </View>
 
 
