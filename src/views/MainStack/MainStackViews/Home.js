@@ -317,10 +317,10 @@ function MainScreen({ navigation }) {
             console.log('insidethis:::');
             if (hours > 0) {
                 // if (hours < 24) {
-                    console.log('insidethishours::: ' + hours);
-                    var createdDiffDate = ('0' + hours).slice(-2) + " " + "hrs ago"
-                    return createdDiffDate
-                    // setCreatedDate(createdDiffDate)
+                console.log('insidethishours::: ' + hours);
+                var createdDiffDate = ('0' + hours).slice(-2) + " " + "hrs ago"
+                return createdDiffDate
+                // setCreatedDate(createdDiffDate)
                 // } else {
                 //     var createdDiffDate = daysTill30June2035 + " " + "days ago"
                 //     return createdDiffDate
@@ -403,9 +403,11 @@ function MainScreen({ navigation }) {
 
     const hideWebview = () => {
         setShowWebview('hide');
+        console.log("webvideourl2:: " + webviewUrl);
     }
 
     const shoWebview = (url) => {
+        console.log("webvideourl:: " + url);
         setWebviewUrl(url);
         setShowWebview('');
     }
@@ -768,30 +770,30 @@ function MainScreen({ navigation }) {
                                                         </View>
                                                     </TouchableOpacity>
                                                     {userId === item.user_id ?
-                                                            <TouchableOpacity style={{ width: '100%', alignItems: 'flex-start', position: 'absolute', bottom: 15, left: 5 }}>
-                                                                <Menu>
-                                                                    <MenuTrigger>
-                                                                        <Image source={require('../../../assets/images/more.png')}
-                                                                            style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'white' }}
-                                                                        />
-                                                                    </MenuTrigger>
+                                                        <TouchableOpacity style={{ width: '100%', alignItems: 'flex-start', position: 'absolute', bottom: 15, left: 5 }}>
+                                                            <Menu>
+                                                                <MenuTrigger>
+                                                                    <Image source={require('../../../assets/images/more.png')}
+                                                                        style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'white' }}
+                                                                    />
+                                                                </MenuTrigger>
 
 
-                                                                    <MenuOptions>
-                                                                        <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
-                                                                        <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
-                                                                        {/* <MenuOption onSelect={() => alert(`DELETE`)} >
+                                                                <MenuOptions>
+                                                                    <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
+                                                                    <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
+                                                                    {/* <MenuOption onSelect={() => alert(`DELETE`)} >
                                                                     <Text style={{ color: 'red' }}>Delete</Text>
                                                                 </MenuOption> */}
-                                                                        {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
-                                                                        {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
-                                                                    </MenuOptions>
-                                                                </Menu>
-                                                            </TouchableOpacity>
+                                                                    {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
+                                                                    {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
+                                                                </MenuOptions>
+                                                            </Menu>
+                                                        </TouchableOpacity>
 
-                                                            :
-                                                            null
-                                                        }
+                                                        :
+                                                        null
+                                                    }
                                                 </View>
                                         }
                                     </View>
@@ -830,7 +832,15 @@ function MainScreen({ navigation }) {
 
                 {showWebview === '' ?
                     <View style={{ width: '100%', height: '100%', flexDirection: 'column', marginTop: getDimen(0.01), backgroundColor: 'transparent', position: 'absolute', justifyContent: 'center' }}>
-                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'white', opacity: 1 }}>
+                            <TouchableOpacity onPress={() => hideWebview()} style={{ position: 'absolute', height: 35, width: 35, alignSelf: 'flex-end', alignItems: 'center', justifyContent: 'center', borderRadius: 15, }}>
+                                <View style={{ width: 26, height: 26, borderRadius: 13, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', }}>
+                                    <Image style={{ width: '80%', height: '80%', borderRadius: 15 }}
+                                        source={require('../../../assets/icons/iconClose.png')}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                        </TouchableOpacity>
                         <View style={{ flex: 0.4, backgroundColor: 'transparent' }}>
                             <WebView
                                 style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'black' }}
@@ -838,7 +848,7 @@ function MainScreen({ navigation }) {
                                 source={{ uri: webviewUrl }}
                             />
                         </View>
-                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'black', opacity: 0.3 }}></TouchableOpacity>
+                        <TouchableOpacity onPress={() => hideWebview()} style={{ flex: 0.3, backgroundColor: 'white', opacity: 1 }}></TouchableOpacity>
                     </View>
                     : null
                 }

@@ -373,7 +373,7 @@ function ChatScreen({ route, navigation }) {
 
             <View style={{
                 flexDirection: 'row',
-                height: getDimen(0.3 / 2), width: '100%', alignItems: 'center'
+                height: getDimen(0.3 / 2), width: '100%', alignItems: 'center', borderColor: '#ebebe0', borderWidth: 1, marginLeft: getDimen(0.05), marginRight: getDimen(0.05), width: '90%',
             }}>
 
                 <TextInput
@@ -383,7 +383,7 @@ function ChatScreen({ route, navigation }) {
                     autoCapitalize="none"
                     placeholder="Search colleagues..."
                     keyboardType='email-address'
-                    style={{ width: '90%', marginLeft: getDimen(0.05), marginRight: getDimen(0.05), height: getDimen(0.3 / 2), borderColor: '#ebebe0', borderWidth: 1, paddingLeft: getDimen(0.02) }}
+                    style={{   height: getDimen(0.3 / 2),   paddingLeft: getDimen(0.02) }}
                     // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                     onChangeText={(val) => searchUpdated(val)}
                 />

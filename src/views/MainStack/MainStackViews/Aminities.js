@@ -242,21 +242,21 @@ class Aminities extends Component {
                             data={this.state.ArrData}
                             renderItem={({ item, separators, index }) => (
                                 <TouchableWithoutFeedback onPress={() => this.tickOrUntick(item)} style={{ height: getDimen(0.12), width: '100%' }}>
-                                    <View style={{ flexDirection: 'column', height: getDimen(0.10), width: '100%', alignItems: 'center', alignContent: 'center', marginTop: 5 }}>
-                                        <View style={{ flexDirection: 'row', padding: 2, height: getDimen(0.10), width: '90%', justifyContent: 'center' }}>
-                                            <Text style={{ flex: 0.85, fontSize: 20, color: 'black' }}>{item.name}</Text>
+                                    <View style={{ flexDirection: 'column', height: getDimen(0.10), width: '100%', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
+                                        <View style={{ flexDirection: 'row', padding: 2, height: getDimen(0.10), width: '90%', justifyContent: 'center', }}>
+                                            <Text style={{ flex: 0.85, fontSize: getDimen(0.05), color: 'black', marginTop: 5 }}>{item.name}</Text>
                                             <View style={{ flex: 0.15, alignItems: 'flex-end', justifyContent: 'center' }}>
                                                 {item.isSelected ?
                                                     <Image
                                                         source={require('../../../assets/images/Check.png')}
-                                                        style={{ height: getDimen(0.045), width: getDimen(0.045) }} />
+                                                        style={{ height: getDimen(0.045), width: getDimen(0.045), tintColor: '#f1ac35' }} />
                                                     :
                                                     <View style={{ height: getDimen(0.045), width: getDimen(0.045) }}></View>
                                                 }
 
                                             </View>
                                         </View>
-                                        <View style={{ height: 1, width: '100%', backgroundColor: 'gray' }}></View>
+                                        <View style={{ height: 1, width: '95%', backgroundColor: 'gray' }}></View>
 
                                     </View>
 

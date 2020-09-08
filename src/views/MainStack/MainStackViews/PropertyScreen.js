@@ -86,6 +86,8 @@ function PropertyScreen({ navigation }) {
     const [latitude, setLatitude] = React.useState('');
     const [longnitude, setLongnitude] = React.useState('');
     const [checked, setChecked] = React.useState(false);
+    const [mainFileNameA, setMainFileNameA] = React.useState('');
+    const [mainFileTypeA, setMainFileTypeA] = React.useState('');
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -151,19 +153,43 @@ function PropertyScreen({ navigation }) {
             formData.append('web_share_url', imageUrl);
             formData.append('location_neighbourhood', locationNeighbourhood);
             formData.append('is_featured', isFeatured);
+            var fileName = mainFileNameA;
+            var filetype = mainFileTypeA;
+            if (fileName || filetype) {
+
+            }
+            else {
+                var filenamess = mainImage.replace(/^.*[\\\/]/, '');
+                console.log("mainFileNameA:: " + filenamess);
+                fileName = filenamess;
+                filetype = "image/jpeg";
+            }
             formData.append('main_image',
                 {
                     uri: mainImage,
-                    name: mainImageData.fileName,
-                    type: mainImageData.type
+                    name: fileName,
+                    type: filetype
                 });
             // formData.append('main_image', mainImage, fileName);
             var selImgArray = arrImages;
             selImgArray.splice(selImgArray.length - 1, selImgArray.length - 1);
             console.log("selImgArray::: " + JSON.stringify(selImgArray));
             arrImages.forEach((element, i) => {
-                const newFile = element
-                formData.append('listing_images[]', newFile)
+                const newFile = element;
+                if (element.name) {
+                    formData.append('listing_images[]', newFile)
+                }
+                else {
+                    var filenamess = element.uri.replace(/^.*[\\\/]/, '');
+                    console.log("elementuri:: " + filenamess);
+                    formData.append('main_image',
+                        {
+                            uri: element.uri,
+                            name: filenamess,
+                            type: "image/jpeg"
+                        });
+                }
+                // formData.append('listing_images[]', newFile)
             });
             // formData.append('listing_images[]', arrImages);
 
@@ -376,6 +402,19 @@ function PropertyScreen({ navigation }) {
                 console.log('image picker picked image path' + JSON.stringify(response));
                 setMainImage(response.uri)
                 setMainImageData(response);
+                var fileName = response.fileName;
+                var filetype = response.type;
+                if (fileName || filetype) {
+
+                }
+                else {
+                    var filenamess = mainImage.replace(/^.*[\\\/]/, '');
+                    console.log("setMainFileTypeA:: " + filenamess);
+                    fileName = filenamess;
+                    filetype = "image/jpeg";
+                    setMainFileNameA(fileName);
+                    setMainFileTypeA(filetype);
+                }
             }
         });
     };
@@ -391,10 +430,21 @@ function PropertyScreen({ navigation }) {
                 console.log('image picker picked image path' + JSON.stringify(response));
                 // setMainImage(response.uri)
                 // setMainImageData(response);
+                var fileName = response.fileName;
+                var filetype = response.type;
+                if (fileName || filetype) {
+
+                }
+                else {
+                    var filenamess = response.uri.replace(/^.*[\\\/]/, '');
+                    console.log("filenamess::: " + filenamess);
+                    fileName = filenamess;
+                    filetype = "image/jpeg";
+                }
                 let imageItem = {
                     uri: response.uri,
-                    name: response.fileName,
-                    type: response.type
+                    name: fileName,
+                    type: filetype
                 }
                 var imageArray = [];
                 // console.log('dupArrImages::: ' + JSON.stringify(dupArrImages) + 'length::: ' + dupArrImages.length);
@@ -487,7 +537,7 @@ function PropertyScreen({ navigation }) {
             setIsFeatured('yes')
             console.log('IsFeatured!!!:', isFeatured, checked)
         }
-        
+
     }
 
     return (
@@ -1006,7 +1056,7 @@ function PropertyScreen({ navigation }) {
                             </Text>
                             </TouchableOpacity> */}
                         </View>
-                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop:getDimen(-0.02) }}>
+                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop: getDimen(-0.02) }}>
 
                             <TouchableOpacity onPress={() => featuredAlert()}>
                                 {
@@ -1035,10 +1085,10 @@ function PropertyScreen({ navigation }) {
                         </View>
 
                     </View>
-                    
+
 
                 </ScrollView>
-                
+
                 <View style={{ height: getDimen(0.16), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), alignItems: 'center', }}>
                         <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
