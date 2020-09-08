@@ -753,14 +753,11 @@ function MainScreen({ navigation }) {
                                                         <View style={{ flex: 1, height: '100%', }}>
                                                             <View style={{ flex: 0.3, marginLeft: getDimen(0.05), marginRight: getDimen(0.01), marginTop: getDimen(0.015), flexDirection: 'row' }}>
                                                                 <TouchableOpacity style={{ marginRight: 5, flex: 0.9 }}
-                                                                    onPress={() => {
-                                                                        navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
-                                                                    }
-                                                                    }>
+                                                                    onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))}>
                                                                     {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
                                                                     <Text
                                                                         numberOfLines={2}
-                                                                        style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
+                                                                        style={{ fontSize: getDimen(0.04), fontWeight: '400' }}>{item.location}</Text>
                                                                 </TouchableOpacity>
                                                                 <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', left: 5, flex: 0.1 }}>
                                                                     <Menu>
