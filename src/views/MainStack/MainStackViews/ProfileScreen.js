@@ -240,7 +240,7 @@ function ProfileScreen({ navigation, route }) {
             }
 
         })
-    }, [])
+    }, [isFocused])
 
     const openMapurl = (lati, longi, locationName) => {
         console.log('hnxvncb:: ' + lati + " :: " + longi);

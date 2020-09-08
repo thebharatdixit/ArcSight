@@ -65,7 +65,7 @@ function PropertyScreen({ navigation }) {
     const [imgs, setImgs] = React.useState('');
     const [imgList, setImgList] = React.useState([]);
     const [selectdItems, setSelectedItems] = React.useState([]);
-    const [locationNeighbourhood, setLocationNeighbourhood] = React.useState([]);
+    const [locationNeighbourhood, setLocationNeighbourhood] = React.useState("");
     const [aminitiesList, setAminitiesList] = React.useState([]);
     const [selected, setSelected] = React.useState('');
     const [homeTypes, setHomeTypes] = React.useState('');
