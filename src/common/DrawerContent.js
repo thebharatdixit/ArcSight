@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import {
     View,
     Text,
@@ -6,6 +6,7 @@ import {
     Image,
     TouchableOpacity,
     Alert,
+    ActivityIndicator
 } from 'react-native';
 import { getDimen } from '../dimensions/dimen';
 import { useIsFocused } from '@react-navigation/native';
@@ -30,6 +31,8 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
     console.log('route', route, navigation)
     const [accessToken, setAccessToken] = React.useState('')
     const [userImage, setUserImage] = React.useState('')
+    const [showLoader, setShowLoader] = useState('hide');
+
     // const isFocused = useIsFocused();
     getData('profileImage').then((profileImage) => {
         // console.log('token1', listTokens)
@@ -66,7 +69,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
     }, [])
 
     const logOutApiIntegration = () => {
-
+        setShowLoader('');
         fetch("http://arc.softwaresolutions.website/api/v1/logout", {
             method: "get",
             headers: {
@@ -78,6 +81,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
             .then(res => {
                 console.log('TokenResponse', res, accessToken)
                 if (res.status) {
+                    setShowLoader('hide');
                     console.log('logged out123456', res.message);
                     // AsyncStorage.clear();
                     navigation.dispatch(DrawerActions.toggleDrawer());
@@ -131,12 +135,12 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         <DrawerItem
                             label="PROFILE"
                             labelStyle={{ color: 'white', fontSize: getDimen(0.041), }}
-                            onPress={() => navigation.navigate('ProfileStack')}
+                            onPress={() => navigation.navigate('PROFILE')}
                         />
                         <DrawerItem
                             label="LISTINGS"
                             labelStyle={{ color: 'white', fontSize: getDimen(0.041) }}
-                            onPress={() => navigation.navigate('My Colleague')}
+                            onPress={() => navigation.navigate('LISTINGS')}
                         />
                         <DrawerItem
                             label="CHANGE PASSWORD"
@@ -187,6 +191,16 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                             onPress={() => openTwoButtonAlert()}
                         />
                     </View>
+                    {
+                        (showLoader === '') ?
+                            <View
+                                style={{ flex: 1, backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center', position: 'absolute', width: '100%', height: '100%' }}
+                            >
+                                <ActivityIndicator size="large" color="#2b5f9c" style={{ position: 'absolute', rotation: 180 }} />
+                            </View>
+                            :
+                            null
+                    }
                 </DrawerContentScrollView>
             </View>
 

@@ -107,7 +107,7 @@ function SettingScreen({ navigation, changeAuthState}){
     }, [])
 
     const logOutApiIntegration = () => {
-
+        setShowLoader('')
         fetch("http://arc.softwaresolutions.website/api/v1/logout", {
             method: "get",
             headers: {
@@ -119,6 +119,7 @@ function SettingScreen({ navigation, changeAuthState}){
             .then(res => {
                 console.log('TokenResponse', res, accessToken)
                 if (res.status) {
+                    setShowLoader('hide')
                     console.log('logged out123456', res.message);
                     // AsyncStorage.clear();
                     navigation.dispatch(DrawerActions.toggleDrawer());

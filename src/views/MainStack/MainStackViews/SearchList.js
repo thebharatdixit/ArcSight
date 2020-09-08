@@ -54,12 +54,12 @@ function SearchListScreen({ navigation, route }) {
         console.log('json data in length:', length);        
     })
 
-    const onShare = async () => {
-
+    const onShare = async (webUrls) => {
+        if (webUrls){
         try {
             const result = await Share.share({
                 message:
-                    'React Native | A framework for building native apps using React',
+                    webUrls,
             });
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
@@ -72,6 +72,9 @@ function SearchListScreen({ navigation, route }) {
             }
         } catch (error) {
             alert(error.message);
+        }
+        } else {
+            Alert.alert('Invalid web url')
         }
 
     }
@@ -155,7 +158,8 @@ function SearchListScreen({ navigation, route }) {
                                                         <Text style={{ fontSize: getDimen(0.035), fontWeight: '600', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{item.listing_type}</Text>
                                                     </View>
                                                     <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
-                                                        <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text>
+                                                        {/* <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$000,00</Text> */}
+                                                        <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>${item.price_per_sq_feet}/feet</Text>
                                                     </View>
                                                 </View>
 
@@ -201,10 +205,10 @@ function SearchListScreen({ navigation, route }) {
                                                     <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
                                                         {/* <Image source={require('../../../assets/icons/dummyLine.png')}
                                                          style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                        <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
+                                                        {/* <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
                                                             <Image source={require('../../../assets/icons/dummyLine.png')}
                                                                 style={{ height: getDimen(0.08), width: getDimen(0.08) }} />
-                                                        </TouchableOpacity>
+                                                        </TouchableOpacity> */}
                                                     </View>
 
                                                 </View>
@@ -220,9 +224,9 @@ function SearchListScreen({ navigation, route }) {
                                                     </View>
                                                     <View style={{ flex: 0.34, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
 
-                                                        <TouchableOpacity onPress={() => onShare()}>
+                                                        <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
                                                             {
-                                                                (item && item.web_share_url === !'') ?
+                                                                (item && item.web_share_url === '' || item.web_share_url === !undefined) ?
                                                                     <Image source={require('../../../assets/icons/20.png')}
                                                                         style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
                                                                     :
