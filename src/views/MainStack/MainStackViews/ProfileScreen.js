@@ -516,7 +516,7 @@ function ProfileScreen({ navigation, route }) {
                                                                 :
                                                                 <Text style={{ fontSize: getDimen(0.045), width: '80%', fontWeight: '500' }}>{item.location ? item.location : ''}</Text>
                                                             }
-                                                            {/* <View style={{ flexDirection: 'column', marginLeft: getDimen(0.015), justifyContent: 'center', alignContent: 'center', alignItems: 'center', width: '45%', alignSelf: 'center' }}>
+                                                            {/* 
                                                             <Text style={{ fontSize: getDimen(0.040), fontWeight: 'bold', textAlign: 'left', marginRight: 10 }}>{item.userinfo.name ? item.userinfo.name : ''}</Text>
                                                             <TouchableOpacity
                                                                 // onPress={() => Alert.alert('Real Estate Company')}
