@@ -220,6 +220,7 @@ function MainScreen({ navigation }) {
 
     React.useEffect(() => {
         getData('mapOnOff').then((mapOnOff) => {
+            console.log('mapOnOffonhome:: ' + mapOnOff);
             if (mapOnOff === 'on') {
                 setIsMap("on");
             }
@@ -228,7 +229,7 @@ function MainScreen({ navigation }) {
             }
 
         })
-    }, [])
+    }, [isFocused])
 
     const openMapurl = (lati, longi, locationName) => {
         console.log('hnxvncb:: ' + lati + " :: " + longi);
