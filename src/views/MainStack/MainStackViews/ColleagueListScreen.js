@@ -302,24 +302,34 @@ function ColleaguageListScreen({ route, navigation }) {
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.01), }}>
-                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginRight: getDimen(0.05) }}>
+
+
+                    <View style={{ justifyContent: 'center', alignContent: 'center', alignSelf: 'center', alignItems: 'center',  marginRight: getDimen(0.05) }}>
                         <TouchableOpacity onPress={() => addAndRemoveColleague(isFriend, userId)}>
-                            {isFrnd ? <Image source={require('../../../assets/icons/cross.png')}
-                                style={{ height: getDimen(0.038), width: getDimen(0.038), marginRight: getDimen(0.03) }} /> :
+                            {isFrnd ?
+                                <Image source={require('../../../assets/icons/cross.png')}
+                                    style={{ height: getDimen(0.040),  marginRight: getDimen(0.03) }} />
+                                :
                                 <Image source={require('../../../assets/icons/dmyCollegue.png')}
                                     style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
                             }
 
                         </TouchableOpacity>
                     </View>
+
+
                     <View style={{ width: 1, height: '100%', marginLeft: getDimen(0.02) }}></View>
-                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginLeft: getDimen(0) }}>
+
+
+                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center',  marginLeft: getDimen(0.01) }}>
                         <TouchableOpacity onPress={() => navigation.navigate('Chat Layout', ({ "name": name, "companyName": companyName, "fetch_chat_user_id": userId, "profile_image_url": profile_image_url }))}>
                             <Image source={require('../../../assets/icons/dymChat.png')}
-                                style={{ height: getDimen(0.080), width: getDimen(0.080) }} />
+                                style={{ height: getDimen(0.080), width: getDimen(0.080), marginTop: 7 }} />
                         </TouchableOpacity>
 
                     </View>
+
+
 
                 </View>
 
