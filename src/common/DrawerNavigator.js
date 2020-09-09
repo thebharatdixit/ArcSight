@@ -33,7 +33,7 @@ function DrawerNavigator({ navigation }) {
             drawerContent={(route) => <DrawerContent {...route} />}
         >
             <Drawer.Screen name="HOME" component={BaseScreen} />
-            <Drawer.Screen name="PROFILE" component={ProfileScreen} />
+            <Drawer.Screen name="PROFILE" component={ProfileStack} />
             <Drawer.Screen name="LISTINGS" component={MyColleagueStack} />
             <Drawer.Screen name="CHANGE PASSWORD" component={ChangePassword} />
             <Drawer.Screen name="COLLEAGUES + CLIENTS" component={ColleagueClientStack} />

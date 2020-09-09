@@ -1144,6 +1144,7 @@ function EditPropertyScreen({ navigation, route }) {
                                     style={styles.textarea}
                                     placeholder="Description"
                                     placeholderTextColor="#8A8A8A"
+                                    maxLength={650}
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
                                     onChangeText={(description) => setDescription(description)}
