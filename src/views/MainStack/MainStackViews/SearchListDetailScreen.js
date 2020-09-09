@@ -31,6 +31,7 @@ import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base
 import { getDimen } from '../../../dimensions/dimen';
 import { getData } from '../../../utils/asyncStore';
 import Slideshow from 'react-native-image-slider-show';
+import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
 
 
 function SearchListDetailScreen({ navigation, route }) {
@@ -145,6 +146,50 @@ function SearchListDetailScreen({ navigation, route }) {
             });
     }
 
+    const deleteListingApiIntegration = (listing_id) => {
+
+        setShowLoader('');
+        let data = {
+            "listing_id": listing_id
+        }
+        let token = accessToken;
+        console.log('data :' + JSON.stringify(data) + "token :" + token);
+        deleteListing(token, data).then((response) => {
+
+            setShowLoader('hide');
+            if (response.status) {
+                navigation.goBack();
+            }
+            else {
+                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                // setShowLoader('hide');
+            }
+
+        })
+    }
+
+    const soldOutRentOutApiIntegration = (listing_id) => {
+
+        setShowLoader('');
+        let data = {
+            "listing_id": listing_id
+        }
+        let token = accessToken;
+        console.log('data :' + JSON.stringify(data) + "token :" + token);
+        soldOutRentOut(token, data).then((response) => {
+
+            setShowLoader('hide');
+            if (response.status) {
+                navigation.goBack();
+            }
+            else {
+                Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                // setShowLoader('hide');
+            }
+
+        })
+    }
+
     const makeAminitiesArray = (data) => {
         console.log('aminities..: ' + JSON.stringify(data));
         var arrAminities = [];
@@ -226,16 +271,16 @@ function SearchListDetailScreen({ navigation, route }) {
                         </View>
                         <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
                             <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
-                                <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                                    {
-                                        (IsFeatured === '' && IsFeatured === 'no') ?
-                                            null
-                                            :
+
+                                {
+                                    (IsFeatured === '' || IsFeatured === 'no') ?
+                                        null
+                                        :
+                                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+
                                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
-                                    }
-
-
-                                </View>
+                                        </View>
+                                }
                             </View>
                             {videoUrl ?
                                 <TouchableOpacity onPress={() =>

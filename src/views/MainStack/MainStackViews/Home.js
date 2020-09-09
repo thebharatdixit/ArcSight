@@ -746,7 +746,7 @@ function MainScreen({ navigation }) {
                                                         <View style={{ flex: 0.6, height: '100%', width: '100%', }}>
                                                             <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6', }}>
                                                                 <TouchableOpacity onPress={() => {
-                                                                    navigation.navigate('My Listing Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
+                                                                    navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
                                                                 }
                                                                 }>
 
