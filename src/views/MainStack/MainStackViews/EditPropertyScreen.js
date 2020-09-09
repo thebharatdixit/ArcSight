@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import {
     View, Text, TouchableOpacity, StyleSheet,
@@ -90,6 +90,7 @@ function EditPropertyScreen({ navigation, route }) {
     const [latitude, setLatitude] = React.useState('');
     const [longnitude, setLongnitude] = React.useState('');
     const [checked, setChecked] = React.useState(false);
+    const scrollViewRef = useRef();
 
     const [listImagesData, setListImagesData] = React.useState([]);
 
@@ -502,6 +503,16 @@ function EditPropertyScreen({ navigation, route }) {
         return serviceItems
     }
 
+    const goToTop = () => {
+        console.log('hh')
+        scrollViewRef.current?.scrollTo({
+            y : 0,
+            animated : true
+        });
+        // window.scrollTo({top: 0, behavior: 'smooth'});
+        // window.curr
+     }
+
 
     const fetchDataFromAmenities = () => {
         console.log('next to prev success');
@@ -667,7 +678,7 @@ function EditPropertyScreen({ navigation, route }) {
                     </View>
                 </TouchableOpacity> */}
                 </View>
-                <ScrollView style={styles.container}>
+                <ScrollView style={styles.container} ref={scrollViewRef}>
                     <View>
                         <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
 

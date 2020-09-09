@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 import {
     View, Text, TouchableOpacity, StyleSheet,
@@ -88,6 +88,7 @@ function PropertyScreen({ navigation }) {
     const [checked, setChecked] = React.useState(false);
     const [mainFileNameA, setMainFileNameA] = React.useState('');
     const [mainFileTypeA, setMainFileTypeA] = React.useState('');
+    const scrollViewRef = useRef();
 
     const isFocused = useIsFocused();
     let temp = '';
@@ -239,6 +240,7 @@ function PropertyScreen({ navigation }) {
                         setDescription('');
                         setVideoUrl('');
                         setImageUrl('');
+                        goToTop();
                     }
                     // Alert.alert('' + res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
 
@@ -540,6 +542,16 @@ function PropertyScreen({ navigation }) {
 
     }
 
+    const goToTop = () => {
+        console.log('hh')
+        scrollViewRef.current?.scrollTo({
+            y : 0,
+            animated : true
+        });
+        // window.scrollTo({top: 0, behavior: 'smooth'});
+        // window.curr
+     }
+
     return (
         <View style={{ flex: 1 }}>
             {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
@@ -571,7 +583,7 @@ function PropertyScreen({ navigation }) {
                     </View>
                 </TouchableOpacity> */}
                 </View>
-                <ScrollView style={styles.container}>
+                <ScrollView style={styles.container} ref={scrollViewRef}>
                     <View>
                         <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 10 }}>
 
@@ -1039,7 +1051,7 @@ function PropertyScreen({ navigation }) {
                                 <Textarea
                                     containerStyle={styles.textareaContainer}
                                     style={styles.textarea}
-                                    placeholder="Description"
+                                    placeholder="Write Your Description Here..."
                                     placeholderTextColor="#8A8A8A"
                                     maxLength={650}
                                     // maxLength={120}
