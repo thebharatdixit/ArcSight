@@ -1039,15 +1039,15 @@ function PropertyScreen({ navigation }) {
                                 <Textarea
                                     containerStyle={styles.textareaContainer}
                                     style={styles.textarea}
-                                    onChangeText={(description) => setDescription(description)}
-                                    defaultValue={description}
-                                    // blurOnSubmit={true}
+                                    placeholder="Description"
+                                    placeholderTextColor="#8A8A8A"
                                     maxLength={650}
-                                    placeholder={'Write your description here...'}
-                                    placeholderTextColor={'#8A8A8A'}
-                                    underlineColorAndroid={'transparent'}
-
-                                />
+                                    // maxLength={120}
+                                    // secureTextEntry={true}
+                                    underlineColorAndroid='transparent'
+                                    onChangeText={(description) => setDescription(description)}
+                                    value={description} 
+                                    />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0) }}></View> */}
@@ -1060,7 +1060,7 @@ function PropertyScreen({ navigation }) {
                             </Text>
                             </TouchableOpacity> */}
                         </View>
-                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop: getDimen(-0.03) }}>
+                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop: getDimen(0.1) }}>
 
                             <TouchableOpacity onPress={() => featuredAlert()}>
                                 {
@@ -1281,9 +1281,9 @@ const styles = StyleSheet.create({
         color: 'black'
     },
     textareaContainer: {
-        height: 55,
+        height: 100,
         padding: 5,
-        backgroundColor: 'transparent',
+        backgroundColor: '#F7F7F7',
     },
     // textarea: {
     //     textAlignVertical: 'top',  // hack android
@@ -1293,7 +1293,7 @@ const styles = StyleSheet.create({
     // },
     textarea: {
         textAlignVertical: 'top',  // hack android
-        height: 170,
+        height: 90,
         fontSize: 14,
         color: '#333',
     },
