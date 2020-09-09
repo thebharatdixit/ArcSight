@@ -34,7 +34,7 @@ import { createList } from '../../../actions/createListAction';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { fetchAminities } from '../../../actions/addListingActions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
+import Textarea from 'react-native-textarea';
 
 function PropertyScreen({ navigation }) {
 
@@ -1035,18 +1035,22 @@ function PropertyScreen({ navigation }) {
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Description</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.input}
+                                {/* <TextInput */}
+                                <Textarea
+                                    containerStyle={styles.textareaContainer}
+                                    style={styles.textarea}
                                     placeholder="Description"
                                     placeholderTextColor="#8A8A8A"
-                                    maxLength={650}
+                                    // maxLength={650}
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
                                     onChangeText={(description) => setDescription(description)}
-                                    value={description} />
+                                    value={description} 
+
+                                    />
                             </View>
                         </View>
-                        {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
+                        {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0) }}></View> */}
 
                         <View style={{ width: '100%', height: getDimen(0.1), alignItems: 'center', alignContent: 'center', justifyContent: 'center' }}>
 
@@ -1056,7 +1060,7 @@ function PropertyScreen({ navigation }) {
                             </Text>
                             </TouchableOpacity> */}
                         </View>
-                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop: getDimen(-0.02) }}>
+                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop: getDimen(-0.03) }}>
 
                             <TouchableOpacity onPress={() => featuredAlert()}>
                                 {
@@ -1083,6 +1087,9 @@ function PropertyScreen({ navigation }) {
                             />
 
                         </View>
+
+
+                        
 
                     </View>
 
@@ -1243,6 +1250,16 @@ const styles = StyleSheet.create({
         borderColor: 'transparent',
         flexDirection: 'row'
     },
+    scrollViewContainer: {
+        marginTop: 1,
+        borderWidth: 1,
+        marginLeft: 25,
+        marginRight: 25,
+        paddingBottom: -5,
+        borderBottomColor: '#CCC',
+        borderColor: 'transparent',
+        flexDirection: 'row',
+    },
     inputContainer2: {
         marginTop: 0,
         borderWidth: 1,
@@ -1262,6 +1279,17 @@ const styles = StyleSheet.create({
         width: '100%',
         // fontFamily: 'Poppins-Regular',
         color: 'black'
+    },
+    textareaContainer: {
+        height: 55,
+        padding: 5,
+        backgroundColor: 'transparent',
+    },
+    textarea: {
+        textAlignVertical: 'top',  // hack android
+        height: 50,
+        fontSize: 14,
+        color: '#333',
     },
     forgotContainer: {
         paddingTop: 10,
