@@ -1127,8 +1127,9 @@ function EditPropertyScreen({ navigation, route }) {
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>Description</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
-                                <TextInput
-                                    style={styles.input}
+                                <Textarea
+                                    containerStyle={styles.textareaContainer}
+                                    style={styles.textarea}
                                     placeholder="Description"
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
@@ -1149,7 +1150,7 @@ function EditPropertyScreen({ navigation, route }) {
                             </TouchableOpacity> */}
                         </View>
 
-                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop: getDimen(-0.02) }}>
+                        <View style={{ alignSelf: 'flex-start', marginBottom: getDimen(0), flexDirection: 'row', alignItems: 'center', marginLeft: getDimen(0.06), marginTop: getDimen(0.1) }}>
 
                             <TouchableOpacity onPress={() => featuredAlert()}>
                                 {
@@ -1386,6 +1387,17 @@ const styles = StyleSheet.create({
         marginTop: getDimen(.085),
         marginLeft: getDimen(.085),
         fontSize: getDimen(.045)
+    },
+    textareaContainer: {
+        height: 100,
+        padding: 5,
+        backgroundColor: '#F7F7F7',
+    },
+    textarea: {
+        textAlignVertical: 'top',  // hack android
+        height: 90,
+        fontSize: 14,
+        color: '#333',
     },
     body: {
         backgroundColor: 'white',
