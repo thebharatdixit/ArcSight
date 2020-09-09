@@ -146,6 +146,7 @@ function EditPropertyScreen({ navigation, route }) {
             formData.append('video_url', videoUrl);
             formData.append('web_share_url', imageUrl);
             formData.append('location_neighbourhood', locationNeighbourhood);
+            // console.log("location_neighbourhood:: " + filenamess);
             formData.append('amenities', JSON.stringify(arrSelectedAminitiesForApi));
             // formData.append('amenities[]', 2);
             formData.append('description', description);
@@ -289,7 +290,8 @@ function EditPropertyScreen({ navigation, route }) {
             setCounter(counter + 1);
             setLatitude(listingData.latitude);
             setLongnitude(listingData.longitude);
-
+            setLocationNeighbourhood(listingData.location_neighbourhood);
+            console.log("location_neighbourhood:: " + listingData.location_neighbourhood);
             setArrSelectedAminities([]);
             setYearBuilt("" + listingData.year_built);
             setMainImage(listingData.main_image_url);
@@ -750,7 +752,7 @@ function EditPropertyScreen({ navigation, route }) {
                                     placeholderTextColor="#8A8A8A"
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
-                                    onChangeText={(locationNeighbourhood) => setLocation2(locationNeighbourhood)}
+                                    onChangeText={(locationNeighbourhood) => setLocationNeighbourhood(locationNeighbourhood)}
                                     value={locationNeighbourhood} />
                             </View>
                         </View>

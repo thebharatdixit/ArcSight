@@ -277,16 +277,18 @@ function MyListingDetail({ navigation, route }) {
 
                         <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
                             <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.7), justifyContent: 'center', alignContent: 'center' }}>
-                                <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                                    {
-                                        (IsFeatured === '' && IsFeatured === 'no') ?
-                                            null
-                                            :
+                                {
+                                    (IsFeatured === '' || IsFeatured === 'no') ?
+                                        null
+                                        :
+                                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+
                                             <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
-                                    }
+
+                                        </View>
+                                }
 
 
-                                </View>
                             </View>
                             {/* {videoUrl ? */}
                             <View style={{ flexDirection: 'column', width: getDimen(0.3) }}>

@@ -453,7 +453,7 @@ function ProfileScreen({ navigation, route }) {
                                                                 }
                                                             </View>
                                                             <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
-                                                                <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                                                                <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.7), justifyContent: 'center', alignContent: 'center' }}>
                                                                     <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
                                                                         {
                                                                             (item.is_featured === '' && item.is_featured === 'no') ?
@@ -463,6 +463,22 @@ function ProfileScreen({ navigation, route }) {
                                                                         }
 
 
+                                                                    </View>
+                                                                </View>
+
+                                                                <View style={{ flexDirection: 'column', width: getDimen(0.3) }}>
+                                                                    {item.video_url ?
+                                                                        <TouchableOpacity onPress={() =>
+                                                                            // console.log("userId1234:", userId, item.user_id)
+                                                                            shoWebview(item.video_url)
+                                                                        }
+                                                                            style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.3), justifyContent: 'center', alignContent: 'center' }}>
+                                                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
+                                                                        </TouchableOpacity>
+                                                                        :
+                                                                        null}
+                                                                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.3) }}>
+                                                                        <Text style={{ fontSize: getDimen(0.050), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(item.is_sold === "no") ? item.listing_type : item.listing_type === "For Sale" ? "Sold Out" : item.listing_type === "For Rent" ? "Rent Out" : ""}</Text>
                                                                     </View>
                                                                 </View>
                                                                 {item.video_url ?
@@ -509,7 +525,7 @@ function ProfileScreen({ navigation, route }) {
                                                         <View style={{ flex: 0.15, marginLeft: getDimen(0.01), marginTop: getDimen(0.02), flexDirection: 'row' }}>
                                                             {isMap === "on" ?
 
-                                                                <TouchableOpacity onPress={() => openMapurl(item.latitude, item.longitude, item.location)} style={{ width: '80%',  }}>
+                                                                <TouchableOpacity onPress={() => openMapurl(item.latitude, item.longitude, item.location)} style={{ width: '80%', }}>
                                                                     {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
                                                                     <Text style={{ fontSize: getDimen(0.045), width: '100%', fontWeight: '500' }}>{item.location ? item.location : ''}</Text>
                                                                 </TouchableOpacity>
@@ -574,7 +590,7 @@ function ProfileScreen({ navigation, route }) {
                                                     <View style={{ flex: 0.6, height: '100%', width: '100%', }}>
                                                         <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6', }}>
                                                             <TouchableOpacity onPress={() => {
-                                                                navigation.navigate('My Listing Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
+                                                                navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
                                                             }
                                                             }>
 
