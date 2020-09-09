@@ -1039,15 +1039,15 @@ function PropertyScreen({ navigation }) {
                                 <Textarea
                                     containerStyle={styles.textareaContainer}
                                     style={styles.textarea}
-                                    placeholder="Description"
-                                    placeholderTextColor="#8A8A8A"
-                                    // maxLength={650}
-                                    // secureTextEntry={true}
-                                    underlineColorAndroid='transparent'
                                     onChangeText={(description) => setDescription(description)}
-                                    value={description} 
+                                    defaultValue={description}
+                                    // blurOnSubmit={true}
+                                    maxLength={650}
+                                    placeholder={'Write your description here...'}
+                                    placeholderTextColor={'#8A8A8A'}
+                                    underlineColorAndroid={'transparent'}
 
-                                    />
+                                />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0) }}></View> */}
@@ -1089,7 +1089,7 @@ function PropertyScreen({ navigation }) {
                         </View>
 
 
-                        
+
 
                     </View>
 
@@ -1285,9 +1285,15 @@ const styles = StyleSheet.create({
         padding: 5,
         backgroundColor: 'transparent',
     },
+    // textarea: {
+    //     textAlignVertical: 'top',  // hack android
+    //     height: 50,
+    //     fontSize: 14,
+    //     color: '#333',
+    // },
     textarea: {
         textAlignVertical: 'top',  // hack android
-        height: 50,
+        height: 170,
         fontSize: 14,
         color: '#333',
     },
