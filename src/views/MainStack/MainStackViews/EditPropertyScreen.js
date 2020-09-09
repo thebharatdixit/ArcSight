@@ -34,6 +34,7 @@ import { createList } from '../../../actions/createListAction';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { fetchAminities } from '../../../actions/addListingActions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import Textarea from 'react-native-textarea';
 
 
 function EditPropertyScreen({ navigation, route }) {
