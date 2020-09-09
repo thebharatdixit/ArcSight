@@ -90,6 +90,8 @@ function EditPropertyScreen({ navigation, route }) {
     const [longnitude, setLongnitude] = React.useState('');
     const [checked, setChecked] = React.useState(false);
 
+    const [listImagesData, setListImagesData] = React.useState([]);
+
     const isFocused = useIsFocused();
     let temp = '';
 
@@ -229,75 +231,168 @@ function EditPropertyScreen({ navigation, route }) {
     React.useEffect(() => {
         console.log('listingData::: ' + JSON.stringify(listingData));
         console.log('listingDatabathrooms::: ' + listingData.bathrooms);
+        setShowLoader("");
         if (listingData && listingData.location) {
-            setAddress(listingData.location);
-            setStateName(listingData.state);
-            setCity(listingData.city);
-            setZipcode(listingData.zipcode);
-            setLocation(listingData.location);
-            setPrice("" + listingData.price_per_sq_feet);
-            setPricePerSqureFeet("" + listingData.price_per_sq_feet);
-            setBedroom("" + listingData.bedrooms);
-            console.log("setBathrooom " + listingData.bathrooms);
-            setBath("" + listingData.bathrooms);
-            setBathroom("" + listingData.bathrooms);
-            setImageUrl(listingData.web_share_url);
-            setVideoUrl(listingData.video_url);
-            setHomeType(listingData.home_type);
-            if (listingData.home_type === 'House') {
-                setSelected("key0");
-                // setListingType("For Sale");
-            }
-            else if (listingData.home_type === 'Co-op') {
-                setSelected("key1");
-            }
-            else if (listingData.home_type === 'Condo') {
-                setSelected("key2");
-            }
-            else if (listingData.home_type === 'Townhouse') {
-                setSelected("key3");
-            }
-            else if (listingData.home_type === 'Multi-Family') {
-                setSelected("key4");
-            }
-            else if (listingData.home_type === 'Land') {
-                setSelected("key5");
-            }
-            else {
-                setSelected("key6");
-            }
-
-
-            setSqureFeet("" + listingData.sq_feet);
-            console.log("setIsFeaturedsetIsFeatured " + listingData.is_featured);
-            setIsFeatured(listingData.is_featured);
-            if (listingData.is_featured === 'yes') {
-                setChecked(true)
-            }
-            else {
-                setChecked(false);
-            }
-            setTerrace("" + listingData.terrace);
-            setListingType(listingData.listing_type);
-            if (listingData.listing_type === 'For Sale') {
-                setSelected2("key0");
-                // setListingType("For Sale");
-            }
-            else {
-                setSelected2("key1");
-            }
-            setDescription(listingData.description);
-            setCounter(counter + 1);
-            setLatitude(listingData.latitude);
-            setLongnitude(listingData.longitude);
-            setLocationNeighbourhood(listingData.location_neighbourhood);
-            console.log("location_neighbourhood:: " + listingData.location_neighbourhood);
-            setArrSelectedAminities([]);
-            setYearBuilt("" + listingData.year_built);
-            setMainImage(listingData.main_image_url);
+            getData('userData').then((data) => {
+                const userData = JSON.parse(data);
+                const listTokens = userData.token;
+                console.log('listingDataObjectDetails' + JSON.stringify(listingData));
+                searchListingDetailApiIntegration(listTokens, listingData.id)
+            })
         }
-        getAminities();
+
     }, [listingData])
+
+
+    const loadData = (DataToLoad) => {
+        setAddress(listingData.location);
+        setStateName(listingData.state);
+        setCity(listingData.city);
+        setZipcode(listingData.zipcode);
+        setLocation(listingData.location);
+        setPrice("" + listingData.price_per_sq_feet);
+        setPricePerSqureFeet("" + listingData.price_per_sq_feet);
+        setBedroom("" + listingData.bedrooms);
+        console.log("setBathrooom " + listingData.bathrooms);
+        setBath("" + listingData.bathrooms);
+        setBathroom("" + listingData.bathrooms);
+        setImageUrl(listingData.web_share_url);
+        setVideoUrl(listingData.video_url);
+        setHomeType(listingData.home_type);
+        if (listingData.home_type === 'House') {
+            setSelected("key0");
+            // setListingType("For Sale");
+        }
+        else if (listingData.home_type === 'Co-op') {
+            setSelected("key1");
+        }
+        else if (listingData.home_type === 'Condo') {
+            setSelected("key2");
+        }
+        else if (listingData.home_type === 'Townhouse') {
+            setSelected("key3");
+        }
+        else if (listingData.home_type === 'Multi-Family') {
+            setSelected("key4");
+        }
+        else if (listingData.home_type === 'Land') {
+            setSelected("key5");
+        }
+        else {
+            setSelected("key6");
+        }
+
+
+        setSqureFeet("" + listingData.sq_feet);
+        console.log("setIsFeaturedsetIsFeatured " + listingData.is_featured);
+        setIsFeatured(listingData.is_featured);
+        if (listingData.is_featured === 'yes') {
+            setChecked(true)
+        }
+        else {
+            setChecked(false);
+        }
+        setTerrace("" + listingData.terrace);
+        setListingType(listingData.listing_type);
+        if (listingData.listing_type === 'For Sale') {
+            setSelected2("key0");
+            // setListingType("For Sale");
+        }
+        else {
+            setSelected2("key1");
+        }
+        setDescription(listingData.description);
+        setCounter(counter + 1);
+        setLatitude(listingData.latitude);
+        setLongnitude(listingData.longitude);
+        setLocationNeighbourhood(listingData.location_neighbourhood);
+        console.log("location_neighbourhood:: " + listingData.location_neighbourhood);
+        setArrSelectedAminities([]);
+        setYearBuilt("" + listingData.year_built);
+        setMainImage(listingData.main_image_url);
+
+        getAminities();
+    }
+
+
+
+    // React.useEffect(() => {
+    //     console.log("vxmsvjmasgja");
+    //     setTimeout(() => {
+    //         console.log('listingDataObjectDetailsx' + JSON.stringify(listingDataObject));
+    //         if (listingDataObject && listingDataObject.location) {
+    //             getData('userData').then((data) => {
+    //                 const userData = JSON.parse(data);
+    //                 const listTokens = userData.token;
+    //                 console.log('listingDataObjectDetails' + JSON.stringify(listingDataObject));
+    //                 if (listingDataObject) {
+    //                     searchListingDetailApiIntegration(accessToken, listingDataObject.id)
+    //                 }
+    //             })
+    //         }
+    //     }, 5000);
+
+
+    // }, [listingDataObject])
+
+    const searchListingDetailApiIntegration = (accessToken, listing_id) => {
+        setShowLoader("");
+        fetch("http://arc.softwaresolutions.website/api/v1/listing/detail", {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+                "listing_id": listing_id
+            })
+        }).then(res => res.json())
+            .then(res => {
+                setShowLoader('hide')
+                if (res.status) {
+
+                    console.log('Edit Property Listing Details' + JSON.stringify(res.data.listing.listing_images));
+                    // setListImagesData(res.data.listing.listing_images);
+                    
+                    var imagesArray = res.data.listing.listing_images;
+                    var dupImgArray = [];
+                    // var dupImgArray = [];
+                    console.log('imagesArrayimagesArray ' + imagesArray.length + ' :imagesArray :' + JSON.stringify(imagesArray))
+                    for (let i = 0; i < imagesArray.length; i++) {
+                        const newFile = imagesArray[i];
+                        let imageItem = {
+                            uri: newFile.image_url,
+                            name: newFile.image,
+                            type: "image/jpeg"
+                        }
+                        dupImgArray.push(imageItem);
+                        // formData.append('listing_images[]', newFile)
+                    };
+                    let image2 = {
+                        name: "Add",
+                    }
+                    dupImgArray.push(image2);
+                    console.log('dupArrImages Details' + JSON.stringify(dupImgArray));
+                    setArrImages(dupImgArray);
+                    loadData(res.data.listing);
+
+
+
+                    // console.log('listing/detail', searchListDetail);
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                } else {
+                    console.log('Search Listing Details Error' + JSON.stringify(res.message));
+                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                }
+            })
+            .catch(err => {
+                console.error("error: ", err);
+            });
+    }
+
+    
+
 
     React.useEffect(() => {
         getData('selectedAminitiesData').then((selectedAminitiesData) => {
