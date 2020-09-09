@@ -1089,7 +1089,7 @@ function PropertyScreen({ navigation }) {
                         </View>
 
 
-                        
+
 
                     </View>
 
@@ -1285,6 +1285,12 @@ const styles = StyleSheet.create({
         padding: 5,
         backgroundColor: '#F7F7F7',
     },
+    // textarea: {
+    //     textAlignVertical: 'top',  // hack android
+    //     height: 50,
+    //     fontSize: 14,
+    //     color: '#333',
+    // },
     textarea: {
         textAlignVertical: 'top',  // hack android
         height: 90,

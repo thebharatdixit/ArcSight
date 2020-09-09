@@ -138,8 +138,7 @@ function MyListingDetail({ navigation, route }) {
 
                     }
                     setdataofimages(useArray);
-                    // console.log('listing/detail', searchListDetail);
-                    // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false })
+                    
                 } else {
                     console.log('Search Listing Details Error', res.message);
                     // Alert.alert('', res.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
