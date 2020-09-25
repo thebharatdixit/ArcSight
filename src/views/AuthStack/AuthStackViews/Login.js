@@ -25,6 +25,9 @@ import ImagePicker from 'react-native-image-picker';
 import { login } from '../../../actions/loginAction';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { changeAuthState } from '../../../actions/authAction';
+import iid from '@react-native-firebase/iid';
+import firebase from '@react-native-firebase/app'
+import messaging from '@react-native-firebase/messaging';
 
 function Login({ navigation, changeAuthState }) {
 
@@ -57,7 +60,8 @@ function Login({ navigation, changeAuthState }) {
     }
 
     React.useEffect(() => {
-        
+        requestPermission();
+        messageListener();
         getData('rememberMe').then((rememberMe) => {
             console.log('again login: ' + rememberMe);
             if (rememberMe === 'true') {
@@ -79,6 +83,48 @@ function Login({ navigation, changeAuthState }) {
         })
 
     }, [isFocused])
+
+    const requestPermission = async () => {
+        if (Platform.OS === 'ios') {
+            // const authStatus = await messaging().requestPermission();
+            const authStatus = await messaging().requestPermission();
+            console.log('authstatus::: ' + JSON.stringify(authStatus) + " :: " + messaging.AuthorizationStatus.AUTHORIZED);
+            const enabled =
+                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+            if (enabled) {
+                console.log('Authorization status:', authStatus);
+                generateFcmToken()
+            }
+        } else {
+            generateFcmToken()
+        }
+
+    }
+
+    const generateFcmToken = async () => {
+        const token = await firebase.iid().getToken();
+        console.log("token :  " + token)
+        storeData('fcmToken', token);
+        // this.saveFcmToken(token);
+
+    }
+
+    const messageListener = async () => {
+        console.log('inside message listener ****** ')
+
+        messaging().onMessage(async remoteMessage => {
+            // this.changeBadgeCount();
+            // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+        })
+
+        messaging().setBackgroundMessageHandler(async remoteMessage => {
+            console.log('background message received');
+            // Alert.alert('A new Background FCM message arrived!', JSON.stringify(remoteMessage));
+
+        })
+    }
 
 
     chooseFile = () => {
@@ -154,44 +200,45 @@ function Login({ navigation, changeAuthState }) {
             Alert.alert('', 'Please Enter Password..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             return;
         }
-
-        let data = {
-            "email": userName,
-            "password": password,
-            "login_device": Platform.OS,
-            "notification_token": ""
-        }
-        setShowLoader('')
-        login(data).then((response) => {
-            setShowLoader('hide')
-            if (response.status) {
-                storeData('saveUsername', userName);
-                storeData('savePassword', password);
-                storeData('isLogin', 'true');
-                storeData('userData', JSON.stringify(response.data));
-                storeData('profileImage', response.data.user.profile_image_url);
-
-                // navigation.navigate('Main Stack');
-                // Alert.alert('' + response.message, [{
-                //     text: 'OK', onPress: () => {
-                //         setUsername('')
-                //         setPassword('')
-                //     }
-                // }], { cancelable: false });
-                console.log("trying to login")
-                setTimeout(function () {
-                    setUsername('');
-                    setPassword('');
-                    //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
-                    changeAuthState(true)
-
-                }, 300);
+        getData('fcmToken').then((fcmToken) => {
+            let data = {
+                "email": userName,
+                "password": password,
+                "login_device": Platform.OS,
+                "notification_token": fcmToken
             }
-            else {
-                // Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-                alert("" + response.message);
-            }
+            setShowLoader('')
+            login(data).then((response) => {
+                setShowLoader('hide')
+                if (response.status) {
+                    storeData('saveUsername', userName);
+                    storeData('savePassword', password);
+                    storeData('isLogin', 'true');
+                    storeData('userData', JSON.stringify(response.data));
+                    storeData('profileImage', response.data.user.profile_image_url);
 
+                    // navigation.navigate('Main Stack');
+                    // Alert.alert('' + response.message, [{
+                    //     text: 'OK', onPress: () => {
+                    //         setUsername('')
+                    //         setPassword('')
+                    //     }
+                    // }], { cancelable: false });
+                    console.log("trying to login")
+                    setTimeout(function () {
+                        setUsername('');
+                        setPassword('');
+                        //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
+                        changeAuthState(true)
+
+                    }, 300);
+                }
+                else {
+                    // Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                    alert("" + response.message);
+                }
+
+            })
         })
 
     }
