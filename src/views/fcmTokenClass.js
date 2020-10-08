@@ -1,9 +1,11 @@
 /** Firebase Cloud Messaging Methods */
 import { firebase } from '@react-native-firebase/messaging';
+import { notifications } from "react-native-firebase-push-notifications"
+
 
 const getToken = async () => {
     try {
-        const token = await firebase.messaging().getToken();
+        const token = await notifications.getToken();
         if (token) return token;
     } catch (error) {
         console.log(error);
@@ -12,7 +14,7 @@ const getToken = async () => {
 
 const getFCMToken = async () => {
     try {
-        const authorized = await firebase.messaging().hasPermission();
+        const authorized = await notifications.hasPermission();
        console.log('has permission');
         const fcmToken = await getToken();
        console.log('getting token ' + fcmToken);

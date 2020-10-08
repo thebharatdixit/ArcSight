@@ -25,9 +25,11 @@ import ImagePicker from 'react-native-image-picker';
 import { login } from '../../../actions/loginAction';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { changeAuthState } from '../../../actions/authAction';
-import iid from '@react-native-firebase/iid';
-import firebase from '@react-native-firebase/app'
-import messaging from '@react-native-firebase/messaging';
+
+// import messaging from '@react-native-firebase/messaging';
+import stripe from 'tipsi-stripe'
+import { notifications } from "react-native-firebase-push-notifications"
+
 
 function Login({ navigation, changeAuthState }) {
 
@@ -60,6 +62,10 @@ function Login({ navigation, changeAuthState }) {
     }
 
     React.useEffect(() => {
+        stripe.setOptions({
+            publishableKey: 'pk_live_51HUEQaJATDVU4EL1c1hhN1gqdj8ytykk8IEf5la0DkQRg4WdgsupCsdSBarMJdC8did8GIglIZZnYg7Q0NPbFDPh00i4X0yzkV'
+        })
+        console.log('again login: ');
         requestPermission();
         messageListener();
         getData('rememberMe').then((rememberMe) => {
@@ -87,14 +93,18 @@ function Login({ navigation, changeAuthState }) {
     const requestPermission = async () => {
         if (Platform.OS === 'ios') {
             // const authStatus = await messaging().requestPermission();
-            const authStatus = await messaging().requestPermission();
-            console.log('authstatus::: ' + JSON.stringify(authStatus) + " :: " + messaging.AuthorizationStatus.AUTHORIZED);
-            const enabled =
-                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+            const authStatus = await notifications.requestPermission();
+            console.log('authstatus::: ' + JSON.stringify(authStatus) + " :: " + authStatus );
+            // const enabled =
+            //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+            //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-            if (enabled) {
+            if (authStatus) {
                 console.log('Authorization status:', authStatus);
+                generateFcmToken()
+            }
+            else
+            {
                 generateFcmToken()
             }
         } else {
@@ -104,26 +114,53 @@ function Login({ navigation, changeAuthState }) {
     }
 
     const generateFcmToken = async () => {
-        const token = await firebase.iid().getToken();
+        const token = await notifications.getToken();
+        // const token = await firebase.iid().getToken();
         console.log("token :  " + token)
         storeData('fcmToken', token);
+        const notification = await notifications.getInitialNotification()
+        console.log("getInitialNotification", notification);
+        onNotificationOpenedListener();
+        onNotificationListener();
         // this.saveFcmToken(token);
 
     }
 
+    const onNotificationOpenedListener = () => {
+        //remember to remove the listener on un mount
+        //this gets triggered when the application is in the background
+        this.removeOnNotificationOpened = notifications.onNotificationOpened(
+          notification => {
+            console.log("onNotificationOpened", notification)
+            //do something with the notification
+          }
+        )
+      }
+     
+      const onNotificationListener = () => {
+        //remember to remove the listener on un mount
+        //this gets triggered when the application is in the forground/runnning
+        //for android make sure you manifest is setup - else this wont work
+        //Android will not have any info set on the notification properties (title, subtitle, etc..), but _data will still contain information
+        this.removeOnNotification = notifications.onNotification(notification => {
+          //do something with the notification
+          console.log("onNotification", notification)
+        })
+      }
+
     const messageListener = async () => {
         console.log('inside message listener ****** ')
 
-        messaging().onMessage(async remoteMessage => {
-            // this.changeBadgeCount();
-            // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-        })
+        // messaging().onMessage(async remoteMessage => {
+        //     // this.changeBadgeCount();
+        //     // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+        // })
 
-        messaging().setBackgroundMessageHandler(async remoteMessage => {
-            console.log('background message received');
-            // Alert.alert('A new Background FCM message arrived!', JSON.stringify(remoteMessage));
+        // messaging().setBackgroundMessageHandler(async remoteMessage => {
+        //     console.log('background message received');
+        //     // Alert.alert('A new Background FCM message arrived!', JSON.stringify(remoteMessage));
 
-        })
+        // })
     }
 
 
@@ -250,6 +287,28 @@ function Login({ navigation, changeAuthState }) {
         else {
             return '85%'
         }
+    }
+
+    const stripePaymentTokenGeneration = async () => {
+        const params = {
+            // mandatory
+            number: '4242424242424242',
+            expMonth: 11,
+            expYear: 17,
+            cvc: '223',
+            // optional
+            name: 'Test User',
+            currency: 'usd',
+            addressLine1: '123 Test Street',
+            addressLine2: 'Apt. 5',
+            addressCity: 'Test City',
+            addressState: 'Test State',
+            addressCountry: 'Test Country',
+            addressZip: '55555',
+        }
+
+        const token = await stripe.createTokenWithCard(params);
+        console.log('token for payment: ' + token);
     }
 
     return (

@@ -30,9 +30,9 @@ import { LoginButton, AccessToken, LoginManager } from 'react-native-fbsdk';
 import Modal from "react-native-modal";
 import { login } from '../actions/loginAction';
 import { fbSignup } from '../actions/signUpAction';
-import messaging from '@react-native-firebase/messaging';
-import { getFCMToken } from './fcmTokenClass';
-import { firebase } from '@react-native-firebase/messaging';
+// import messaging from '@react-native-firebase/messaging';
+// import { getFCMToken } from './fcmTokenClass';
+// import { firebase } from '@react-native-firebase/messaging';
 import SplashScreen from 'react-native-splash-screen'
 
 class Main extends Component {
@@ -61,8 +61,8 @@ class Main extends Component {
     componentDidMount() {
         // startAuthentication()
         SplashScreen.hide();
-        this.registerAppWithFCM();
-        this.requestPermission();
+        // this.registerAppWithFCM();
+        // this.requestPermission();
         // this.requestPermissionForNotification();
 
 
