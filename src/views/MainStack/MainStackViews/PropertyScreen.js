@@ -35,6 +35,7 @@ import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { fetchAminities } from '../../../actions/addListingActions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Textarea from 'react-native-textarea';
+import NumberFormat from 'react-number-format';
 
 function PropertyScreen({ navigation }) {
 
@@ -529,6 +530,19 @@ function PropertyScreen({ navigation }) {
         setLongnitude(long);
     }
 
+    const Comma=(Num) => { //function to add commas to textboxes
+        Num += '';
+        Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+        Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+        x = Num.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1))
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        return x1 + x2;
+    }
+
     const featuredAlert = () => {
         if (checked == true) {
             setIsFeatured('no')
@@ -787,7 +801,7 @@ function PropertyScreen({ navigation }) {
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
                                     onChangeText={(price) => setPrice(price)}
-                                    value={price} />
+                                    value={Comma(price)} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
@@ -804,7 +818,7 @@ function PropertyScreen({ navigation }) {
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
                                     onChangeText={(pricePerSqureFeet) => setPricePerSqureFeet(pricePerSqureFeet)}
-                                    value={pricePerSqureFeet} />
+                                    value={Comma(pricePerSqureFeet)} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}

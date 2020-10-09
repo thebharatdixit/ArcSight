@@ -647,6 +647,19 @@ function EditPropertyScreen({ navigation, route }) {
         setLongnitude(long);
     }
 
+    const Comma=(Num) => { //function to add commas to textboxes
+        Num += '';
+        Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+        Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
+        x = Num.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1))
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        return x1 + x2;
+    }
+
     return (
         <View style={{ flex: 1 }}>
             {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
@@ -879,7 +892,7 @@ function EditPropertyScreen({ navigation, route }) {
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
                                     onChangeText={(price) => setPrice(price)}
-                                    value={price} />
+                                    value={Comma(price)} />
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
@@ -896,7 +909,7 @@ function EditPropertyScreen({ navigation, route }) {
                                     // secureTextEntry={true}
                                     underlineColorAndroid='transparent'
                                     onChangeText={(pricePerSqureFeet) => setPricePerSqureFeet(pricePerSqureFeet)}
-                                    value={pricePerSqureFeet} />
+                                    value={Comma(pricePerSqureFeet)} />
 
                             </View>
                         </View>
