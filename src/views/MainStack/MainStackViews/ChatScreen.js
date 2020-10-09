@@ -341,7 +341,7 @@ function ChatScreen({ route, navigation }) {
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
 
                     </TouchableOpacity>
-                    <Text style={{ marginLeft: getDimen(0.05) }}>All Colleague</Text>
+                    <Text style={{ marginLeft: getDimen(0.05) }}>All Colleagues</Text>
 
                 </View>
                 <View style={{ marginRight: getDimen(0.05), flexDirection: 'row', alignItems: 'center' }}>

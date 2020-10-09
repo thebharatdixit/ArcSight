@@ -368,7 +368,7 @@ function SearchScreen({ navigation }) {
                                 ) : <Image source={require('../../../assets/icons/circle.png')}
                                     style={{ height: getDimen(0.06), width: getDimen(0.06), }} />}
 
-                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01), textAlign: 'center', textAlignVertical: 'center' }}>All Listing</Text>
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01), textAlign: 'center', textAlignVertical: 'center' }}>All Listings</Text>
 
                             </View>
                         </TouchableOpacity>
