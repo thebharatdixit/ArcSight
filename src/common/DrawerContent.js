@@ -23,6 +23,7 @@ import { Fontisto } from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import settingScreen from '../views/MainStack/MainStackViews/Setting'
+// import Payment from '../common/Payment';
 
 // import { NavigationActions, StackActions } from 'react-navigation';
 // import { AsyncStorage } from '@react-native-community/async-storage';
@@ -170,7 +171,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         <DrawerItem
                             label="UPGRADE TO PRO"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold' }}
-                        // onPress={() => alert('')}
+                            onPress={() => navigation.navigate("Payment")}
                         />
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
                         <DrawerItem

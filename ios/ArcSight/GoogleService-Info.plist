@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>854642299978-gmmcbpcql4br47fdu0dqrs2lip1isspb.apps.googleusercontent.com</string>
+	<string>536557392111-2ikpscvqhubmb2qekems7u0va9f7da3j.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.854642299978-gmmcbpcql4br47fdu0dqrs2lip1isspb</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>854642299978-siir9kksu368f6s926067l4movsc5hm2.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.536557392111-2ikpscvqhubmb2qekems7u0va9f7da3j</string>
 	<key>API_KEY</key>
-	<string>AIzaSyD1V_23UDcyCdL0aLW37UKmsuUL0VP1N1E</string>
+	<string>AIzaSyDhxa5ntudh8VZc0r5AX9_UqV9GF08Rq1A</string>
 	<key>GCM_SENDER_ID</key>
-	<string>854642299978</string>
+	<string>536557392111</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.kliento.bookAbite</string>
+	<string>com.arcsightmobile.mobileapp</string>
 	<key>PROJECT_ID</key>
-	<string>bookabite-6c3cb</string>
+	<string>arcsight-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>bookabite-6c3cb.appspot.com</string>
+	<string>arcsight-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:854642299978:ios:73991e6dc608c1c30942b3</string>
+	<string>1:536557392111:ios:a5274ba36921ad06050b1a</string>
 	<key>DATABASE_URL</key>
-	<string>https://bookabite-6c3cb.firebaseio.com</string>
+	<string>https://arcsight-app.firebaseio.com</string>
 </dict>
 </plist>

@@ -7,6 +7,8 @@ import nineScreen from '../views/MainStack/MainStackViews/NineScreen'
 import ChangePassword from '../views/MainStack/MainStackViews/ChangePassword'
 import ProfileScreen from '../views/MainStack/MainStackViews/ProfileScreen'
 import settingStack from '../views/MainStack/MainStackViews/SettingStack'
+import paymentStack from '../views/MainStack/MainStackViews/PaymentStack'
+import Payment from '../views/MainStack/MainStackViews/Payment'
 import settingScreen from '../views/MainStack/MainStackViews/Setting'
 import DrawerContent from './DrawerContent';
 import SettingScreen from '../views/MainStack/MainStackViews/Setting';
@@ -42,7 +44,7 @@ function DrawerNavigator({ navigation }) {
             <Drawer.Screen name="SEARCH LISTING" component={SearchStack} />
             <Drawer.Screen
                 options={{ labelStyle: { activeTintColor: 'red' } }}
-                name="UPGRADE TO PRO" component={nineScreen} />
+                name="UPGRADE TO PRO" component={Payment} />
             <Drawer.Screen
                 drawerStyle={{ backgroundColor: 'red' }}
                 name="SETTINGS" component={settingStack} />

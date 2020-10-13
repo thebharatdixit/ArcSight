@@ -262,25 +262,25 @@ function SearchScreen({ navigation }) {
     const callSearchApi = () => {
         console.log('searchListJsonOnPress', JSON.stringify(searchList))
 
-        if (checked1 === false && setChecked2 === false && checked3 === false) {
-            Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-            return;
-        }
+        // if (checked1 === false && setChecked2 === false && checked3 === false) {
+        //     Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+        //     return;
+        // }
 
-        if (listing === '') {
-            Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-            return;
-        }
+        // if (listing === '') {
+        //     Alert.alert('', 'Please Select Criteria..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+        //     return;
+        // }
 
-        if (location === '') {
-            Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-            return;
-        }
+        // if (location === '') {
+        //     Alert.alert('', 'Please Select Location..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+        //     return;
+        // }
 
-        if (checkedForSale === false && checkedForRent === false) {
-            Alert.alert('', 'Please Select Rent/Sale..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
-            return;
-        }
+        // if (checkedForSale === false && checkedForRent === false) {
+        //     Alert.alert('', 'Please Select Rent/Sale..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+        //     return;
+        // }
 
         console.log('Search Details on seach tap :: ' + "listing: " + listing + "location: " + location + "homeType: " + homeType + "bedRoom: " + bedRoom + "bathRoom: " + bathRoom + "selectedValue: " + selectedValue + "sqFeetMin: " + sqFeetMin + "sqFeetMax: " + sqFeetMax + forSaleText + forRentText)
         setShowLoader('')

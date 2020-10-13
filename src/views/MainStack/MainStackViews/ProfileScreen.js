@@ -137,7 +137,7 @@ function ProfileScreen({ navigation, route }) {
         console.log('data :' + JSON.stringify(data) + "token :" + token);
         fetchProfile(token, data).then((response) => {
 
-
+            setShowLoader('hide');
             if (response.status) {
                 setUserProfileData(response.data)
                 setProfileListing(response.data.listing.data)

@@ -17,7 +17,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* ArcSightTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* ArcSightTests.m */; };
 		72C2D072E0AFD79A008D20EA /* libPods-ArcSight-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19CACE2F01DD2179A8BD5A3D /* libPods-ArcSight-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		9569DE2E252E32D300698F3B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9569DE2D252E32D300698F3B /* GoogleService-Info.plist */; };
+		95B8520F253483B8002C3574 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95B8520E253483B8002C3574 /* GoogleService-Info.plist */; };
 		B8BD5B09037B6019592E7E73 /* libPods-ArcSight-ArcSightTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB414876A4D4F35700A7E30 /* libPods-ArcSight-ArcSightTests.a */; };
 		E3DF57EF7AC47581CD8B9F2C /* libPods-ArcSight-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD686787BAC238AF115FE870 /* libPods-ArcSight-tvOS.a */; };
 		F7E7A2D40315A407A55F5A45 /* libPods-ArcSight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49412BF51C3CBF0375C65033 /* libPods-ArcSight.a */; };
@@ -70,7 +70,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ArcSight/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		892E1C5B734A498DA76BE45C /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		93E28C5AE5F598BD374DBCDC /* Pods-ArcSight.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ArcSight.release.xcconfig"; path = "Target Support Files/Pods-ArcSight/Pods-ArcSight.release.xcconfig"; sourceTree = "<group>"; };
-		9569DE2D252E32D300698F3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ArcSight/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		95B8520E253483B8002C3574 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "ArcSight/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AD686787BAC238AF115FE870 /* libPods-ArcSight-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ArcSight-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1671985A9054DB7BACAC232 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		B77C7B75E0414346BA735771 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
@@ -151,9 +151,9 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				9569DE2D252E32D300698F3B /* GoogleService-Info.plist */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
+				95B8520E253483B8002C3574 /* GoogleService-Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
@@ -392,7 +392,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				9569DE2E252E32D300698F3B /* GoogleService-Info.plist in Resources */,
+				95B8520F253483B8002C3574 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
