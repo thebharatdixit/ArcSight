@@ -85,7 +85,7 @@ function ForgotPasswordScreen({ navigation }) {
 
         // })
         setShowLoader('')
-        fetch("http://arc.softwaresolutions.website/api/v1/forgot-password", {
+        fetch("https://arcsightapp.com/api/v1/forgot-password", {
             method: "POST",
             headers: {
                 Accept: 'application/json',

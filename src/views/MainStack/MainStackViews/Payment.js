@@ -50,26 +50,26 @@ function Payment({ navigation }) {
 
     const handleOpenURL = (data) => {
         console.log('call backs returning home ' + JSON.stringify(data));
-        var titleText = '' + data.title;
-        var arrAll = titleText.split('/');
-        var dataStatus = arrAll[0];
-        var dataMessage = arrAll[1];
-        if (dataStatus === "Success") {
-            Alert.alert(dataMessage);
+        // var titleText = '' + data.title;
+        // var arrAll = titleText.split('/');
+        // var dataStatus = arrAll[0];
+        // var dataMessage = arrAll[1];
+        // if (dataStatus === "Success") {
+        //     Alert.alert(dataMessage);
 
-            // const resetAction = StackActions.reset({
-            //     index: 0,
-            //     actions: [NavigationActions.navigate({ routeName: 'YourCart' })],
-            // });
-            // this.props.navigation.dispatch(resetAction);
-            // this.props.navigation.navigate('My Orders');
-            console.log('call backs returning Success: ');
-        }
-        else if (dataStatus === "Failure" || dataStatus === "Aborted") {
-            Alert.alert(dataMessage);
-            console.log('call backs returning Failure or Aborted: ');
-            // this.props.navigation.navigate('Payment', ({ 'totalAmount': this.state.finalAmount, 'DataToSend': this.state.DataToSendNext, 'from': 'paymentView' }));
-        }
+        //     // const resetAction = StackActions.reset({
+        //     //     index: 0,
+        //     //     actions: [NavigationActions.navigate({ routeName: 'YourCart' })],
+        //     // });
+        //     // this.props.navigation.dispatch(resetAction);
+        //     // this.props.navigation.navigate('My Orders');
+        //     console.log('call backs returning Success: ');
+        // }
+        // else if (dataStatus === "Failure" || dataStatus === "Aborted") {
+        //     Alert.alert(dataMessage);
+        //     console.log('call backs returning Failure or Aborted: ');
+        //     // this.props.navigation.navigate('Payment', ({ 'totalAmount': this.state.finalAmount, 'DataToSend': this.state.DataToSendNext, 'from': 'paymentView' }));
+        // }
     }
 
     return (

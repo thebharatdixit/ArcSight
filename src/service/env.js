@@ -3,7 +3,8 @@ let API = {
         // BASE: 'https://edctestapi.klientotech.com',
         // BASE: 'https://projects.klientotech.com:9002/staging72/bookabite_new/api/',
        // BASE: 'https://cloud.klientotech.com:9002/staging72/bookabite_staging/api/',
-          BASE: "http://arc.softwaresolutions.website/",
+       BASE: "https://arcsightapp.com/",
+        //   BASE: "https://arcsightapp.com/",
         AUTH: {
             LOGIN: { url: 'api/v1/login', method: 'POST' },
             SIGN_UP: { url: 'api/v1/signup', method: 'POST' },

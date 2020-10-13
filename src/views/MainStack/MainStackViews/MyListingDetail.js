@@ -95,7 +95,7 @@ function MyListingDetail({ navigation, route }) {
 
 
     const searchListingDetailApiIntegration = () => {
-        fetch("http://arc.softwaresolutions.website/api/v1/listing/detail", {
+        fetch("https://arcsightapp.com/api/v1/listing/detail", {
             method: "POST",
             headers: {
                 Accept: 'application/json',
@@ -256,7 +256,7 @@ function MyListingDetail({ navigation, route }) {
 
                             <View style={{ flex: 0.2, width: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
                                 {
-                                    (primaryImage === 'http://arc.softwaresolutions.website/images/ListingImages/' || !dataofimages || !(dataofimages.length > 0)) ?
+                                    (primaryImage === 'https://arcsightapp.com/images/ListingImages/' || !dataofimages || !(dataofimages.length > 0)) ?
                                         <Image source={require('../../../assets/icons/19.png')}
                                             style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
                                         />
@@ -327,7 +327,7 @@ function MyListingDetail({ navigation, route }) {
                                 onPress={() => navigation.navigate('Colleague List', ({ "name": userName, "companyName": companyName, "profile_image_url": userImage, "isFriend": '', "userId": userIdd }))}
                             >
                                 {
-                                    (userImage === 'http://arc.softwaresolutions.website/images/UserImages/') ?
+                                    (userImage === 'https://arcsightapp.com/images/UserImages/') ?
                                         <Image source={require('../../../assets/icons/2.png')}
                                             style={{ height: getDimen(0.4 / 2), width: getDimen(0.4 / 2) }} />
                                         :

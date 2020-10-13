@@ -107,7 +107,7 @@ function AddListScreen({ navigation }) {
     const chatListApiIntegration = () => {
 
         setShowLoader('');
-        fetch("http://arc.softwaresolutions.website/api/v1/chat-users", {
+        fetch("https://arcsightapp.com/api/v1/chat-users", {
             method: "get",
             headers: {
                 Accept: "application/json",

@@ -250,6 +250,7 @@ function Login({ navigation, changeAuthState }) {
                 if (response.status) {
                     storeData('saveUsername', userName);
                     storeData('savePassword', password);
+                    storeData('saveFcmToken', fcmToken);
                     storeData('isLogin', 'true');
                     storeData('userData', JSON.stringify(response.data));
                     storeData('profileImage', response.data.user.profile_image_url);

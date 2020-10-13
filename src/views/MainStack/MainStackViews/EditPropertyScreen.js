@@ -56,7 +56,7 @@ function EditPropertyScreen({ navigation, route }) {
     const [terrace, setTerrace] = React.useState(0);
     const [homeType, setHomeType] = React.useState('');
     const [squreFeet, setSqureFeet] = React.useState('');
-    const [pricePerSqureFeet, setPricePerSqureFeet] = React.useState('');
+    var [pricePerSqureFeet, setPricePerSqureFeet] = React.useState('');
     const [description, setDescription] = React.useState('');
     const [isFeatured, setIsFeatured] = React.useState('');
 
@@ -128,7 +128,18 @@ function EditPropertyScreen({ navigation, route }) {
             fileName = GetFilename(mainImage);
         }
         if (!(mainImage === "")) {
-            console.log('fileName:::: ' + fileName);
+            var intPrice = price
+            // var a = '1,125';
+            intPrice = intPrice.replace(/\,/g, ''); // 1125, but a string, so convert it to number
+            intPrice = parseInt(intPrice, 10);
+
+            var intpricePerSqureFeet = pricePerSqureFeet
+            // var a = '1,125';
+            intpricePerSqureFeet = intpricePerSqureFeet.replace(/\,/g, ''); // 1125, but a string, so convert it to number
+            intpricePerSqureFeet = parseInt(intpricePerSqureFeet, 10);
+            console.log('fileName:::: ' + fileName + " ::intPrice:: " + intPrice + " ::pricePerSqureFeet:: " + intpricePerSqureFeet);
+            
+            // console.log('fileName:::: ' + fileName);
             const formData = new FormData();
 
             formData.append('listing_id', listingData.id);
@@ -137,6 +148,7 @@ function EditPropertyScreen({ navigation, route }) {
             formData.append('bedrooms', bedroom);
             formData.append('bathrooms', bath);
             formData.append('terrace', terrace);
+            formData.append('unit', unit);
             formData.append('listing_type', listingType);
             formData.append('state', stateName);
             formData.append('city', city);
@@ -199,7 +211,7 @@ function EditPropertyScreen({ navigation, route }) {
 
             console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
             setShowLoader('')
-            fetch("http://arc.softwaresolutions.website/api/v1/create-listing", {
+            fetch("https://arcsightapp.com/api/v1/create-listing", {
                 method: "post",
                 headers: {
                     Accept: "application/json",
@@ -341,7 +353,7 @@ function EditPropertyScreen({ navigation, route }) {
 
     const searchListingDetailApiIntegration = (accessToken, listing_id) => {
         setShowLoader("");
-        fetch("http://arc.softwaresolutions.website/api/v1/listing/detail", {
+        fetch("https://arcsightapp.com/api/v1/listing/detail", {
             method: "POST",
             headers: {
                 Accept: 'application/json',

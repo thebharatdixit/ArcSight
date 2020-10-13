@@ -46,7 +46,7 @@ function PrivacyPolicy({ navigation }) {
 
                 <WebView
                     style={{ width: '100%', height: '100%', alignSelf: 'center', alignContent: 'center', alignItems: 'center', }}
-                    source={{ uri: 'http://arc.softwaresolutions.website/privacy' }}
+                    source={{ uri: 'https://arcsightapp.com/privacy' }}
 
                 />
 

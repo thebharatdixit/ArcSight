@@ -54,7 +54,7 @@ function ChangePasswordScreen({ navigation }) {
             return;
         }
 
-        fetch("http://arc.softwaresolutions.website/api/v1/user/change-password", {
+        fetch("https://arcsightapp.com/api/v1/user/change-password", {
             method: "POST",
             headers: {
                 Accept: 'application/json',

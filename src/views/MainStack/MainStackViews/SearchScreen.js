@@ -132,7 +132,7 @@ function SearchScreen({ navigation }) {
     const getAminities = () => {
         console.log('fetch Aminities');
         setShowLoader('')
-        fetch("http://arc.softwaresolutions.website/api/v1/amenities", {
+        fetch("https://arcsightapp.com/api/v1/amenities", {
             method: "GET",
             headers: {
                 Accept: 'application/json',
@@ -202,7 +202,7 @@ function SearchScreen({ navigation }) {
     const searchListingApiIntegration = (navigation) => {
         console.log('Search Details :: ', listing, location, homeType, bedRoom, bathRoom, selectedValue, sqFeetMin, sqFeetMax, forSaleText, forRentText)
         setShowLoader('')
-        fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
+        fetch("https://arcsightapp.com/api/v1/search/listing", {
             method: "POST",
             headers: {
                 Accept: 'application/json',

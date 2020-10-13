@@ -53,7 +53,7 @@ function PropertyScreen({ navigation }) {
     const [terrace, setTerrace] = React.useState(0);
     const [homeType, setHomeType] = React.useState('');
     const [squreFeet, setSqureFeet] = React.useState('');
-    const [pricePerSqureFeet, setPricePerSqureFeet] = React.useState('');
+    var [pricePerSqureFeet, setPricePerSqureFeet] = React.useState('');
     const [description, setDescription] = React.useState('');
     const [isFeatured, setIsFeatured] = React.useState('no');
 
@@ -129,8 +129,16 @@ function PropertyScreen({ navigation }) {
         }
 
         if (!(mainImage === "")) {
+            var intPrice = price
+            // var a = '1,125';
+            intPrice = intPrice.replace(/\,/g, ''); // 1125, but a string, so convert it to number
+            intPrice = parseInt(intPrice, 10);
 
-            console.log('fileName:::: ' + fileName);
+            var intpricePerSqureFeet = pricePerSqureFeet
+            // var a = '1,125';
+            intpricePerSqureFeet = intpricePerSqureFeet.replace(/\,/g, ''); // 1125, but a string, so convert it to number
+            intpricePerSqureFeet = parseInt(intpricePerSqureFeet, 10);
+            console.log('fileName:::: ' + fileName + " ::intPrice:: " + intPrice + " ::pricePerSqureFeet:: " + intpricePerSqureFeet);
             const formData = new FormData();
 
             formData.append('home_type', homeType);
@@ -138,14 +146,15 @@ function PropertyScreen({ navigation }) {
             formData.append('bedrooms', bedroom);
             formData.append('bathrooms', bath);
             formData.append('terrace', terrace);
+            formData.append('unit', unit);
             formData.append('listing_type', listingType);
             formData.append('state', stateName);
             formData.append('city', city);
             formData.append('zipcode', zipcode);
             formData.append('location', address);
             formData.append('year_built', yearBuilt);
-            formData.append('price_per_sq_feet', pricePerSqureFeet);
-            formData.append('price', price);
+            formData.append('price_per_sq_feet', intpricePerSqureFeet);
+            formData.append('price', intPrice);
             formData.append('taxes', taxes);
             formData.append('latitude', latitude);
             formData.append('longitude', longnitude);
@@ -198,7 +207,7 @@ function PropertyScreen({ navigation }) {
 
             console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
             setShowLoader('')
-            fetch("http://arc.softwaresolutions.website/api/v1/create-listing", {
+            fetch("https://arcsightapp.com/api/v1/create-listing", {
                 method: "post",
                 headers: {
                     Accept: "application/json",
@@ -826,7 +835,7 @@ function PropertyScreen({ navigation }) {
                                     underlineColorAndroid='transparent'
                                     onChangeText={(price) => setPrice(price)}
                                     value={Comma(price)} />
-                                    <Text style={{ position: 'absolute', left: 10, top: 15, fontSize: 17, color: 'gray' }}>$</Text>
+                                <Text style={{ position: 'absolute', left: 10, top: 15, fontSize: 17, color: 'gray' }}>$</Text>
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
@@ -844,7 +853,7 @@ function PropertyScreen({ navigation }) {
                                     underlineColorAndroid='transparent'
                                     onChangeText={(pricePerSqureFeet) => setPricePerSqureFeet(pricePerSqureFeet)}
                                     value={Comma(pricePerSqureFeet)} />
-                                    <Text style={{ position: 'absolute', left: 10, top: 15, fontSize: 17, color: 'gray' }}>$</Text>
+                                <Text style={{ position: 'absolute', left: 10, top: 15, fontSize: 17, color: 'gray' }}>$</Text>
                             </View>
                         </View>
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}

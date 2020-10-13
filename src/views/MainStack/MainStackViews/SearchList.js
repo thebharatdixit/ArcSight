@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
+
 
 import {
     View, Text, TouchableOpacity, StyleSheet,
@@ -23,6 +25,8 @@ import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { getDimen } from '../../../dimensions/dimen';
 import { getData } from '../../../utils/asyncStore';
+import { login } from '../../../actions/loginAction';
+
 
 function SearchListScreen({ navigation, route }) {
 
@@ -31,6 +35,8 @@ function SearchListScreen({ navigation, route }) {
     const [bannerUrlImage, setBannerUrl] = React.useState('');
     const [length, setLength] = React.useState();
     const [isMap, setIsMap] = React.useState('off');
+    const isFocused = useIsFocused();
+
 
 
     React.useEffect(() => {
@@ -66,7 +72,62 @@ function SearchListScreen({ navigation, route }) {
             }
 
         })
-    }, [])
+        callLoginApi();
+    }, [isFocused])
+
+    const callLoginApi = () => {
+        getData('saveUsername').then((userName) => {
+            getData('savePassword').then((password) => {
+                getData('fcmToken').then((fcmToken) => {
+                    let data = {
+                        "email": userName,
+                        "password": password,
+                        "login_device": Platform.OS,
+                        "notification_token": fcmToken
+                    }
+                    setShowLoader('')
+                    login(data).then((response) => {
+                        setShowLoader('hide')
+                        if (response.status) {
+                            storeData('saveUsername', userName);
+                            storeData('savePassword', password);
+                            storeData('saveFcmToken', fcmToken);
+                            storeData('isLogin', 'true');
+                            storeData('userData', JSON.stringify(response.data));
+                            storeData('profileImage', response.data.user.profile_image_url);
+                            // getBannerUrl();
+                            
+                            // navigation.navigate('Main Stack');
+                            // Alert.alert('' + response.message, [{
+                            //     text: 'OK', onPress: () => {
+                            //         setUsername('')
+                            //         setPassword('')
+                            //     }
+                            // }], { cancelable: false });
+                            console.log("trying to login")
+                            setTimeout(function () {
+                                if(response.data.user.pro_user === "yes"){
+                                    setBannerUrl("");
+                                    storeData("bannerUrl", "");
+                                }
+                                // setUsername('');
+                                // setPassword('');
+                                //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
+                                // changeAuthState(true)
+
+                            }, 300);
+                        }
+                        else {
+                            // Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                            alert("" + response.message);
+                        }
+
+                    })
+                })
+            })
+        })
+
+    }
 
     const openMapurl = (lati, longi, locationName) => {
         console.log('hnxvncb:: ' + lati + " :: " + longi);
@@ -166,7 +227,7 @@ function SearchListScreen({ navigation, route }) {
                                                 style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09)}}
                                             /> */}
                                                         {
-                                                            (item && item.main_image_url === undefined || item.main_image_url === null || item.main_image_url === 'http://arc.softwaresolutions.website/images/ListingImages/' || '') ?
+                                                            (item && item.main_image_url === undefined || item.main_image_url === null || item.main_image_url === 'https://arcsightapp.com/images/ListingImages/' || '') ?
                                                                 <Image
                                                                     source={require('../../../assets/icons/19.png')}
                                                                     style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}

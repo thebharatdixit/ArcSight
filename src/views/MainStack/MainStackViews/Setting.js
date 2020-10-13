@@ -121,7 +121,7 @@ function SettingScreen({ navigation, changeAuthState}){
 
     const logOutApiIntegration = () => {
         setShowLoader('')
-        fetch("http://arc.softwaresolutions.website/api/v1/logout", {
+        fetch("https://arcsightapp.com/api/v1/logout", {
             method: "get",
             headers: {
                 Accept: "application/json",
@@ -164,7 +164,7 @@ function SettingScreen({ navigation, changeAuthState}){
         }
         console.log('Setting data:', data)
 
-        fetch("http://arc.softwaresolutions.website/api/v1/user/update-profile", {
+        fetch("https://arcsightapp.com/api/v1/user/update-profile", {
             method: "post",
             headers: {
                 Accept: "application/json",

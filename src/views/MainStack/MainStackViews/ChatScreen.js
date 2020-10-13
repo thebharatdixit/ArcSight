@@ -17,6 +17,7 @@ import {
     Alert,
     Share
 } from 'react-native';
+import { login } from '../../../actions/loginAction';
 
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
@@ -112,10 +113,64 @@ function ChatScreen({ route, navigation }) {
         })
 
         console.log('On Collegue screen');
-
+        callLoginApi();
 
 
     }, [isFocused])
+
+    const callLoginApi = () => {
+        getData('saveUsername').then((userName) => {
+            getData('savePassword').then((password) => {
+                getData('fcmToken').then((fcmToken) => {
+                    let data = {
+                        "email": userName,
+                        "password": password,
+                        "login_device": Platform.OS,
+                        "notification_token": fcmToken
+                    }
+                    setShowLoader('')
+                    login(data).then((response) => {
+                        setShowLoader('hide')
+                        if (response.status) {
+                            storeData('saveUsername', userName);
+                            storeData('savePassword', password);
+                            storeData('saveFcmToken', fcmToken);
+                            storeData('isLogin', 'true');
+                            storeData('userData', JSON.stringify(response.data));
+                            storeData('profileImage', response.data.user.profile_image_url);
+                            // getBannerUrl();
+                            
+                            // navigation.navigate('Main Stack');
+                            // Alert.alert('' + response.message, [{
+                            //     text: 'OK', onPress: () => {
+                            //         setUsername('')
+                            //         setPassword('')
+                            //     }
+                            // }], { cancelable: false });
+                            console.log("trying to login")
+                            setTimeout(function () {
+                                if(response.data.user.pro_user === "yes"){
+                                    setBannerUrl("");
+                                    storeData("bannerUrl", "");
+                                }
+                                // setUsername('');
+                                // setPassword('');
+                                //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
+                                // changeAuthState(true)
+
+                            }, 300);
+                        }
+                        else {
+                            // Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                            alert("" + response.message);
+                        }
+
+                    })
+                })
+            })
+        })
+
+    }
 
 
 
@@ -173,7 +228,7 @@ function ChatScreen({ route, navigation }) {
         let data = {
             "search_type": value
         }
-        fetch("http://arc.softwaresolutions.website/api/v1/search-colleagues", {
+        fetch("https://arcsightapp.com/api/v1/search-colleagues", {
             method: "post",
             headers: {
                 Accept: "application/json",
@@ -203,7 +258,7 @@ function ChatScreen({ route, navigation }) {
 
         setShowLoader('');
 
-        fetch("http://arc.softwaresolutions.website/api/v1/add-colleague", {
+        fetch("https://arcsightapp.com/api/v1/add-colleague", {
             method: "post",
             headers: {
                 Accept: "application/json",
@@ -234,7 +289,7 @@ function ChatScreen({ route, navigation }) {
     const removeColleagu = (id) => {
         setShowLoader('');
 
-        fetch("http://arc.softwaresolutions.website/api/v1/remove-colleague", {
+        fetch("https://arcsightapp.com/api/v1/remove-colleague", {
             method: "post",
             headers: {
                 Accept: "application/json",

@@ -37,6 +37,8 @@ import ProfileScreen from '../MainStackViews/ProfileScreen';
 import MyColleagueScreen from '../MainStackViews/MyColleague';
 import { getData, storeData } from '../../../utils/asyncStore';
 import { fetchBannerUrl } from '../../../actions/homeAction';
+import { login } from '../../../actions/loginAction';
+
 import { WebView } from "react-native-webview";
 import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
 
@@ -62,7 +64,7 @@ const DATA = [
 //     <View style={{ flex: 1 }}>
 //         <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02),paddingRight: getDimen(0.03) ,backgroundColor: 'white' }}>
 //             {
-//                 (title.userinfo.profile_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
+//                 (title.userinfo.profile_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
 //                     <Image source={require('../../../assets/icons/2.png')}
 //                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
 //                     :
@@ -111,7 +113,7 @@ const DATA = [
 //         <View style={styles.item}>
 
 //             {
-//                 (title.main_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
+//                 (title.main_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
 //                     <Image source={require('../../../assets/icons/19.png')}
 //                         style={{ height: '100%', width: '100%' }} />
 //                     :
@@ -229,7 +231,63 @@ function MainScreen({ navigation }) {
             }
 
         })
+        callLoginApi();
+        // getBannerUrl();
     }, [isFocused])
+
+    const callLoginApi = () => {
+        getData('saveUsername').then((userName) => {
+            getData('savePassword').then((password) => {
+                getData('fcmToken').then((fcmToken) => {
+                    let data = {
+                        "email": userName,
+                        "password": password,
+                        "login_device": Platform.OS,
+                        "notification_token": fcmToken
+                    }
+                    setShowLoader('')
+                    login(data).then((response) => {
+                        setShowLoader('hide')
+                        if (response.status) {
+                            storeData('saveUsername', userName);
+                            storeData('savePassword', password);
+                            storeData('saveFcmToken', fcmToken);
+                            storeData('isLogin', 'true');
+                            storeData('userData', JSON.stringify(response.data));
+                            storeData('profileImage', response.data.user.profile_image_url);
+                            // getBannerUrl();
+                            
+                            // navigation.navigate('Main Stack');
+                            // Alert.alert('' + response.message, [{
+                            //     text: 'OK', onPress: () => {
+                            //         setUsername('')
+                            //         setPassword('')
+                            //     }
+                            // }], { cancelable: false });
+                            console.log("trying to login")
+                            setTimeout(function () {
+                                if(response.data.user.pro_user === "yes"){
+                                    setBannerUrl("");
+                                    storeData("bannerUrl", "");
+                                }
+                                // setUsername('');
+                                // setPassword('');
+                                //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
+                                // changeAuthState(true)
+
+                            }, 300);
+                        }
+                        else {
+                            // Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                            alert("" + response.message);
+                        }
+
+                    })
+                })
+            })
+        })
+
+    }
 
     const openMapurl = (lati, longi, locationName) => {
         console.log('hnxvncb:: ' + lati + " :: " + longi);
@@ -246,7 +304,7 @@ function MainScreen({ navigation }) {
     }
 
     const homeListingApiIntegration = () => {
-        fetch("http://arc.softwaresolutions.website/api/v1/search/listing", {
+        fetch("https://arcsightapp.com/api/v1/search/listing", {
             method: "POST",
             headers: {
                 Accept: 'application/json',
@@ -291,6 +349,8 @@ function MainScreen({ navigation }) {
                 console.log('banner url : ' + JSON.stringify(url));
             }
             else {
+                setBannerUrl("");
+                storeData("bannerUrl", "");
                 Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             }
 
@@ -499,7 +559,7 @@ function MainScreen({ navigation }) {
                                                         }
                                                         }>
                                                             {
-                                                                (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
+                                                                (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
                                                                     <Image source={require('../../../assets/icons/2.png')}
                                                                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                                                                     :
@@ -574,7 +634,7 @@ function MainScreen({ navigation }) {
                                                         <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
 
                                                             {
-                                                                (item.main_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
+                                                                (item.main_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
                                                                     <Image source={require('../../../assets/icons/19.png')}
                                                                         style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
                                                                     />
@@ -672,7 +732,7 @@ function MainScreen({ navigation }) {
                                                         }
                                                         }>
                                                             {
-                                                                (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'http://arc.softwaresolutions.website/images/UserImages/' || '') ?
+                                                                (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
                                                                     <Image source={require('../../../assets/icons/2.png')}
                                                                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                                                                     :

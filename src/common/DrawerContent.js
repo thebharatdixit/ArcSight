@@ -71,7 +71,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
 
     const logOutApiIntegration = () => {
         setShowLoader('');
-        fetch("http://arc.softwaresolutions.website/api/v1/logout", {
+        fetch("https://arcsightapp.com/api/v1/logout", {
             method: "get",
             headers: {
                 Accept: "application/json",
@@ -108,7 +108,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                     <View style={{ flexDirection: 'row', marginTop: 10, width: '100%' }}>
                         <TouchableOpacity>
                             {
-                                (userImage === 'http://arc.softwaresolutions.website/images/UserImages/') ?
+                                (userImage === 'https://arcsightapp.com/images/UserImages/') ?
                                     <Image source={require('../assets/icons/2.png')}
                                         style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05) }} />
                                     :
@@ -171,7 +171,7 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                         <DrawerItem
                             label="UPGRADE TO PRO"
                             labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold' }}
-                            onPress={() => navigation.navigate("Payment")}
+                            onPress={() => navigation.navigate("UPGRADE TO PRO")}
                         />
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
                         <DrawerItem

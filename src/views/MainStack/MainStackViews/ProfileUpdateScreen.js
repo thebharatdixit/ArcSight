@@ -67,7 +67,7 @@ function ProfileUpdateScreen({ navigation }) {
                 "company_name" :companyName
 
         }
-        fetch("http://arc.softwaresolutions.website/api/v1/user/update-profile", {
+        fetch("https://arcsightapp.com/api/v1/user/update-profile", {
             method: "post",
             headers: {
                 Accept: "application/json",

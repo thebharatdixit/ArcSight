@@ -117,7 +117,7 @@ function ColleaguageListScreen({ route, navigation }) {
         console.log(" id  : " + id)
         setShowLoader('');
 
-        fetch("http://arc.softwaresolutions.website/api/v1/add-colleague", {
+        fetch("https://arcsightapp.com/api/v1/add-colleague", {
             method: "post",
             headers: {
                 Accept: "application/json",
@@ -152,7 +152,7 @@ function ColleaguageListScreen({ route, navigation }) {
         setShowLoader('');
         console.log("remove  id  : " + id)
 
-        fetch("http://arc.softwaresolutions.website/api/v1/remove-colleague", {
+        fetch("https://arcsightapp.com/api/v1/remove-colleague", {
             method: "post",
             headers: {
                 Accept: "application/json",
@@ -386,7 +386,7 @@ function ColleaguageListScreen({ route, navigation }) {
 
 
                                         {
-                                            (item.main_image_url === 'http://arc.softwaresolutions.website/images/ListingImages/') ?
+                                            (item.main_image_url === 'https://arcsightapp.com/images/ListingImages/') ?
                                                 <Image source={require('../../../assets/icons/19.png')}
                                                     style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
                                                 />
