@@ -29,7 +29,7 @@ import { getData } from '../../../utils/asyncStore';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { fetchAminities } from '../../../actions/addListingActions';
 import { searchApi } from '../../../actions/searchAction';
-
+import { changeCounter } from '../../../actions/navigationAction'
 const homePlace = {
     description: 'Home',
     geometry: { location: { lat: 28.5838, lng: 77.3597 } },
@@ -40,7 +40,7 @@ const workPlace = {
 };
 
 
-function SearchScreen({ navigation }) {
+function Search({ navigation, changeCounter }) {
 
     const data = [
         { id: '1', value: '20,000', },
@@ -70,7 +70,7 @@ function SearchScreen({ navigation }) {
     const [showLoader, setShowLoader] = React.useState('hide');
     const [aminitiesList, setAminitiesList] = React.useState([]);
     const [selected, setSelected] = React.useState('');
-    
+
     const allButton = () => {
         setChecked1(true)
         setChecked2(false)
@@ -285,11 +285,11 @@ function SearchScreen({ navigation }) {
         console.log('Search Details on seach tap :: ' + "listing: " + listing + "location: " + location + "homeType: " + homeType + "bedRoom: " + bedRoom + "bathRoom: " + bathRoom + "selectedValue: " + selectedValue + "sqFeetMin: " + sqFeetMin + "sqFeetMax: " + sqFeetMax + forSaleText + forRentText)
         setShowLoader('')
         var listingTyp = [];
-        if (!(forSaleText === "")){
+        if (!(forSaleText === "")) {
             listingTyp.push(forSaleText);
         }
 
-        if (!(forRentText === "")){
+        if (!(forRentText === "")) {
             listingTyp.push(forRentText);
         }
 
@@ -328,9 +328,10 @@ function SearchScreen({ navigation }) {
     return (
         <View style={{ flex: 1 }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() =>
+                <TouchableOpacity onPress={() => {
+                    changeCounter(Math.random())
                     navigation.dispatch(DrawerActions.toggleDrawer())
-                }>
+                }}>
                     <Image source={require('../../../assets/icons/3.png')}
                         style={{ height: 25, width: 25 }} />
                 </TouchableOpacity>
@@ -849,4 +850,12 @@ const styles = StyleSheet.create({
     },
 });
 // const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+//export default SearchScreen;
+const mapStateToProps = (state) => ({
+
+});
+const mapDispatchToProps = {
+    changeCounter
+}
+const SearchScreen = connect(mapStateToProps, mapDispatchToProps)(Search);
 export default SearchScreen;

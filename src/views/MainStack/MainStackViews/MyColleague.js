@@ -36,7 +36,7 @@ import { WebView } from "react-native-webview";
 import { getDimen } from '../../../dimensions/dimen';
 import { storeData, getData } from '../../../utils/asyncStore';
 import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
-
+import { changeCounter } from '../../../actions/navigationAction'
 
 const onShare = async (webUrl) => {
     if (webUrl) {
@@ -62,7 +62,7 @@ const onShare = async (webUrl) => {
     }
     //console.log('hello');
 }
-function MyColleagueScreen({ navigation }) {
+function MyColleague({ navigation, changeCounter }) {
 
     const dummyData = [
         // mainSt: '1234 Main St',
@@ -202,8 +202,11 @@ function MyColleagueScreen({ navigation }) {
         <MenuProvider>
             <View style={{ flex: 1 }}>
                 <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                    <TouchableOpacity onPress={() =>
+                    <TouchableOpacity onPress={() => {
+                        changeCounter(Math.random())
                         navigation.dispatch(DrawerActions.toggleDrawer())
+
+                    }
                     }>
                         <Image source={require('../../../assets/icons/3.png')}
                             style={{ height: 25, width: 25 }} />
@@ -648,4 +651,12 @@ const styles = StyleSheet.create({
     },
 });
 // const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+//export default MyColleagueScreen;
+const mapStateToProps = (state) => ({
+
+});
+const mapDispatchToProps = {
+    changeCounter
+}
+const MyColleagueScreen = connect(mapStateToProps, mapDispatchToProps)(MyColleague);
 export default MyColleagueScreen;

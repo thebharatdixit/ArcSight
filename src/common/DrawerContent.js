@@ -24,13 +24,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import settingScreen from '../views/MainStack/MainStackViews/Setting'
 import { login } from '../actions/loginAction';
-
 // import Payment from '../common/Payment';
 
 // import { NavigationActions, StackActions } from 'react-navigation';
 // import { AsyncStorage } from '@react-native-community/async-storage';
+import { changeProStatus } from '../actions/navigationAction';
 
-function DrawerScreen({ route, navigation, changeAuthState }) {
+function DrawerScreen(props) {
+    const { route, navigation, changeAuthState, proUser, changeProStatus, counter } = props
     console.log('route', route, navigation)
     const [accessToken, setAccessToken] = React.useState('')
     const [userImage, setUserImage] = React.useState('')
@@ -39,12 +40,22 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
     const isFocused = navigation.isFocused;
 
 
+
     // const isFocused = useIsFocused();
-    getData('profileImage').then((profileImage) => {
-        // console.log('token1', listTokens)
-        setUserImage(profileImage)
-        console.log('UserImage', profileImage)
-    })
+    // getData('profileImage').then((profileImage) => {
+    //     // console.log('token1', listTokens)
+    //     setUserImage(profileImage)
+    //     console.log('UserImage', profileImage)
+    //     if (proUser === false) {
+    //         // callLoginApi();
+    //     }
+    // })
+    useEffect(() => {
+        console.log("hello")
+        if (proUser === false) {
+            callLoginApi();
+        }
+    }, [counter])
 
     const openTwoButtonAlert = () => {
         Alert.alert(
@@ -61,19 +72,20 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
 
 
 
-    React.useEffect(() => {
-        getData('userData').then((data) => {
-            const userData = JSON.parse(data);
-            const listTokens = userData.token;
-            setAccessToken(listTokens);
-            getData('profileImage').then((profileImage) => {
-                // console.log('token1', listTokens)
-                setUserImage(profileImage)
-                console.log('UserImage', profileImage)
-            })
-        })
-        callLoginApi();
-    }, [isFocused])
+    // React.useEffect(() => {
+    //     console.log("navigatioon use effect calling..")
+    //     getData('userData').then((data) => {
+    //         const userData = JSON.parse(data);
+    //         const listTokens = userData.token;
+    //         setAccessToken(listTokens);
+    //         getData('profileImage').then((profileImage) => {
+    //             // console.log('token1', listTokens)
+    //             setUserImage(profileImage)
+    //             console.log('UserImage', profileImage)
+    //         })
+    //     })
+    //     callLoginApi();
+    // }, [isFocused])
 
     const callLoginApi = () => {
         getData('saveUsername').then((userName) => {
@@ -110,8 +122,11 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                                     // setBannerUrl("");
                                     setIsPro("yes");
                                     storeData("bannerUrl", "");
+                                    changeProStatus(true)
                                 }
                                 else {
+                                    changeProStatus(false)
+
                                     setIsPro("");
                                 }
                                 // setUsername('');
@@ -233,13 +248,11 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                             labelStyle={{ color: 'white', fontSize: getDimen(0.041) }}
                             onPress={() => navigation.navigate('Search')}
                         />
-                        {isPro === "yes" ? null
-                            :
-                            <DrawerItem
-                                label="UPGRADE TO PRO"
-                                labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold' }}
-                                onPress={() => navigation.navigate("UPGRADE TO PRO")}
-                            />
+                        {proUser === false && <DrawerItem
+                            label="UPGRADE TO PRO"
+                            labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold' }}
+                            onPress={() => navigation.navigate("UPGRADE TO PRO")}
+                        />
                         }
 
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
@@ -279,9 +292,11 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
 }
 const mapStateToProps = (state) => ({
     // isLoggedIn: state.auth.isLoggedIn,
+    proUser: state.navigation.proUser,
+    counter: state.navigation.counter
 });
 const mapDispatchToProps = {
-    changeAuthState
+    changeAuthState, changeProStatus
 }
 const DrawerContent = connect(mapStateToProps, mapDispatchToProps)(DrawerScreen);
 export default DrawerContent;

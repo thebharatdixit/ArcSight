@@ -36,8 +36,9 @@ import { fetchAminities } from '../../../actions/addListingActions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Textarea from 'react-native-textarea';
 import NumberFormat from 'react-number-format';
+import {changeCounter} from '../../../actions/navigationAction'
 
-function PropertyScreen({ navigation }) {
+function Property({ navigation ,changeCounter}) {
 
     const [filePath, setFilePath] = React.useState('')
     const [picture, setPicture] = React.useState('');
@@ -588,8 +589,10 @@ function PropertyScreen({ navigation }) {
             {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
             {console.log("rendering the screen...")}
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() =>
-                    navigation.dispatch(DrawerActions.toggleDrawer())
+                <TouchableOpacity onPress={() =>{
+                        changeCounter(Math.random())
+                        navigation.dispatch(DrawerActions.toggleDrawer())
+                    }
                 }>
                     <Image source={require('../../../assets/icons/3.png')}
                         style={{ height: 25, width: 25 }} />
@@ -1410,4 +1413,14 @@ const styles = StyleSheet.create({
         marginRight: getDimen(.085)
     },
 });
+//export default PropertyScreen;
+
+const mapStateToProps = (state) => ({
+
+});
+const mapDispatchToProps = {
+    changeCounter
+}
+const PropertyScreen = connect(mapStateToProps, mapDispatchToProps)(Property);
 export default PropertyScreen;
+

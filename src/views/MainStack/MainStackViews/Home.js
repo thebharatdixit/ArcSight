@@ -27,6 +27,7 @@ import {
     MenuTrigger,
 } from 'react-native-popup-menu';
 import { useIsFocused } from '@react-navigation/native';
+import { changeProStatus } from '../../../actions/navigationAction'
 import { Button, Icon, Input, CheckBox, ListItem, Body } from 'native-base';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -41,7 +42,7 @@ import { login } from '../../../actions/loginAction';
 
 import { WebView } from "react-native-webview";
 import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
-
+import { changeCounter } from '../../../actions/navigationAction'
 import moment from 'moment';
 
 const DATA = [
@@ -161,7 +162,9 @@ const DATA = [
 
 
 
-function MainScreen({ navigation }) {
+function Main(props) {
+
+    const { changeProStatus, navigation, changeCounter } = props
     const [accessToken, setAccessToken] = React.useState('')
     const [homeList, setHomeList] = React.useState([])
     const [webUrl, setWerUrl] = React.useState('')
@@ -219,21 +222,11 @@ function MainScreen({ navigation }) {
 
         //console.log('hello');
     }
-
     React.useEffect(() => {
-        getData('mapOnOff').then((mapOnOff) => {
-            console.log('mapOnOffonhome:: ' + mapOnOff);
-            if (mapOnOff === 'on') {
-                setIsMap("on");
-            }
-            else {
-                setIsMap("off");
-            }
-
-        })
+        console.log("navigatioon use effect calling..")
         callLoginApi();
-        // getBannerUrl();
-    }, [isFocused])
+    }, [])
+
 
     const callLoginApi = () => {
         getData('saveUsername').then((userName) => {
@@ -256,7 +249,7 @@ function MainScreen({ navigation }) {
                             storeData('userData', JSON.stringify(response.data));
                             storeData('profileImage', response.data.user.profile_image_url);
                             // getBannerUrl();
-                            
+
                             // navigation.navigate('Main Stack');
                             // Alert.alert('' + response.message, [{
                             //     text: 'OK', onPress: () => {
@@ -266,9 +259,12 @@ function MainScreen({ navigation }) {
                             // }], { cancelable: false });
                             console.log("trying to login")
                             setTimeout(function () {
-                                if(response.data.user.pro_user === "yes"){
+                                if (response.data.user.pro_user === "yes") {
                                     setBannerUrl("");
                                     storeData("bannerUrl", "");
+                                    changeProStatus(true)
+                                } else {
+                                    changeProStatus(false)
                                 }
                                 // setUsername('');
                                 // setPassword('');
@@ -361,15 +357,15 @@ function MainScreen({ navigation }) {
     const daysFunction = (createdDatee, item) => {
         // var createdDt = moment(createdDatee).format('MMM DD, YYYY hh:mm a')
         var createdDt = moment(createdDatee).format('MMM DD, YYYY hh:mm A')
-        console.log('DateFormatecreatedDateMMMDDYYY', createdDt);
-        console.log('DateFormatecreatedDateMMMDDYYYReal', createdDatee + " namee:: " + item.userinfo.name);
+        //  console.log('DateFormatecreatedDateMMMDDYYY', createdDt);
+        //  console.log('DateFormatecreatedDateMMMDDYYYReal', createdDatee + " namee:: " + item.userinfo.name);
         // console.log('index::', index)
         var msDiff = new Date().getTime() - new Date(createdDt).getTime();  //Aug 25, 2020
         var daysTill30June2035 = Math.floor(msDiff / (1000 * 60 * 60 * 24));
-        console.log('Days***!!!:', daysTill30June2035, new Date()); //current date: Thu Aug 27 2020 12:10:44 GMT+0530 (IST)
+        //console.log('Days***!!!:', daysTill30June2035, new Date()); //current date: Thu Aug 27 2020 12:10:44 GMT+0530 (IST)
         // var createdDiffDate = daysTill30June2035 + " "
         // setCreatedDate(createdDiffDate)
-        console.log('Created Date00002', createdDate);
+        //console.log('Created Date00002', createdDate);
 
         var delta = Math.abs(msDiff) / 1000;
 
@@ -401,14 +397,14 @@ function MainScreen({ navigation }) {
         // console.log('minutes', ('0' + minutes).slice(-2));
         // console.log('seconds', ('0' + seconds).slice(-2));
         // console.log('months', ('0' + months));
-        console.log('days:: ' + days + " : hours:: " + hours + " : minutes:: " + minutes + " : seconds:: " + seconds);
+        //console.log('days:: ' + days + " : hours:: " + hours + " : minutes:: " + minutes + " : seconds:: " + seconds);
 
         // if (years === 0){
         if (days < 1) {
-            console.log('insidethis:::');
+            // console.log('insidethis:::');
             if (hours > 0) {
                 // if (hours < 24) {
-                console.log('insidethishours::: ' + hours);
+                //     console.log('insidethishours::: ' + hours);
                 var createdDiffDate = ('0' + hours).slice(-2) + " " + "hrs ago"
                 return createdDiffDate
                 // setCreatedDate(createdDiffDate)
@@ -429,7 +425,7 @@ function MainScreen({ navigation }) {
                 }
             }
         } else {
-            console.log('insidethis::::');
+            //console.log('insidethis::::');
             var createdDiffDate = daysTill30June2035 + " " + "days ago"
             return createdDiffDate
             setCreatedDate(createdDiffDate)
@@ -508,7 +504,10 @@ function MainScreen({ navigation }) {
             <View style={{ flex: 1 }} >
                 <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                     <TouchableOpacity onPress={() =>
+                    {
+                        changeCounter(Math.random())
                         navigation.dispatch(DrawerActions.toggleDrawer())
+                    }
                     }>
                         <Image source={require('../../../assets/icons/3.png')}
                             style={{ height: 25, width: 25 }} />
@@ -1129,5 +1128,11 @@ const styles = StyleSheet.create({
 
     }
 });
-// const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+const mapStateToProps = (state) => ({
+
+});
+const mapDispatchToProps = {
+    changeProStatus, changeCounter
+}
+const MainScreen = connect(mapStateToProps, mapDispatchToProps)(Main);
 export default MainScreen;

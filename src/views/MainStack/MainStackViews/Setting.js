@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View, Text, TouchableOpacity, StyleSheet,
     ScrollView,
@@ -12,7 +12,7 @@ import {
     FlatList,
     Alert,
     Share,
-    SafeAreaView, 
+    SafeAreaView,
     Switch
 } from 'react-native';
 import { connect } from 'react-redux';
@@ -21,9 +21,10 @@ import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 import { getDimen } from '../../../dimensions/dimen';
 import { storeData, getData } from '../../../utils/asyncStore';
 import email from 'react-native-email'
-import {changeAuthState} from '../../../actions/authAction'
+import { changeAuthState } from '../../../actions/authAction'
+import { changeCounter } from '../../../actions/navigationAction';
 
-function SettingScreen({ navigation, changeAuthState}){
+function SettingScreen({ navigation, changeAuthState, changeCounter }) {
     const [checked1, setChecked1] = useState(false);
     const [checked2, setChecked2] = useState(false);
     const [checked3, setChecked3] = useState(false);
@@ -35,19 +36,17 @@ function SettingScreen({ navigation, changeAuthState}){
     const [showLoader, setShowLoader] = React.useState('hide');
     const [notificationType, setNotificationType] = React.useState('')
     const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => 
-    {
-        if(isEnabled){
+    const toggleSwitch = () => {
+        if (isEnabled) {
             storeData("mapOnOff", "off");
         }
-        else
-        {
+        else {
             storeData("mapOnOff", "on");
         }
-        
+
         setIsEnabled(!isEnabled);
     }
-    
+
     const pushButton = () => {
         setNotificationType('push')
         setChecked1(true)
@@ -81,7 +80,7 @@ function SettingScreen({ navigation, changeAuthState}){
             // body: 'Some body right here'
         }).catch(console.error)
     }
-    
+
     const openTwoButtonAlert = () => {
         Alert.alert(
             'Alert!', 'Are you sure want to logout',
@@ -108,11 +107,10 @@ function SettingScreen({ navigation, changeAuthState}){
 
     React.useEffect(() => {
         getData('mapOnOff').then((mapOnOff) => {
-            if(mapOnOff === "on"){
+            if (mapOnOff === "on") {
                 setIsEnabled(true);
             }
-            else
-            {
+            else {
                 setIsEnabled(false);
             }
             // console.log('token1', listTokens)
@@ -187,72 +185,75 @@ function SettingScreen({ navigation, changeAuthState}){
         return undefined;
     }
 
-    return(
-    <View style={{ flex: 1 }}>
-        <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-            <TouchableOpacity onPress={() =>
-                navigation.dispatch(DrawerActions.toggleDrawer())
-            }>
-                <Image source={require('../../../assets/icons/3.png')}
-                    style={{ height: 25, width: 25 }} />
-            </TouchableOpacity>
+    return (
+        <View style={{ flex: 1 }}>
+            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() => {
+                    changeCounter(Math.random())
+                    navigation.dispatch(DrawerActions.toggleDrawer())
 
-            <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                {/* <Image source={require('../../../assets/icons/2.png')}
+                }
+                }>
+                    <Image source={require('../../../assets/icons/3.png')}
+                        style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>
+
+                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    {/* <Image source={require('../../../assets/icons/2.png')}
                         style={{ height: getDimen(0.1), width: getDimen(0.1) }} /> */}
 
-                <Image source={require('../../../assets/images/logo.png')}
-                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                    <Image source={require('../../../assets/images/logo.png')}
+                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                </View>
             </View>
-        </View>
-        <View style={{ backgroundColor: 'blue', flex: 0.90 }}>
-            
-            <ScrollView style={styles.container}
-                keyboardShouldPersistTaps='always'
-            >
-                    <Text style={{marginTop: getDimen(0.05), marginLeft: getDimen(0.03), fontSize: getDimen(0.045), color: 'gray' }}> Notifications</Text>
-                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
-                  
-                    <TouchableOpacity
-                            onPress={() => {pushButton()}}
-                    >
-                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%',marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.04) }}>
+            <View style={{ backgroundColor: 'blue', flex: 0.90 }}>
 
-                            {checked1 ? (
-                                <Image source={require('../../../assets/icons/check.png')}
-                                    style={{ height: getDimen(0.06), width: getDimen(0.06), }} />
-                            ) : <Image source={require('../../../assets/icons/uncheck.png')}
-                                style={{ height: getDimen(0.06), width: getDimen(0.06), }} />}
+                <ScrollView style={styles.container}
+                    keyboardShouldPersistTaps='always'
+                >
+                    <Text style={{ marginTop: getDimen(0.05), marginLeft: getDimen(0.03), fontSize: getDimen(0.045), color: 'gray' }}> Notifications</Text>
+                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
 
-                            <Text style={{ fontSize: getDimen(0.04), marginLeft: getDimen(0.03), textAlign: 'center', textAlignVertical: 'center' }}>Push</Text>
+                        <TouchableOpacity
+                            onPress={() => { pushButton() }}
+                        >
+                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.04) }}>
 
-                        </View>
-                    </TouchableOpacity>
+                                {checked1 ? (
+                                    <Image source={require('../../../assets/images/Check.png')}
+                                        style={{ height: getDimen(0.06), width: getDimen(0.06), }} />
+                                ) : <Image source={require('../../../assets/icons/uncheck.png')}
+                                    style={{ height: getDimen(0.06), width: getDimen(0.06), }} />}
 
-                    <TouchableOpacity
-                        style={{ marginLeft: getDimen(-0.006) }}
-                        onPress={() =>
-                           { emailButton()
-                           }
-                        }
-                    >
-                        <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.1) }}>
-                            {
-                                checked2 ? (
-                                    <Image source={require('../../../assets/icons/check.png')}
-                                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                ) :
-                                    <Image source={require('../../../assets/icons/uncheck.png')}
-                                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                <Text style={{ fontSize: getDimen(0.04), marginLeft: getDimen(0.03), textAlign: 'center', textAlignVertical: 'center' }}>Push</Text>
+
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={{ marginLeft: getDimen(-0.006) }}
+                            onPress={() => {
+                                emailButton()
                             }
+                            }
+                        >
+                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.1) }}>
+                                {
+                                    checked2 ? (
+                                        <Image source={require('../../../assets/icons/Check.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    ) :
+                                        <Image source={require('../../../assets/icons/uncheck.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                }
 
-                            <Text style={{ fontSize: getDimen(0.04), marginLeft: getDimen(0.03) }}>Email</Text>
-                        </View>
+                                <Text style={{ fontSize: getDimen(0.04), marginLeft: getDimen(0.03) }}>Email</Text>
+                            </View>
 
 
-                    </TouchableOpacity>
+                        </TouchableOpacity>
 
-                    {/* <TouchableOpacity
+                        {/* <TouchableOpacity
                         style={{ marginLeft: getDimen(-0.006) }}
                         onPress={() =>
                             textButton()
@@ -270,38 +271,38 @@ function SettingScreen({ navigation, changeAuthState}){
                             <Text style={{ fontSize: getDimen(0.04), marginLeft: getDimen(0.03) }}>Text</Text>
                         </View>
                     </TouchableOpacity> */}
-                </View>
-                
+                    </View>
+
                     <Text style={{ fontSize: getDimen(0.045), marginLeft: getDimen(0.04), textAlign: 'justify', color: 'gray', marginTop: getDimen(0.1) }}>About</Text>
 
-                    <View style={{ height: getDimen(0.43), width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#F2F2F2',marginTop: getDimen(0.02)}}>
-                      
+                    <View style={{ height: getDimen(0.43), width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#F2F2F2', marginTop: getDimen(0.02) }}>
+
                         <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: 'transparent', textAlign: 'center', justifyContent: 'center', marginTop: getDimen(-0.0), borderBottomWidth: 0, width: getDimen(0.92), height: '32%' }}>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('Terms')}
                             >
                                 <Text style={{ fontSize: getDimen(0.05), marginLeft: getDimen(0.02), color: 'gray', textAlign: 'left', marginTop: getDimen(0), borderBottomWidth: 0 }}>Terms of Use</Text>
                             </TouchableOpacity>
-                        </View> 
+                        </View>
                         <View style={{ height: 1, width: getDimen(0.9), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0) }}></View>
                         <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: 'transparent', textAlign: 'center', justifyContent: 'center', marginTop: getDimen(-0.0), borderBottomWidth: 0, width: getDimen(0.92), height: '32%' }}>
                             <TouchableOpacity
                                 onPress={() => navigation.navigate('Privacy Policy Screen')}
                             >
-                            <Text style={{ fontSize: getDimen(0.05), marginLeft: getDimen(0.02), color: 'gray', textAlign: 'left', marginTop: getDimen(0), borderBottomWidth: 0 }}>Privacy Policy</Text>
+                                <Text style={{ fontSize: getDimen(0.05), marginLeft: getDimen(0.02), color: 'gray', textAlign: 'left', marginTop: getDimen(0), borderBottomWidth: 0 }}>Privacy Policy</Text>
                             </TouchableOpacity>
-                        </View>              
+                        </View>
                         <View style={{ height: 1, width: getDimen(0.9), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0) }}></View>
-                        
+
                         <View style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), backgroundColor: 'transparent', textAlign: 'center', justifyContent: 'center', marginTop: getDimen(0.0), borderBottomWidth: 0, width: getDimen(0.92), height: '32%' }}>
-                           <TouchableOpacity
+                            <TouchableOpacity
                                 onPress={() => handleEmail()}
                             >
-                            <Text style={{ fontSize: getDimen(0.05), marginLeft: getDimen(0.02), textAlign: 'left', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 , }}>Get Help</Text>
+                                <Text style={{ fontSize: getDimen(0.05), marginLeft: getDimen(0.02), textAlign: 'left', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0, }}>Get Help</Text>
                             </TouchableOpacity>
-                        </View> 
+                        </View>
                         {/* <View style={{ height: 1, width: getDimen(0.9), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.02) }}></View> */}
-                        
+
                     </View>
 
                     <Text style={{ fontSize: getDimen(0.045), marginLeft: getDimen(0.04), textAlign: 'justify', color: 'gray', marginTop: getDimen(0.1) }}>Map</Text>
@@ -329,7 +330,7 @@ function SettingScreen({ navigation, changeAuthState}){
                             >
                                 <Image source={require('../../../assets/icons/logout.png')}
                                     style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                <Text style={{ fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(0.1), color: '#f1ac35', textAlign:'center', marginTop:getDimen(-0.06) }}>Log Out</Text>
+                                <Text style={{ fontSize: getDimen(0.05), fontWeight: 'bold', marginLeft: getDimen(0.1), color: '#f1ac35', textAlign: 'center', marginTop: getDimen(-0.06) }}>Log Out</Text>
 
                             </TouchableOpacity>
 
@@ -337,10 +338,10 @@ function SettingScreen({ navigation, changeAuthState}){
 
 
                     </TouchableOpacity>
-                
-            </ScrollView>
-            
-        </View>
+
+                </ScrollView>
+
+            </View>
             {
                 (showLoader === '') ?
                     <View
@@ -352,7 +353,7 @@ function SettingScreen({ navigation, changeAuthState}){
                     null
             }
 
-    </View>
+        </View>
     );
 }
 
@@ -439,7 +440,7 @@ const mapStateToProps = (state) => ({
     // isLoggedIn: state.auth.isLoggedIn,
 });
 const mapDispatchToProps = {
-    changeAuthState
+    changeAuthState, changeCounter
 }
 const SettingScreens = connect(mapStateToProps, mapDispatchToProps)(SettingScreen);
 export default SettingScreens;

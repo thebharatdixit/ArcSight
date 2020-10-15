@@ -18,6 +18,7 @@ import {
     SafeAreaView
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+import { changeCounter } from '../../../actions/navigationAction'
 
 import SplashScreen from 'react-native-splash-screen'
 import { getData } from '../../../utils/asyncStore';
@@ -52,7 +53,7 @@ const onShare = async () => {
 }
 
 const KEYS_TO_FILTERS = ['name', 'company_name'];
-function AddListScreen({ navigation }) {
+function AddList({ navigation }) {
 
 
     const [searchTerm, setSearchTerm] = React.useState('');
@@ -152,8 +153,10 @@ function AddListScreen({ navigation }) {
 
             </View> */}
             <View style={{ width: '100%', flex: 0.11, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity style={{ height: '100%', justifyContent: 'center' }} onPress={() =>
+                <TouchableOpacity style={{ height: '100%', justifyContent: 'center' }} onPress={() => {
+                    changeCounter(Math.random())
                     navigation.dispatch(DrawerActions.toggleDrawer())
+                }
                 }>
                     <Image source={require('../../../assets/icons/3.png')}
                         style={{ height: 25, width: 25 }} />
@@ -173,9 +176,9 @@ function AddListScreen({ navigation }) {
                 placeholder="Enter to search.."
             />
             <View style={{ height: 1, width: '100%', backgroundColor: '#8A8A8A' }}></View>
-            
+
             <SafeAreaView style={{ flex: 1 }}>
-                
+
                 {
                     (length === 0 || length === '') ?
                         <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', backgroundColor: 'white', alignItems: 'center', marginTop: getDimen(0.4) }}>
@@ -184,7 +187,7 @@ function AddListScreen({ navigation }) {
                         :
                         null
                 }
-                
+
                 <FlatList
                     ///// Search List Screen
 
@@ -218,7 +221,7 @@ function AddListScreen({ navigation }) {
                                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
                                                 /> :
                                                     <Image source={require('../../../assets/icons/2.png')}
-                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: getDimen(0.18) / 2 }} />
+                                                        style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: getDimen(0.18) / 2 }} />
                                             }
                                         </View>
                                         <View style={{ flex: 1, height: '100%', }}>
@@ -348,5 +351,11 @@ const styles = StyleSheet.create({
         marginRight: getDimen(.085)
     },
 });
-// const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+const mapStateToProps = (state) => ({
+
+});
+const mapDispatchToProps = {
+     changeCounter
+}
+const AddListScreen = connect(mapStateToProps, mapDispatchToProps)(AddList);
 export default AddListScreen;

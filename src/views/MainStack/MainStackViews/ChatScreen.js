@@ -25,7 +25,7 @@ import { Button, Icon, Item, Input, CheckBox, ListItem, Body, Picker } from 'nat
 import { storeData, getData } from '../../../utils/asyncStore';
 import SearchInput, { createFilter } from 'react-native-search-filter';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
-
+import { changeCounter } from '../../../actions/navigationAction'
 
 
 // import { changeAuthState, changeProtocolState, changeToLogoutState } from '../../actions/authAction';
@@ -54,7 +54,7 @@ const onShare = async () => {
 }
 
 const KEYS_TO_FILTERS = ['name', 'company_name'];
-function ChatScreen({ route, navigation }) {
+function Chat({ route, navigation, changeCounter }) {
 
     const [checked, setChecked] = React.useState(false);
 
@@ -75,7 +75,7 @@ function ChatScreen({ route, navigation }) {
     const [bannerUrlImage, setBannerUrl] = React.useState('');
     const isFocused = useIsFocused();
     const [length, setLength] = React.useState()
-    
+
     global.listData = [{}];
 
     const searchUpdated = (term) => {
@@ -139,7 +139,7 @@ function ChatScreen({ route, navigation }) {
                             storeData('userData', JSON.stringify(response.data));
                             storeData('profileImage', response.data.user.profile_image_url);
                             // getBannerUrl();
-                            
+
                             // navigation.navigate('Main Stack');
                             // Alert.alert('' + response.message, [{
                             //     text: 'OK', onPress: () => {
@@ -149,7 +149,7 @@ function ChatScreen({ route, navigation }) {
                             // }], { cancelable: false });
                             console.log("trying to login")
                             setTimeout(function () {
-                                if(response.data.user.pro_user === "yes"){
+                                if (response.data.user.pro_user === "yes") {
                                     setBannerUrl("");
                                     storeData("bannerUrl", "");
                                 }
@@ -339,8 +339,11 @@ function ChatScreen({ route, navigation }) {
         <View style={{ width: '100%', height: '100%', flexDirection: 'column', flex: 1, backgroundColor: 'white' }}>
             {/* header start */}
             <View style={{ width: '100%', backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() =>
+                <TouchableOpacity onPress={() => {
+                    changeCounter(Math.random())
                     navigation.dispatch(DrawerActions.toggleDrawer())
+
+                }
                 }>
                     <Image source={require('../../../assets/icons/3.png')}
                         style={{ height: 25, width: 25 }} />
@@ -354,7 +357,7 @@ function ChatScreen({ route, navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            
+
             {/* header close */}
 
             {/* all colleagues mu colleagues title  start*/}
@@ -390,7 +393,7 @@ function ChatScreen({ route, navigation }) {
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />} */}
 
                         {showAll ? (
-                            <Image source={require('../../../assets/icons/check.png')}
+                            <Image source={require('../../../assets/icons/Check.png')}
                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
                         ) : <Image source={require('../../../assets/icons/uncheck.png')}
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
@@ -410,7 +413,7 @@ function ChatScreen({ route, navigation }) {
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} /> } */}
 
                         {showMy ? (
-                            <Image source={require('../../../assets/icons/check.png')}
+                            <Image source={require('../../../assets/icons/Check.png')}
                                 style={{ height: getDimen(0.04), width: getDimen(0.04) }} />
                         ) : <Image source={require('../../../assets/icons/uncheck.png')}
                             style={{ height: getDimen(0.04), width: getDimen(0.04) }} />}
@@ -438,7 +441,7 @@ function ChatScreen({ route, navigation }) {
                     autoCapitalize="none"
                     placeholder="Search colleagues..."
                     keyboardType='email-address'
-                    style={{   height: getDimen(0.3 / 2),   paddingLeft: getDimen(0.02) }}
+                    style={{ height: getDimen(0.3 / 2), paddingLeft: getDimen(0.02) }}
                     // style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.05), marginTop: getDimen(0.08) }}
                     onChangeText={(val) => searchUpdated(val)}
                 />
@@ -452,7 +455,7 @@ function ChatScreen({ route, navigation }) {
 
                 {/* <View style={{ height: 1, width: getDimen(0.95), marginLeft: getDimen(0.08), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.004), }}></View> */}
             </View>
-           
+
             {/* search colleague close */}
 
 
@@ -658,4 +661,13 @@ const styles = StyleSheet.create({
     },
 });
 // const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+//export default ChatScreen;
+
+const mapStateToProps = (state) => ({
+
+});
+const mapDispatchToProps = {
+    changeCounter
+}
+const ChatScreen = connect(mapStateToProps, mapDispatchToProps)(Chat);
 export default ChatScreen;

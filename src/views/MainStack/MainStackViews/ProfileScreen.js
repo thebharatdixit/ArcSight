@@ -40,9 +40,9 @@ import { WebView } from "react-native-webview";
 import { login } from '../../../actions/loginAction';
 
 import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/ProfileAction';
+import { changeCounter } from '../../../actions/navigationAction'
 
-
-function ProfileScreen({ navigation, route }) {
+function Profile({ navigation, route, changeCounter }) {
 
     const [accessToken, setAccessToken] = React.useState('')
     const [userId, setUserId] = React.useState('')
@@ -149,7 +149,7 @@ function ProfileScreen({ navigation, route }) {
                             storeData('userData', JSON.stringify(response.data));
                             storeData('profileImage', response.data.user.profile_image_url);
                             // getBannerUrl();
-                            
+
                             // navigation.navigate('Main Stack');
                             // Alert.alert('' + response.message, [{
                             //     text: 'OK', onPress: () => {
@@ -159,7 +159,7 @@ function ProfileScreen({ navigation, route }) {
                             // }], { cancelable: false });
                             console.log("trying to login")
                             setTimeout(function () {
-                                if(response.data.user.pro_user === "yes"){
+                                if (response.data.user.pro_user === "yes") {
                                     setBannerUrl("");
                                     storeData("bannerUrl", "");
                                 }
@@ -377,8 +377,10 @@ function ProfileScreen({ navigation, route }) {
 
                 {/* {console.log("allColleagues :  " + JSON.stringify(userProfile))} */}
                 <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                    <TouchableOpacity onPress={() =>
+                    <TouchableOpacity onPress={() => {
+                        changeCounter(Math.random())
                         navigation.dispatch(DrawerActions.toggleDrawer())
+                    }
                     }>
                         <Image source={require('../../../assets/icons/3.png')}
                             style={{ height: 25, width: 25 }} />
@@ -946,4 +948,12 @@ const styles = StyleSheet.create({
     },
 });
 // const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+//export default ProfileScreen;
+const mapStateToProps = (state) => ({
+
+});
+const mapDispatchToProps = {
+    changeCounter
+}
+const ProfileScreen = connect(mapStateToProps, mapDispatchToProps)(Profile);
 export default ProfileScreen;

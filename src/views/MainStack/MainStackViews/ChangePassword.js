@@ -18,10 +18,12 @@ import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base
 import { getDimen } from '../../../dimensions/dimen';
 import { getData } from '../../../utils/asyncStore';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
+import { changeCounter } from '../../../actions/navigationAction'
+import { connect } from 'react-redux';
 
 
 
-function ChangePasswordScreen({ navigation }) {
+function ChangePassword({ navigation, changeCounter }) {
 
     const [oldPass, setOldPass] = React.useState('');
     const [newPass, setNewPass] = React.useState('');
@@ -35,7 +37,7 @@ function ChangePasswordScreen({ navigation }) {
     })
 
     const changePasswordApiCall = () => {
-        
+
         if (!oldPass) {
             Alert.alert('', 'Please Enter Current Password..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
             return;
@@ -58,7 +60,7 @@ function ChangePasswordScreen({ navigation }) {
             method: "POST",
             headers: {
                 Accept: 'application/json',
-               'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${accessToken}`
 
             },
@@ -70,9 +72,11 @@ function ChangePasswordScreen({ navigation }) {
             .then(res => {
                 console.log('Change Password', res.message, oldPass, newPass);
                 if (res.status) {
-                    Alert.alert('', res.message, [{ text: 'OK', onPress: () => 
-                    {setOldPass(''),
-                    setNewPass('')}
+                    Alert.alert('', res.message, [{
+                        text: 'OK', onPress: () => {
+                            setOldPass(''),
+                                setNewPass('')
+                        }
                     }], { cancelable: false })
                 } else {
                     console.log('No Reset Password', res.message);
@@ -87,10 +91,14 @@ function ChangePasswordScreen({ navigation }) {
 
     return (
 
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() =>
+                <TouchableOpacity onPress={() => {
+
+                    changeCounter(Math.random())
                     navigation.dispatch(DrawerActions.toggleDrawer())
+                }
+
                 }>
                     <Image source={require('../../../assets/icons/3.png')}
                         style={{ height: 25, width: 25 }} />
@@ -104,58 +112,58 @@ function ChangePasswordScreen({ navigation }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-        
-        <View style={{flex:0.90, width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
-           
-            <ImageBackground
-                source={require('../../../assets/images/Splash.png')}
-                style={{ flex: 1, resizeMode: 'contain', }}>
 
-                <View style={{ width: '100%', height: getDimen(0.08), marginTop: getDimen(0), paddingLeft: getDimen(0.03), }}>
-                    {/* <TouchableOpacity
+            <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: '#F2F2F2' }}>
+
+                <ImageBackground
+                    source={require('../../../assets/images/Splash.png')}
+                    style={{ flex: 1, resizeMode: 'contain', }}>
+
+                    <View style={{ width: '100%', height: getDimen(0.08), marginTop: getDimen(0), paddingLeft: getDimen(0.03), }}>
+                        {/* <TouchableOpacity
                         onPress={() => navigation.goBack()}
                     >
                         <Image source={require('../../../assets/icons/return.png')}
                             style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
                     </TouchableOpacity> */}
-                </View>
-
-                <View style={{ flex: 0.85, borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.1), backgroundColor: 'white', borderRadius: 12 }}>
-
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={[styles.input]}
-                            placeholder="Current Password"
-                            placeholderTextColor="#8A8A8A"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(oldPass) => setOldPass(oldPass)}
-                            value={oldPass} />
                     </View>
-                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.002) }}></View>
-                    
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            style={[styles.input]}
-                            placeholder="New Password "
-                            placeholderTextColor="#8A8A8A"
-                            underlineColorAndroid='transparent'
-                            onChangeText={(newPass) => setNewPass(newPass)}
-                            value={newPass} />
-                    </View>
-                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.002) }}></View>
-                    <Text style={{color:'gray', marginTop:getDimen(0.02), marginLeft: getDimen(0.04), fontSize:getDimen(0.035)}}>6-8 Letters, 1 Capital, 1 Special Character</Text>
-                    <TouchableOpacity
-                        style={styles.submit}
-                        onPress={() => changePasswordApiCall()}
-                    >
-                        <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
-                            <Text style={{ color: '#FFF', fontSize: getDimen(.055), textAlign: 'center', alignSelf: 'center', fontWeight: 'bold' }}>Submit</Text>
+
+                    <View style={{ flex: 0.85, borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.1), backgroundColor: 'white', borderRadius: 12 }}>
+
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                style={[styles.input]}
+                                placeholder="Current Password"
+                                placeholderTextColor="#8A8A8A"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(oldPass) => setOldPass(oldPass)}
+                                value={oldPass} />
                         </View>
-                    </TouchableOpacity>
-                </View>
-            </ImageBackground >
+                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.002) }}></View>
+
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                style={[styles.input]}
+                                placeholder="New Password "
+                                placeholderTextColor="#8A8A8A"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(newPass) => setNewPass(newPass)}
+                                value={newPass} />
+                        </View>
+                        <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.002) }}></View>
+                        <Text style={{ color: 'gray', marginTop: getDimen(0.02), marginLeft: getDimen(0.04), fontSize: getDimen(0.035) }}>6-8 Letters, 1 Capital, 1 Special Character</Text>
+                        <TouchableOpacity
+                            style={styles.submit}
+                            onPress={() => changePasswordApiCall()}
+                        >
+                            <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'center', alignItems: 'center', }}>
+                                <Text style={{ color: '#FFF', fontSize: getDimen(.055), textAlign: 'center', alignSelf: 'center', fontWeight: 'bold' }}>Submit</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </ImageBackground >
+            </View>
         </View>
-     </View>
     )
 }
 
@@ -205,4 +213,12 @@ let styles = StyleSheet.create({
         flexDirection: 'row'
     },
 });
+//export default ChangePasswordScreen;
+const mapStateToProps = (state) => ({
+
+});
+const mapDispatchToProps = {
+    changeCounter
+}
+const ChangePasswordScreen = connect(mapStateToProps, mapDispatchToProps)(ChangePassword);
 export default ChangePasswordScreen;

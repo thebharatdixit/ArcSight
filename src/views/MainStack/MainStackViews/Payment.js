@@ -28,9 +28,9 @@ import ImagePicker from 'react-native-image-picker';
 //import loginActions from '../../actions/loginActions';
 import { login } from '../../../actions/loginAction';
 import { storeData, getData } from '../../../utils/asyncStore';
+import { changeCounter } from '../../../actions/navigationAction'
 
-
-function Payment({ navigation }) {
+function PaymentScreen({ navigation, changeCounter }) {
     const [url, setUrl] = React.useState('');
 
 
@@ -76,8 +76,10 @@ function Payment({ navigation }) {
     return (
         <View style={{ flex: 1 }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() =>
+                <TouchableOpacity onPress={() => {
+                    changeCounter(Math.random())
                     navigation.dispatch(DrawerActions.toggleDrawer())
+                }
                 }>
                     <Image source={require('../../../assets/icons/3.png')}
                         style={{ height: 25, width: 25 }} />
@@ -116,4 +118,12 @@ const styles = StyleSheet.create({
 
 });
 // const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+//export default Payment;
+const mapStateToProps = (state) => ({
+
+});
+const mapDispatchToProps = {
+    changeCounter
+}
+const Payment = connect(mapStateToProps, mapDispatchToProps)(PaymentScreen);
 export default Payment;
