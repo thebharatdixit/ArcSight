@@ -14,6 +14,7 @@ import {
     Alert,
     Platform
 } from 'react-native';
+import { NavigationContainer, DrawerActions } from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
@@ -40,11 +41,11 @@ function Payment({ navigation }) {
             // const userData = 
             console.log('USER id : ' + userData.user.id);
             var userId = userData.user.id;
-            var paymentUrl = "http://3.22.155.246/payment?user_id="+userId
+            var paymentUrl = "http://3.22.155.246/payment?user_id=" + userId
 
             setUrl(paymentUrl);
         })
-        
+
         console.log(" Rerendering ")
     }, [url])
 
@@ -73,12 +74,33 @@ function Payment({ navigation }) {
     }
 
     return (
-        <WebView
-            // ref={(WEBVIEW) => { this.WEBVIEW = WEBVIEW }}
-            source={{ uri: url }}
-            style={{ flex: 1 }}
-            onNavigationStateChange={handleOpenURL()}
-        />
+        <View style={{ flex: 1 }}>
+            <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                <TouchableOpacity onPress={() =>
+                    navigation.dispatch(DrawerActions.toggleDrawer())
+                }>
+                    <Image source={require('../../../assets/icons/3.png')}
+                        style={{ height: 25, width: 25 }} />
+                </TouchableOpacity>
+
+                <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                    {/* <Image source={require('../../../assets/icons/2.png')}
+                        style={{ height: getDimen(0.1), width: getDimen(0.1) }} /> */}
+
+                    <Image source={require('../../../assets/images/logo.png')}
+                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                </View>
+            </View>
+
+            <View style={{ flex: 0.90, width: '100%', height: '100%', backgroundColor: 'white' }}>
+                <WebView
+                    // ref={(WEBVIEW) => { this.WEBVIEW = WEBVIEW }}
+                    source={{ uri: url }}
+                    style={{ flex: 1 }}
+                    onNavigationStateChange={handleOpenURL()}
+                />
+            </View>
+        </View>
 
     );
 }
@@ -91,7 +113,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%'
     },
-    
+
 });
 // const Login = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 export default Payment;

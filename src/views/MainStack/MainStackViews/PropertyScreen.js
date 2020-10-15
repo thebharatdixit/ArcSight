@@ -47,7 +47,7 @@ function PropertyScreen({ navigation }) {
     const [stateName, setStateName] = React.useState('');
     const [zipcode, setZipcode] = React.useState('');
     const [location2, setLocation2] = React.useState('');
-    const [price, setPrice] = React.useState('');
+    var [price, setPrice] = React.useState('');
     const [bedroom, setBedroom] = React.useState('');
     const [bath, setBath] = React.useState('');
     const [terrace, setTerrace] = React.useState(0);
@@ -218,7 +218,7 @@ function PropertyScreen({ navigation }) {
             }).then(res => res.json())
                 .then(res => {
                     setShowLoader('hide')
-                    console.log('listLog', res.message);
+                    console.log('listLog' + JSON.stringify(res));
                     alert(res.message);
                     if (res.message === 'Listing has been added successfully') {
                         setArrImages([]);

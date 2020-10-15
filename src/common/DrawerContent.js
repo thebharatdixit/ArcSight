@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -23,6 +23,8 @@ import { Fontisto } from 'react-native-vector-icons';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import settingScreen from '../views/MainStack/MainStackViews/Setting'
+import { login } from '../actions/loginAction';
+
 // import Payment from '../common/Payment';
 
 // import { NavigationActions, StackActions } from 'react-navigation';
@@ -32,7 +34,10 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
     console.log('route', route, navigation)
     const [accessToken, setAccessToken] = React.useState('')
     const [userImage, setUserImage] = React.useState('')
+    const [isPro, setIsPro] = React.useState('')
     const [showLoader, setShowLoader] = useState('hide');
+    const isFocused = navigation.isFocused;
+
 
     // const isFocused = useIsFocused();
     getData('profileImage').then((profileImage) => {
@@ -67,7 +72,67 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                 console.log('UserImage', profileImage)
             })
         })
-    }, [])
+        callLoginApi();
+    }, [isFocused])
+
+    const callLoginApi = () => {
+        getData('saveUsername').then((userName) => {
+            getData('savePassword').then((password) => {
+                getData('fcmToken').then((fcmToken) => {
+                    let data = {
+                        "email": userName,
+                        "password": password,
+                        "login_device": Platform.OS,
+                        "notification_token": fcmToken
+                    }
+                    setShowLoader('')
+                    login(data).then((response) => {
+                        setShowLoader('hide')
+                        if (response.status) {
+                            storeData('saveUsername', userName);
+                            storeData('savePassword', password);
+                            storeData('saveFcmToken', fcmToken);
+                            storeData('isLogin', 'true');
+                            storeData('userData', JSON.stringify(response.data));
+                            storeData('profileImage', response.data.user.profile_image_url);
+                            // getBannerUrl();
+
+                            // navigation.navigate('Main Stack');
+                            // Alert.alert('' + response.message, [{
+                            //     text: 'OK', onPress: () => {
+                            //         setUsername('')
+                            //         setPassword('')
+                            //     }
+                            // }], { cancelable: false });
+                            console.log("trying to login")
+                            setTimeout(function () {
+                                if (response.data.user.pro_user === "yes") {
+                                    // setBannerUrl("");
+                                    setIsPro("yes");
+                                    storeData("bannerUrl", "");
+                                }
+                                else {
+                                    setIsPro("");
+                                }
+                                // setUsername('');
+                                // setPassword('');
+                                //Put All Your Code Here, Which You Want To Execute After Some Delay Time.
+                                // changeAuthState(true)
+
+                            }, 300);
+                        }
+                        else {
+                            // Alert.alert('' + response.message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                            alert("" + response.message);
+                        }
+
+                    })
+                })
+            })
+        })
+
+    }
+
 
     const logOutApiIntegration = () => {
         setShowLoader('');
@@ -168,11 +233,15 @@ function DrawerScreen({ route, navigation, changeAuthState }) {
                             labelStyle={{ color: 'white', fontSize: getDimen(0.041) }}
                             onPress={() => navigation.navigate('Search')}
                         />
-                        <DrawerItem
-                            label="UPGRADE TO PRO"
-                            labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold' }}
-                            onPress={() => navigation.navigate("UPGRADE TO PRO")}
-                        />
+                        {isPro === "yes" ? null
+                            :
+                            <DrawerItem
+                                label="UPGRADE TO PRO"
+                                labelStyle={{ color: '#FAAE00', fontSize: getDimen(0.05), fontWeight: 'bold' }}
+                                onPress={() => navigation.navigate("UPGRADE TO PRO")}
+                            />
+                        }
+
                         <View style={{ height: 1, marginLeft: getDimen(0.03), marginRight: getDimen(0.03), backgroundColor: '#A6862D', }}></View>
                         <DrawerItem
                             icon={({ focused, size, color }) => (
