@@ -187,16 +187,46 @@ function DrawerScreen(props) {
                 <View style={{ paddingLeft: 10, marginTop: 20 }}>
                     <View style={{ flexDirection: 'row', marginTop: 10, width: '100%' }}>
                         <TouchableOpacity>
-                            {
-                                (userImage === 'https://arcsightapp.com/images/UserImages/') ?
-                                    <Image source={require('../assets/icons/2.png')}
-                                        style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05) }} />
-                                    :
-                                    <Image source={{
+
+                            {/* {userImage ?
+
+                                <Image source={{
+                                    uri: `${userImage}`
+                                }}
+                                    defaultSource={require('../assets/images/user.png')}
+                                    style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1), resizeMode: 'contain' }} />
+
+                                :
+                                <Image source={require('../assets/images/user.png')}
+                                    defaultSource={require('../assets/images/user.png')}
+                                    style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1), resizeMode: 'contain' }} />
+
+                            } */}
+
+<View style={{backgroundColor:'red', height:  40, width: 40}}>
+
+</View>
+
+                            {/* <Image source={{
                                         uri: `${userImage}`
                                     }}
-                                        style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1) }} />
-                            }
+                                        defaultSource={require('../assets/images/user.png')}
+                                        style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1), resizeMode:'contain' }} /> */}
+
+
+                            {/* {
+                                (userImage) ? <Image
+                                    source={{
+                                        uri: `${userImage}`,
+                                    }}
+                                    defaultSource={require('../assets/images/user.png')}
+                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
+                                /> :
+                                    <Image source={require('../assets/images/user.png')}
+                                        defaultSource={require('../assets/images/user.png')}
+                                        style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }} />
+                            } */}
+
                         </TouchableOpacity>
                         <View style={{ width: '50%', alignItems: 'flex-start', justifyContent: 'flex-end', paddingRight: 0, paddingLeft: getDimen(0.02), flexDirection: 'row' }}>
                             <TouchableOpacity onPress={() => navigation.closeDrawer()}>

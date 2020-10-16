@@ -107,7 +107,6 @@ NSLog(@"Userinfo %@",notification.request.content.userInfo);
   if ([[[dictInfo objectForKey:@"aps"] objectForKey:@"alert"] objectForKey:@"body"]) {
     [self userDict:notification.request.content.userInfo];
   }
-  
 
 completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert);
 }
