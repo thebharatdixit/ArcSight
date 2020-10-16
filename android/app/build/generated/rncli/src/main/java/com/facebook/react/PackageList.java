@@ -13,18 +13,26 @@ import java.util.ArrayList;
 
 // @react-native-community/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+// @react-native-community/geolocation
+import com.reactnativecommunity.geolocation.GeolocationPackage;
 // @react-native-community/masked-view
 import org.reactnative.maskedview.RNCMaskedViewPackage;
 // @react-native-community/picker
 import com.reactnativecommunity.picker.RNCPickerPackage;
 // @react-native-community/toolbar-android
 import com.reactnativecommunity.toolbarandroid.ReactToolbarPackage;
+// react-native-firebase-push-notifications
+import com.afrihost.firebase.notifications.FirebasePushNotificationsPackage;
+// react-native-geolocation-service
+import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-image-crop-picker
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
 // react-native-image-picker
 import com.imagepicker.ImagePickerPackage;
+// react-native-maps
+import com.airbnb.android.react.maps.MapsPackage;
 // react-native-reanimated
 import com.swmansion.reanimated.ReanimatedPackage;
 // react-native-safe-area-context
@@ -35,8 +43,12 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 // react-native-vector-icons
 import com.oblador.vectoricons.VectorIconsPackage;
+// react-native-webview
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 // rn-fetch-blob
 import com.RNFetchBlob.RNFetchBlobPackage;
+// tipsi-stripe
+import com.gettipsi.stripe.StripeReactPackage;
 
 public class PackageList {
   private Application application;
@@ -83,18 +95,24 @@ public class PackageList {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(mConfig),
       new AsyncStoragePackage(),
+      new GeolocationPackage(),
       new RNCMaskedViewPackage(),
       new RNCPickerPackage(),
       new ReactToolbarPackage(),
+      new FirebasePushNotificationsPackage(),
+      new RNFusedLocationPackage(),
       new RNGestureHandlerPackage(),
       new PickerPackage(),
       new ImagePickerPackage(),
+      new MapsPackage(),
       new ReanimatedPackage(),
       new SafeAreaContextPackage(),
       new RNScreensPackage(),
       new SplashScreenReactPackage(),
       new VectorIconsPackage(),
-      new RNFetchBlobPackage()
+      new RNCWebViewPackage(),
+      new RNFetchBlobPackage(),
+      new StripeReactPackage()
     ));
   }
 }
