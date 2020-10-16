@@ -28,7 +28,11 @@ import { changeAuthState } from '../../../actions/authAction';
 
 // import messaging from '@react-native-firebase/messaging';
 import stripe from 'tipsi-stripe'
-import { notifications } from "react-native-firebase-push-notifications"
+import {
+    notifications,
+    messages,
+    NotificationMessage,
+    Android } from "react-native-firebase-push-notifications"
 
 
 function Login({ navigation, changeAuthState }) {
@@ -144,7 +148,20 @@ function Login({ navigation, changeAuthState }) {
         //Android will not have any info set on the notification properties (title, subtitle, etc..), but _data will still contain information
         this.removeOnNotification = notifications.onNotification(notification => {
           //do something with the notification
-          console.log("onNotification", notification)
+            console.log("onNotificationListener", notification)
+            
+            const c = await notifications.displayNotification(
+                new NotificationMessage()
+                    .setNotificationId("notification-id")
+                    .setTitle("Notification title")
+                    .setBody("Notification body")
+                    .setData({
+                        key1: "key1",
+                        key2: "key2"
+                    })
+                    .android.setChannelId("test-channel")
+            )
+
         })
       }
 

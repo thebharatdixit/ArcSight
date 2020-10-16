@@ -189,8 +189,7 @@ function DrawerScreen(props) {
                 <View style={{ paddingLeft: 10, marginTop: 20 }}>
                     <View style={{ flexDirection: 'row', marginTop: 10, width: '100%' }}>
                         <TouchableOpacity>
-                            {console.log("userImage  :            ", userImage)
-                            }
+
                             {
                                 (userImage === undefined || userImage == null || userImage === '' || userImage === 'https://arcsightapp.com/images/UserImages/') ?
                                     <Image source={require('../assets/icons/2.png')}
@@ -199,7 +198,8 @@ function DrawerScreen(props) {
                                     <Image source={{
                                         uri: `${userImage}`
                                     }}
-                                        style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1) }} />
+                                        defaultSource={require('../assets/images/user.png')}
+                                        style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05), borderRadius: getDimen(0.1), resizeMode: 'contain' }} />
                             }
                         </TouchableOpacity>
                         <View style={{ width: '50%', alignItems: 'flex-start', justifyContent: 'flex-end', paddingRight: 0, paddingLeft: getDimen(0.02), flexDirection: 'row' }}>
