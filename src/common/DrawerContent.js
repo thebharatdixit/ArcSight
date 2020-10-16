@@ -47,7 +47,6 @@ function DrawerScreen(props) {
     //     setUserImage(profileImage)
     //     console.log('UserImage', profileImage)
     //     if (proUser === false) {
-    //         // callLoginApi();
     //     }
     // })
     useEffect(() => {
@@ -84,7 +83,6 @@ function DrawerScreen(props) {
     //             console.log('UserImage', profileImage)
     //         })
     //     })
-    //     callLoginApi();
     // }, [isFocused])
 
     const callLoginApi = () => {
@@ -99,6 +97,7 @@ function DrawerScreen(props) {
                     }
                     setShowLoader('')
                     login(data).then((response) => {
+                        //console.log("response from login inside drawer ", response.data)
                         setShowLoader('hide')
                         if (response.status) {
                             storeData('saveUsername', userName);
@@ -108,7 +107,7 @@ function DrawerScreen(props) {
                             storeData('userData', JSON.stringify(response.data));
                             storeData('profileImage', response.data.user.profile_image_url);
                             // getBannerUrl();
-
+                            setUserImage(response.data.user.profile_image_url)
                             // navigation.navigate('Main Stack');
                             // Alert.alert('' + response.message, [{
                             //     text: 'OK', onPress: () => {
@@ -119,12 +118,15 @@ function DrawerScreen(props) {
                             console.log("trying to login")
                             setTimeout(function () {
                                 if (response.data.user.pro_user === "yes") {
+                                    console.log("inside true pro user ")
                                     // setBannerUrl("");
                                     setIsPro("yes");
                                     storeData("bannerUrl", "");
                                     changeProStatus(true)
                                 }
                                 else {
+                                    console.log("inside false pro user ")
+
                                     changeProStatus(false)
 
                                     setIsPro("");
@@ -187,8 +189,10 @@ function DrawerScreen(props) {
                 <View style={{ paddingLeft: 10, marginTop: 20 }}>
                     <View style={{ flexDirection: 'row', marginTop: 10, width: '100%' }}>
                         <TouchableOpacity>
+                            {console.log("userImage  :            ", userImage)
+                            }
                             {
-                                (userImage === 'https://arcsightapp.com/images/UserImages/') ?
+                                (userImage === undefined || userImage == null || userImage === '' || userImage === 'https://arcsightapp.com/images/UserImages/') ?
                                     <Image source={require('../assets/icons/2.png')}
                                         style={{ height: getDimen(0.2), width: getDimen(0.2), marginLeft: 20, marginTop: getDimen(-0.05) }} />
                                     :

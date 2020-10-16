@@ -36,9 +36,9 @@ import { fetchAminities } from '../../../actions/addListingActions';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Textarea from 'react-native-textarea';
 import NumberFormat from 'react-number-format';
-import {changeCounter} from '../../../actions/navigationAction'
+import { changeCounter } from '../../../actions/navigationAction'
 
-function Property({ navigation ,changeCounter}) {
+function Property({ navigation, changeCounter }) {
 
     const [filePath, setFilePath] = React.useState('')
     const [picture, setPicture] = React.useState('');
@@ -416,9 +416,12 @@ function Property({ navigation ,changeCounter}) {
 
         ImagePicker.showImagePicker({ noData: true, mediaType: "photo" }, (response) => {
             console.log('Response = ', response);
-
             if (response.didCancel) {
                 console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
             } else {
                 console.log('image picker picked image path' + JSON.stringify(response));
                 setMainImage(response.uri)
@@ -436,7 +439,10 @@ function Property({ navigation ,changeCounter}) {
                     setMainFileNameA(fileName);
                     setMainFileTypeA(filetype);
                 }
+
+
             }
+
         });
     };
 
@@ -444,9 +450,12 @@ function Property({ navigation ,changeCounter}) {
 
         ImagePicker.showImagePicker({ noData: true, mediaType: "photo" }, (response) => {
             console.log('Response = ', response);
-
             if (response.didCancel) {
                 console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
             } else {
                 console.log('image picker picked image path' + JSON.stringify(response));
                 // setMainImage(response.uri)
@@ -487,7 +496,10 @@ function Property({ navigation ,changeCounter}) {
                 console.log('imagearray:::2 ' + JSON.stringify(imageArray) + 'length::: ' + imageArray.length);
                 // }, 300);
 
+
+
             }
+
         });
     };
 
@@ -589,10 +601,10 @@ function Property({ navigation ,changeCounter}) {
             {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
             {console.log("rendering the screen...")}
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                <TouchableOpacity onPress={() =>{
-                        changeCounter(Math.random())
-                        navigation.dispatch(DrawerActions.toggleDrawer())
-                    }
+                <TouchableOpacity onPress={() => {
+                    changeCounter(Math.random())
+                    navigation.dispatch(DrawerActions.toggleDrawer())
+                }
                 }>
                     <Image source={require('../../../assets/icons/3.png')}
                         style={{ height: 25, width: 25 }} />

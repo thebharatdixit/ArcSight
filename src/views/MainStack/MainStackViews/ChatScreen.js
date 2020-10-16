@@ -487,15 +487,17 @@ function Chat({ route, navigation, changeCounter }) {
                                             flex: 0.25, height: '100%', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', backgroundColor: 'white', marginTop: getDimen(0.05)
                                         }}>
                                             {
-                                                (item.profile_image_url) ? <Image
-                                                    source={{
-                                                        uri: `${item.profile_image_url}`,
-                                                    }}
-                                                    defaultSource={require('../../../assets/icons/2.png')}
-                                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
-                                                /> :
-                                                    <Image source={require('../../../assets/icons/2.png')}
-                                                        style={{ height: getDimen(0.18), width: getDimen(0.18) }} />
+                                                (item.profile_image_url === undefined || item.profile_image_url === null || item.profile_image_url === 'https://arcsightapp.com/images/UserImages/' || item.profile_image_url === '') ?
+                                                <Image source={require('../../../assets/icons/2.png')}
+                                                style={{ height: getDimen(0.18), width: getDimen(0.18) }} />:
+                                                <Image
+                                                source={{
+                                                    uri: `${item.profile_image_url}`,
+                                                }}
+                                                defaultSource={require('../../../assets/icons/2.png')}
+                                                style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
+                                            /> 
+                                                       
                                             }
 
                                         </View>

@@ -27,6 +27,8 @@ import {
 } from 'react-native-popup-menu';
 import SplashScreen from 'react-native-splash-screen'
 import { connect } from 'react-redux';
+import RNFetchBlob from 'rn-fetch-blob'
+
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
 import { getDimen } from '../../../dimensions/dimen';
 import { NavigationContainer, DrawerActions } from '@react-navigation/native';
@@ -264,11 +266,13 @@ function Profile({ navigation, route, changeCounter }) {
 
         ImagePicker.showImagePicker({ noData: true, mediaType: "photo" }, (response) => {
             console.log('Response = ', response);
-
             if (response.didCancel) {
                 console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
             } else {
-
                 console.log('image picker picked image path' + JSON.stringify(response));
                 setPhotoData(response);
                 setPhotoPath(response.path);
@@ -281,8 +285,8 @@ function Profile({ navigation, route, changeCounter }) {
                 uploadPhoto(response.uri, response.fileName, response.type);
 
 
-
             }
+
         });
     };
 
@@ -317,9 +321,10 @@ function Profile({ navigation, route, changeCounter }) {
         setShowLoader('');
 
         const formData = new FormData();
-        console.log('original path: ' + uri + "token ::" + accessToken + "filename ::" + fileName + "filetype ::" + fileType);
+        console.log('original path: ' + uri + "token ::" + accessToken + "        filename ::" + fileName + "         filetype ::" + fileType);
         // var fileName = mainImageData.fileName;
         // var filetype = mainImageData.type;
+        // return;
         if (fileName) {
 
         }
@@ -329,36 +334,62 @@ function Profile({ navigation, route, changeCounter }) {
             fileName = filenamess;
             filetype = "image/jpeg";
         }
-        formData.append('profile_image',
-            {
-                uri: uri,
-                name: fileName,
-                type: fileType
-            });
+        // formData.append('profile_image',
+        //     {
+        //         uri: uri,
+        //         name: fileName,
+        //         type: fileType
+        //     });
+        const dataToSend = [{ name: 'profile_image', filename: fileName, type: fileType, data: RNFetchBlob.wrap(uri) }]
 
-        console.log('formData : ', JSON.stringify(formData));
-
-
-        fetch("https://arcsightapp.com/api/v1/user/upload-profile-image", {
-            method: "post",
-            headers: {
-                Accept: "application/json",
-                'Content-Type': 'multipart/form-data',
-                Authorization: `Bearer ${accessToken}`,
-            },
-            body: formData,
-        }).then(res => res.json())
-            .then(res => {
-
-                console.log('uploadImage : ', res.data);
-                setShowLoader('hide');
-                getUserProfileData();
-                alert(res.message)
-
+        console.log('formData : ', JSON.stringify(dataToSend));
+        RNFetchBlob.fetch('POST', `https://arcsightapp.com/api/v1/user/upload-profile-image`, {
+            Authorization: `Bearer ${accessToken}`,
+            Accept: "application/json",
+            'X-localization': 'en',
+        }, dataToSend)
+            .uploadProgress({ interval: 250 }, (written, total) => {
+                console.log('uploaded', written / total)
             })
-            .catch(err => {
-                console.error("error uploading images: ", err);
-            });
+            // listen to download progress event, every 10%
+            .progress({ count: 10 }, (received, total) => {
+                console.log('progress', received / total)
+            })
+            .then((resp) => {
+                console.log("response upload:   ", resp.data)
+                setShowLoader('hide');
+
+                if (resp.httpStatus === 200) {
+
+                } else {
+
+                }
+            }).catch((err) => {
+                setShowLoader('hide');
+
+                console.log("ERROR :  ", err)
+            })
+
+        // fetch("https://arcsightapp.com/api/v1/user/upload-profile-image", {
+        //     method: "post",
+        //     headers: {
+        //         Accept: "application/json",
+        //         'Content-Type': 'multipart/form-data',
+        //         Authorization: `Bearer ${accessToken}`,
+        //     },
+        //     body: formData,
+        // }).then(res => res.json())
+        //     .then(res => {
+
+        //         console.log('uploadImage : ', res.data);
+        //         setShowLoader('hide');
+        //         getUserProfileData();
+        //         alert(res.message)
+
+        //     })
+        //     .catch(err => {
+        //         console.error("error uploading images: ", err);
+        //     });
 
     }
 
@@ -415,8 +446,22 @@ function Profile({ navigation, route, changeCounter }) {
                             />
 
                         } */}
-
+                            {console.log("filePath     :       ", filePath)}
                             {
+                                (filePath === undefined || filePath === null || filePath === 'https://arcsightapp.com/images/UserImages/' || filePath === '') ?
+
+                                    <Image
+                                        style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.3), marginTop: getDimen(0.1 / 2) }}
+                                        source={require('../../../assets/icons/2.png')}
+                                    />
+                                    :
+                                    <Image
+                                        source={{ uri: filePath }}
+                                        // source={require('../../../assets/icons/2.png')}
+                                        style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
+                                    />
+                            }
+                            {/* {
                                 (filePath) ? <Image
                                     source={{
                                         uri: `${filePath}`,
@@ -427,25 +472,26 @@ function Profile({ navigation, route, changeCounter }) {
                                     <Image source={require('../../../assets/images/user.png')}
                                         defaultSource={require('../../../assets/images/user.png')}
                                         style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }} />
-                            }
+                            } */}
                             <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: -getDimen(0.055) }}></Text>
-
-
-
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={() => navigation.navigate('Update Profile')}>
-
                             <Text style={{ fontWeight: 'bold', fontSize: getDimen(0.049), marginTop: getDimen(0.03) }}>{name}</Text>
                         </TouchableOpacity>
                         <Text style={{ color: 'gray', fontSize: getDimen(0.036), marginTop: getDimen(0.005) }}>{companyName}</Text>
                         <View style={{ flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.04), }}>
                             <View style={{ justifyContent: 'flex-start', alignContent: 'flex-start', alignItems: 'flex-start', backgroundColor: 'white', marginRight: getDimen(0.02) }}>
-                                <Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData ? userProfileData.total_listings + " Listings" : "Listing"}</Text>
+                                {/* {(userProfileData && userProfileData.total_listings && userProfileData.total_listings !== 0) && < Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData.total_listings + " Listings"}</Text>} */}
+                                {(!userProfileData || !userProfileData.total_listings || userProfileData.total_listings === 0) ? < Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {"0 Listings"}</Text> : < Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData.total_listings + " Listings"}</Text>}
+
+
                             </View>
                             <View style={{ width: 1, height: '100%', backgroundColor: 'gray', marginLeft: getDimen(0.02) }}></View>
                             <View style={{ justifyContent: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', backgroundColor: 'white', marginLeft: getDimen(0.03) }}>
-                                <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> {userProfileData ? userProfileData.total_colleagues + " Colleagues" : "Colleagues"}</Text>
+                                {/* <Text style={{ fontSize: getDimen(0.04), textAlign: 'right' }}> {userProfileData && userProfileData.total_colleagues && userProfileData.total_colleagues + " Colleagues"}</Text> */}
+                                {(!userProfileData || !userProfileData.total_colleagues || userProfileData.total_colleagues === 0) ? < Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {"0 Colleagues"}</Text> : < Text style={{ fontSize: getDimen(0.04), textAlign: 'left' }}> {userProfileData.total_colleagues + " Colleagues"}</Text>}
+
                             </View>
                         </View>
                         {/* <TouchableOpacity
@@ -865,7 +911,7 @@ function Profile({ navigation, route, changeCounter }) {
                     }
                 </View>
             </View >
-        </MenuProvider>
+        </MenuProvider >
     )
 }
 
