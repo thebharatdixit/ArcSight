@@ -115,6 +115,25 @@ function EditPropertyScreen({ navigation, route }) {
             const listTokens = userData.token;
             setTokens(listTokens);
         })
+        let strArr = []
+        let strArrApi = []
+        let async = []
+        console.log("listingData.listing_ammenities    :   ", listingData.listing_ammenities)
+        listingData && listingData.listing_ammenities && listingData.listing_ammenities.map((item) => {
+            //return { id: item.amenity.id, name: item.amenity.name, isSelected: true }
+            let data = {
+                "id": item.id,
+            }
+            strArr.push(item.name);
+            strArrApi.push(data);
+            async.push({ id: item.amenity.id, name: item.amenity.name })
+            return undefined;
+        })
+        console.log("async   :   ", async)
+        storeData("selectedAminitiesData", async ? JSON.stringify(async) : "")
+        //
+        setArrSelectedAminities(strArr);
+        setArrSelectedAminitiesForApi(strArrApi);
     }, [])
 
     //const tokens = datas.token;
@@ -208,7 +227,6 @@ function EditPropertyScreen({ navigation, route }) {
 
 
             console.log('formdata ::' + JSON.stringify(formData) + 'tokennn :' + tokens);
-            setShowLoader('')
             fetch("https://arcsightapp.com/api/v1/create-listing", {
                 method: "post",
                 headers: {
@@ -321,7 +339,7 @@ function EditPropertyScreen({ navigation, route }) {
         setLongnitude(listingData.longitude);
         setLocationNeighbourhood(listingData.location_neighbourhood);
         console.log("location_neighbourhood:: " + listingData.location_neighbourhood);
-        setArrSelectedAminities([]);
+        //  setArrSelectedAminities([]);
         setYearBuilt("" + listingData.year_built);
         setMainImage(listingData.main_image_url);
 
@@ -385,12 +403,10 @@ function EditPropertyScreen({ navigation, route }) {
     }
 
 
-
-
     React.useEffect(() => {
         getData('selectedAminitiesData').then((selectedAminitiesData) => {
             if (selectedAminitiesData && selectedAminitiesData.length > 0) {
-                console.log('USER reson id : ' + JSON.stringify(selectedAminitiesData));
+                console.log('USER reson id : ' + selectedAminitiesData);
                 const selectedAminitiesDataArr = JSON.parse(selectedAminitiesData);
                 var strArr = [];
                 var strArrApi = [];
@@ -398,7 +414,6 @@ function EditPropertyScreen({ navigation, route }) {
                     let item = selectedAminitiesDataArr[i];
                     let data = {
                         "id": item.id,
-
                     }
                     strArr.push(item.name);
                     strArrApi.push(data);
@@ -710,23 +725,6 @@ function EditPropertyScreen({ navigation, route }) {
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Address  " + '*'}</Text>
-                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
-                            {/* <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.06), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), borderBottomWidth: 0}}>
-                                <Input placeholder='123 Street Name'
-                                    style={{ fontSize: getDimen(0.038), }}
-                                    onChangeText={(val) => setLocation(val)}
-                                />
-                            </Item> */}
-                            {/* <View style={styles.inputContainer}> */}
-                            {/* <TextInput
-                                    style={styles.input}
-                                    placeholder="Address"
-                                    placeholderTextColor="#8A8A8A"
-                                    // secureTextEntry={true}
-                                    underlineColorAndroid='transparent'
-                                    onChangeText={(address) => setAddress(address)}
-                                    value={address} /> */}
-
                             <TouchableOpacity onPress={() => setGoogleView(true)}>
                                 {
                                     (location === '') ?
@@ -977,25 +975,33 @@ function EditPropertyScreen({ navigation, route }) {
                         <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#CCC', marginTop: getDimen(0.0136) }}></View>
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(0.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Amenities  " + '*'}</Text>
+                            <Text
+                                //onPress={() => navigation.navigate('Aminities', ({ 'dataFor': "Aminities", "data": aminitiesList }))}
+
+                                style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Amenities  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
-                            <View style={styles.inputContainer2}>
-                                <TouchableOpacity onPress={() => navigation.navigate('Aminities', ({ 'dataFor': "Aminities", "data": aminitiesList }))} style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%' }}>
-                                    <View style={{ flex: 0.8, justifyContent: 'center' }}>
-                                        <Text style={{ marginLeft: getDimen(0.1) }}>{(arrSelectedAminities && arrSelectedAminities.length > 0) ? arrSelectedAminities.toString() : "Select Amenities"}</Text>
-                                    </View>
-                                    <View style={{ flex: 0.2, width: '100%', height: '100%', justifyContent: 'center' }}>
-                                        <Image
-                                            source={require('../../../assets/images/down-arrow.png')}
-                                            style={{ marginRight: 1, alignSelf: 'center', width: '30%', height: '30%' }}
-                                        />
-                                    </View>
-                                </TouchableOpacity>
-                                {/* <Image
+                            <TouchableOpacity
+                                onPress={() => {
+                                    //console.log("clicked")
+                                    navigation.navigate('Aminities', ({ 'dataFor': "Aminities", "data": aminitiesList }))
+                                }} style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%', marginTop: 10 }}>
+                                <View style={{ flex: 0.8, justifyContent: 'center' }}>
+                                    {console.log("binding arrSelectedAminities :  " + JSON.stringify(arrSelectedAminities))}
+                                    <Text style={{ marginLeft: getDimen(0.05), marginRight: getDimen(0.15) }}>{(arrSelectedAminities && arrSelectedAminities.length > 0) ? arrSelectedAminities.toString() : "Select Amenities"}</Text>
+                                </View>
+                                <View style={{ flex: 0.2, width: '100%', height: '100%', justifyContent: 'center' }}>
+                                    <Image
+                                        //   onPress={() => navigation.navigate('Aminities', ({ 'dataFor': "Aminities", "data": aminitiesList }))}
+                                        source={require('../../../assets/images/down-arrow.png')}
+                                        style={{ marginRight: getDimen(0.1), alignSelf: 'center', width: '30%', height: '30%' }}
+                                    />
+                                </View>
+                            </TouchableOpacity>
+                            {/* <Image
                                     source={require('../assets/images/nationality.png')}
                                     style={styles.ImageStyle}
                                 /> */}
-                                {/* <Picker
+                            {/* <Picker
                                     mode="dialog"
                                     iosIcon={<Icon />}
                                     style={{ marginLeft: getDimen(0.07), width: '80%', height: '100%', backgroundColor: 'transparent', color: 'black', fontSize: 14 }}
@@ -1008,7 +1014,6 @@ function EditPropertyScreen({ navigation, route }) {
                                 >
                                     {getAminitiesItems()}
                                 </Picker> */}
-                            </View>
                         </View>
                         <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#CCC', marginTop: getDimen(0.0136) }}></View>
 
@@ -1127,7 +1132,13 @@ function EditPropertyScreen({ navigation, route }) {
                     <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), alignItems: 'center', }}>
                         <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: '100%', justifyContent: 'center', alignContent: 'center' }}>
                             <TouchableOpacity
-                                onPress={() => updateProperty()}
+                                onPress={() => {
+                                    setShowLoader('')
+                                    setTimeout(() => {
+                                        updateProperty()
+                                    }, 1000)
+
+                                }}
                             >
                                 <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>UPDATE</Text>
                             </TouchableOpacity>
