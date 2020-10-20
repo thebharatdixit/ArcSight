@@ -245,7 +245,7 @@ function Main(props) {
                             storeData('saveUsername', userName);
                             storeData('savePassword', password);
                             if (fcmToken)
-                            storeData('saveFcmToken', fcmToken);
+                                storeData('saveFcmToken', fcmToken);
                             storeData('isLogin', 'true');
                             storeData('userData', JSON.stringify(response.data));
                             storeData('profileImage', response.data.user.profile_image_url);
@@ -504,8 +504,7 @@ function Main(props) {
         <MenuProvider>
             <View style={{ flex: 1 }} >
                 <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                    <TouchableOpacity onPress={() =>
-                    {
+                    <TouchableOpacity onPress={() => {
                         changeCounter(Math.random())
                         navigation.dispatch(DrawerActions.toggleDrawer())
                     }
@@ -539,159 +538,322 @@ function Main(props) {
                             null
                     }
 
-                        <SafeAreaView >
-                            <FlatList
-                                data={homeList.data}
-                                renderItem={({ renderItem, index, item }) => (
-                                    <View style={{ flex: 1 }}>
+                    <FlatList
+                        style={{ flex: bannerUrl ? .73 : .88 }}
+                        data={homeList.data}
+                        renderItem={({ renderItem, index, item }) => (
+                            <View style={{ flex: 1 }}>
 
-                                        {
-                                            (item.is_featured === 'yes') ?
-                                                <View>
-                                                    <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
-                                                        <TouchableOpacity onPress={() => {
+                                {
+                                    (item.is_featured === 'yes') ?
+                                        <View>
+                                            <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
+                                                <TouchableOpacity onPress={() => {
+                                                    (userId === item.user_id) ?
+                                                        navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
+                                                        :
+                                                        navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
+
+                                                }
+                                                }>
+                                                    {
+                                                        (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
+                                                            <Image source={require('../../../assets/icons/2.png')}
+                                                                style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                                                            :
+                                                            <Image source={{
+                                                                uri: `${item.userinfo.profile_image_url}`
+                                                            }}
+                                                                style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2), borderRadius: getDimen(0.1) }} />
+                                                    }
+                                                </TouchableOpacity>
+                                                <View style={{ flexDirection: 'row', width: '100%', backgroundColor: 'white', marginLeft: getDimen(0.02), }}>
+                                                    {/* <TouchableOpacity onPress={() => Alert.alert('name')}> */}
+
+                                                    <View style={{ backgroundColor: 'white', flexDirection: 'column', width: '40%' }}>
+                                                        <TouchableOpacity onPress={() =>
+                                                        // console.log('Prachiiiii', userId === item.user_id)
+                                                        {
                                                             (userId === item.user_id) ?
                                                                 navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
                                                                 :
                                                                 navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
 
                                                         }
+
+                                                        }
+                                                        >
+
+                                                            <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+                                                                {(item && item.userinfo) ? item.userinfo.name : ''}
+                                                            </Text>
+                                                            <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.012) }}>{daysFunction(item.created_at, item)}</Text>
+                                                        </TouchableOpacity>
+                                                    </View>
+
+                                                    <View style={{ backgroundColor: 'white', width: '35%', alignContent: 'flex-end', alignItems: 'flex-end' }}>
+
+                                                        <Text style={{ color: 'gray', paddingRight: 7 }}>
+                                                            {(item && item.userinfo) ? item.userinfo.company_name : ''}
+                                                        </Text>
+                                                    </View>
+                                                    <View style={{ backgroundColor: 'white', width: '10%', paddingLeft: getDimen(0) }}>
+                                                        <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
+                                                            {
+                                                                (item.web_share_url === '' || item.web_share_url === undefined) ?
+                                                                    null
+                                                                    :
+                                                                    <Image source={require('../../../assets/icons/20.png')}
+                                                                        style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
+                                                            }
+
+                                                        </TouchableOpacity>
+                                                        <TouchableOpacity onPress={() =>
+                                                            // console.log("userId1234:", userId, item.user_id)
+                                                            navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.user_id, "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url }))
                                                         }>
                                                             {
-                                                                (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
-                                                                    <Image source={require('../../../assets/icons/2.png')}
-                                                                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                                                                (userId === item.user_id) ?
+                                                                    null
                                                                     :
-                                                                    <Image source={{
-                                                                        uri: `${item.userinfo.profile_image_url}`
-                                                                    }}
-                                                                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2), borderRadius: getDimen(0.1) }} />
+                                                                    <Image source={require('../../../assets/icons/25.png')}
+                                                                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
                                                             }
-                                                        </TouchableOpacity>
-                                                        <View style={{ flexDirection: 'row', width: '100%', backgroundColor: 'white', marginLeft: getDimen(0.02), }}>
-                                                            {/* <TouchableOpacity onPress={() => Alert.alert('name')}> */}
-
-                                                            <View style={{ backgroundColor: 'white', flexDirection: 'column', width: '40%' }}>
-                                                                <TouchableOpacity onPress={() =>
-                                                                // console.log('Prachiiiii', userId === item.user_id)
-                                                                {
-                                                                    (userId === item.user_id) ?
-                                                                        navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
-                                                                        :
-                                                                        navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
-
-                                                                }
-
-                                                                }
-                                                                >
-
-                                                                    <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
-                                                                        {(item && item.userinfo) ? item.userinfo.name : ''}
-                                                                    </Text>
-                                                                    <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.012) }}>{daysFunction(item.created_at, item)}</Text>
-                                                                </TouchableOpacity>
-                                                            </View>
-
-                                                            <View style={{ backgroundColor: 'white', width: '35%', alignContent: 'flex-end', alignItems: 'flex-end' }}>
-
-                                                                <Text style={{ color: 'gray', paddingRight: 7 }}>
-                                                                    {(item && item.userinfo) ? item.userinfo.company_name : ''}
-                                                                </Text>
-                                                            </View>
-                                                            <View style={{ backgroundColor: 'white', width: '10%', paddingLeft: getDimen(0) }}>
-                                                                <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
-                                                                    {
-                                                                        (item.web_share_url === '' || item.web_share_url === undefined) ?
-                                                                            null
-                                                                            :
-                                                                            <Image source={require('../../../assets/icons/20.png')}
-                                                                                style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
-                                                                    }
-
-                                                                </TouchableOpacity>
-                                                                <TouchableOpacity onPress={() =>
-                                                                    // console.log("userId1234:", userId, item.user_id)
-                                                                    navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.user_id, "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url }))
-                                                                }>
-                                                                    {
-                                                                        (userId === item.user_id) ?
-                                                                            null
-                                                                            :
-                                                                            <Image source={require('../../../assets/icons/25.png')}
-                                                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                                                    }
-                                                                    {/* <Image source={require('../../../assets/icons/25.png')}
+                                                            {/* <Image source={require('../../../assets/icons/25.png')}
                                                         style={{ height: getDimen(0.06), width: getDimen(0.06) }} /> */}
-                                                                </TouchableOpacity>
+                                                        </TouchableOpacity>
 
-                                                            </View>
+                                                    </View>
 
+                                                </View>
+                                            </View>
+                                            <View style={{ flex: 0.1, backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0) }}>
+
+                                                <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
+
+                                                    {
+                                                        (item.main_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
+                                                            <Image source={require('../../../assets/icons/19.png')}
+                                                                style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
+                                                            />
+                                                            :
+                                                            <Image source={{
+                                                                uri: `${item.main_image_url}`
+                                                            }}
+                                                                style={{ height: '100%', width: '100%' }} />
+                                                    }
+
+                                                </TouchableOpacity>
+                                                <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
+                                                    <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
+                                                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
                                                         </View>
                                                     </View>
-                                                    <View style={{ flex: 0.1, backgroundColor: 'white', justifyContent: 'flex-start', alignItems: 'center', marginTop: getDimen(0) }}>
-
-                                                        <TouchableOpacity onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
-
-                                                            {
-                                                                (item.main_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
-                                                                    <Image source={require('../../../assets/icons/19.png')}
-                                                                        style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
-                                                                    />
-                                                                    :
-                                                                    <Image source={{
-                                                                        uri: `${item.main_image_url}`
-                                                                    }}
-                                                                        style={{ height: '100%', width: '100%' }} />
-                                                            }
-
+                                                    {item.video_url ?
+                                                        <TouchableOpacity onPress={() =>
+                                                            // console.log("userId1234:", userId, item.user_id)
+                                                            shoWebview(item.video_url)
+                                                        }
+                                                            style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
+                                                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
                                                         </TouchableOpacity>
-                                                        <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
-                                                            <View style={{ backgroundColor: 'transparent', height: getDimen(0.125), width: getDimen(0.8), justifyContent: 'center', alignContent: 'center' }}>
-                                                                <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                                                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>FEATURED PROPERTY</Text>
-                                                                </View>
-                                                            </View>
-                                                            {item.video_url ?
-                                                                <TouchableOpacity onPress={() =>
-                                                                    // console.log("userId1234:", userId, item.user_id)
-                                                                    shoWebview(item.video_url)
-                                                                }
-                                                                    style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.2), justifyContent: 'center', alignContent: 'center' }}>
-                                                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>360◦</Text>
-                                                                </TouchableOpacity>
-                                                                :
-                                                                null
-                                                            }
-                                                        </View>
-                                                        <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
-                                                            <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3), }}>
-                                                                <Text style={{
-                                                                    textAlign: 'center', color: 'white',
-                                                                    textAlignVertical: 'center', fontWeight: '700', fontSize: getDimen(0.04)
-                                                                }}>
-                                                                    $
+                                                        :
+                                                        null
+                                                    }
+                                                </View>
+                                                <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
+                                                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3), }}>
+                                                        <Text style={{
+                                                            textAlign: 'center', color: 'white',
+                                                            textAlignVertical: 'center', fontWeight: '700', fontSize: getDimen(0.04)
+                                                        }}>
+                                                            $
                                                                 {item.price_per_sq_feet}
                                                                  /feet
                                                               </Text>
-                                                            </View>
+                                                    </View>
 
-                                                            <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.3), }}>
-                                                                <Text style={{
-                                                                    backgroundColor: '#f1ac35', textAlign: 'center', color: 'white',
-                                                                    textAlignVertical: 'center', fontWeight: '700', fontSize: getDimen(0.05)
-                                                                }}>
-                                                                    {(item) ? item.listing_type : ''}
-                                                                </Text>
-                                                            </View>
+                                                    <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.3), }}>
+                                                        <Text style={{
+                                                            backgroundColor: '#f1ac35', textAlign: 'center', color: 'white',
+                                                            textAlignVertical: 'center', fontWeight: '700', fontSize: getDimen(0.05)
+                                                        }}>
+                                                            {(item) ? item.listing_type : ''}
+                                                        </Text>
+                                                    </View>
 
 
+                                                </View>
+                                                {userId === item.user_id ?
+                                                    <TouchableOpacity style={{ width: '100%', alignItems: 'flex-start', position: 'absolute', bottom: 15, left: 5 }}>
+                                                        <Menu>
+                                                            <MenuTrigger>
+                                                                <Image source={require('../../../assets/images/more.png')}
+                                                                    style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'white' }}
+                                                                />
+                                                            </MenuTrigger>
+
+
+                                                            <MenuOptions>
+                                                                <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
+                                                                <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
+                                                                {/* <MenuOption onSelect={() => alert(`DELETE`)} >
+                                                                    <Text style={{ color: 'red' }}>Delete</Text>
+                                                                </MenuOption> */}
+                                                                {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
+                                                                {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
+                                                            </MenuOptions>
+                                                        </Menu>
+                                                    </TouchableOpacity>
+
+                                                    :
+                                                    null
+                                                }
+
+                                            </View>
+                                        </View>
+
+
+
+                                        :
+
+
+                                        <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 15, }}>
+                                            <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
+                                                <TouchableOpacity onPress={() => {
+                                                    (userId === item.user_id) ?
+                                                        navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
+                                                        :
+                                                        navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
+
+                                                }
+                                                }>
+                                                    {
+                                                        (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
+                                                            <Image source={require('../../../assets/icons/2.png')}
+                                                                style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                                                            :
+                                                            <Image source={{
+                                                                uri: `${item.userinfo.profile_image_url}`
+                                                            }}
+                                                                style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2), borderRadius: getDimen(0.1) }} />
+                                                    }
+                                                </TouchableOpacity>
+                                                <View style={{ flexDirection: 'row', width: '100%', backgroundColor: 'white', marginLeft: getDimen(0.02), }}>
+                                                    {/* <TouchableOpacity onPress={() => Alert.alert('name')}> */}
+
+                                                    <View style={{ backgroundColor: 'white', flexDirection: 'column', width: '40%' }}>
+                                                        <TouchableOpacity onPress={() =>
+                                                        // console.log('Prachiiiii', userId === item.user_id)
+                                                        {
+                                                            (userId === item.user_id) ?
+                                                                navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
+                                                                :
+                                                                navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
+
+                                                        }
+
+                                                        }
+                                                        >
+
+                                                            <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
+                                                                {(item && item.userinfo) ? item.userinfo.name : ''}
+                                                            </Text>
+                                                            <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.012) }}>{daysFunction(item.created_at, item)}</Text>
+                                                        </TouchableOpacity>
+                                                    </View>
+
+                                                    <View style={{ backgroundColor: 'white', width: '35%', alignContent: 'flex-end', alignItems: 'flex-end' }}>
+
+                                                        <Text style={{ color: 'gray', paddingRight: 7 }}>
+                                                            {(item && item.userinfo) ? item.userinfo.company_name : ''}
+                                                        </Text>
+                                                    </View>
+                                                    <View style={{ backgroundColor: 'white', width: '10%', paddingLeft: getDimen(0) }}>
+                                                        <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
+                                                            {
+                                                                (item.web_share_url === '' || item.web_share_url === undefined) ?
+                                                                    null
+                                                                    :
+                                                                    <Image source={require('../../../assets/icons/20.png')}
+                                                                        style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
+                                                            }
+
+                                                        </TouchableOpacity>
+                                                        <TouchableOpacity onPress={() =>
+                                                            // console.log("userId1234:", userId, item.user_id)
+                                                            navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.user_id, "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url }))
+                                                        }>
+                                                            {
+                                                                (userId === item.user_id) ?
+                                                                    null
+                                                                    :
+                                                                    <Image source={require('../../../assets/icons/25.png')}
+                                                                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                                            }
+                                                            {/* <Image source={require('../../../assets/icons/25.png')}
+                                                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} /> */}
+                                                        </TouchableOpacity>
+
+                                                    </View>
+
+                                                </View>
+                                            </View>
+                                            <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.52), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
+                                                <View style={{ flex: 0.6, height: '100%', width: '100%', }}>
+                                                    <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6', }}>
+                                                        <TouchableOpacity onPress={() => {
+                                                            navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
+                                                        }
+                                                        }>
+
+                                                            {
+                                                                (item.main_image_url) ?
+                                                                    <Image source={{
+                                                                        uri: `${item.main_image_url}`
+                                                                    }}
+                                                                        style={{ resizeMode: 'cover', height: getDimen(.43), width: getDimen(.35) }} />
+
+                                                                    :
+                                                                    <Image
+                                                                        source={require('../../../assets/icons/19.png')}
+                                                                        style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
+                                                                    />
+                                                            }
+                                                        </TouchableOpacity>
+
+                                                    </View>
+
+
+                                                    <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
+                                                        <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
+                                                            {/* <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text> */}
+                                                            <Text style={{ fontSize: getDimen(0.035), fontWeight: '600', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(item.is_sold === "no") ? item.listing_type : item.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
                                                         </View>
+                                                        <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
+                                                            <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>${item.price_per_sq_feet}/feet</Text>
+                                                        </View>
+                                                    </View>
+
+                                                </View>
+
+
+                                                <View style={{ flex: 1, height: '100%', }}>
+                                                    <View style={{ flex: 0.3, marginLeft: getDimen(0.05), marginRight: getDimen(0.01), marginTop: getDimen(0.015), flexDirection: 'row' }}>
+                                                        <TouchableOpacity style={{ marginRight: 5, flex: 0.9 }}
+                                                            onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))}>
+                                                            {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
+                                                            <Text
+                                                                numberOfLines={2}
+                                                                style={{ fontSize: getDimen(0.04), fontWeight: '400' }}>{item.location}</Text>
+                                                        </TouchableOpacity>
                                                         {userId === item.user_id ?
-                                                            <TouchableOpacity style={{ width: '100%', alignItems: 'flex-start', position: 'absolute', bottom: 15, left: 5 }}>
+                                                            <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', left: 5, flex: 0.1 }}>
                                                                 <Menu>
                                                                     <MenuTrigger>
                                                                         <Image source={require('../../../assets/images/more.png')}
-                                                                            style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'white' }}
+                                                                            style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'gray' }}
                                                                         />
                                                                     </MenuTrigger>
 
@@ -700,271 +862,108 @@ function Main(props) {
                                                                         <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
                                                                         <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
                                                                         {/* <MenuOption onSelect={() => alert(`DELETE`)} >
-                                                                    <Text style={{ color: 'red' }}>Delete</Text>
-                                                                </MenuOption> */}
+                                                                <Text style={{ color: 'red' }}>Delete</Text>
+                                                            </MenuOption> */}
                                                                         {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
+
                                                                         {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
                                                                     </MenuOptions>
                                                                 </Menu>
                                                             </TouchableOpacity>
-
                                                             :
                                                             null
                                                         }
+                                                    </View>
+
+                                                    <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.03), marginLeft: getDimen(0.04) }}>
+                                                        <View style={{ flex: 0.45, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                            <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
+                                                            <Text style={{ fontSize: getDimen(0.03) }}>Bedrooms</Text>
+                                                        </View>
+                                                        <View style={{ flex: 0.45, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                            <Text style={{ fontSize: getDimen(0.06), textAlign: 'center' }}>{item.bathrooms}</Text>
+                                                            <Text style={{ fontSize: getDimen(0.03), textAlign: 'center' }}>Bathrooms</Text>
+                                                        </View>
+                                                        <View style={{ flex: 0.4, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
+                                                            <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
+                                                            <Text style={{ fontSize: getDimen(0.03) }}>Terrace</Text>
+                                                        </View>
+                                                    </View>
+
+                                                    <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.03), marginLeft: getDimen(0) }}>
+
+                                                        <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                            <Image source={require('../../../assets/icons/pin.png')}
+                                                                style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                        </View>
+                                                        {/* <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                                </View> */}
+
+                                                        {isMap === "on" ?
+
+                                                            <TouchableOpacity onPress={() => openMapurl(item.latitude, item.longitude, item.location)} style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                                {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                                <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                            </TouchableOpacity>
+                                                            // <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
+                                                            //     <Text
+                                                            //         numberOfLines={2}
+                                                            //         style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
+                                                            // </TouchableOpacity>
+                                                            :
+                                                            <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                                {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
+                                                                <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
+                                                            </View>
+                                                        }
+                                                        <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
+                                                            {/* <Image source={require('../../../assets/icons/dummyLine.png')}
+                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
+                                                            {/* <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
+                                                                    <Image source={require('../../../assets/icons/dummyLine.png')}
+                                                                        style={{ height: getDimen(0.08), width: getDimen(0.08) }} />
+                                                                </TouchableOpacity> */}
+                                                        </View>
+
 
                                                     </View>
+
+
+                                                    <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0), marginBottom: getDimen(0.03) }}>
+
+                                                        <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+                                                            <Image source={require('../../../assets/icons/map.png')}
+                                                                style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
+                                                        </View>
+                                                        <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
+                                                            <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
+                                                        </View>
+                                                        <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
+
+                                                            <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
+                                                                {
+                                                                    (item && item.web_share_url === !'') ?
+                                                                        <Image source={require('../../../assets/icons/20.png')}
+                                                                            style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
+                                                                        :
+                                                                        null
+                                                                }
+                                                                {/* <Image source={require('../../../assets/icons/20.png')}
+                                                        style={{ height: getDimen(0.07), width: getDimen(0.07) }} /> */}
+                                                            </TouchableOpacity>
+                                                        </View>
+
+                                                    </View>
+
                                                 </View>
 
 
 
-                                                :
 
 
-                                                <View style={{ borderRadius: 0, width: getDimen(0.95), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: 15, }}>
-                                                    <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02), paddingRight: getDimen(0.03), backgroundColor: 'white' }}>
-                                                        <TouchableOpacity onPress={() => {
-                                                            (userId === item.user_id) ?
-                                                                navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
-                                                                :
-                                                                navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
-
-                                                        }
-                                                        }>
-                                                            {
-                                                                (item.userinfo.profile_image_url === undefined || item.userinfo.profile_image_url === null || item.userinfo.profile_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
-                                                                    <Image source={require('../../../assets/icons/2.png')}
-                                                                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
-                                                                    :
-                                                                    <Image source={{
-                                                                        uri: `${item.userinfo.profile_image_url}`
-                                                                    }}
-                                                                        style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2), borderRadius: getDimen(0.1) }} />
-                                                            }
-                                                        </TouchableOpacity>
-                                                        <View style={{ flexDirection: 'row', width: '100%', backgroundColor: 'white', marginLeft: getDimen(0.02), }}>
-                                                            {/* <TouchableOpacity onPress={() => Alert.alert('name')}> */}
-
-                                                            <View style={{ backgroundColor: 'white', flexDirection: 'column', width: '40%' }}>
-                                                                <TouchableOpacity onPress={() =>
-                                                                // console.log('Prachiiiii', userId === item.user_id)
-                                                                {
-                                                                    (userId === item.user_id) ?
-                                                                        navigation.navigate('Profile Screen', ({ "profile": "my", "userId": item.user_id }))
-                                                                        :
-                                                                        navigation.navigate('Colleague List', ({ "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url, "is_Friend": '', "userId": item.user_id }))
-
-                                                                }
-
-                                                                }
-                                                                >
-
-                                                                    <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
-                                                                        {(item && item.userinfo) ? item.userinfo.name : ''}
-                                                                    </Text>
-                                                                    <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between', marginTop: getDimen(0.01), marginLeft: getDimen(0.012) }}>{daysFunction(item.created_at, item)}</Text>
-                                                                </TouchableOpacity>
-                                                            </View>
-
-                                                            <View style={{ backgroundColor: 'white', width: '35%', alignContent: 'flex-end', alignItems: 'flex-end' }}>
-
-                                                                <Text style={{ color: 'gray', paddingRight: 7 }}>
-                                                                    {(item && item.userinfo) ? item.userinfo.company_name : ''}
-                                                                </Text>
-                                                            </View>
-                                                            <View style={{ backgroundColor: 'white', width: '10%', paddingLeft: getDimen(0) }}>
-                                                                <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
-                                                                    {
-                                                                        (item.web_share_url === '' || item.web_share_url === undefined) ?
-                                                                            null
-                                                                            :
-                                                                            <Image source={require('../../../assets/icons/20.png')}
-                                                                                style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
-                                                                    }
-
-                                                                </TouchableOpacity>
-                                                                <TouchableOpacity onPress={() =>
-                                                                    // console.log("userId1234:", userId, item.user_id)
-                                                                    navigation.navigate('Chat Layout', ({ "fetch_chat_user_id": item.user_id, "name": item.userinfo.name, "companyName": item.userinfo.company_name, "profile_image_url": item.userinfo.profile_image_url }))
-                                                                }>
-                                                                    {
-                                                                        (userId === item.user_id) ?
-                                                                            null
-                                                                            :
-                                                                            <Image source={require('../../../assets/icons/25.png')}
-                                                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                                                    }
-                                                                    {/* <Image source={require('../../../assets/icons/25.png')}
-                                                        style={{ height: getDimen(0.06), width: getDimen(0.06) }} /> */}
-                                                                </TouchableOpacity>
-
-                                                            </View>
-
-                                                        </View>
-                                                    </View>
-                                                    <View style={{ backgroundColor: '#F2F2F2', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.52), marginTop: 0, marginRight: 0, borderRadius: 5, alignItems: 'center', }}>
-                                                        <View style={{ flex: 0.6, height: '100%', width: '100%', }}>
-                                                            <View style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#E6E6E6', }}>
-                                                                <TouchableOpacity onPress={() => {
-                                                                    navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "listing_id": item.id }))
-                                                                }
-                                                                }>
-
-                                                                    {
-                                                                        (item.main_image_url) ?
-                                                                            <Image source={{
-                                                                                uri: `${item.main_image_url}`
-                                                                            }}
-                                                                                style={{ resizeMode: 'cover', height: getDimen(.43), width: getDimen(.35) }} />
-
-                                                                            :
-                                                                            <Image
-                                                                                source={require('../../../assets/icons/19.png')}
-                                                                                style={{ resizeMode: 'contain', height: getDimen(.09), width: getDimen(.09) }}
-                                                                            />
-                                                                    }
-                                                                </TouchableOpacity>
-
-                                                            </View>
-
-
-                                                            <View style={{ flex: 0.2, flexDirection: 'row', backgroundColor: 'orange' }}>
-                                                                <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
-                                                                    {/* <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text> */}
-                                                                    <Text style={{ fontSize: getDimen(0.035), fontWeight: '600', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>{(item.is_sold === "no") ? item.listing_type : item.listing_type === "For Sale" ? "Sold Out" : "Rent Out"}</Text>
-                                                                </View>
-                                                                <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
-                                                                    <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>${item.price_per_sq_feet}/feet</Text>
-                                                                </View>
-                                                            </View>
-
-                                                        </View>
-
-
-                                                        <View style={{ flex: 1, height: '100%', }}>
-                                                            <View style={{ flex: 0.3, marginLeft: getDimen(0.05), marginRight: getDimen(0.01), marginTop: getDimen(0.015), flexDirection: 'row' }}>
-                                                                <TouchableOpacity style={{ marginRight: 5, flex: 0.9 }}
-                                                                    onPress={() => navigation.navigate('Search List Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))}>
-                                                                    {/* <Text style={{ fontSize: getDimen(0.06) }}>1234 Main St</Text> */}
-                                                                    <Text
-                                                                        numberOfLines={2}
-                                                                        style={{ fontSize: getDimen(0.04), fontWeight: '400' }}>{item.location}</Text>
-                                                                </TouchableOpacity>
-                                                                {userId === item.user_id ?
-                                                                    <TouchableOpacity style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', left: 5, flex: 0.1 }}>
-                                                                        <Menu>
-                                                                            <MenuTrigger>
-                                                                                <Image source={require('../../../assets/images/more.png')}
-                                                                                    style={{ height: getDimen(0.045), width: getDimen(0.045), resizeMode: 'contain', margin: 0.025, tintColor: 'gray' }}
-                                                                                />
-                                                                            </MenuTrigger>
-
-
-                                                                            <MenuOptions>
-                                                                                <MenuOption onSelect={() => navigation.navigate('Edit Property Screen', ({ "listingData": item }))} text='EDIT' />
-                                                                                <MenuOption onSelect={() => deleteListingApiIntegration(item.id)} text='DELETE' />
-                                                                                {/* <MenuOption onSelect={() => alert(`DELETE`)} >
-                                                                <Text style={{ color: 'red' }}>Delete</Text>
-                                                            </MenuOption> */}
-                                                                                {item.is_sold === 'no' ? <MenuOption onSelect={() => soldOutRentOutApiIntegration(item.id)} text='MARK AS SOLD' /> : null}
-
-                                                                                {/* <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> */}
-                                                                            </MenuOptions>
-                                                                        </Menu>
-                                                                    </TouchableOpacity>
-                                                                    :
-                                                                    null
-                                                                }
-                                                            </View>
-
-                                                            <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.03), marginLeft: getDimen(0.04) }}>
-                                                                <View style={{ flex: 0.45, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.bedrooms}</Text>
-                                                                    <Text style={{ fontSize: getDimen(0.03) }}>Bedrooms</Text>
-                                                                </View>
-                                                                <View style={{ flex: 0.45, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                                    <Text style={{ fontSize: getDimen(0.06), textAlign: 'center' }}>{item.bathrooms}</Text>
-                                                                    <Text style={{ fontSize: getDimen(0.03), textAlign: 'center' }}>Bathrooms</Text>
-                                                                </View>
-                                                                <View style={{ flex: 0.4, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginLeft: getDimen(0.002), height: '100%' }}>
-                                                                    <Text style={{ fontSize: getDimen(0.06) }}>{item.terrace}</Text>
-                                                                    <Text style={{ fontSize: getDimen(0.03) }}>Terrace</Text>
-                                                                </View>
-                                                            </View>
-
-                                                            <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.03), marginLeft: getDimen(0) }}>
-
-                                                                <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                                    <Image source={require('../../../assets/icons/pin.png')}
-                                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                                                                </View>
-                                                                {/* <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
-                                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
-                                                                </View> */}
-
-                                                                {isMap === "on" ?
-
-                                                                    <TouchableOpacity onPress={() => openMapurl(item.latitude, item.longitude, item.location)} style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
-                                                                        {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
-                                                                        <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
-                                                                    </TouchableOpacity>
-                                                                    // <TouchableOpacity style={{ flex: 0.5 }} onPress={() => openMapurl(latitude, longnitude)}>
-                                                                    //     <Text
-                                                                    //         numberOfLines={2}
-                                                                    //         style={{ fontSize: getDimen(0.042), fontWeight: '500' }}>{item.location}</Text>
-                                                                    // </TouchableOpacity>
-                                                                    :
-                                                                    <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
-                                                                        {/* <Text style={{ fontSize: getDimen(0.035) }}>City,State</Text> */}
-                                                                        <Text style={{ fontSize: getDimen(0.035) }}>{item.city},{item.state}</Text>
-                                                                    </View>
-                                                                }
-                                                                <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%', }}>
-                                                                    {/* <Image source={require('../../../assets/icons/dummyLine.png')}
-                                                         style={{ height: getDimen(0.05), width: getDimen(0.05) }} /> */}
-                                                                    {/* <TouchableOpacity onPress={() => Alert.alert('Compared Feature!')}>
-                                                                    <Image source={require('../../../assets/icons/dummyLine.png')}
-                                                                        style={{ height: getDimen(0.08), width: getDimen(0.08) }} />
-                                                                </TouchableOpacity> */}
-                                                                </View>
-
-
-                                                            </View>
-
-
-                                                            <View style={{ flex: 0.27, flexDirection: 'row', backgroundColor: 'gray', justifyContent: 'center', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0), marginLeft: getDimen(0), marginBottom: getDimen(0.03) }}>
-
-                                                                <View style={{ flex: 0.35, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                                                    <Image source={require('../../../assets/icons/map.png')}
-                                                                        style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-                                                                </View>
-                                                                <View style={{ flex: 0.7, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'flex-start', alignItems: 'flex-start', height: '100%', marginLeft: getDimen(-0.04) }}>
-                                                                    <Text style={{ fontSize: getDimen(0.035) }}>{item.sq_feet} Sq Feet</Text>
-                                                                </View>
-                                                                <View style={{ flex: 0.25, flexDirection: 'column', backgroundColor: '#F2F2F2', justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-
-                                                                    <TouchableOpacity onPress={() => onShare(item.web_share_url)}>
-                                                                        {
-                                                                            (item && item.web_share_url === !'') ?
-                                                                                <Image source={require('../../../assets/icons/20.png')}
-                                                                                    style={{ height: getDimen(0.07), width: getDimen(0.07) }} />
-                                                                                :
-                                                                                null
-                                                                        }
-                                                                        {/* <Image source={require('../../../assets/icons/20.png')}
-                                                        style={{ height: getDimen(0.07), width: getDimen(0.07) }} /> */}
-                                                                    </TouchableOpacity>
-                                                                </View>
-
-                                                            </View>
-
-                                                        </View>
-
-
-
-
-
-                                                    </View>
-                                                    {/* <View style={{ width: '40%', height: getDimen(0.08), flexDirection: 'row', backgroundColor: 'orange' }}>
+                                            </View>
+                                            {/* <View style={{ width: '40%', height: getDimen(0.08), flexDirection: 'row', backgroundColor: 'orange' }}>
                                         <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
                                             <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>FOR SALE</Text>
                                         </View>
@@ -973,16 +972,19 @@ function Main(props) {
                                         </View>
                                     </View> */}
 
-                                                </View>
-                                        }
-                                    </View>
-                                )}
+                                        </View>
+                                }
+                            </View>
+                        )}
 
-                                keyExtractor={item => '' + item.id}
-                            />
-                        </SafeAreaView>
+                        keyExtractor={item => '' + item.id}
+                    />
+
+
+
+                    {console.log("bannerUrl :  ", bannerUrl)}
                     {bannerUrl ?
-                        <View style={{ height: getDimen(0.2), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0, borderWidth: 1, borderColor: 'black' }}>
+                        <View style={{ height: getDimen(0.15), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0, borderWidth: 1, borderColor: 'black' }}>
                             <View style={{ backgroundColor: 'white', width: '100%', height: '100%', alignItems: 'center', }}>
                                 <Image source={{ uri: bannerUrl }}
                                     defaultSource={require('../../../assets/icons/2.png')}
@@ -993,8 +995,6 @@ function Main(props) {
                         :
                         null
                     }
-
-
                 </View>
 
                 {
