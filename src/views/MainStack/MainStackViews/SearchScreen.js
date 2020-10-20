@@ -12,7 +12,7 @@ import {
     TextInput,
     ToastAndroid,
     Alert,
-    KeyboardAvoidingView
+    KeyboardAvoidingView, Platform
 } from 'react-native';
 
 import SplashScreen from 'react-native-splash-screen'
@@ -322,11 +322,16 @@ function Search({ navigation, changeCounter }) {
             }
 
         })
+    }
+    const GetAvoidingView = () => {
+        return Platform.OS === 'ios' ? <KeyboardAvoidingView style={{ backgroundColor: 'blue', flex: 0.90 }} behavior="padding">
+        </KeyboardAvoidingView> : <View style={{ flex: 0.90 }}>
 
+            </View>
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 ,flexDirection:'column'}}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() => {
                     changeCounter(Math.random())
@@ -344,223 +349,556 @@ function Search({ navigation, changeCounter }) {
                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
                 </View>
             </View>
-            <KeyboardAvoidingView style={{ backgroundColor: 'blue', flex: 0.90 }} behavior="padding">
+            {Platform.OS === 'android' ?
+                <View style={{ width: '100%', flex:.9}}>
+                    <View style={{ height: getDimen(0.12), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(0), marginRight: 10, alignItems: 'center', }}>
+                            <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH LISTINGS</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <ScrollView style={styles.container}
+                        keyboardShouldPersistTaps='always'
+                    >
 
-                <View style={{ height: getDimen(0.12), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(0), marginRight: 10, alignItems: 'center', }}>
-                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                            <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH LISTINGS</Text>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
+                            <TouchableOpacity
+                                onPress={() => allButton()}
+                            >
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.026) }}>
+
+                                    {checked1 ? (
+                                        <Image source={require('../../../assets/icons/radio.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06), }} />
+                                    ) : <Image source={require('../../../assets/icons/circle.png')}
+                                        style={{ height: getDimen(0.06), width: getDimen(0.06), }} />}
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01), textAlign: 'center', textAlignVertical: 'center' }}>All Listings</Text>
+
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{ marginLeft: getDimen(-0.006) }}
+                                onPress={() =>
+                                    colleagueButton()
+                                }
+                            >
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.028) }}>
+                                    {
+                                        checked2 ? (
+                                            <Image source={require('../../../assets/icons/radio.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        ) :
+                                            <Image source={require('../../../assets/icons/circle.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    }
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01) }}>Colleague Listings</Text>
+                                </View>
+
+
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{ marginLeft: getDimen(-0.006) }}
+                                onPress={() =>
+                                    myButton()
+                                }>
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.028) }}>
+                                    {
+                                        checked3 ? (
+                                            <Image source={require('../../../assets/icons/radio.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        ) :
+                                            <Image source={require('../../../assets/icons/circle.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    }
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01) }}>My Listings</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Location</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop:getDimen(0.025), color:'gray',}}>Current Location / City,State / Zip Code</Text> */}
+
+                            <View>
+                                <TouchableOpacity onPress={() => setGoogleView(true)}>
+                                    {
+                                        (location === '') ?
+                                            <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>Current Location / City,State / Zip Code</Text>
+                                            :
+                                            <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>{location}</Text>
+                                    }
+
+                                </TouchableOpacity>
+                            </View>
+
+                            {/* <Item style={{ marginLeft: getDimen(0.03), marginRight: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
+        <Input placeholder='Current Location / City,State / Zip Code'
+            style={{ fontSize: getDimen(0.038), }}
+            onChangeText={(val) => setLocation(val)}
+
+        />
+    </Item> */}
+                        </View>
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
+
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: getDimen(0.01), marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
+                            <TouchableOpacity
+                                style={{ marginLeft: getDimen(-0.006) }}
+                                onPress={() =>
+                                    forSale()
+                                }>
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.03) }}>
+                                    {
+                                        checkedForSale ? (
+                                            <Image source={require('../../../assets/icons/tick.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        ) :
+                                            <Image source={require('../../../assets/icons/circle.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    }
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.02) }}>For Sale</Text>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{ marginLeft: getDimen(-0.006) }}
+                                onPress={() =>
+                                    forRent()
+                                }>
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.05) }}>
+                                    {
+                                        checkedForRent ? (
+                                            <Image source={require('../../../assets/icons/tick.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        ) :
+                                            <Image source={require('../../../assets/icons/circle.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    }
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.02) }}>For Rent</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Price</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
+                            <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
+                                <Input
+                                    keyboardType="number-pad"
+                                    placeholder='$000,000'
+                                    style={{ fontSize: getDimen(0.038), borderBottomWidth: 0 }}
+                                    onChangeText={(selectedValue) => setSelectedValue(selectedValue)}
+                                    value={selectedValue}
+                                />
+
+                                {/* <Icon active name='arrow' /> */}
+                                {/* <Picker
+                note
+                mode="dropdown"
+                iosIcon={<Icon />}
+                style={{ width: getDimen(0.95), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+                placeholder="$00,0000"
+                placeholderStyle={{ color: "black", fontSize: 14 }}
+                placeholderIconColor="#a43d3e"
+                selectedValue={selectedValue}
+                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+            >
+                <Picker.Item label="20000" value="20000" />
+                <Picker.Item label="40000" value="40000" />
+                <Picker.Item label="100000" value="100000" />
+                <Picker.Item label="100000" value="2500" />
+
+            </Picker> */}
+                            </Item>
+                        </View>
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
+
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                            <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Bedrooms</Text>
+                                {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
+                                <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
+                                    <Input placeholder='00'
+                                        keyboardType="number-pad"
+                                        style={{ fontSize: getDimen(0.038), }}
+                                        onChangeText={(bedRoom) => setBedroom(bedRoom)}
+                                        value={bedRoom}
+                                    />
+
+                                </Item>
+                            </View>
+                            <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Baths</Text>
+                                {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
+                                <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
+                                    <Input placeholder='00'
+                                        keyboardType="number-pad"
+                                        style={{ fontSize: getDimen(0.038), }}
+                                        onChangeText={(bathRoom) => setBathroom(bathRoom)}
+                                        value={bathRoom}
+                                    />
+                                </Item>
+                            </View>
+                        </View>
+
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Home Type</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
+                            {/* <View style={styles.inputContainer}>
+            <View style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%' }}>
+                <View style={{ flex: 0.8, justifyContent: 'center' }}>
+
+                </View>
+                <View style={{ flex: 0.2, width: '100%', height: '100%', justifyContent: 'center' }}>
+                    <Image
+                        source={require('../../../assets/images/down-arrow.png')}
+                        style={{ marginRight: 1, alignSelf: 'center', width: '30%', height: '30%' }}
+                    />
+                </View>
+            </View>
+           
+            
+        </View> */}
+                            <Picker
+                                mode="dialog"
+                                iosIcon={<Icon />}
+                                style={{ marginLeft: getDimen(0.02), width: '80%', height: '100%', backgroundColor: 'transparent', color: 'black', fontSize: getDimen(0.03), marginBottom: getDimen(-0.015) }}
+                                placeholder="Select Home Type"
+
+                                placeholderStyle={{ color: "gray", fontSize: getDimen(0.04) }}
+                                placeholderIconColor="#000000"
+                                selectedValue={selected}
+                                onValueChange={(label) => onValueChange(label)}
+                            >
+                                <Picker.Item label="House" value="key0" />
+                                <Picker.Item label="Co-op" value="key1" />
+                                <Picker.Item label="Condo" value="key2" />
+                                <Picker.Item label="Town House" value="key3" />
+                                <Picker.Item label="Multi Family" value="key4" />
+                                <Picker.Item label="Land" value="key5" />
+                                <Picker.Item label="Other" value="key6" />
+                            </Picker>
+                        </View>
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0) }}></View>
+
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                            <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Square Feet</Text>
+                                {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Minimum</Text> */}
+                                <Item style={{ marginLeft: getDimen(0.04), color: 'black', textAlign: 'justify', marginTop: getDimen(0), color: 'black', borderBottomWidth: 0 }}>
+                                    <Input placeholder='00'
+                                        keyboardType="number-pad"
+                                        style={{ fontSize: getDimen(0.038), }}
+                                        keyboardType="numeric"
+                                        onChangeText={(sqFeetMax) => setSqFeetMin(sqFeetMax)}
+                                        value={sqFeetMin}
+                                    />
+                                    {/* <Icon active name='arrow' /> */}
+                                    {/* <Picker
+                    note
+                    mode="dropdown"
+                    iosIcon={<Icon />}
+                    style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+                    placeholder="$00,00"
+                    placeholderStyle={{ color: "black", fontSize: 14 }}
+                    placeholderIconColor="#a43d3e"
+                    selectedValue={sqFeetMax}
+                    onValueChange={(itemValue, itemIndex) => setSqFeetMax(itemValue, itemIndex)}
+                >
+                    <Picker.Item label="0,000" value="0000" />
+                    <Picker.Item label="600" value="600" />
+                    <Picker.Item label="5,000" value="5000" />
+                    <Picker.Item label="4000" value="4000" />
+                </Picker> */}
+                                </Item>
+                            </View>
+                            <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>To</Text>
+                                {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Maximum</Text> */}
+                                <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', marginTop: getDimen(0), borderBottomWidth: 0 }}>
+                                    <Input placeholder='00'
+                                        keyboardType="numeric"
+                                        style={{ fontSize: getDimen(0.038), }}
+                                        onChangeText={(sqFeetMin) => setSqFeetMax(sqFeetMin)}
+                                        value={sqFeetMax}
+                                    />
+                                    {/* <Icon active name='arrow' /> */}
+                                    {/* <Picker
+                    note
+                    mode="dropdown"
+                    iosIcon={<Icon />}
+                    style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+                    placeholder="$00"
+                    placeholderStyle={{ color: "black", fontSize: 14 }}
+                    placeholderIconColor="#a43d3e"
+                    selectedValue={sqFeetMin}
+                    onValueChange={(itemValue, itemIndex) => setSqFeetMin(itemValue, itemIndex)}
+                >
+                    <Picker.Item label="0,000" value="0000" />
+                    <Picker.Item label="600" value="600" />
+                    <Picker.Item label="5,000" value="5000" />
+                    <Picker.Item label="4600" value="4600" />
+                </Picker> */}
+                                </Item>
+                            </View>
+                        </View>
+
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.01) }}></View>
+
+
+                    </ScrollView>
+                    <View style={{ height: getDimen(0.16), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
+                            <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        callSearchApi()
+                                    }
+                                    }
+                                >
+                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH</Text>
+                                </TouchableOpacity>
+
+                            </View>
+                            <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                <TouchableOpacity
+                                    onPress={() => resetAction()}
+                                >
+                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>RESET</Text>
+                                </TouchableOpacity>
+
+                            </View>
                         </View>
                     </View>
                 </View>
-                <ScrollView style={styles.container}
-                    keyboardShouldPersistTaps='always'
-                >
-
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
-                        <TouchableOpacity
-                            onPress={() => allButton()}
-                        >
-                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.026) }}>
-
-                                {checked1 ? (
-                                    <Image source={require('../../../assets/icons/radio.png')}
-                                        style={{ height: getDimen(0.06), width: getDimen(0.06), }} />
-                                ) : <Image source={require('../../../assets/icons/circle.png')}
-                                    style={{ height: getDimen(0.06), width: getDimen(0.06), }} />}
-
-                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01), textAlign: 'center', textAlignVertical: 'center' }}>All Listings</Text>
-
+                :
+                <KeyboardAvoidingView style={{ backgroundColor: 'blue', flex: 0.90 }} behavior="padding">
+                    <View style={{ height: getDimen(0.12), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(0), marginRight: 10, alignItems: 'center', }}>
+                            <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH LISTINGS</Text>
                             </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={{ marginLeft: getDimen(-0.006) }}
-                            onPress={() =>
-                                colleagueButton()
-                            }
-                        >
-                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.028) }}>
-                                {
-                                    checked2 ? (
-                                        <Image source={require('../../../assets/icons/radio.png')}
-                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                    ) :
-                                        <Image source={require('../../../assets/icons/circle.png')}
-                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                }
-
-                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01) }}>Colleague Listings</Text>
-                            </View>
-
-
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={{ marginLeft: getDimen(-0.006) }}
-                            onPress={() =>
-                                myButton()
-                            }>
-                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.028) }}>
-                                {
-                                    checked3 ? (
-                                        <Image source={require('../../../assets/icons/radio.png')}
-                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                    ) :
-                                        <Image source={require('../../../assets/icons/circle.png')}
-                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                }
-
-                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01) }}>My Listings</Text>
-                            </View>
-                        </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                    <ScrollView style={styles.container}
+                        keyboardShouldPersistTaps='always'
+                    >
 
-                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Location</Text>
-                        {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop:getDimen(0.025), color:'gray',}}>Current Location / City,State / Zip Code</Text> */}
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
+                            <TouchableOpacity
+                                onPress={() => allButton()}
+                            >
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.026) }}>
 
-                        <View>
-                            <TouchableOpacity onPress={() => setGoogleView(true)}>
-                                {
-                                    (location === '') ?
-                                        <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>Current Location / City,State / Zip Code</Text>
-                                        :
-                                        <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>{location}</Text>
+                                    {checked1 ? (
+                                        <Image source={require('../../../assets/icons/radio.png')}
+                                            style={{ height: getDimen(0.06), width: getDimen(0.06), }} />
+                                    ) : <Image source={require('../../../assets/icons/circle.png')}
+                                        style={{ height: getDimen(0.06), width: getDimen(0.06), }} />}
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01), textAlign: 'center', textAlignVertical: 'center' }}>All Listings</Text>
+
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{ marginLeft: getDimen(-0.006) }}
+                                onPress={() =>
+                                    colleagueButton()
                                 }
+                            >
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.028) }}>
+                                    {
+                                        checked2 ? (
+                                            <Image source={require('../../../assets/icons/radio.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        ) :
+                                            <Image source={require('../../../assets/icons/circle.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    }
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01) }}>Colleague Listings</Text>
+                                </View>
+
 
                             </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{ marginLeft: getDimen(-0.006) }}
+                                onPress={() =>
+                                    myButton()
+                                }>
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.028) }}>
+                                    {
+                                        checked3 ? (
+                                            <Image source={require('../../../assets/icons/radio.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        ) :
+                                            <Image source={require('../../../assets/icons/circle.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    }
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.01) }}>My Listings</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
-
-                        {/* <Item style={{ marginLeft: getDimen(0.03), marginRight: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
-                        <Input placeholder='Current Location / City,State / Zip Code'
-                            style={{ fontSize: getDimen(0.038), }}
-                            onChangeText={(val) => setLocation(val)}
-
-                        />
-                    </Item> */}
-                    </View>
-                    <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
-
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: getDimen(0.01), marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
-                        <TouchableOpacity
-                            style={{ marginLeft: getDimen(-0.006) }}
-                            onPress={() =>
-                                forSale()
-                            }>
-                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.03) }}>
-                                {
-                                    checkedForSale ? (
-                                        <Image source={require('../../../assets/icons/tick.png')}
-                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                    ) :
-                                        <Image source={require('../../../assets/icons/circle.png')}
-                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                }
-
-                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.02) }}>For Sale</Text>
-                            </View>
-                        </TouchableOpacity>
-
-                        <TouchableOpacity
-                            style={{ marginLeft: getDimen(-0.006) }}
-                            onPress={() =>
-                                forRent()
-                            }>
-                            <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.05) }}>
-                                {
-                                    checkedForRent ? (
-                                        <Image source={require('../../../assets/icons/tick.png')}
-                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                    ) :
-                                        <Image source={require('../../../assets/icons/circle.png')}
-                                            style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
-                                }
-
-                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.02) }}>For Rent</Text>
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-
-                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Price</Text>
-                        {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
-                        <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
-                            <Input
-                                placeholder='$000,000'
-                                style={{ fontSize: getDimen(0.038), borderBottomWidth: 0 }}
-                                onChangeText={(selectedValue) => setSelectedValue(selectedValue)}
-                                value={selectedValue}
-                            />
-
-                            {/* <Icon active name='arrow' /> */}
-                            {/* <Picker
-                                note
-                                mode="dropdown"
-                                iosIcon={<Icon />}
-                                style={{ width: getDimen(0.95), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
-                                placeholder="$00,0000"
-                                placeholderStyle={{ color: "black", fontSize: 14 }}
-                                placeholderIconColor="#a43d3e"
-                                selectedValue={selectedValue}
-                                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
-                            >
-                                <Picker.Item label="20000" value="20000" />
-                                <Picker.Item label="40000" value="40000" />
-                                <Picker.Item label="100000" value="100000" />
-                                <Picker.Item label="100000" value="2500" />
-
-                            </Picker> */}
-                        </Item>
-                    </View>
-                    <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
-
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Bedrooms</Text>
-                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
-                            <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
-                                <Input placeholder='00'
-                                    style={{ fontSize: getDimen(0.038), }}
-                                    onChangeText={(bedRoom) => setBedroom(bedRoom)}
-                                    value={bedRoom}
-                                />
 
-                            </Item>
-                        </View>
-                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Baths</Text>
-                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
-                            <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
-                                <Input placeholder='00'
-                                    style={{ fontSize: getDimen(0.038), }}
-                                    onChangeText={(bathRoom) => setBathroom(bathRoom)}
-                                    value={bathRoom}
-                                />
-                            </Item>
-                        </View>
-                    </View>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Location</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop:getDimen(0.025), color:'gray',}}>Current Location / City,State / Zip Code</Text> */}
 
-                    <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                        <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Home Type</Text>
-                        {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
-                        <View style={styles.inputContainer}>
-                            <View style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%' }}>
-                                <View style={{ flex: 0.8, justifyContent: 'center' }}>
+                            <View>
+                                <TouchableOpacity onPress={() => setGoogleView(true)}>
+                                    {
+                                        (location === '') ?
+                                            <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>Current Location / City,State / Zip Code</Text>
+                                            :
+                                            <Text style={{ fontSize: getDimen(0.035), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray', }}>{location}</Text>
+                                    }
 
-                                </View>
-                                <View style={{ flex: 0.2, width: '100%', height: '100%', justifyContent: 'center' }}>
-                                    <Image
-                                        source={require('../../../assets/images/down-arrow.png')}
-                                        style={{ marginRight: 1, alignSelf: 'center', width: '30%', height: '30%' }}
-                                    />
-                                </View>
+                                </TouchableOpacity>
                             </View>
-                            {/* <Image
-                                    source={require('../assets/images/nationality.png')}
-                                    style={styles.ImageStyle}
-                                /> */}
+
+                            {/* <Item style={{ marginLeft: getDimen(0.03), marginRight: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', }}>
+<Input placeholder='Current Location / City,State / Zip Code'
+    style={{ fontSize: getDimen(0.038), }}
+    onChangeText={(val) => setLocation(val)}
+
+/>
+</Item> */}
+                        </View>
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
+
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.20) - 10, marginTop: getDimen(0.01), marginRight: 10, borderRadius: 0, alignItems: 'center', }}>
+                            <TouchableOpacity
+                                style={{ marginLeft: getDimen(-0.006) }}
+                                onPress={() =>
+                                    forSale()
+                                }>
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.03) }}>
+                                    {
+                                        checkedForSale ? (
+                                            <Image source={require('../../../assets/icons/tick.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        ) :
+                                            <Image source={require('../../../assets/icons/circle.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    }
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.02) }}>For Sale</Text>
+                                </View>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={{ marginLeft: getDimen(-0.006) }}
+                                onPress={() =>
+                                    forRent()
+                                }>
+                                <View style={{ backgroundColor: 'white', flexDirection: 'row', height: '100%', marginTop: 0, marginRight: 0, borderRadius: 0, alignItems: 'center', justifyContent: 'center', marginLeft: getDimen(0.05) }}>
+                                    {
+                                        checkedForRent ? (
+                                            <Image source={require('../../../assets/icons/tick.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                        ) :
+                                            <Image source={require('../../../assets/icons/circle.png')}
+                                                style={{ height: getDimen(0.06), width: getDimen(0.06) }} />
+                                    }
+
+                                    <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.02) }}>For Rent</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Price</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>$000,000</Text> */}
+                            <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.03), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
+                                <Input
+                                    keyboardType="number-pad"
+                                    placeholder='$000,000'
+                                    style={{ fontSize: getDimen(0.038), borderBottomWidth: 0 }}
+                                    onChangeText={(selectedValue) => setSelectedValue(selectedValue)}
+                                    value={selectedValue}
+                                />
+
+                                {/* <Icon active name='arrow' /> */}
+                                {/* <Picker
+        note
+        mode="dropdown"
+        iosIcon={<Icon />}
+        style={{ width: getDimen(0.95), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+        placeholder="$00,0000"
+        placeholderStyle={{ color: "black", fontSize: 14 }}
+        placeholderIconColor="#a43d3e"
+        selectedValue={selectedValue}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
+    >
+        <Picker.Item label="20000" value="20000" />
+        <Picker.Item label="40000" value="40000" />
+        <Picker.Item label="100000" value="100000" />
+        <Picker.Item label="100000" value="2500" />
+
+    </Picker> */}
+                            </Item>
+                        </View>
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
+
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                            <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Bedrooms</Text>
+                                {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
+                                <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
+                                    <Input placeholder='00'
+                                        keyboardType="number-pad"
+                                        style={{ fontSize: getDimen(0.038), }}
+                                        onChangeText={(bedRoom) => setBedroom(bedRoom)}
+                                        value={bedRoom}
+                                    />
+
+                                </Item>
+                            </View>
+                            <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 10, marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Baths</Text>
+                                {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>00</Text> */}
+                                <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), color: 'gray', borderBottomWidth: 0 }}>
+                                    <Input placeholder='00'
+                                        keyboardType="number-pad"
+                                        style={{ fontSize: getDimen(0.038), }}
+                                        onChangeText={(bathRoom) => setBathroom(bathRoom)}
+                                        value={bathRoom}
+                                    />
+                                </Item>
+                            </View>
+                        </View>
+
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Home Type</Text>
+                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
+                            {/* <View style={styles.inputContainer}>
+    <View style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%' }}>
+        <View style={{ flex: 0.8, justifyContent: 'center' }}>
+
+        </View>
+        <View style={{ flex: 0.2, width: '100%', height: '100%', justifyContent: 'center' }}>
+            <Image
+                source={require('../../../assets/images/down-arrow.png')}
+                style={{ marginRight: 1, alignSelf: 'center', width: '30%', height: '30%' }}
+            />
+        </View>
+    </View>
+   
+    
+</View> */}
                             <Picker
                                 mode="dialog"
                                 iosIcon={<Icon />}
@@ -581,96 +919,102 @@ function Search({ navigation, changeCounter }) {
                                 <Picker.Item label="Other" value="key6" />
                             </Picker>
                         </View>
-                    </View>
-                    <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0) }}></View>
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0) }}></View>
 
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Square Feet</Text>
-                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Minimum</Text> */}
-                            <Item style={{ marginLeft: getDimen(0.04), color: 'black', textAlign: 'justify', marginTop: getDimen(0), color: 'black', borderBottomWidth: 0 }}>
-                                <Input placeholder='00'
-                                    style={{ fontSize: getDimen(0.038), }}
-                                    onChangeText={(sqFeetMax) => setSqFeetMax(sqFeetMax)}
-                                    value={sqFeetMax}
-                                />
-                                {/* <Icon active name='arrow' /> */}
-                                {/* <Picker
-                                    note
-                                    mode="dropdown"
-                                    iosIcon={<Icon />}
-                                    style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
-                                    placeholder="$00,00"
-                                    placeholderStyle={{ color: "black", fontSize: 14 }}
-                                    placeholderIconColor="#a43d3e"
-                                    selectedValue={sqFeetMax}
-                                    onValueChange={(itemValue, itemIndex) => setSqFeetMax(itemValue, itemIndex)}
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.18), marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                            <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Square Feet</Text>
+                                {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Minimum</Text> */}
+                                <Item style={{ marginLeft: getDimen(0.04), color: 'black', textAlign: 'justify', marginTop: getDimen(0), color: 'black', borderBottomWidth: 0 }}>
+                                    <Input placeholder='00'
+                                        style={{ fontSize: getDimen(0.038), }}
+                                        keyboardType="numeric"
+                                        onChangeText={(sqFeetMax) => setSqFeetMin(sqFeetMax)}
+                                        value={sqFeetMin}
+                                    />
+                                    {/* <Icon active name='arrow' /> */}
+                                    {/* <Picker
+            note
+            mode="dropdown"
+            iosIcon={<Icon />}
+            style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+            placeholder="$00,00"
+            placeholderStyle={{ color: "black", fontSize: 14 }}
+            placeholderIconColor="#a43d3e"
+            selectedValue={sqFeetMax}
+            onValueChange={(itemValue, itemIndex) => setSqFeetMax(itemValue, itemIndex)}
+        >
+            <Picker.Item label="0,000" value="0000" />
+            <Picker.Item label="600" value="600" />
+            <Picker.Item label="5,000" value="5000" />
+            <Picker.Item label="4000" value="4000" />
+        </Picker> */}
+                                </Item>
+                            </View>
+                            <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
+                                <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>To</Text>
+                                {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Maximum</Text> */}
+                                <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', marginTop: getDimen(0), borderBottomWidth: 0 }}>
+                                    <Input placeholder='00'
+                                        keyboardType="numeric"
+                                        style={{ fontSize: getDimen(0.038), }}
+                                        onChangeText={(sqFeetMin) => setSqFeetMax(sqFeetMin)}
+                                        value={sqFeetMax}
+                                    />
+                                    {/* <Icon active name='arrow' /> */}
+                                    {/* <Picker
+            note
+            mode="dropdown"
+            iosIcon={<Icon />}
+            style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
+            placeholder="$00"
+            placeholderStyle={{ color: "black", fontSize: 14 }}
+            placeholderIconColor="#a43d3e"
+            selectedValue={sqFeetMin}
+            onValueChange={(itemValue, itemIndex) => setSqFeetMin(itemValue, itemIndex)}
+        >
+            <Picker.Item label="0,000" value="0000" />
+            <Picker.Item label="600" value="600" />
+            <Picker.Item label="5,000" value="5000" />
+            <Picker.Item label="4600" value="4600" />
+        </Picker> */}
+                                </Item>
+                            </View>
+                        </View>
+
+                        <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.01) }}></View>
+
+
+                    </ScrollView>
+                    <View style={{ height: getDimen(0.16), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
+                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
+                            <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        callSearchApi()
+                                    }
+                                    }
                                 >
-                                    <Picker.Item label="0,000" value="0000" />
-                                    <Picker.Item label="600" value="600" />
-                                    <Picker.Item label="5,000" value="5000" />
-                                    <Picker.Item label="4000" value="4000" />
-                                </Picker> */}
-                            </Item>
-                        </View>
-                        <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18), marginTop: 0, marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>To</Text>
-                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Maximum</Text> */}
-                            <Item style={{ marginLeft: getDimen(0.04), color: '#7F7F93', marginTop: getDimen(0), borderBottomWidth: 0 }}>
-                                <Input placeholder='00'
-                                    style={{ fontSize: getDimen(0.038), }}
-                                    onChangeText={(sqFeetMin) => setSqFeetMin(sqFeetMin)}
-                                    value={sqFeetMin}
-                                />
-                                {/* <Icon active name='arrow' /> */}
-                                {/* <Picker
-                                    note
-                                    mode="dropdown"
-                                    iosIcon={<Icon />}
-                                    style={{ width: getDimen(0.92), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
-                                    placeholder="$00"
-                                    placeholderStyle={{ color: "black", fontSize: 14 }}
-                                    placeholderIconColor="#a43d3e"
-                                    selectedValue={sqFeetMin}
-                                    onValueChange={(itemValue, itemIndex) => setSqFeetMin(itemValue, itemIndex)}
+                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH</Text>
+                                </TouchableOpacity>
+
+                            </View>
+                            <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
+                                <TouchableOpacity
+                                    onPress={() => resetAction()}
                                 >
-                                    <Picker.Item label="0,000" value="0000" />
-                                    <Picker.Item label="600" value="600" />
-                                    <Picker.Item label="5,000" value="5000" />
-                                    <Picker.Item label="4600" value="4600" />
-                                </Picker> */}
-                            </Item>
+                                    <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>RESET</Text>
+                                </TouchableOpacity>
+
+                            </View>
                         </View>
+
                     </View>
+                </KeyboardAvoidingView>
 
-                    <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.01) }}></View>
+            }
 
 
-                </ScrollView>
-                <View style={{ height: getDimen(0.16), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
-                    <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(-0.01), marginRight: 10, alignItems: 'center', }}>
-                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                            <TouchableOpacity
-                                onPress={() => {
-                                    callSearchApi()
-                                }
-                                }
-                            >
-                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', backgroundColor: '#121735', textAlign: 'center' }}>SEARCH</Text>
-                            </TouchableOpacity>
-
-                        </View>
-                        <View style={{ backgroundColor: '#a43d3e', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
-                            <TouchableOpacity
-                                onPress={() => resetAction()}
-                            >
-                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>RESET</Text>
-                            </TouchableOpacity>
-
-                        </View>
-                    </View>
-                </View>
-            </KeyboardAvoidingView>
 
             {
                 (showGoogleView === true) ?
@@ -766,7 +1110,7 @@ function Search({ navigation, changeCounter }) {
                     null
             }
 
-        </View>
+        </View >
     );
 }
 

@@ -277,14 +277,16 @@ function ColleaguageListScreen({ route, navigation }) {
                     /> */}
 
                     {
-                        (profile_image_url) ? <Image
-                            source={{
-                                uri: `${profile_image_url}`,
-                            }}
-                            style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
-                        /> :
+                        (profile_image_url === undefined || profile_image_url === null || profile_image_url === 'https://arcsightapp.com/images/UserImages/' || profile_image_url === '') ?
                             <Image source={require('../../../assets/icons/2.png')}
-                                style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
+                                style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} /> :
+
+                            <Image
+                                source={{
+                                    uri: `${profile_image_url}`,
+                                }}
+                                style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: 40 }}
+                            />
                     }
                     {/* <Image source={require('../../../assets/icons/2.png')}
                         style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.06) }}

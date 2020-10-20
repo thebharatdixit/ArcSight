@@ -389,7 +389,7 @@ function SearchListDetailScreen({ navigation, route }) {
                                 <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
                             </View>
                             <View style={{ backgroundColor: '#a43d3e', flex: 0.395, height: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>${(searchListDetail && searchListDetail.listing && searchListDetail.listing.price_per_sq_feet) ? searchListDetail.listing.price_per_sq_feet : ""}/feet</Text>
+                                <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>${(searchListDetail && searchListDetail.listing && searchListDetail.listing.price_per_sq_feet) ? searchListDetail.listing.price_per_sq_feet : ""}</Text>
                             </View>
                         </View>
 
@@ -404,7 +404,7 @@ function SearchListDetailScreen({ navigation, route }) {
                             <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text> */}
                             </View>
                         </View>
-                        <Text style={{ fontSize: getDimen(0.04), marginTop: getDimen(0.02), marginLeft: getDimen(0.050) }}> {"• Aminities Name: " + arrAminitiesName.toString()}</Text>
+                        <Text style={{ fontSize: getDimen(0.04), marginTop: getDimen(0.02), marginLeft: getDimen(0.050) }}> {"• Amenities Name: " + arrAminitiesName.toString()}</Text>
 
 
                         <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.08), marginLeft: getDimen(0.05), marginRight: getDimen(0.02), marginBottom: getDimen(0.05) }}>

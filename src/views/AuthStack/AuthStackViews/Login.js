@@ -150,17 +150,17 @@ function Login({ navigation, changeAuthState }) {
           //do something with the notification
             console.log("onNotificationListener", notification)
             
-            const c = await notifications.displayNotification(
-                new NotificationMessage()
-                    .setNotificationId("notification-id")
-                    .setTitle("Notification title")
-                    .setBody("Notification body")
-                    .setData({
-                        key1: "key1",
-                        key2: "key2"
-                    })
-                    .android.setChannelId("test-channel")
-            )
+            // const c = await notifications.displayNotification(
+            //     new NotificationMessage()
+            //         .setNotificationId("notification-id")
+            //         .setTitle("Notification title")
+            //         .setBody("Notification body")
+            //         .setData({
+            //             key1: "key1",
+            //             key2: "key2"
+            //         })
+            //         .android.setChannelId("test-channel")
+            // )
 
         })
       }

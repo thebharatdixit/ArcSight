@@ -21,6 +21,9 @@ import ImagePicker from 'react-native-image-picker';
 import { getDimen } from '../../../dimensions/dimen';
 import { registerNewUser } from '../../../actions/signUpAction'
 import { storeData, getData } from '../../../utils/asyncStore';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
+
 
 function ProfileUpdateScreen({ navigation }) {
 
@@ -29,26 +32,28 @@ function ProfileUpdateScreen({ navigation }) {
     const [lastName, setLastName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [companyName, setCompanyName] = React.useState('');
+    const [phoneNumber, setPhoneNumber] = React.useState('');
+    const [address, setAddress] = React.useState('');
     const [accessToken, setAccessToken] = React.useState('')
     const [showLoader, setShowLoader] = React.useState('hide');
-
-
-
+    const [showGoogleView, setGoogleView] = React.useState(false)
 
     React.useEffect(() => {
 
-        getData('userData').then((data) => {
+            getData('userData').then((data) => {
             const userData = JSON.parse(data);
             console.log('userData : ',userData)
             setFirstName(userData.user.first_name)
             setEmail(userData.user.email)
             setLastName(userData.user.last_name)
             setCompanyName(userData.user.company_name)
+            setPhoneNumber(userData.user.mobile)
+            setAddress(userData.user.address)
             const listTokens = userData.token;
             
             setAccessToken(listTokens);
             setUserId(userData.user.id)
-            console.log('tokenProfilescreen', listTokens)
+            console.log('tokenProfileScreen', listTokens)
 
             if (accessToken) {
                 console.log('Prachi123')
@@ -64,15 +69,16 @@ function ProfileUpdateScreen({ navigation }) {
         let data = {
                 "first_name"   : firstName,
                 "last_name"    : lastName,
-                "company_name" :companyName
-
+                "company_name" :companyName,
+                "mobile": phoneNumber,
+                "address": address
         }
         fetch("https://arcsightapp.com/api/v1/user/update-profile", {
             method: "post",
             headers: {
                 Accept: "application/json",
                 'Content-Type': "application/json",
-                Authorization: `Bearer ${accessToken}`,
+                 Authorization: `Bearer ${accessToken}`,
             },
             body: JSON.stringify(data),
         }).then(res => res.json())
@@ -131,17 +137,17 @@ function ProfileUpdateScreen({ navigation }) {
 
 
                 <ScrollView>
-                    <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.2) }}>
+                    <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.12) }}>
 
                         <View style={{ backgroundColor: 'white', width: '100%', height: getDimen(1.2), marginTop: 0, marginRight: 0, borderRadius: 12, }}>
 
-                            <View style={{ marginTop: getDimen(0.3 / 2), alignItems: 'center', }}>
+                            {/* <View style={{ marginTop: getDimen(0.3 / 2), alignItems: 'center', }}>
                                 <TouchableOpacity
                                     onPress={chooseFile.bind(this)}
                                 >
 
                                 </TouchableOpacity>
-                            </View>
+                            </View> */}
 
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -187,9 +193,40 @@ function ProfileUpdateScreen({ navigation }) {
                                     value={companyName} />
                             </View>
                             
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    style={styles.input}
+                                    placeholder="Phone Number"
+                                    placeholderTextColor="#8A8A8A"
+                                    // secureTextEntry={true}
+                                    underlineColorAndroid='transparent'
+                                    keyboardType='number-pad'
+                                    keyboardAppearance='default'
+                                    onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
+                                    value={phoneNumber} />
+                            </View>
+
+                            <View style={styles.inputContainer}>
+                                {/* <TextInput
+                                    style={styles.input}
+                                    placeholder="Address"
+                                    placeholderTextColor="#8A8A8A"
+                                    underlineColorAndroid='transparent'
+                                    onChangeText={(address) => setAddress(address)}
+                                    value={address} /> */}
+                                <TouchableOpacity onPress={() => setGoogleView(true)}>
+                                    {
+                                        (address === '') ?
+                                            <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray',height: 30 }}>Address</Text>
+                                            :
+                                            <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.03), color: 'black', textAlign: 'justify', marginTop: getDimen(0.05),height:30}}>{address}</Text>
+                                    }
+
+                                </TouchableOpacity>
+                            </View>
                             
 
-                            <View style={{ alignItems: 'center', marginTop: getDimen(0.08) }}>
+                            <View style={{ alignItems: 'center', marginTop: getDimen(0.05) }}>
 
 
                                 <TouchableOpacity onPress={() => profileUpdate()}>
@@ -203,6 +240,90 @@ function ProfileUpdateScreen({ navigation }) {
 
                 </ScrollView>
             </View >
+            
+            {
+                (showGoogleView === true) ?
+                    <View
+                        style={{ flex: 1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'flex-start', position: 'absolute', width: '100%', height: '100%' }}
+                    >
+                        <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                            <TouchableOpacity onPress={() => {
+                                setGoogleView(false)
+                                console.log('address##', address)
+                            }
+                            }>
+                                <Image source={require('../../../assets/icons/cross.png')}
+                                    style={{ height: 20, width: 20 }} />
+                            </TouchableOpacity>
+
+                            <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
+                                <Image source={require('../../../assets/icons/2.png')}
+                                    style={{ height: getDimen(0.1), width: getDimen(0.1) }} />
+
+                                {/* <Image source={require('../../../assets/images/logo.png')}
+                                    style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} /> */}
+                            </View>
+
+                        </View>
+
+                        <GooglePlacesAutocomplete
+                            placeholder='Address'
+                            autoFocus={false}
+                            returnKeyType={'default'}
+                            fetchDetails={true}
+                            listViewDisplayed={false}
+                            currentLocation={true}
+                            keyboardShouldPersistTaps={'handled'}
+                            styles={{
+                                textInputContainer: {
+                                    width: '100%',
+                                    marginTop: 0
+                                },
+                                textInput: {
+                                    // marginLeft: 0,
+                                    // marginRight: 0,
+                                    // marginTop: 0,
+                                    // marginBottom: 0,
+                                    // height: '98%'
+                                }
+                            }}
+                            onPress={(data, details = null) => {
+                                // 'details' is provided when fetchDetails = true
+                                console.log('Google Details => ', data.description);
+                                setAddress(data.description)
+                            }}
+                            query={{
+                                key: 'AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k',
+                                language: 'en',
+                            }}
+                        //  predefinedPlaces={[homePlace, workPlace]}
+                        />
+
+                        {/* <View style={{}}> */}
+                        <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center', marginBottom: getDimen(0.01) }}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (address === '') {
+                                        // Alert.alert('', 'Please Select Address..', [{ text: 'OK', onPress: () => console.log('OK Pressed') }], { cancelable: false });
+                                        return;
+                                    } else {
+                                        setGoogleView(false)
+                                    }
+                                    console.log('Address!!', address)
+                                }
+                                }
+                            >
+                                <Text style={{ fontSize: getDimen(0.05), color: 'white', fontWeight: 'bold', textAlign: 'center' }}>SAVE</Text>
+                            </TouchableOpacity>
+
+                        </View>
+                        {/* </View> */}
+
+                    </View>
+                    :
+                    null
+            }
+
             {
                 (showLoader === '') ?
                     <View

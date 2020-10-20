@@ -250,7 +250,10 @@ function MyColleague({ navigation, changeCounter }) {
                                                 <TouchableOpacity onPress={() => navigation.navigate('My Listing Detail', ({ "user_idSearchDetail": item.user_id, "ProfileImage": item.main_image_url, "listing_id": item.id }))} style={styles.item}>
 
                                                     {
-                                                        (item.main_image_url) ?
+                                                        (item.main_image_url === undefined || item.main_image_url === null || item.main_image_url === 'https://arcsightapp.com/images/UserImages/' || item.main_image_url === '') ?
+                                                            <Image source={require('../../../assets/icons/19.png')}
+                                                                style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
+                                                            /> :
                                                             <Image
                                                                 source={{
                                                                     uri: `${item.main_image_url}`,
@@ -259,14 +262,8 @@ function MyColleague({ navigation, changeCounter }) {
                                                                 style={{ height: getDimen(0.75), width: getDimen(1), backgroundColor: '#DFE4E2' }}
                                                             />
 
-                                                            :
 
-                                                            <Image source={require('../../../assets/icons/19.png')}
-                                                                style={{ height: getDimen(0.15), width: getDimen(0.15), resizeMode: 'contain', margin: getDimen(0.3) }}
-                                                            />
                                                     }
-                                                    {/* <Text></Text> */}
-
                                                 </TouchableOpacity>
 
                                                 <View style={{ flex: 0.2, flexDirection: 'row', width: '100%', position: 'absolute' }}>
