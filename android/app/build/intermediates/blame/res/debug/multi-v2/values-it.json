@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/gaurav/Documents/React-Native/github /ArcSight/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-it/values-it.xml",
+            "outputFile": "/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-it/values-it.xml",
             "map": [
                 {
                     "source": "/home/gaurav/.gradle/caches/transforms-2/files-2.1/073c7934d4ffc3cbb6751a0c4d3a3439/jetified-CreditCardEntry-1.5.1/res/values-it/values-it.xml",
@@ -89,25 +89,6 @@
                     }
                 },
                 {
-                    "source": "/home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/packaged_res/debug/values-it/values-it.xml",
-                    "from": {
-                        "startLines": "2,7,8,9,10,11,12,13,14,15",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,210,260,339,421,515,577,638,748,796",
-                        "endLines": "6,7,8,9,10,11,12,13,14,15",
-                        "endColumns": "17,49,78,81,93,61,60,109,47,129",
-                        "endOffsets": "205,255,334,416,510,572,633,743,791,921"
-                    },
-                    "to": {
-                        "startLines": "2,113,114,115,116,117,118,119,120,121",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,10160,10210,10289,10371,10465,10527,10588,10698,10746",
-                        "endLines": "6,113,114,115,116,117,118,119,120,121",
-                        "endColumns": "17,49,78,81,93,61,60,109,47,129",
-                        "endOffsets": "255,10205,10284,10366,10460,10522,10583,10693,10741,10871"
-                    }
-                },
-                {
                     "source": "/home/gaurav/.gradle/caches/transforms-2/files-2.1/5d12e24779882f6844566d841719ae92/jetified-firebase-messaging-20.1.0/res/values-it/values.xml",
                     "from": {
                         "startLines": "4",
@@ -139,6 +120,25 @@
                         "startOffsets": "12263",
                         "endColumns": "107",
                         "endOffsets": "12366"
+                    }
+                },
+                {
+                    "source": "/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/packaged_res/debug/values-it/values-it.xml",
+                    "from": {
+                        "startLines": "2,7,8,9,10,11,12,13,14,15",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,210,260,339,421,515,577,638,748,796",
+                        "endLines": "6,7,8,9,10,11,12,13,14,15",
+                        "endColumns": "17,49,78,81,93,61,60,109,47,129",
+                        "endOffsets": "205,255,334,416,510,572,633,743,791,921"
+                    },
+                    "to": {
+                        "startLines": "2,113,114,115,116,117,118,119,120,121",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,10160,10210,10289,10371,10465,10527,10588,10698,10746",
+                        "endLines": "6,113,114,115,116,117,118,119,120,121",
+                        "endColumns": "17,49,78,81,93,61,60,109,47,129",
+                        "endOffsets": "255,10205,10284,10366,10460,10522,10583,10693,10741,10871"
                     }
                 },
                 {

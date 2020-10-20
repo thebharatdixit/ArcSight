@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/gaurav/Documents/React-Native/github /ArcSight/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ka/values-ka.xml",
+            "outputFile": "/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ka/values-ka.xml",
             "map": [
                 {
                     "source": "/home/gaurav/.gradle/caches/transforms-2/files-2.1/69c12f389eec80a65c352a30c1449029/jetified-play-services-basement-17.0.0/res/values-ka/values.xml",

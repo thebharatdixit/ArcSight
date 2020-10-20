@@ -151,7 +151,7 @@ function ForgotPasswordScreen({ navigation }) {
                             onChangeText={(email) => setEmail(email)}
                             value={email} />
                     </View>
-                    <View style={{ height: 1, width: getDimen(0.81), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.002) }}></View>
+                    <View style={{ height: 1, width: getDimen(0.81), alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(-0.002) }}></View>
                     <TouchableOpacity
                         style={styles.submit}
                         onPress={() => forgotPasswordApiCall()}
@@ -160,6 +160,10 @@ function ForgotPasswordScreen({ navigation }) {
                             <Text style={{ color: '#FFF', fontSize: getDimen(.055), textAlign: 'center', alignSelf: 'center', fontWeight: 'bold' }}>Submit</Text>
                         </View>
                     </TouchableOpacity>
+
+                    <Text
+                        onPress={() => navigation.goBack()}
+                        style={{ textDecorationLine: 'underline', color: 'blue', alignSelf: "flex-start",marginLeft:'7%' ,marginTop:20}}>{"Login Now"}</Text>
                 </View>
             </ImageBackground >
             {

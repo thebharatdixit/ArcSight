@@ -9,54 +9,54 @@
 9        android:targetSdkVersion="29" />
 10
 11    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-11-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:6:5-78
-11-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:6:22-75
+11-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:6:5-78
+11-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:6:22-75
 12    <uses-permission android:name="android.permission.INTERNET" />
-12-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:4:5-67
-12-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:4:22-64
+12-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:4:5-67
+12-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:4:22-64
 13
 14    <uses-feature
-14-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:7:5-85
+14-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:7:5-85
 15        android:name="android.hardware.camera"
-15-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:7:19-57
+15-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:7:19-57
 16        android:required="false" />
-16-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:7:58-82
+16-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:7:58-82
 17    <uses-feature
-17-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:8:5-91
+17-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:8:5-91
 18        android:name="android.hardware.camera.front"
-18-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:8:19-63
+18-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:8:19-63
 19        android:required="false" />
-19-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:8:64-88
+19-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:8:64-88
 20
 21    <uses-permission android:name="android.permission.CAMERA" />
-21-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:10:5-65
-21-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:10:22-62
+21-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:10:5-65
+21-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:10:22-62
 22    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-22-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:11:5-81
-22-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:11:22-78
+22-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:11:5-81
+22-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:11:22-78
 23    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 23-->[com.facebook.flipper:flipper:0.37.0] /home/gaurav/.gradle/caches/transforms-2/files-2.1/623174cd4892d9fb924ac44b102b25c0/flipper-0.37.0/AndroidManifest.xml:16:5-76
 23-->[com.facebook.flipper:flipper:0.37.0] /home/gaurav/.gradle/caches/transforms-2/files-2.1/623174cd4892d9fb924ac44b102b25c0/flipper-0.37.0/AndroidManifest.xml:16:22-73
 24    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Required to access Google Play Licensing -->
-24-->[:react-native-maps] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-maps/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-81
-24-->[:react-native-maps] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-maps/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:22-78
+24-->[:react-native-maps] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-maps/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-81
+24-->[:react-native-maps] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-maps/lib/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:22-78
 25    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
-25-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-73
-25-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:22-70
+25-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-73
+25-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:22-70
 26    <!--
 27         Required to keep CPU alive while downloading files
 28        (NOT to keep screen awake)
 29    -->
 30    <uses-permission android:name="android.permission.WAKE_LOCK" />
-30-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:5-68
-30-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:22-65
+30-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:5-68
+30-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:22-65
 31    <!--
 32         Required to poll the state of the network connection
 33        and respond to changes
 34    -->
 35    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-35-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:5-79
-35-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:22-76
+35-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:5-79
+35-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:27:22-76
 36
 37    <uses-feature
 37-->[com.google.android.gms:play-services-maps:17.0.0] /home/gaurav/.gradle/caches/transforms-2/files-2.1/3ca81724f46a1af5d268488a528eb8e5/play-services-maps-17.0.0/AndroidManifest.xml:26:5-28:35
@@ -75,168 +75,168 @@
 42-->[android.arch.work:work-runtime:1.0.1] /home/gaurav/.gradle/caches/transforms-2/files-2.1/d697ef58e07a5d345f6c9c60af6bbe6c/jetified-work-runtime-1.0.1/AndroidManifest.xml:25:22-78
 43
 44    <application
-44-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:13:5-35:19
+44-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:13:5-35:19
 45        android:name="com.arcsight.MainApplication"
-45-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:14:9-40
+45-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:14:9-40
 46        android:allowBackup="false"
-46-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:15:9-36
+46-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:15:9-36
 47        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 47-->[androidx.core:core:1.1.0] /home/gaurav/.gradle/caches/transforms-2/files-2.1/639e914bfc1efa21e36199d3ff2c5eef/core-1.1.0/AndroidManifest.xml:24:18-86
 48        android:debuggable="true"
 49        android:icon="@mipmap/appicon"
-49-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:16:9-39
+49-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:16:9-39
 50        android:label="@string/app_name"
-50-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:17:9-41
+50-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:17:9-41
 51        android:networkSecurityConfig="@xml/network_security_config"
-51-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:21:9-69
+51-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:21:9-69
 52        android:requestLegacyExternalStorage="true"
-52-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:20:9-52
+52-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:20:9-52
 53        android:roundIcon="@mipmap/appicon"
-53-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:18:9-44
+53-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:18:9-44
 54        android:theme="@style/AppTheme"
-54-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:19:9-40
+54-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:19:9-40
 55        android:usesCleartextTraffic="true" >
-55-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:22:9-44
+55-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:22:9-44
 56        <activity
-56-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:23:9-33:20
+56-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:23:9-33:20
 57            android:name="com.arcsight.MainActivity"
-57-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:24:13-41
+57-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:24:13-41
 58            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
-58-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:25:13-90
+58-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:25:13-90
 59            android:label="@string/app_name"
-59-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:26:13-45
+59-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:26:13-45
 60            android:launchMode="singleTask"
-60-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:27:13-44
+60-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:27:13-44
 61            android:windowSoftInputMode="adjustPan" >
-61-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:28:13-52
+61-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:28:13-52
 62            <intent-filter>
-62-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:29:13-32:29
+62-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:29:13-32:29
 63                <action android:name="android.intent.action.MAIN" />
-63-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:30:17-69
-63-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:30:25-66
+63-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:30:17-69
+63-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:30:25-66
 64
 65                <category android:name="android.intent.category.LAUNCHER" />
-65-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:31:17-77
-65-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:31:27-74
+65-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:31:17-77
+65-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:31:27-74
 66            </intent-filter>
 67        </activity>
 68        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
-68-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:34:9-86
-68-->/home/gaurav/Documents/React-Native/github /ArcSight/android/app/src/main/AndroidManifest.xml:34:19-83
+68-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:34:9-86
+68-->/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/src/main/AndroidManifest.xml:34:19-83
 69
 70        <provider
-70-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-21:20
+70-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-21:20
 71            android:name="androidx.core.content.FileProvider"
-71-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-62
+71-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-62
 72            android:authorities="com.arcsight.provider"
-72-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-60
+72-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-60
 73            android:exported="false"
-73-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-37
+73-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-37
 74            android:grantUriPermissions="true" >
-74-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-47
+74-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-47
 75            <meta-data
-75-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-20:58
+75-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-20:58
 76                android:name="android.support.FILE_PROVIDER_PATHS"
-76-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
+76-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
 77                android:resource="@xml/provider_paths" />
-77-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:17-55
+77-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:17-55
 78        </provider>
 79
 80        <activity
-80-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:9-25:72
+80-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:9-25:72
 81            android:name="com.yalantis.ucrop.UCropActivity"
-81-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-60
+81-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-60
 82            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-82-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-69
+82-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-69
 83
 84        <provider
-84-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:9-18:20
+84-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:9-18:20
 85            android:name="com.imagepicker.FileProvider"
-85-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-56
+85-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:13-56
 86            android:authorities="com.arcsight.provider"
-86-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-60
+86-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:13-60
 87            android:exported="false"
-87-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-37
+87-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-37
 88            android:grantUriPermissions="true" >
-88-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-47
+88-->[:react-native-image-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-47
 89            <meta-data
-89-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-20:58
+89-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-20:58
 90                android:name="android.support.FILE_PROVIDER_PATHS"
-90-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
+90-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
 91                android:resource="@xml/provider_paths" />
-91-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:17-55
+91-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:17-55
 92        </provider>
 93        <provider
-93-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
+93-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
 94            android:name="com.reactnativecommunity.webview.RNCWebViewFileProvider"
-94-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-83
+94-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-83
 95            android:authorities="com.arcsight.fileprovider"
-95-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-64
+95-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-64
 96            android:exported="false"
-96-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
+96-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
 97            android:grantUriPermissions="true" >
-97-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
+97-->[:react-native-webview] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
 98            <meta-data
-98-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-20:58
+98-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-20:58
 99                android:name="android.support.FILE_PROVIDER_PATHS"
-99-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
+99-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
 100                android:resource="@xml/file_provider_paths" />
-100-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:17-55
+100-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:17-55
 101        </provider>
 102        <provider
-102-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:36:9-44:20
+102-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:36:9-44:20
 103            android:name="com.RNFetchBlob.Utils.FileProvider"
-103-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:37:13-62
+103-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:37:13-62
 104            android:authorities="com.arcsight.provider"
-104-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:13-60
+104-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:13-60
 105            android:exported="false"
-105-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:13-37
+105-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:13-37
 106            android:grantUriPermissions="true" >
-106-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:13-47
+106-->[:rn-fetch-blob] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:13-47
 107            <meta-data
-107-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-20:58
+107-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-20:58
 108                android:name="android.support.FILE_PROVIDER_PATHS"
-108-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
+108-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
 109                android:resource="@xml/provider_paths" />
-109-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:17-55
+109-->[:react-native-image-crop-picker] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:17-55
 110        </provider>
 111
 112        <activity
-112-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-16:75
+112-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-16:75
 113            android:name="com.gettipsi.stripe.OpenBrowserActivity"
-113-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-67
+113-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-67
 114            android:exported="false"
-114-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
+114-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-37
 115            android:launchMode="singleTask"
-115-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-44
+115-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-44
 116            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-116-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-72
+116-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-72
 117        <activity
-117-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:9-30:20
+117-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:9-30:20
 118            android:name="com.gettipsi.stripe.RedirectUriReceiver"
-118-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-67
+118-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-67
 119            android:exported="true"
-119-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-36
+119-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:13-36
 120            android:launchMode="singleTask"
-120-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-44
+120-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:13-44
 121            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" >
-121-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-83
+121-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:21:13-83
 122            <intent-filter>
-122-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:13-29:29
+122-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:13-29:29
 123                <action android:name="android.intent.action.VIEW" />
-123-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:17-69
-123-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:25-66
+123-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:17-69
+123-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:25-66
 124
 125                <category android:name="android.intent.category.DEFAULT" />
-125-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-76
-125-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:27-73
+125-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:17-76
+125-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:27-73
 126                <category android:name="android.intent.category.BROWSABLE" />
-126-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-78
-126-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:27-75
+126-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:17-78
+126-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:26:27-75
 127
 128                <data android:scheme="example" />
-128-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:17-50
-128-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:23-47
+128-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:17-50
+128-->[:tipsi-stripe] /home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:23-47
 129            </intent-filter>
 130        </activity>
 131        <activity

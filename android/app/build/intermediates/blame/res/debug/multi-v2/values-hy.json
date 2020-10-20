@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/gaurav/Documents/React-Native/github /ArcSight/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hy/values-hy.xml",
+            "outputFile": "/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-hy/values-hy.xml",
             "map": [
                 {
                     "source": "/home/gaurav/.gradle/caches/transforms-2/files-2.1/5d12e24779882f6844566d841719ae92/jetified-firebase-messaging-20.1.0/res/values-hy/values.xml",
