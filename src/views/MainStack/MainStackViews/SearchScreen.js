@@ -48,7 +48,7 @@ function Search({ navigation, changeCounter }) {
         { id: '3', value: '5,000', },
     ];
     const [userId, setUserId] = React.useState('')
-    const [checked1, setChecked1] = useState(false);
+    const [checked1, setChecked1] = useState(true);
     const [checked2, setChecked2] = useState(false);
     const [checked3, setChecked3] = useState(false);
     const [checkedForSale, setCheckedForSale] = useState(false);
@@ -122,9 +122,15 @@ function Search({ navigation, changeCounter }) {
         setCheckedForRent(false)
         setChecked3(false)
         setChecked2(false)
-        setChecked1(false)
+        setChecked1(true)
         setListing('')
-        setHomeType('')
+        if (Platform.OS === 'android') {
+            setHomeType('Please select Home type')
+            setSelected("-1");
+        } else {
+            setSelected("");
+            setHomeType('')
+        }
 
         console.log('Reset values:', selectedValue, sqFeetMax, sqFeetMin, homeType, bedRoom, bathRoom)
     }
@@ -173,6 +179,9 @@ function Search({ navigation, changeCounter }) {
         }
         else if (value === 'key5') {
             setHomeType("Land");
+        }
+        else if (value === '-1') {
+            setHomeType("Select Home Type");
         }
         else {
             setHomeType("Other");
@@ -292,11 +301,15 @@ function Search({ navigation, changeCounter }) {
         if (!(forRentText === "")) {
             listingTyp.push(forRentText);
         }
-
+        const home = homeType
+        if (Platform.OS === 'android') {
+            if (homeType === 'Select Home Type')
+                home = ''
+        }
         let data = {
             "listing": listing,
             "location": location,
-            "home_type": homeType,
+            "home_type": home,
             "listing_type": listingTyp,
             "bedrooms": bedRoom,
             "bathrooms": bathRoom,
@@ -331,7 +344,7 @@ function Search({ navigation, changeCounter }) {
     }
 
     return (
-        <View style={{ flex: 1 ,flexDirection:'column'}}>
+        <View style={{ flex: 1, flexDirection: 'column' }}>
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() => {
                     changeCounter(Math.random())
@@ -350,7 +363,7 @@ function Search({ navigation, changeCounter }) {
                 </View>
             </View>
             {Platform.OS === 'android' ?
-                <View style={{ width: '100%', flex:.9}}>
+                <View style={{ width: '100%', flex: .9 }}>
                     <View style={{ height: getDimen(0.12), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'row', width: '100%', height: getDimen(.14), marginTop: getDimen(0), marginRight: 10, alignItems: 'center', }}>
                             <View style={{ backgroundColor: '#121735', height: getDimen(0.125), width: getDimen(0.6), justifyContent: 'center', alignContent: 'center' }}>
@@ -499,24 +512,6 @@ function Search({ navigation, changeCounter }) {
                                     value={selectedValue}
                                 />
 
-                                {/* <Icon active name='arrow' /> */}
-                                {/* <Picker
-                note
-                mode="dropdown"
-                iosIcon={<Icon />}
-                style={{ width: getDimen(0.95), backgroundColor: 'transparent', marginLeft: getDimen(-0.03) }}
-                placeholder="$00,0000"
-                placeholderStyle={{ color: "black", fontSize: 14 }}
-                placeholderIconColor="#a43d3e"
-                selectedValue={selectedValue}
-                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue, itemIndex)}
-            >
-                <Picker.Item label="20000" value="20000" />
-                <Picker.Item label="40000" value="40000" />
-                <Picker.Item label="100000" value="100000" />
-                <Picker.Item label="100000" value="2500" />
-
-            </Picker> */}
                             </Item>
                         </View>
                         <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
@@ -552,22 +547,7 @@ function Search({ navigation, changeCounter }) {
                         <View style={{ height: 1, width: getDimen(0.92), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865' }}></View>
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.05), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
                             <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.04), textAlign: 'justify', }}>Home Type</Text>
-                            {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
-                            {/* <View style={styles.inputContainer}>
-            <View style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%' }}>
-                <View style={{ flex: 0.8, justifyContent: 'center' }}>
 
-                </View>
-                <View style={{ flex: 0.2, width: '100%', height: '100%', justifyContent: 'center' }}>
-                    <Image
-                        source={require('../../../assets/images/down-arrow.png')}
-                        style={{ marginRight: 1, alignSelf: 'center', width: '30%', height: '30%' }}
-                    />
-                </View>
-            </View>
-           
-            
-        </View> */}
                             <Picker
                                 mode="dialog"
                                 iosIcon={<Icon />}
@@ -579,6 +559,7 @@ function Search({ navigation, changeCounter }) {
                                 selectedValue={selected}
                                 onValueChange={(label) => onValueChange(label)}
                             >
+                                <Picker.Item label="Select Home Type" value="-1" />
                                 <Picker.Item label="House" value="key0" />
                                 <Picker.Item label="Co-op" value="key1" />
                                 <Picker.Item label="Condo" value="key2" />

@@ -109,16 +109,14 @@ function EditPropertyScreen({ navigation, route }) {
         "imgUrl": ''
     }
 
-    getData('userData').then((data) => {
-        const userData = JSON.parse(data);
-        const listTokens = userData.token;
-        setTokens(listTokens);
-        // console.log('token1', listTokens)
-        // const tokens = userData.token;
-        // setAccessToken(tokens)
-        // console.log('userDataPrachi:', userData)
-        // console.log('UserAccessToken67777Prachi:', 'Bearer ' + accessToken )
-    })
+    useEffect(() => {
+        getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            setTokens(listTokens);
+        })
+    }, [])
+
     //const tokens = datas.token;
     const updateProperty = () => {
 
@@ -138,7 +136,7 @@ function EditPropertyScreen({ navigation, route }) {
             intpricePerSqureFeet = intpricePerSqureFeet.replace(/\,/g, ''); // 1125, but a string, so convert it to number
             intpricePerSqureFeet = parseInt(intpricePerSqureFeet, 10);
             console.log('fileName:::: ' + fileName + " ::intPrice:: " + intPrice + " ::pricePerSqureFeet:: " + intpricePerSqureFeet);
-            
+
             // console.log('fileName:::: ' + fileName);
             const formData = new FormData();
 
@@ -330,27 +328,6 @@ function EditPropertyScreen({ navigation, route }) {
         getAminities();
     }
 
-
-
-    // React.useEffect(() => {
-    //     console.log("vxmsvjmasgja");
-    //     setTimeout(() => {
-    //         console.log('listingDataObjectDetailsx' + JSON.stringify(listingDataObject));
-    //         if (listingDataObject && listingDataObject.location) {
-    //             getData('userData').then((data) => {
-    //                 const userData = JSON.parse(data);
-    //                 const listTokens = userData.token;
-    //                 console.log('listingDataObjectDetails' + JSON.stringify(listingDataObject));
-    //                 if (listingDataObject) {
-    //                     searchListingDetailApiIntegration(accessToken, listingDataObject.id)
-    //                 }
-    //             })
-    //         }
-    //     }, 5000);
-
-
-    // }, [listingDataObject])
-
     const searchListingDetailApiIntegration = (accessToken, listing_id) => {
         setShowLoader("");
         fetch("https://arcsightapp.com/api/v1/listing/detail", {
@@ -370,7 +347,7 @@ function EditPropertyScreen({ navigation, route }) {
 
                     console.log('Edit Property Listing Details' + JSON.stringify(res.data.listing.listing_images));
                     // setListImagesData(res.data.listing.listing_images);
-                    
+
                     var imagesArray = res.data.listing.listing_images;
                     var dupImgArray = [];
                     // var dupImgArray = [];
@@ -407,7 +384,7 @@ function EditPropertyScreen({ navigation, route }) {
             });
     }
 
-    
+
 
 
     React.useEffect(() => {
@@ -507,70 +484,6 @@ function EditPropertyScreen({ navigation, route }) {
         }
     }
 
-    const getAminitiesItems = () => {
-        // console.log('load aminities : '+ JSON.stringify(aminitiesList))
-        let serviceItems = aminitiesList.map((aminities, i) => {
-            return <Picker.Item key={i} value={aminities.id} label={aminities.name} />
-        });
-        console.log('service items : ', serviceItems);
-
-        return serviceItems
-    }
-
-    const goToTop = () => {
-        console.log('hh')
-        scrollViewRef.current?.scrollTo({
-            y : 0,
-            animated : true
-        });
-        // window.scrollTo({top: 0, behavior: 'smooth'});
-        // window.curr
-     }
-
-
-    const fetchDataFromAmenities = () => {
-        console.log('next to prev success');
-    }
-
-    const takePics = () => {
-        ImagePicker.openPicker({
-            width: 200,
-            height: 200, compressImageMaxHeight: 400,
-            compressImageMaxWidth: 400, cropping: true, multiple: true
-        })
-            .then(response => {
-                let tempArray = []
-                console.log("responseimage-------" + response)
-                setImgSourceArr(response)
-                // this.setState({ ImageSource: response })
-                console.log("responseimagearray" + JSON.stringify(response));
-                response.forEach((item) => {
-
-                    let image = {
-                        uri: item.path,
-                        // width: item.width,
-                        // height: item.height,
-                    }
-                    console.log("imagpath==========" + JSON.stringify(item))
-                    tempArray.push(image)
-                    //   this.setState({ ImageSourceviewarray: tempArray })
-                    console.log('savedimageuri=====' + item.path);
-
-                    console.log("imagpath==========" + JSON.stringify(image))
-                })
-                setArrImages(tempArray);
-                setFilePath(tempArray[0].uri)
-                console.log("finalImageArray==========" + JSON.stringify(tempArray))
-
-            }).catch(e => {
-                console.log("e.message :   " + e.message)
-            })
-
-    }
-
-    const seeImageInZoom = (item) => {
-        setFilePath(item.uri)
-    }
 
     const chooseFile = () => {
 
@@ -661,7 +574,7 @@ function EditPropertyScreen({ navigation, route }) {
         setLongnitude(long);
     }
 
-    const Comma=(Num) => { //function to add commas to textboxes
+    const Comma = (Num) => { //function to add commas to textboxes
         Num += '';
         Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
         Num = Num.replace(',', ''); Num = Num.replace(',', ''); Num = Num.replace(',', '');
@@ -676,8 +589,8 @@ function EditPropertyScreen({ navigation, route }) {
 
     return (
         <View style={{ flex: 1 }}>
-            {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
-            {console.log("rendering the screen...")}
+            {/* {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)} */}
+            {/* {console.log("rendering the screen...")} */}
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() =>
                     navigation.goBack()
@@ -712,7 +625,7 @@ function EditPropertyScreen({ navigation, route }) {
                             <View style={{ backgroundColor: '#E6E6E6', flex: 1, width: '100%', height: getDimen(.55), marginTop: 0, marginRight: 0, borderRadius: 5, justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center' }}>
 
 
-                                {console.log('uriiii:' + mainImage)}
+                                {/* {console.log('uriiii:' + mainImage)} */}
                                 {mainImage === '' ?
                                     <TouchableOpacity style={{ flex: 1, width: '100%', alignItems: 'center', justifyContent: 'center', alignContent: 'center', alignSelf: 'center' }}
                                         // onPress={() => Alert.alert('Plus icon clicked!')}
@@ -796,7 +709,7 @@ function EditPropertyScreen({ navigation, route }) {
 
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Address  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Address  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             {/* <Item style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.06), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0), borderBottomWidth: 0}}>
                                 <Input placeholder='123 Street Name'
@@ -843,11 +756,11 @@ function EditPropertyScreen({ navigation, route }) {
                             </View>
                         </View>
 
-                        
+
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Zip Code  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Zip Code  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -882,7 +795,7 @@ function EditPropertyScreen({ navigation, route }) {
 
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Price  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Price  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -899,7 +812,7 @@ function EditPropertyScreen({ navigation, route }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Price per square feet  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Price per square feet  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -917,7 +830,7 @@ function EditPropertyScreen({ navigation, route }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Bedrooms  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Bedrooms  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -934,7 +847,7 @@ function EditPropertyScreen({ navigation, route }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Baths  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Baths  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -951,7 +864,7 @@ function EditPropertyScreen({ navigation, route }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(0.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{ "Home Type  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Home Type  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer2}>
                                 <View style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%' }}>
@@ -993,7 +906,7 @@ function EditPropertyScreen({ navigation, route }) {
                         <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#CCC', marginTop: getDimen(0.0136) }}></View>
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Square Feet  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Square Feet  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -1009,7 +922,7 @@ function EditPropertyScreen({ navigation, route }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Terrace  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Terrace  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -1026,7 +939,7 @@ function EditPropertyScreen({ navigation, route }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(0.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Listing Type  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Listing Type  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer2}>
                                 <View style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%' }}>
@@ -1064,7 +977,7 @@ function EditPropertyScreen({ navigation, route }) {
                         <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#CCC', marginTop: getDimen(0.0136) }}></View>
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(0.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Amenities  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Amenities  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer2}>
                                 <TouchableOpacity onPress={() => navigation.navigate('Aminities', ({ 'dataFor': "Aminities", "data": aminitiesList }))} style={{ position: 'absolute', flexDirection: 'row', justifyContent: 'center', width: '100%', height: '100%' }}>
@@ -1100,7 +1013,7 @@ function EditPropertyScreen({ navigation, route }) {
                         <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#CCC', marginTop: getDimen(0.0136) }}></View>
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Year Built  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Year Built  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <TextInput
@@ -1150,7 +1063,7 @@ function EditPropertyScreen({ navigation, route }) {
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
                         <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', width: '100%', height: getDimen(.18) - 5, marginTop: getDimen(0.08), marginRight: 10, borderRadius: 0, alignItems: 'flex-start', }}>
-                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Description  " +'*'}</Text>
+                            <Text style={{ fontSize: getDimen(0.038), marginLeft: getDimen(0.07), textAlign: 'justify', }}>{"Description  " + '*'}</Text>
                             {/* <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.025), color: 'gray', }}>Co-op / Condo</Text> */}
                             <View style={styles.inputContainer}>
                                 <Textarea
