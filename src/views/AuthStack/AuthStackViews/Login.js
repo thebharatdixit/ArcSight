@@ -101,8 +101,8 @@ function Login({ navigation, changeAuthState }) {
             const authStatus = await notifications.requestPermission();
             console.log('authstatus::: ' + JSON.stringify(authStatus) + " :: " + authStatus);
             // const enabled =
-            //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-            //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+            // authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+            // authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
             if (authStatus) {
                 console.log('Authorization status:', authStatus);
@@ -120,7 +120,7 @@ function Login({ navigation, changeAuthState }) {
     const generateFcmToken = async () => {
         const token = await notifications.getToken();
         // const token = await firebase.iid().getToken();
-        console.log("token :  " + token)
+        console.log("token : " + token)
         storeData('fcmToken', token);
         const notification = await notifications.getInitialNotification()
         console.log("getInitialNotification", notification);
@@ -140,7 +140,19 @@ function Login({ navigation, changeAuthState }) {
             }
         )
     }
-
+    const showNotification = async () => {
+        const c = await notifications.displayNotification(
+            new NotificationMessage()
+                .setNotificationId("notification-id")
+                .setTitle("Notification title")
+                .setBody("Notification body")
+                .setData({
+                    key1: "key1",
+                    key2: "key2"
+                })
+                .android.setChannelId("test-channel")
+        )
+    }
     const onNotificationListener = async () => {
         //remember to remove the listener on un mount
         //this gets triggered when the application is in the forground/runnning
@@ -149,33 +161,20 @@ function Login({ navigation, changeAuthState }) {
         this.removeOnNotification = notifications.onNotification(notification => {
             //do something with the notification
             console.log("onNotificationListener", notification)
-<<<<<<< HEAD
-            
-            // const c = await notifications.displayNotification(
-            //     new NotificationMessage()
-            //         .setNotificationId("notification-id")
-            //         .setTitle("Notification title")
-            //         .setBody("Notification body")
-            //         .setData({
-            //             key1: "key1",
-            //             key2: "key2"
-            //         })
-            //         .android.setChannelId("test-channel")
-            // )
-=======
+            showNotification();
 
-            const c = await notifications.displayNotification(
-                new NotificationMessage()
-                    .setNotificationId("notification-id")
-                    .setTitle("Notification title")
-                    .setBody("Notification body")
-                    .setData({
-                        key1: "key1",
-                        key2: "key2"
-                    })
-                    .android.setChannelId("test-channel")
-            )
->>>>>>> 33d924c0a4996d08b8297776408d570db7414dbf
+
+            // const c = await notifications.displayNotification(
+            // new NotificationMessage()
+            // .setNotificationId("notification-id")
+            // .setTitle("Notification title")
+            // .setBody("Notification body")
+            // .setData({
+            // key1: "key1",
+            // key2: "key2"
+            // })
+            // .android.setChannelId("test-channel")
+            // )
 
         })
     }
@@ -184,13 +183,13 @@ function Login({ navigation, changeAuthState }) {
         console.log('inside message listener ****** ')
 
         // messaging().onMessage(async remoteMessage => {
-        //     // this.changeBadgeCount();
-        //     // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+        // // this.changeBadgeCount();
+        // // Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
         // })
 
         // messaging().setBackgroundMessageHandler(async remoteMessage => {
-        //     console.log('background message received');
-        //     // Alert.alert('A new Background FCM message arrived!', JSON.stringify(remoteMessage));
+        // console.log('background message received');
+        // // Alert.alert('A new Background FCM message arrived!', JSON.stringify(remoteMessage));
 
         // })
     }
@@ -282,17 +281,18 @@ function Login({ navigation, changeAuthState }) {
                 if (response.status) {
                     storeData('saveUsername', userName);
                     storeData('savePassword', password);
-                    storeData('saveFcmToken', fcmToken);
+                    if (fcmToken)
+                        storeData('saveFcmToken', fcmToken);
                     storeData('isLogin', 'true');
                     storeData('userData', JSON.stringify(response.data));
                     storeData('profileImage', response.data.user.profile_image_url);
 
                     // navigation.navigate('Main Stack');
                     // Alert.alert('' + response.message, [{
-                    //     text: 'OK', onPress: () => {
-                    //         setUsername('')
-                    //         setPassword('')
-                    //     }
+                    // text: 'OK', onPress: () => {
+                    // setUsername('')
+                    // setPassword('')
+                    // }
                     // }], { cancelable: false });
                     console.log("trying to login")
                     setTimeout(function () {
@@ -367,9 +367,9 @@ function Login({ navigation, changeAuthState }) {
 
                         <View style={styles.inputContainer}>
                             {/* <Image
-                                source={require('../../../assets/images/user.png')}
-                                style={styles.ImageStyle}
-                            /> */}
+ source={require('../../../assets/images/user.png')}
+ style={styles.ImageStyle}
+ /> */}
                             <TextInput
                                 style={styles.input}
                                 placeholder="Email"
@@ -381,9 +381,9 @@ function Login({ navigation, changeAuthState }) {
 
                         <View style={styles.inputContainer}>
                             {/* <Image
-                                source={require('../assets/images/password.png')}
-                                style={styles.ImageStyle}
-                            /> */}
+ source={require('../assets/images/password.png')}
+ style={styles.ImageStyle}
+ /> */}
                             <TextInput
                                 style={styles.input}
                                 placeholder="Password"
@@ -407,8 +407,8 @@ function Login({ navigation, changeAuthState }) {
 
                             </TouchableOpacity>
                             {/* <CheckBox
-                                onPress={() => setChecked(!checked)}
-                                checked={checked} color="#8d8865" /> */}
+ onPress={() => setChecked(!checked)}
+ checked={checked} color="#8d8865" /> */}
                             <Text style={{ marginLeft: 10, color: '#8d8865', fontSize: getDimen(0.04) }}>Remember Me</Text>
                         </View>
 
@@ -421,7 +421,7 @@ function Login({ navigation, changeAuthState }) {
                                     paddingRight: getDimen(0.2), paddingBottom: getDimen(0.03), fontSize: getDimen(0.05), fontWeight: 'bold', paddingTop: getDimen(0.03)
                                 }}>
                                     LOGIN NOW
-                        </Text>
+ </Text>
                             </View>
                         </TouchableOpacity>
 
@@ -429,14 +429,14 @@ function Login({ navigation, changeAuthState }) {
                             <TouchableOpacity onPress={() => navigation.navigate('Register Screen')}>
                                 <Text style={{ color: '#8d8865', fontSize: getDimen(0.04), paddingRight: getDimen(0.05) }}>
                                     Register
-                        </Text>
+ </Text>
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() =>
                                 navigation.navigate('ForgotPassword Screen')
                             }>
                                 <Text style={{ paddingLeft: getDimen(0.04), alignContent: 'space-around', color: 'gray', fontSize: getDimen(0.04) }}>
                                     Forgot Password?
-                    </Text>
+ </Text>
                             </TouchableOpacity>
                         </View>
 
