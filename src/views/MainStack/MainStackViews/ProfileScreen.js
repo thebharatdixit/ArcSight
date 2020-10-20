@@ -147,7 +147,7 @@ function Profile({ navigation, route, changeCounter }) {
                             storeData('saveUsername', userName);
                             storeData('savePassword', password);
                             if (fcmToken)
-                            storeData('saveFcmToken', fcmToken);
+                                storeData('saveFcmToken', fcmToken);
                             storeData('isLogin', 'true');
                             storeData('userData', JSON.stringify(response.data));
                             storeData('profileImage', response.data.user.profile_image_url);
@@ -203,7 +203,7 @@ function Profile({ navigation, route, changeCounter }) {
                 setProfileListing(response.data.listing.data)
                 setLength((response.data && response.data.listing.data) ? response.data.listing.data.length : '')
                 setUserProfileData(response.data);
-                setFilePath(response.data.profile.profile_image_url);
+                setFilePath({ uri: response.data.profile.profile_image_url });
                 storeData('profileImage', response.data.profile.profile_image_url);
                 console.log('filepath ::: ', response.data.profile.profile_image_url)
                 setName(response.data.profile.name);
@@ -277,7 +277,7 @@ function Profile({ navigation, route, changeCounter }) {
                 console.log('image picker picked image path' + JSON.stringify(response));
                 setPhotoData(response);
                 setPhotoPath(response.path);
-                setFilePath(response.uri)
+                setFilePath({ uri: response.uri })
                 setImageResponse(response);
                 setFileNameA(response.fileName);
                 setFileTypeA(response.type);
@@ -401,7 +401,10 @@ function Profile({ navigation, route, changeCounter }) {
         setWebviewUrl(url);
         setShowWebview('');
     }
-
+    const onError = (error) => {
+        //this.setState({ image: require('../../../assets/icons/2.png') })
+        setFilePath(require('../../../assets/icons/2.png'))
+    }
     return (
         <MenuProvider>
             <View style={{ flex: 1 }}>
@@ -448,18 +451,12 @@ function Profile({ navigation, route, changeCounter }) {
                         } */}
                             {console.log("filePath     :       ", filePath)}
                             {
-                                (filePath === undefined || filePath === null || filePath === 'https://arcsightapp.com/images/UserImages/' || filePath === '') ?
-
-                                    <Image
-                                        style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.2), width: getDimen(0.2), borderRadius: getDimen(.3), marginTop: getDimen(0.1 / 2) }}
-                                        source={require('../../../assets/icons/2.png')}
-                                    />
-                                    :
-                                    <Image
-                                        source={{ uri: filePath }}
-                                        // source={require('../../../assets/icons/2.png')}
-                                        style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
-                                    />
+                                <Image
+                                    onError={onError}
+                                    source={filePath}
+                                    // source={require('../../../assets/icons/2.png')}
+                                    style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0.04), borderRadius: getDimen(0.18) / 2 }}
+                                />
                             }
                             {/* {
                                 (filePath) ? <Image
