@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "/home/gaurav/Documents/React-Native/github /ArcSight/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-nl/values-nl.xml",
+            "outputFile": "/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-nl/values-nl.xml",
             "map": [
                 {
                     "source": "/home/gaurav/.gradle/caches/transforms-2/files-2.1/073c7934d4ffc3cbb6751a0c4d3a3439/jetified-CreditCardEntry-1.5.1/res/values-nl/values-nl.xml",
@@ -89,25 +89,6 @@
                     }
                 },
                 {
-                    "source": "/home/gaurav/Documents/React-Native/github /ArcSight/node_modules/tipsi-stripe/android/build/intermediates/packaged_res/debug/values-nl/values-nl.xml",
-                    "from": {
-                        "startLines": "2,7,8,9,10,11,12,13,14,15",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,210,260,341,418,499,560,621,728,778",
-                        "endLines": "6,7,8,9,10,11,12,13,14,15",
-                        "endColumns": "17,49,80,76,80,60,60,106,49,118",
-                        "endOffsets": "205,255,336,413,494,555,616,723,773,892"
-                    },
-                    "to": {
-                        "startLines": "2,113,114,115,116,117,118,119,120,121",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,10002,10052,10133,10210,10291,10352,10413,10520,10570",
-                        "endLines": "6,113,114,115,116,117,118,119,120,121",
-                        "endColumns": "17,49,80,76,80,60,60,106,49,118",
-                        "endOffsets": "255,10047,10128,10205,10286,10347,10408,10515,10565,10684"
-                    }
-                },
-                {
                     "source": "/home/gaurav/.gradle/caches/transforms-2/files-2.1/fc8046cb9a5df9499609a5f7f8270b1b/play-services-base-17.0.0/res/values-nl/values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20",
@@ -139,6 +120,25 @@
                         "startOffsets": "12020",
                         "endColumns": "104",
                         "endOffsets": "12120"
+                    }
+                },
+                {
+                    "source": "/home/gaurav/Documents/React-Native/github /arc copy/ArcSight/node_modules/tipsi-stripe/android/build/intermediates/packaged_res/debug/values-nl/values-nl.xml",
+                    "from": {
+                        "startLines": "2,7,8,9,10,11,12,13,14,15",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,210,260,341,418,499,560,621,728,778",
+                        "endLines": "6,7,8,9,10,11,12,13,14,15",
+                        "endColumns": "17,49,80,76,80,60,60,106,49,118",
+                        "endOffsets": "205,255,336,413,494,555,616,723,773,892"
+                    },
+                    "to": {
+                        "startLines": "2,113,114,115,116,117,118,119,120,121",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,10002,10052,10133,10210,10291,10352,10413,10520,10570",
+                        "endLines": "6,113,114,115,116,117,118,119,120,121",
+                        "endColumns": "17,49,80,76,80,60,60,106,49,118",
+                        "endOffsets": "255,10047,10128,10205,10286,10347,10408,10515,10565,10684"
                     }
                 },
                 {
