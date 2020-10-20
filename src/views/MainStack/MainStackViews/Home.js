@@ -45,120 +45,6 @@ import { fetchProfile, deleteListing, soldOutRentOut } from '../../../actions/Pr
 import { changeCounter } from '../../../actions/navigationAction'
 import moment from 'moment';
 
-const DATA = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: 'First Item',
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        title: 'Second Item',
-    },
-    {
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: 'Third Item',
-    },
-];
-
-
-// const Item = ({ title, route }) => (
-//     <View style={{ flex: 1 }}>
-//         <View style={{ width: '100%', height: getDimen(0.2), flexDirection: 'row', alignItems: 'center', paddingLeft: getDimen(0.02),paddingRight: getDimen(0.03) ,backgroundColor: 'white' }}>
-//             {
-//                 (title.userinfo.profile_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
-//                     <Image source={require('../../../assets/icons/2.png')}
-//                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2) }} />
-//                     :
-//                     <Image source={{
-//                         uri: `${title.userinfo.profile_image_url}`
-//                     }}
-//                         style={{ height: getDimen(0.3 / 2), width: getDimen(0.3 / 2), borderRadius: getDimen(0.1) }} />
-//             } 
-
-//             <View style={{flexDirection: 'row', width: '100%', backgroundColor:'white' , marginLeft: getDimen(0.02),}}>
-//                 {/* <TouchableOpacity onPress={() => Alert.alert('name')}> */}
-
-//                 <View style={{ backgroundColor:'white', flexDirection:'column',width:'40%'}}>
-//                     <TouchableOpacity onPress={() => console.log(title)}>
-
-//                         <Text style={{ fontSize: 14, fontWeight: 'bold' }}>
-//                             {(title && title.userinfo) ? title.userinfo.name : ''}
-//                         </Text>
-//                         <Text style={{ fontSize: getDimen(0.035), paddingRight: getDimen(0.02), alignContent: 'space-between' , marginTop: getDimen(0.01)}}>
-//                             Listed 2 Days Ago
-//                         </Text>
-//                     </TouchableOpacity>
-//                     </View>
-
-//                 <View style={{ backgroundColor:'white', width:'35%', alignContent:'flex-end', alignItems:'flex-end'}}>
-
-//                     <Text style={{ color: 'gray', paddingRight: 7 }}>
-//                         {(title && title.userinfo) ? title.userinfo.company_name : ''}
-//                     </Text>
-//                 </View>
-//                 <View style={{ backgroundColor:'white', width:'10%', paddingLeft: getDimen(0)}}>
-//                     <TouchableOpacity onPress={() => onShare()}>
-//                         <Image source={require('../../../assets/icons/20.png')}
-//                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-//                     </TouchableOpacity>
-//                     <TouchableOpacity onPress={() => navigateToChatLayout(title)}>
-//                         <Image source={require('../../../assets/icons/25.png')}
-//                             style={{ height: getDimen(0.05), width: getDimen(0.05) }} />
-//                     </TouchableOpacity>
-
-//                 </View>
-
-//             </View>
-//         </View>
-
-//         <View style={styles.item}>
-
-//             {
-//                 (title.main_image_url === 'https://arcsightapp.com/images/UserImages/' || '') ?
-//                     <Image source={require('../../../assets/icons/19.png')}
-//                         style={{ height: '100%', width: '100%' }} />
-//                     :
-//                     <Image source={{
-//                         uri: `${title.main_image_url}`
-//                     }}
-//                         style={{ height: '100%', width: '100%' }} />
-//             } 
-
-
-//             {/* <View style={{ width: '100%', alignItems: 'flex-end', flexDirection: 'column', backgroundColor: 'orange' }}>
-
-//                 <View style={{  justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e' }}>
-//                     <Text style={{ fontSize: getDimen(0.03), fontWeight: '500', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>$00000</Text>
-//                 </View>
-//                 <View style={{  justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35' }}>
-//                     <Text style={{ fontSize: getDimen(0.035), fontWeight: '600', marginLeft: getDimen(0.01), color: 'white', textAlign: 'center' }}>For Sale</Text>
-//                 </View>
-//             </View> */}
-//             <View style={{ width: '100%', alignItems: 'flex-end', position: 'absolute', bottom: 0, }}>
-//                 <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#a43d3e', height: getDimen(0.1), width: getDimen(0.3), }}>
-//                     <Text style={{
-//                        textAlign: 'center', color: 'white',
-//                         textAlignVertical: 'center', fontWeight:'700', fontSize:getDimen(0.04)
-//                     }}>
-//                         $0,000,000
-//                 </Text>
-//                 </View>
-
-//                 <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center', backgroundColor: '#f1ac35', height: getDimen(0.1), width: getDimen(0.3), }}>
-//                     <Text style={{
-//                        backgroundColor: '#f1ac35', textAlign: 'center', color: 'white',
-//                         textAlignVertical: 'center', fontWeight: '700', fontSize: getDimen(0.05)
-//                     }}>
-//                         {(title) ? title.listing_type : ''}
-//                     </Text>
-//                 </View>
-
-
-//             </View>
-//         </View>
-//     </View>
-// );
-
 
 
 
@@ -177,8 +63,9 @@ function Main(props) {
     const [webviewUrl, setWebviewUrl] = React.useState('');
     const isFocused = useIsFocused();
     const [isMap, setIsMap] = React.useState('off');
+    const [proStratus, setProStratus] = React.useState(false);
 
-
+    
     React.useEffect(() => {
         setShowWebview('hide');
         console.log('Search screen');
@@ -262,6 +149,7 @@ function Main(props) {
                             setTimeout(function () {
                                 if (response.data.user.pro_user === "yes") {
                                     setBannerUrl("");
+                                    setProStratus(true)
                                     storeData("bannerUrl", "");
                                     changeProStatus(true)
                                 } else {
@@ -341,6 +229,7 @@ function Main(props) {
 
             if (response.status) {
                 var url = response.data.add_image_url;
+                console.log("setting banner url : ")
                 setBannerUrl(url);
                 storeData("bannerUrl", url);
                 console.log('banner url : ' + JSON.stringify(url));
@@ -982,8 +871,8 @@ function Main(props) {
 
 
 
-                    {console.log("bannerUrl :  ", bannerUrl)}
-                    {bannerUrl ?
+                    {console.log("homebannerUrl :  ", bannerUrl)}
+                    {bannerUrl && !proStratus ?
                         <View style={{ height: getDimen(0.15), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0, borderWidth: 1, borderColor: 'black' }}>
                             <View style={{ backgroundColor: 'white', width: '100%', height: '100%', alignItems: 'center', }}>
                                 <Image source={{ uri: bannerUrl }}

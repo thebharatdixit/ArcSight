@@ -400,12 +400,12 @@ function SearchListDetailScreen({ navigation, route }) {
                                 {/* <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text> */}
                             </View>
                             <View style={{ flex: 0.5, justifyContent: 'center', alignContent: 'center', alignItems: 'center', height: '100%' }}>
-                                <Text style={{ fontSize: getDimen(0.040) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type) ? "• Listing Type: " + searchListDetail.listing.home_type : "• Listing Type: "}</Text>
+                                <Text style={{ fontSize: getDimen(0.040) }}>{(searchListDetail && searchListDetail.listing && searchListDetail.listing.listing_type) ? "• Listing Type: " + searchListDetail.listing.listing_type : "• Listing Type: "}</Text>
                                 {/* <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text>
                             <Text style={{ fontSize: getDimen(0.045), marginTop: 10 }}>• Detail to Go Here</Text> */}
                             </View>
                         </View>
-                        <Text style={{ fontSize: getDimen(0.04), marginTop: getDimen(0.02), marginLeft: getDimen(0.050) }}> {"• Amenities Name: " + arrAminitiesName.toString()}</Text>
+                        <Text style={{ fontSize: getDimen(0.04), marginTop: getDimen(0.02), marginLeft: getDimen(0.010) }}> {"• Amenities Name: " + arrAminitiesName.toString()}</Text>
 
 
                         <View style={{ flex: 0.27, flexDirection: 'row', justifyContent: 'flex-start', alignContent: 'center', alignItems: 'center', marginTop: getDimen(0.08), marginLeft: getDimen(0.05), marginRight: getDimen(0.02), marginBottom: getDimen(0.05) }}>

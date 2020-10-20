@@ -107,21 +107,6 @@ function Property({ navigation, changeCounter }) {
         "imgUrl": ''
     }
 
-    useEffect(() => {
-        console.log(" Rerendering ")
-    })
-
-    getData('userData').then((data) => {
-        const userData = JSON.parse(data);
-        const listTokens = userData.token;
-        setTokens(listTokens);
-        // console.log('token1', listTokens)
-        // const tokens = userData.token;
-        // setAccessToken(tokens)
-        // console.log('userDataPrachi:', userData)
-        // console.log('UserAccessToken67777Prachi:', 'Bearer ' + accessToken )
-    })
-    //const tokens = datas.token;
     const createProperty = () => {
 
         var fileName = "";
@@ -281,12 +266,14 @@ function Property({ navigation, changeCounter }) {
     }
 
     React.useEffect(() => {
-        getAminities();
-    }, [])
+        getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            setTokens(listTokens);
+            getAminities();
 
-    // React.useEffect(() => {
-    //     console.log('image added');
-    // }, [arrImages])
+        })
+    }, [])
 
     React.useEffect(() => {
         getData('selectedAminitiesData').then((selectedAminitiesData) => {
@@ -323,13 +310,7 @@ function Property({ navigation, changeCounter }) {
         var myArray = url.split('/');
         var imgName = myArray[myArray.length - 1];
         return imgName;
-        // if (url) {
-        //     var m = url.toString().match(/.*\/(.+?)\./);
-        //     if (m && m.length > 1) {
-        //         return m[1];
-        //     }
-        // }
-        // return "";
+
     }
 
     const getAminities = () => {
@@ -385,20 +366,6 @@ function Property({ navigation, changeCounter }) {
         }
     }
 
-    const getAminitiesItems = () => {
-        // console.log('load aminities : '+ JSON.stringify(aminitiesList))
-        let serviceItems = aminitiesList.map((aminities, i) => {
-            return <Picker.Item key={i} value={aminities.id} label={aminities.name} />
-        });
-        console.log('service items : ', serviceItems);
-
-        return serviceItems
-    }
-
-
-    const fetchDataFromAmenities = () => {
-        console.log('next to prev success');
-    }
 
     const mainImageClicked = () => {
         setMainImage('');
@@ -503,52 +470,6 @@ function Property({ navigation, changeCounter }) {
         });
     };
 
-    // const takePics = () => {
-    //     ImagePicker.openPicker({
-    //         width: 200,
-    //         height: 200, compressImageMaxHeight: 400,
-    //         compressImageMaxWidth: 400, cropping: true, multiple: true
-    //     })
-    //         .then(response => {
-    //             let tempArray = []
-    //             console.log("responseimage-------" + response)
-    //             setImgSourceArr(response)
-    //             // this.setState({ ImageSource: response })
-    //             console.log("responseimagearray" + JSON.stringify(response));
-    //             response.forEach((item) => {
-
-    //                 let image = {
-    //                     uri: "file://" + item.path,
-    //                     name: item.filename,
-    //                     type: item.mime
-    //                 }
-    //                 console.log("imagpath==========" + JSON.stringify(item))
-    //                 tempArray.push(image)
-    //                 //   this.setState({ ImageSourceviewarray: tempArray })
-    //                 console.log('savedimageuri=====' + item.path);
-
-    //                 console.log("imagpath==========" + JSON.stringify(image))
-    //             })
-    //             let image2 = {
-
-    //                 name: "Add",
-
-    //             }
-    //             tempArray.push(image2);
-    //             setArrImages(tempArray);
-    //             setFilePath(tempArray[0].uri)
-    //             console.log("finalImageArray==========" + JSON.stringify(tempArray))
-
-    //         }).catch(e => {
-    //             console.log("e.message :   " + e.message)
-    //         })
-
-    // }
-
-    // const seeImageInZoom = (item) => {
-    //     setFilePath(item.uri)
-    // }
-
     const getMapDetails = async (data) => {
         const response = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${data.place_id}&key=AIzaSyDx8L9iRu5yyvqdw6pvPFUOdgdUjOq6S2k`);
         console.log("Google map all Details1" + JSON.stringify(response));
@@ -598,8 +519,8 @@ function Property({ navigation, changeCounter }) {
 
     return (
         <View style={{ flex: 1 }}>
-            {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)}
-            {console.log("rendering the screen...")}
+            {/* {console.log('imagearray:::3 ' + JSON.stringify(arrImages) + 'length::: ' + arrImages.length)} */}
+            {/* {console.log("rendering the screen...")} */}
             <View style={{ width: '100%', flex: 0.10, backgroundColor: '#C0C0C0', alignItems: 'center', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
                 <TouchableOpacity onPress={() => {
                     changeCounter(Math.random())
