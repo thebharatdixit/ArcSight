@@ -244,6 +244,7 @@ function Main(props) {
                         if (response.status) {
                             storeData('saveUsername', userName);
                             storeData('savePassword', password);
+                            if (fcmToken)
                             storeData('saveFcmToken', fcmToken);
                             storeData('isLogin', 'true');
                             storeData('userData', JSON.stringify(response.data));
@@ -537,7 +538,6 @@ function Main(props) {
                             :
                             null
                     }
-                    <ScrollView>
 
                         <SafeAreaView >
                             <FlatList
@@ -981,7 +981,6 @@ function Main(props) {
                                 keyExtractor={item => '' + item.id}
                             />
                         </SafeAreaView>
-                    </ScrollView>
                     {bannerUrl ?
                         <View style={{ height: getDimen(0.2), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
                             <View style={{ backgroundColor: 'white', width: '100%', height: '100%', alignItems: 'center', }}>
