@@ -32,7 +32,8 @@ import {
     notifications,
     messages,
     NotificationMessage,
-    Android } from "react-native-firebase-push-notifications"
+    Android
+} from "react-native-firebase-push-notifications"
 
 
 function Login({ navigation, changeAuthState }) {
@@ -98,7 +99,7 @@ function Login({ navigation, changeAuthState }) {
         if (Platform.OS === 'ios') {
             // const authStatus = await messaging().requestPermission();
             const authStatus = await notifications.requestPermission();
-            console.log('authstatus::: ' + JSON.stringify(authStatus) + " :: " + authStatus );
+            console.log('authstatus::: ' + JSON.stringify(authStatus) + " :: " + authStatus);
             // const enabled =
             //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
             //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
@@ -107,8 +108,7 @@ function Login({ navigation, changeAuthState }) {
                 console.log('Authorization status:', authStatus);
                 generateFcmToken()
             }
-            else
-            {
+            else {
                 generateFcmToken()
             }
         } else {
@@ -134,21 +134,22 @@ function Login({ navigation, changeAuthState }) {
         //remember to remove the listener on un mount
         //this gets triggered when the application is in the background
         this.removeOnNotificationOpened = notifications.onNotificationOpened(
-          notification => {
-            console.log("onNotificationOpened", notification)
-            //do something with the notification
-          }
+            notification => {
+                console.log("onNotificationOpened", notification)
+                //do something with the notification
+            }
         )
-      }
-     
-      const onNotificationListener = () => {
+    }
+
+    const onNotificationListener = async () => {
         //remember to remove the listener on un mount
         //this gets triggered when the application is in the forground/runnning
         //for android make sure you manifest is setup - else this wont work
         //Android will not have any info set on the notification properties (title, subtitle, etc..), but _data will still contain information
         this.removeOnNotification = notifications.onNotification(notification => {
-          //do something with the notification
+            //do something with the notification
             console.log("onNotificationListener", notification)
+<<<<<<< HEAD
             
             // const c = await notifications.displayNotification(
             //     new NotificationMessage()
@@ -161,9 +162,23 @@ function Login({ navigation, changeAuthState }) {
             //         })
             //         .android.setChannelId("test-channel")
             // )
+=======
+
+            const c = await notifications.displayNotification(
+                new NotificationMessage()
+                    .setNotificationId("notification-id")
+                    .setTitle("Notification title")
+                    .setBody("Notification body")
+                    .setData({
+                        key1: "key1",
+                        key2: "key2"
+                    })
+                    .android.setChannelId("test-channel")
+            )
+>>>>>>> 33d924c0a4996d08b8297776408d570db7414dbf
 
         })
-      }
+    }
 
     const messageListener = async () => {
         console.log('inside message listener ****** ')
