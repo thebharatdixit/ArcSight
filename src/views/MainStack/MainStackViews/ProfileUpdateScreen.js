@@ -219,7 +219,7 @@ function ProfileUpdateScreen({ navigation }) {
                                         (address === '') ?
                                             <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.04), color: '#7F7F93', textAlign: 'justify', marginTop: getDimen(0.05), color: 'gray',height: 30 }}>Address</Text>
                                             :
-                                            <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.03), color: 'black', textAlign: 'justify', marginTop: getDimen(0.05),height:30}}>{address}</Text>
+                                            <Text style={{ fontSize: getDimen(0.040), marginLeft: getDimen(0.03), color: 'black', textAlign: 'justify', marginTop: getDimen(0.05),height:35}}>{address}</Text>
                                     }
 
                                 </TouchableOpacity>

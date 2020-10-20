@@ -389,7 +389,8 @@ function SearchListDetailScreen({ navigation, route }) {
                                 <Text style={{ fontSize: getDimen(0.035) }}>Terrace</Text>
                             </View>
                             <View style={{ backgroundColor: '#a43d3e', flex: 0.395, height: '100%', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>${(searchListDetail && searchListDetail.listing && searchListDetail.listing.price_per_sq_feet) ? searchListDetail.listing.price_per_sq_feet : ""}</Text>
+                                {/* <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>${(searchListDetail && searchListDetail.listing && searchListDetail.listing.price_per_sq_feet) ? searchListDetail.listing.price_per_sq_feet : ""}</Text> */}
+                                <Text style={{ color: 'white', fontWeight: '500', fontSize: getDimen(0.045) }}>${(searchListDetail && searchListDetail.listing && searchListDetail.listing.price) ? searchListDetail.listing.price : ""}</Text>
                             </View>
                         </View>
 
