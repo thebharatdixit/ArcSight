@@ -71,19 +71,20 @@ function DrawerScreen(props) {
 
 
 
-    // React.useEffect(() => {
-    //     console.log("navigatioon use effect calling..")
-    //     getData('userData').then((data) => {
-    //         const userData = JSON.parse(data);
-    //         const listTokens = userData.token;
-    //         setAccessToken(listTokens);
-    //         getData('profileImage').then((profileImage) => {
-    //             // console.log('token1', listTokens)
-    //             setUserImage(profileImage)
-    //             console.log('UserImage', profileImage)
-    //         })
-    //     })
-    // }, [isFocused])
+    React.useEffect(() => {
+        //console.log("navigatioon use effect calling..")
+        getData('userData').then((data) => {
+            const userData = JSON.parse(data);
+            const listTokens = userData.token;
+            //console.log("listTokens  : ", listTokens)
+            setAccessToken(listTokens);
+            getData('profileImage').then((profileImage) => {
+                // console.log('token1', listTokens)
+                setUserImage(profileImage)
+                console.log('UserImage', profileImage)
+            })
+        })
+    })
 
     const callLoginApi = () => {
         getData('saveUsername').then((userName) => {
@@ -102,6 +103,7 @@ function DrawerScreen(props) {
                         if (response.status) {
                             storeData('saveUsername', userName);
                             storeData('savePassword', password);
+                            if (fcmToken)
                             storeData('saveFcmToken', fcmToken);
                             storeData('isLogin', 'true');
                             storeData('userData', JSON.stringify(response.data));

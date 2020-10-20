@@ -766,7 +766,7 @@ function Property({ navigation, changeCounter }) {
                             </View>
                         </View>
 
-                        
+
                         {/* <View style={{ height: 1, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: '#8d8865', marginTop: getDimen(0.0136) }}></View> */}
 
 
@@ -1127,13 +1127,13 @@ function Property({ navigation, changeCounter }) {
                             </Text>
                         </View>
 
-                        <View style={{ width: '100%', height: getDimen(0.1), alignItems: 'center', alignContent: 'center', justifyContent: 'center' }}>
+                        {/* <View style={{ width: '100%', height: getDimen(0.1), alignItems: 'center', alignContent: 'center', justifyContent: 'center' }}>
                             <Image
                                 style={{ resizeMode: 'cover', alignSelf: 'center', height: getDimen(0.55), width: getDimen(0.2), borderRadius: getDimen(.32) / 2 }}
                                 source={temp}
                             />
 
-                        </View>
+                        </View> */}
 
 
 

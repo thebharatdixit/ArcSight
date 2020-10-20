@@ -91,12 +91,13 @@ function SearchListScreen({ navigation, route }) {
                         if (response.status) {
                             storeData('saveUsername', userName);
                             storeData('savePassword', password);
-                            storeData('saveFcmToken', fcmToken);
+                            if (fcmToken)
+                                storeData('saveFcmToken', fcmToken);
                             storeData('isLogin', 'true');
                             storeData('userData', JSON.stringify(response.data));
                             storeData('profileImage', response.data.user.profile_image_url);
                             // getBannerUrl();
-                            
+
                             // navigation.navigate('Main Stack');
                             // Alert.alert('' + response.message, [{
                             //     text: 'OK', onPress: () => {
@@ -106,7 +107,7 @@ function SearchListScreen({ navigation, route }) {
                             // }], { cancelable: false });
                             console.log("trying to login")
                             setTimeout(function () {
-                                if(response.data.user.pro_user === "yes"){
+                                if (response.data.user.pro_user === "yes") {
                                     setBannerUrl("");
                                     storeData("bannerUrl", "");
                                 }

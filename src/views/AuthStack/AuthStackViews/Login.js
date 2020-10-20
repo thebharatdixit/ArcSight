@@ -140,7 +140,19 @@ function Login({ navigation, changeAuthState }) {
             }
         )
     }
-
+    const showNotification = async () => {
+        const c = await notifications.displayNotification(
+            new NotificationMessage()
+                .setNotificationId("notification-id")
+                .setTitle("Notification title")
+                .setBody("Notification body")
+                .setData({
+                    key1: "key1",
+                    key2: "key2"
+                })
+                .android.setChannelId("test-channel")
+        )
+    }
     const onNotificationListener = async () => {
         //remember to remove the listener on un mount
         //this gets triggered when the application is in the forground/runnning
@@ -149,8 +161,9 @@ function Login({ navigation, changeAuthState }) {
         this.removeOnNotification = notifications.onNotification(notification => {
             //do something with the notification
             console.log("onNotificationListener", notification)
-<<<<<<< HEAD
-            
+            showNotification();
+
+
             // const c = await notifications.displayNotification(
             //     new NotificationMessage()
             //         .setNotificationId("notification-id")
@@ -162,20 +175,6 @@ function Login({ navigation, changeAuthState }) {
             //         })
             //         .android.setChannelId("test-channel")
             // )
-=======
-
-            const c = await notifications.displayNotification(
-                new NotificationMessage()
-                    .setNotificationId("notification-id")
-                    .setTitle("Notification title")
-                    .setBody("Notification body")
-                    .setData({
-                        key1: "key1",
-                        key2: "key2"
-                    })
-                    .android.setChannelId("test-channel")
-            )
->>>>>>> 33d924c0a4996d08b8297776408d570db7414dbf
 
         })
     }
@@ -282,7 +281,8 @@ function Login({ navigation, changeAuthState }) {
                 if (response.status) {
                     storeData('saveUsername', userName);
                     storeData('savePassword', password);
-                    storeData('saveFcmToken', fcmToken);
+                    if (fcmToken)
+                        storeData('saveFcmToken', fcmToken);
                     storeData('isLogin', 'true');
                     storeData('userData', JSON.stringify(response.data));
                     storeData('profileImage', response.data.user.profile_image_url);

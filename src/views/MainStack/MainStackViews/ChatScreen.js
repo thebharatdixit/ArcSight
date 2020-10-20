@@ -134,6 +134,7 @@ function Chat({ route, navigation, changeCounter }) {
                         if (response.status) {
                             storeData('saveUsername', userName);
                             storeData('savePassword', password);
+                            if (fcmToken)
                             storeData('saveFcmToken', fcmToken);
                             storeData('isLogin', 'true');
                             storeData('userData', JSON.stringify(response.data));

@@ -211,7 +211,7 @@ function AddList({ navigation }) {
                                                     // source={require('../../../assets/icons/2.png')}
                                                     style={{ height: getDimen(0.18), width: getDimen(0.18), marginTop: getDimen(0), borderRadius: getDimen(0.18) / 2 }}
                                                 /> */}
-
+                                            {console.log("item.profile_image_url : ", item.profile_image_url)}
                                             {
                                                 (item.profile_image_url) ? <Image
                                                     source={{
@@ -355,7 +355,7 @@ const mapStateToProps = (state) => ({
 
 });
 const mapDispatchToProps = {
-     changeCounter
+    changeCounter
 }
 const AddListScreen = connect(mapStateToProps, mapDispatchToProps)(AddList);
 export default AddListScreen;
