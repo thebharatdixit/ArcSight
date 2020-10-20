@@ -544,7 +544,7 @@ function Chat({ route, navigation, changeCounter }) {
                 />
 
                 {bannerUrlImage ?
-                    <View style={{ height: getDimen(0.2), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0 }}>
+                    <View style={{ height: getDimen(0.2), width: getDimen(1), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', backgroundColor: 'white', marginTop: 0, borderWidth: 1, borderColor: 'black' }}>
                         <View style={{ backgroundColor: 'white', width: '100%', height: '100%', alignItems: 'center', }}>
                             <Image source={{ uri: bannerUrlImage }}
                                 defaultSource={require('../../../assets/icons/2.png')}
