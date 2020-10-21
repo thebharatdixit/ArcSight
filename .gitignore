@@ -25,9 +25,10 @@ DerivedData
 #
 build/
 .idea
-.gradle/
+.gradle
 local.properties
 *.iml
+release/
 
 # node.js
 #
