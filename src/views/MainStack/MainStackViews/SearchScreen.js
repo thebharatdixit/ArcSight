@@ -61,7 +61,7 @@ function Search({ navigation, changeCounter }) {
     const [sqFeetMin, setSqFeetMin] = React.useState(0);
     const [sqFeetMax, setSqFeetMax] = React.useState(0);
     const [accessToken, setAccessToken] = React.useState('')
-    const [listing, setListing] = React.useState('')
+    const [listing, setListing] = React.useState('all')
     const [searchList, setSearchList] = React.useState([])
     const [alertMessage, setAlertMessage] = React.useState('')
     const [forSaleText, setForSaleText] = React.useState('')
@@ -219,7 +219,7 @@ function Search({ navigation, changeCounter }) {
                 Authorization: `Bearer ${accessToken}`
             },
             body: JSON.stringify({
-                "listing": "my",
+                "listing": listing,
                 "location": location,
                 "home_type": "",
                 "listing_type": [
@@ -609,6 +609,8 @@ function Search({ navigation, changeCounter }) {
                                     <Input placeholder='00'
                                         keyboardType="numeric"
                                         style={{ fontSize: getDimen(0.038), }}
+                                        keyboardAppearance='default'
+                                        returnKeyType='done'
                                         onChangeText={(sqFeetMin) => setSqFeetMax(sqFeetMin)}
                                         value={sqFeetMax}
                                     />

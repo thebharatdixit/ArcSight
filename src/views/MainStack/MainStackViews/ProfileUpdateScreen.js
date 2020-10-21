@@ -12,7 +12,8 @@ import {
     TextInput,
     ToastAndroid,
     Alert,
-    Platform
+    Platform,
+    KeyboardAvoidingView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, Icon, Item, Input, CheckBox, ListItem, Body } from 'native-base';
@@ -134,7 +135,7 @@ function ProfileUpdateScreen({ navigation }) {
 
                 style={{ flex: 1, backgroundColor: '#D7D4D3' }}>
 
-
+                <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
 
                 <ScrollView>
                     <View style={{ borderRadius: 0, width: getDimen(0.90), justifyContent: 'center', alignSelf: 'center', alignItems: 'center', alignContent: 'center', marginTop: getDimen(0.12) }}>
@@ -202,6 +203,7 @@ function ProfileUpdateScreen({ navigation }) {
                                     underlineColorAndroid='transparent'
                                     keyboardType='number-pad'
                                     keyboardAppearance='default'
+                                    returnKeyType='done'
                                     onChangeText={(phoneNumber) => setPhoneNumber(phoneNumber)}
                                     value={phoneNumber} />
                             </View>
@@ -239,6 +241,7 @@ function ProfileUpdateScreen({ navigation }) {
                     </View>
 
                 </ScrollView>
+                </KeyboardAvoidingView>
             </View >
             
             {

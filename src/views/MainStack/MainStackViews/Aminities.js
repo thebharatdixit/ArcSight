@@ -224,7 +224,7 @@ class Aminities extends Component {
                     </TouchableOpacity>
 
                     <View style={{ width: '95%', height: getDimen(0.3 / 2), backgroundColor: '#C0C0C0', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10, paddingLeft: 10, flexDirection: 'row' }}>
-                        <Text style={{ fontSize: 24, color: 'black' }}>Select Aminities</Text>
+                        <Text style={{ fontSize: 24, color: 'black' }}>Select Amenities</Text>
 
                         <TouchableOpacity onPress={() =>
                             this.fetchDataFromAmenities()

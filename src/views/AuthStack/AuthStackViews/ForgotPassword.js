@@ -163,7 +163,7 @@ function ForgotPasswordScreen({ navigation }) {
 
                     <Text
                         onPress={() => navigation.goBack()}
-                        style={{ textDecorationLine: 'underline', color: 'blue', alignSelf: "flex-start",marginLeft:'7%' ,marginTop:20}}>{"Login Now"}</Text>
+                        style={{ textDecorationLine: 'underline', color: 'blue', alignSelf: "flex-start",marginLeft:'7%' ,marginTop:20}}>{"Login Again"}</Text>
                 </View>
             </ImageBackground >
             {
